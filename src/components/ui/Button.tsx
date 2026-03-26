@@ -14,9 +14,9 @@ type ButtonProps = ButtonAsButton | ButtonAsLink;
 
 const variants = {
   primary:
-    "bg-forge-orange text-white hover:bg-forge-amber active:bg-forge-ember shadow-[0_0_30px_rgba(249,115,22,0.3)] hover:shadow-[0_0_40px_rgba(249,115,22,0.5)]",
+    "bg-forge-white text-forge-iron hover:bg-forge-ash active:bg-forge-smoke uppercase tracking-[0.1em] font-[family-name:var(--font-mono)]",
   secondary:
-    "border border-forge-ash/20 text-forge-white hover:bg-forge-graphite",
+    "border border-forge-graphite text-forge-ash hover:text-forge-white hover:border-forge-smoke uppercase tracking-[0.1em] font-[family-name:var(--font-mono)]",
 };
 
 const sizes = {
@@ -26,7 +26,7 @@ const sizes = {
 };
 
 export default function Button({ variant = "primary", size = "md", ...props }: ButtonProps) {
-  const className = `${variants[variant]} ${sizes[size]} rounded-full font-semibold transition-all inline-flex items-center justify-center gap-2 ${(props as { className?: string }).className || ""}`;
+  const className = `${variants[variant]} ${sizes[size]} rounded-none font-semibold transition-all inline-flex items-center justify-center gap-2 ${(props as { className?: string }).className || ""}`;
 
   if ("href" in props && props.href) {
     const { href, ...rest } = props as ButtonAsLink;

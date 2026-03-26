@@ -25,7 +25,7 @@ function CaptureScreen() {
           (h, i) => (
             <motion.div
               key={i}
-              className="w-[5px] rounded-full bg-forge-orange"
+              className="w-[5px] rounded-full bg-forge-cyan"
               style={{ height: h }}
               animate={{ scaleY: [1, 0.4 + Math.random() * 0.8, 1] }}
               transition={{
@@ -67,8 +67,8 @@ function CaptureScreen() {
 
 function AiEngineScreen() {
   const trades = [
-    { name: "Kitchen", tasks: 4, color: "bg-forge-orange" },
-    { name: "Bathroom", tasks: 3, color: "bg-forge-spark" },
+    { name: "Kitchen", tasks: 4, color: "bg-forge-cyan" },
+    { name: "Bathroom", tasks: 3, color: "bg-forge-teal" },
     { name: "Electrical", tasks: 2, color: "bg-blue-400" },
   ];
 
@@ -76,7 +76,7 @@ function AiEngineScreen() {
     <div className="p-4 flex flex-col gap-3 h-full">
       {/* Header */}
       <div className="flex items-center gap-2">
-        <div className="w-1.5 h-4 rounded-full bg-forge-orange" />
+        <div className="w-1.5 h-4 rounded-full bg-forge-cyan" />
         <span className="text-forge-white text-xs font-semibold tracking-wide">
           Scope by Area
         </span>
@@ -113,8 +113,8 @@ function AiEngineScreen() {
       ))}
 
       {/* Open questions pill */}
-      <div className="mt-auto bg-forge-amber/10 border border-forge-amber/20 rounded-xl px-3 py-2 flex items-center gap-2">
-        <span className="text-forge-spark text-[10px] font-semibold uppercase tracking-widest">
+      <div className="mt-auto bg-forge-teal/10 border border-forge-teal/20 rounded-xl px-3 py-2 flex items-center gap-2">
+        <span className="text-forge-teal text-[10px] font-semibold uppercase tracking-widest">
           2 Open Questions
         </span>
       </div>
@@ -151,7 +151,7 @@ function ExportScreen() {
             <div
               className={`w-4 h-4 rounded flex items-center justify-center shrink-0 border ${
                 item.checked
-                  ? "bg-forge-orange border-forge-orange"
+                  ? "bg-forge-cyan border-forge-cyan"
                   : "bg-transparent border-forge-smoke/40"
               }`}
             >
@@ -172,7 +172,7 @@ function ExportScreen() {
 
       {/* CTA button */}
       <div className="mt-auto">
-        <div className="bg-forge-orange rounded-xl px-3 py-2.5 text-center">
+        <div className="bg-forge-cyan rounded-xl px-3 py-2.5 text-center">
           <span className="text-forge-white text-xs font-semibold">
             Copy to Buildertrend
           </span>
@@ -209,7 +209,7 @@ export default function Features() {
               <div className="flex flex-col gap-6">
                 <SectionLabel>{feature.label}</SectionLabel>
 
-                <h2 className="text-3xl md:text-5xl font-bold tracking-tight font-[family-name:var(--font-heading)]">
+                <h2 className="text-3xl md:text-5xl font-medium tracking-[-0.01em] text-forge-white">
                   {feature.title}
                 </h2>
 
@@ -221,7 +221,7 @@ export default function Features() {
                   {feature.bullets.map((bullet) => (
                     <li key={bullet} className="flex items-start gap-3">
                       <Check
-                        className="text-forge-orange mt-0.5 shrink-0 w-5 h-5"
+                        className="text-forge-cyan mt-0.5 shrink-0 w-5 h-5"
                         strokeWidth={2.5}
                       />
                       <span className="text-forge-ash text-base">{bullet}</span>

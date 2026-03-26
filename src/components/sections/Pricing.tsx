@@ -20,15 +20,15 @@ export default function Pricing() {
     <section id="pricing" className="py-24 md:py-32 bg-forge-iron">
       <div className="max-w-7xl mx-auto px-6 text-center">
         <motion.div {...fadeUp}>
-          <SectionLabel>EARLY ACCESS</SectionLabel>
+          <SectionLabel>FOUNDERS COUNCIL</SectionLabel>
         </motion.div>
 
         <motion.h2
-          className="text-3xl md:text-5xl font-bold tracking-tight font-[family-name:var(--font-heading)] text-forge-white mt-6"
+          className="text-3xl md:text-5xl font-medium tracking-[-0.01em] uppercase text-forge-white mt-6"
           {...fadeUp}
           transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }}
         >
-          Be Part of the First 20
+          Join the First 20
         </motion.h2>
 
         <motion.p
@@ -45,10 +45,10 @@ export default function Pricing() {
           {...fadeUp}
           transition={{ duration: 0.6, ease: "easeOut", delay: 0.3 }}
         >
-          <Card className="border-forge-orange/30 shadow-[0_0_60px_rgba(249,115,22,0.1)] p-10 flex flex-col items-center gap-6">
+          <Card className="border-forge-graphite/50 shadow-[0_0_80px_rgba(14,165,233,0.05)] p-10 flex flex-col items-center gap-6">
             {/* Badge */}
-            <span className="bg-forge-spark/10 text-forge-spark px-4 py-1.5 rounded-full text-sm font-bold uppercase tracking-widest">
-              Founding Contractor
+            <span className="bg-forge-white/5 text-forge-ash px-4 py-1.5 text-sm font-bold uppercase tracking-[0.15em] font-[family-name:var(--font-mono)]">
+              Founders Council
             </span>
 
             {/* Benefits list */}
@@ -57,7 +57,7 @@ export default function Pricing() {
                 <li key={benefit} className="flex items-center gap-3 text-left">
                   <Check
                     size={18}
-                    className="text-forge-orange flex-shrink-0"
+                    className="text-forge-ash flex-shrink-0"
                     strokeWidth={2.5}
                   />
                   <span className="text-forge-white">{benefit}</span>
@@ -70,7 +70,7 @@ export default function Pricing() {
               className="w-full mt-2"
               animate={glowPulse.animate}
               transition={glowPulse.transition}
-              style={{ borderRadius: "9999px" }}
+              style={{ borderRadius: "0px" }}
             >
               <Button
                 href="mailto:hello@forgebuild.io"
@@ -78,12 +78,12 @@ export default function Pricing() {
                 size="lg"
                 className="w-full"
               >
-                Claim Your Spot
+                Join Founders Council
               </Button>
             </motion.div>
 
             {/* Spots remaining */}
-            <p className="text-forge-orange font-bold text-sm">
+            <p className="text-forge-smoke font-medium text-sm font-[family-name:var(--font-mono)]">
               8 of 20 spots remaining
             </p>
           </Card>

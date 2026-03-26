@@ -45,7 +45,7 @@ export default function Solution() {
         </motion.div>
 
         <motion.h2
-          className="text-3xl md:text-5xl font-bold tracking-tight mt-6 font-[family-name:var(--font-heading)]"
+          className="text-3xl md:text-5xl font-medium tracking-[-0.01em] uppercase text-forge-white mt-6"
           {...fadeUp}
           transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }}
         >
@@ -84,7 +84,7 @@ export default function Solution() {
                   }}
                 >
                   <Card className="text-center h-full">
-                    <Icon className="text-forge-orange w-8 h-8 mx-auto mb-4" />
+                    <Icon className="text-forge-cyan w-8 h-8 mx-auto mb-4" />
                     <h3 className="text-xl font-semibold text-forge-white mb-2">
                       {step.title}
                     </h3>
@@ -103,7 +103,7 @@ export default function Solution() {
                       delay: index * 0.12 + 0.06,
                     }}
                   >
-                    <ArrowRight className="text-forge-orange w-5 h-5 shrink-0" />
+                    <ArrowRight className="text-forge-cyan w-5 h-5 shrink-0" />
                   </motion.div>
                 )}
               </React.Fragment>

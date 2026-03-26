@@ -1,4 +1,4 @@
-import { Flame, Twitter, Linkedin } from "lucide-react";
+import { Hexagon, Twitter, Linkedin } from "lucide-react";
 
 const FOOTER_LINKS = {
   Product: [
@@ -25,13 +25,8 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
           {/* Logo */}
           <div className="flex items-center gap-2 md:col-span-1">
-            <Flame
-              className="text-forge-orange"
-              size={22}
-              strokeWidth={2.25}
-              aria-hidden="true"
-            />
-            <span className="text-forge-white font-bold text-xl tracking-tight">
+            <Hexagon size={20} strokeWidth={1.5} className="text-forge-ash" aria-hidden="true" />
+            <span className="text-forge-white font-medium text-xl tracking-[0.15em]">
               FORGE
             </span>
           </div>

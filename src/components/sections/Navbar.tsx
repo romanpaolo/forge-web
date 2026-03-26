@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Flame, Menu, X } from "lucide-react";
+import { Hexagon, Menu, X } from "lucide-react";
 import Button from "@/components/ui/Button";
 import { NAV_LINKS } from "@/lib/constants";
 
@@ -51,13 +51,8 @@ export default function Navbar() {
               className="flex items-center gap-2 group"
               aria-label="Forge — back to top"
             >
-              <Flame
-                className="text-forge-orange"
-                size={22}
-                strokeWidth={2.25}
-                aria-hidden="true"
-              />
-              <span className="text-forge-white font-bold text-xl tracking-tight">
+              <Hexagon size={20} strokeWidth={1.5} className="text-forge-ash" aria-hidden="true" />
+              <span className="text-forge-white font-medium text-xl tracking-[0.15em]">
                 FORGE
               </span>
             </a>
@@ -118,13 +113,8 @@ export default function Navbar() {
               onClick={handleNavClick}
               aria-label="Forge — back to top"
             >
-              <Flame
-                className="text-forge-orange"
-                size={22}
-                strokeWidth={2.25}
-                aria-hidden="true"
-              />
-              <span className="text-forge-white font-bold text-xl tracking-tight">
+              <Hexagon size={20} strokeWidth={1.5} className="text-forge-ash" aria-hidden="true" />
+              <span className="text-forge-white font-medium text-xl tracking-[0.15em]">
                 FORGE
               </span>
             </a>

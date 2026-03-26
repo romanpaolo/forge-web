@@ -24,7 +24,7 @@ export default function FAQ() {
           </motion.div>
 
           <motion.h2
-            className="text-3xl md:text-5xl font-bold tracking-tight font-[family-name:var(--font-heading)] text-forge-white mt-6"
+            className="text-3xl md:text-5xl font-medium tracking-[-0.01em] uppercase text-forge-white mt-6"
             {...fadeUp}
             transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }}
           >
@@ -44,7 +44,7 @@ export default function FAQ() {
               className="border-b border-forge-graphite"
             >
               <button
-                className="w-full flex items-center justify-between gap-4 py-5 text-left text-lg font-semibold text-forge-white hover:text-forge-orange transition-colors"
+                className="w-full flex items-center justify-between gap-4 py-5 text-left text-lg font-semibold text-forge-white hover:text-forge-cyan transition-colors"
                 onClick={() => handleToggle(index)}
                 aria-expanded={openIndex === index}
               >

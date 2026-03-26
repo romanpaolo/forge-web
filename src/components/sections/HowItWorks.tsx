@@ -19,7 +19,7 @@ export default function HowItWorks() {
           </motion.div>
 
           <motion.h2
-            className="text-3xl md:text-5xl font-bold tracking-tight font-[family-name:var(--font-heading)] text-forge-white mt-6"
+            className="text-3xl md:text-5xl font-medium tracking-[-0.01em] uppercase text-forge-white mt-6"
             {...fadeUp}
             transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }}
           >
@@ -31,7 +31,7 @@ export default function HowItWorks() {
         <div className="relative mt-20">
           {/* Vertical orange line */}
           {/* Mobile: left edge. Desktop: center */}
-          <div className="absolute left-5 md:left-1/2 top-0 bottom-0 w-0.5 bg-forge-orange/30 md:-translate-x-px" />
+          <div className="absolute left-5 md:left-1/2 top-0 bottom-0 w-0.5 bg-forge-cyan/30 md:-translate-x-px" />
 
           <div className="flex flex-col gap-16">
             {STEPS.map((step, index) => {
@@ -59,8 +59,8 @@ export default function HowItWorks() {
                         isEven ? "md:flex-row-reverse md:justify-start" : "flex-row"
                       }`}
                     >
-                      <div className="flex-shrink-0 p-2 rounded-lg bg-forge-orange/10 border border-forge-orange/20">
-                        <Icon className="w-5 h-5 text-forge-orange" />
+                      <div className="flex-shrink-0 p-2 rounded-lg bg-forge-cyan/10 border border-forge-cyan/20">
+                        <Icon className="w-5 h-5 text-forge-cyan" />
                       </div>
                       <h3 className="text-xl font-semibold text-forge-white">{step.title}</h3>
                     </div>
@@ -71,16 +71,16 @@ export default function HowItWorks() {
                   {/* Center dot + step number — absolute on desktop, inline on mobile */}
                   <div className="absolute left-5 md:left-1/2 md:-translate-x-1/2 flex flex-col items-center gap-1.5">
                     {/* Orange dot on the line */}
-                    <div className="w-4 h-4 rounded-full bg-forge-orange border-2 border-forge-iron shadow-[0_0_10px_rgba(249,115,22,0.5)]" />
+                    <div className="w-4 h-4 rounded-full bg-forge-cyan border-2 border-forge-iron shadow-[0_0_10px_rgba(14,165,233,0.5)]" />
                   </div>
 
                   {/* Step number — desktop only, opposite side of card */}
                   <div
                     className={`hidden md:flex md:w-[calc(50%-2.5rem)] items-start ${
-                      isEven ? "md:pl-10" : "md:pr-10 md:justify-end"
+                      isEven ? "md:pl-16" : "md:pr-16 md:justify-end"
                     }`}
                   >
-                    <span className="text-5xl font-bold text-forge-orange font-[family-name:var(--font-heading)] leading-none select-none opacity-60">
+                    <span className="text-5xl font-medium text-forge-ash/30 font-[family-name:var(--font-mono)] leading-none select-none opacity-60">
                       {step.number}
                     </span>
                   </div>

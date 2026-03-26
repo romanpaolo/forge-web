@@ -2,7 +2,6 @@
 
 import { motion } from "framer-motion";
 import Button from "@/components/ui/Button";
-import SectionLabel from "@/components/ui/SectionLabel";
 
 const fadeUp = {
   initial: { opacity: 0, y: 30 },
@@ -19,43 +18,44 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className="relative overflow-hidden py-24 md:py-32 pt-32"
+      className="relative overflow-hidden py-24 md:py-40 pt-32"
       style={{
         background:
-          "radial-gradient(ellipse at 50% 120%, rgba(249,115,22,0.15) 0%, transparent 60%), linear-gradient(to bottom, #0F172A, #1E293B)",
+          "radial-gradient(ellipse at 50% 120%, rgba(14,165,233,0.08) 0%, transparent 60%), linear-gradient(to bottom, #050507, #0A0A0F)",
       }}
     >
-      <div className="max-w-4xl mx-auto px-6 text-center">
-        {/* Badge */}
-        <motion.div
+      <div className="max-w-5xl mx-auto px-6 text-center">
+        {/* Eyebrow */}
+        <motion.p
+          className="text-forge-smoke text-sm uppercase tracking-[0.2em] font-medium font-[family-name:var(--font-mono)]"
           variants={fadeUp}
           initial="initial"
           animate="animate"
           transition={transition(0)}
         >
-          <SectionLabel>Built for Contractors. Powered by AI.</SectionLabel>
-        </motion.div>
+          The Operating System for Field Intelligence
+        </motion.p>
 
         {/* Headline */}
         <motion.h1
-          className="text-5xl md:text-7xl font-bold tracking-tight leading-[1.05] mt-8"
-          style={{ fontFamily: "var(--font-heading)" }}
+          className="text-5xl md:text-7xl lg:text-8xl font-medium tracking-[-0.02em] leading-[1.0] mt-8 text-forge-white uppercase"
           variants={fadeUp}
           initial="initial"
           animate="animate"
-          transition={transition(0)}
+          transition={transition(0.1)}
         >
-          <span className="text-forge-white block">One Walk. Zero Typing.</span>
-          <span className="text-forge-orange block">Job-Ready Data.</span>
+          One Walk. Zero Typing.
+          <br />
+          <span className="text-forge-ash">Job-Ready Data.</span>
         </motion.h1>
 
         {/* Subtext */}
         <motion.p
-          className="text-forge-smoke text-lg md:text-xl leading-relaxed mt-6 max-w-2xl mx-auto"
+          className="text-forge-smoke text-lg md:text-xl leading-relaxed mt-8 max-w-2xl mx-auto"
           variants={fadeUp}
           initial="initial"
           animate="animate"
-          transition={transition(0.15)}
+          transition={transition(0.2)}
         >
           Forge turns a single job walk into structured scope, tasks by trade, and
           export-ready packets — no clipboard, no copy-paste, no wasted hours.
@@ -63,14 +63,14 @@ export default function Hero() {
 
         {/* Buttons */}
         <motion.div
-          className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-10"
+          className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-12"
           variants={fadeUp}
           initial="initial"
           animate="animate"
           transition={transition(0.3)}
         >
           <Button href="#pricing" variant="primary" size="md">
-            Get Early Access
+            Join Founders Council
           </Button>
           <Button href="#how-it-works" variant="secondary" size="md">
             See How It Works
@@ -79,7 +79,7 @@ export default function Hero() {
 
         {/* Social proof quote */}
         <motion.blockquote
-          className="border-t border-forge-graphite pt-8 mt-12 max-w-2xl mx-auto"
+          className="border-t border-forge-graphite/50 pt-8 mt-16 max-w-2xl mx-auto"
           variants={fadeUp}
           initial="initial"
           animate="animate"

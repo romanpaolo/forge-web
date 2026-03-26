@@ -22,7 +22,7 @@ export default function Testimonials() {
         </motion.div>
 
         <motion.h2
-          className="text-3xl md:text-5xl font-bold tracking-tight font-[family-name:var(--font-heading)] text-forge-white mt-6"
+          className="text-3xl md:text-5xl font-medium tracking-[-0.01em] uppercase text-forge-white mt-6"
           {...fadeUp}
           transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }}
         >
@@ -46,7 +46,7 @@ export default function Testimonials() {
                     <Star
                       key={i}
                       size={16}
-                      className="text-forge-spark"
+                      className="text-forge-teal"
                       fill="currentColor"
                     />
                   ))}

@@ -10,12 +10,12 @@ export default function FinalCTA() {
       className="py-24 md:py-32 text-center bg-forge-iron"
       style={{
         background:
-          "radial-gradient(ellipse at 50% 50%, rgba(249,115,22,0.2) 0%, transparent 70%)",
+          "radial-gradient(ellipse at 50% 50%, rgba(14,165,233,0.06) 0%, transparent 70%)",
       }}
     >
       <div className="max-w-7xl mx-auto px-6">
         <motion.h2
-          className="text-3xl md:text-5xl font-bold tracking-tight font-[family-name:var(--font-heading)] text-forge-white"
+          className="text-3xl md:text-5xl font-medium tracking-[-0.01em] uppercase text-forge-white"
           {...fadeUp}
         >
           Stop Wasting Time After the Walk.
@@ -36,7 +36,7 @@ export default function FinalCTA() {
           transition={{ duration: 0.6, ease: "easeOut", delay: 0.2 }}
         >
           <Button href="#pricing" variant="primary" size="lg">
-            Get Early Access &mdash; It&rsquo;s Free
+            Join Founders Council
           </Button>
 
           <p className="text-forge-smoke text-sm mt-4">

@@ -14,9 +14,9 @@ export const staggerContainer = {
 export const glowPulse = {
   animate: {
     boxShadow: [
-      "0 0 20px rgba(249,115,22,0.2)",
-      "0 0 40px rgba(249,115,22,0.4)",
-      "0 0 20px rgba(249,115,22,0.2)",
+      "0 0 20px rgba(248,250,252,0.05)",
+      "0 0 40px rgba(248,250,252,0.1)",
+      "0 0 20px rgba(248,250,252,0.05)",
     ],
   },
   transition: { duration: 2, repeat: Infinity },

@@ -58,7 +58,7 @@ export default function Problem() {
           >
             <SectionLabel>THE PROBLEM</SectionLabel>
 
-            <h2 className="text-3xl md:text-5xl font-bold tracking-tight font-[family-name:var(--font-heading)] text-forge-white leading-tight">
+            <h2 className="text-3xl md:text-5xl font-medium tracking-[-0.01em] uppercase text-forge-white leading-tight">
               Your Job Walks Are Costing You Hours, Not Minutes
             </h2>
 
@@ -72,7 +72,7 @@ export default function Problem() {
                 <li key={point} className="flex items-center gap-3">
                   <ArrowRight
                     size={18}
-                    className="text-forge-orange flex-shrink-0"
+                    className="text-forge-cyan flex-shrink-0"
                     aria-hidden="true"
                   />
                   <span className="text-forge-ash">{point}</span>
@@ -95,10 +95,10 @@ export default function Problem() {
                   key={name}
                   custom={i}
                   variants={cardVariants}
-                  className="bg-red-950/30 border border-red-500/20 rounded-xl p-6 flex flex-col items-center gap-3 text-center"
+                  className="bg-forge-steel/50 border border-forge-smoke/20 rounded-xl p-6 flex flex-col items-center gap-3 text-center"
                 >
-                  <Icon size={28} className="text-red-400" aria-hidden="true" />
-                  <span className="text-red-300 text-sm font-medium">{name}</span>
+                  <Icon size={28} className="text-forge-smoke" aria-hidden="true" />
+                  <span className="text-forge-ash text-sm font-medium">{name}</span>
                 </motion.div>
               ))}
 
@@ -109,7 +109,7 @@ export default function Problem() {
               >
                 <motion.div
                   variants={strikeVariants}
-                  className="h-0.5 bg-red-500 rounded-full"
+                  className="h-0.5 bg-forge-cyan rounded-full"
                   style={{ width: "0%" }}
                 />
               </div>
@@ -117,11 +117,11 @@ export default function Problem() {
 
             {/* Dashed connectors between columns (horizontal center line) */}
             <div
-              className="absolute top-1/2 left-0 right-0 -translate-y-1/2 border-t border-dashed border-red-500/20 pointer-events-none -z-10"
+              className="absolute top-1/2 left-0 right-0 -translate-y-1/2 border-t border-dashed border-forge-smoke/20 pointer-events-none -z-10"
               aria-hidden="true"
             />
             <div
-              className="absolute left-1/2 top-0 bottom-0 -translate-x-1/2 border-l border-dashed border-red-500/20 pointer-events-none -z-10"
+              className="absolute left-1/2 top-0 bottom-0 -translate-x-1/2 border-l border-dashed border-forge-smoke/20 pointer-events-none -z-10"
               aria-hidden="true"
             />
           </motion.div>

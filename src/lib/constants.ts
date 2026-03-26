@@ -1,8 +1,10 @@
 export const NAV_LINKS = [
   { label: "Product", href: "#product" },
+  { label: "Features", href: "#features" },
   { label: "How It Works", href: "#how-it-works" },
   { label: "Pricing", href: "#pricing" },
   { label: "Beta", href: "#beta" },
+  { label: "Design", href: "/design" },
 ];
 
 export const FAQ_ITEMS = [
@@ -108,7 +110,13 @@ export const STEPS = [
 ];
 
 export const METRICS = [
-  { value: 20, suffix: "+", unit: "", label: "Saved per walk" },
+  { value: 20, suffix: "+", unit: "", label: "Minutes saved per walk" },
   { value: 1, suffix: "", unit: "", label: "Workflow, not four" },
   { value: 0, suffix: "", unit: "Zero", label: "Typing required" },
+];
+
+export const MARKET_DATA = [
+  { value: "$39B+", label: "Total Addressable Market" },
+  { value: "$3.1B", label: "US Serviceable Market" },
+  { value: "$62M", label: "5-Year SOM" },
 ];
