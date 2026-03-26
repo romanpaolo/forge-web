@@ -15,7 +15,7 @@ const BULLET_POINTS = [
 const FLOW_CARDS = [
   { name: "Meta Glasses", Icon: Smartphone },
   { name: "Otter.ai", Icon: Mic },
-  { name: "Google Sheets", Icon: FileSpreadsheet },
+  { name: "LLM-Embedded", Icon: FileSpreadsheet },
   { name: "Buildertrend", Icon: ClipboardList },
 ];
 
