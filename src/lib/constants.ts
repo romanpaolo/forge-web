@@ -2,35 +2,41 @@ export const NAV_LINKS = [
   { label: "Product", href: "#product" },
   { label: "Features", href: "#features" },
   { label: "How It Works", href: "#how-it-works" },
-  { label: "Pricing", href: "#pricing" },
-  { label: "Beta", href: "#beta" },
   { label: "Design", href: "/design" },
 ];
 
 export const FAQ_ITEMS = [
   {
-    question: "What is ScopeSnap?",
-    answer: "ScopeSnap is Forge's flagship tool — it turns a single job walk into structured scope, tasks by trade, and Buildertrend-ready exports.",
+    question: "What is Forge and how does ScopeSnap work?",
+    answer: "Forge is an AI-powered field intelligence platform built for general contractors. ScopeSnap, our flagship tool, captures everything during your job walk — audio, photos, and voice tags — then uses AI to structure it into organized scope by area, tasks sorted by trade, open questions, and export-ready packets. One walk in, structured data out.",
   },
   {
-    question: "Do I need special hardware?",
-    answer: "No. ScopeSnap works on any smartphone or tablet with a browser. No apps to download for the MVP — it's a mobile web app.",
+    question: "Do I need special hardware or an app download?",
+    answer: "No special hardware required. ScopeSnap works on any smartphone or tablet through a mobile web app — no app store downloads needed. If you use AR-enabled devices like Meta Glasses, Forge is designed to support spatial capture as that technology matures.",
   },
   {
-    question: "How accurate is the AI?",
-    answer: "The AI flags anything uncertain — it never guesses. You review and approve everything before export.",
+    question: "How accurate is the AI structuring?",
+    answer: "Forge's AI is built to structure, never assume. Every uncertain item is flagged for your review — it will never silently guess on scope details that affect your bid. You review and approve the full output before exporting. Our target accuracy is 99.2% on structured field data.",
   },
   {
-    question: "Does it integrate with Buildertrend?",
-    answer: "MVP supports one-tap copy formatted for Buildertrend and PDF export. Direct API integration is on the roadmap.",
+    question: "What tools does Forge integrate with?",
+    answer: "The current version supports one-tap formatted copy for Buildertrend, PDF packet downloads with photos, and PM handoff emails. Direct API integrations with Buildertrend, Procore, and CoConstruct are on the roadmap. Forge is designed to fit into your existing workflow, not replace it.",
   },
   {
-    question: 'What does "beta" mean?',
-    answer: "You get full access for free. We collect your feedback to make the product better. No contracts, cancel anytime.",
+    question: "What does the Founders Council beta include?",
+    answer: "Founders Council members get full ScopeSnap access, unlimited job walks, a direct line to the dev team, and locked-in founding member pricing — all free during the entire beta period. No credit card, no contracts, cancel anytime. We're hand-picking 20 contractors to shape Forge from day one.",
   },
   {
-    question: "How long is the beta?",
-    answer: "Approximately 90 days. Founding members lock in special pricing after.",
+    question: "How long is the beta and what happens after?",
+    answer: "The beta runs approximately 90 days. During that time, you use every feature for free while we collect your feedback to refine the product. After beta, Founders Council members lock in special pricing that won't be available to later users. You'll never pay more than your founding rate.",
+  },
+  {
+    question: "What makes Forge different from Buildertrend or Procore?",
+    answer: "Buildertrend and Procore are project management platforms — they're great at organizing data once it's entered. Forge solves the step before: capturing and structuring field data so it's ready for those tools. Instead of spending 20-40 minutes after every walk typing notes into Buildertrend, Forge gets it done in one tap with zero typing.",
+  },
+  {
+    question: "Is my job walk data secure?",
+    answer: "Your data is encrypted in transit and at rest. Forge processes your audio and photos through secure AI pipelines — nothing is shared, sold, or used to train models. Contractors stake their reputation on accurate data, and we take that trust seriously. Your field intelligence stays yours.",
   },
 ];
 

@@ -15,8 +15,19 @@ const cardVariant = {
 
 export default function Testimonials() {
   return (
-    <section className="py-24 md:py-32 bg-forge-steel">
-      <div className="max-w-7xl mx-auto px-6 text-center">
+    <section className="relative py-24 md:py-32 bg-forge-steel overflow-hidden">
+      {/* Spatial dot grid background */}
+      <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+        <div
+          className="absolute inset-0 opacity-[0.04]"
+          style={{
+            backgroundImage: "radial-gradient(circle, #94A3B8 1px, transparent 1px)",
+            backgroundSize: "24px 24px",
+          }}
+        />
+      </div>
+
+      <div className="relative max-w-7xl mx-auto px-6 text-center">
         <motion.div {...fadeUp}>
           <SectionLabel>FROM THE FIELD</SectionLabel>
         </motion.div>
@@ -39,7 +50,18 @@ export default function Testimonials() {
               variants={cardVariant}
               transition={{ duration: 0.6, ease: "easeOut", delay: index * 0.12 }}
             >
-              <Card className="h-full flex flex-col gap-5 text-left">
+              <Card className="relative h-full flex flex-col gap-5 text-left">
+                {/* Corner dots */}
+                <div className="absolute top-1.5 left-1.5 w-1 h-1 rounded-full bg-forge-graphite" aria-hidden="true" />
+                <div className="absolute top-1.5 right-1.5 w-1 h-1 rounded-full bg-forge-graphite" aria-hidden="true" />
+                <div className="absolute bottom-1.5 left-1.5 w-1 h-1 rounded-full bg-forge-graphite" aria-hidden="true" />
+                <div className="absolute bottom-1.5 right-1.5 w-1 h-1 rounded-full bg-forge-graphite" aria-hidden="true" />
+
+                {/* Index number */}
+                <span className="absolute top-2 right-3 text-[8px] font-mono text-forge-graphite" aria-hidden="true">
+                  0{index + 1}
+                </span>
+
                 {/* Stars */}
                 <div className="flex gap-1">
                   {Array.from({ length: 5 }).map((_, i) => (
@@ -58,9 +80,14 @@ export default function Testimonials() {
                 </p>
 
                 {/* Attribution */}
-                <p className="text-forge-smoke text-sm font-medium">
-                  — {testimonial.name}, {testimonial.title}
-                </p>
+                <div className="flex flex-col gap-1">
+                  <p className="text-forge-smoke text-sm font-medium">
+                    — {testimonial.name}, {testimonial.title}
+                  </p>
+                  <span className="text-[9px] font-mono uppercase tracking-[0.15em] text-forge-graphite">
+                    verified contractor
+                  </span>
+                </div>
               </Card>
             </motion.div>
           ))}

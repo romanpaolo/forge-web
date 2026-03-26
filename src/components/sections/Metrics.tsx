@@ -9,8 +9,27 @@ import { fadeUp } from "@/lib/animations";
 
 export default function Metrics() {
   return (
-    <section className="py-24 md:py-32 bg-forge-steel">
-      <div className="max-w-7xl mx-auto px-6 text-center">
+    <section className="relative py-24 md:py-32 bg-forge-steel overflow-hidden">
+      {/* Spatial dot grid background */}
+      <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+        <div
+          className="absolute inset-0 opacity-[0.04]"
+          style={{
+            backgroundImage: "radial-gradient(circle, #94A3B8 1px, transparent 1px)",
+            backgroundSize: "24px 24px",
+          }}
+        />
+      </div>
+
+      {/* Scanning line animation */}
+      <motion.div
+        className="absolute left-0 right-0 h-px bg-gradient-to-r from-transparent via-forge-cyan/30 to-transparent pointer-events-none z-10"
+        aria-hidden="true"
+        animate={{ top: ["0%", "100%", "0%"] }}
+        transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+      />
+
+      <div className="relative max-w-7xl mx-auto px-6 text-center">
         <motion.div {...fadeUp}>
           <SectionLabel>THE IMPACT</SectionLabel>
         </motion.div>
@@ -30,7 +49,20 @@ export default function Metrics() {
               {...fadeUp}
               transition={{ duration: 0.6, ease: "easeOut", delay: 0.15 + index * 0.12 }}
             >
-              <Card className="flex flex-col items-center justify-center">
+              <Card className="relative flex flex-col items-center justify-center">
+                {/* Corner brackets */}
+                <div className="absolute -inset-0 pointer-events-none" aria-hidden="true">
+                  <div className="absolute top-0 left-0 w-4 h-4 border-t border-l border-forge-graphite/50" />
+                  <div className="absolute top-0 right-0 w-4 h-4 border-t border-r border-forge-graphite/50" />
+                  <div className="absolute bottom-0 left-0 w-4 h-4 border-b border-l border-forge-graphite/50" />
+                  <div className="absolute bottom-0 right-0 w-4 h-4 border-b border-r border-forge-graphite/50" />
+                </div>
+
+                {/* Index number */}
+                <span className="absolute top-2 left-3 text-[8px] font-mono text-forge-graphite" aria-hidden="true">
+                  0{index + 1}
+                </span>
+
                 <AnimatedCounter
                   value={metric.value}
                   suffix={metric.suffix}
@@ -52,13 +84,19 @@ export default function Metrics() {
             The Future of Field Intelligence
           </h3>
 
+          {/* Mono status label */}
+          <div className="flex items-center justify-center gap-2 mt-4" aria-hidden="true">
+            <div className="w-1.5 h-1.5 rounded-full bg-forge-cyan/60 animate-pulse" />
+            <span className="text-[9px] font-mono uppercase tracking-[0.15em] text-forge-graphite">market signal</span>
+          </div>
+
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
             {MARKET_DATA.map((item, index) => (
               <motion.div
                 key={item.label}
                 {...fadeUp}
                 transition={{ duration: 0.6, ease: "easeOut", delay: 0.4 + index * 0.1 }}
-                className="flex flex-col items-center"
+                className="relative flex flex-col items-center"
               >
                 <span className="text-4xl md:text-5xl font-medium text-forge-white font-[family-name:var(--font-mono)] tracking-tight">
                   {item.value}

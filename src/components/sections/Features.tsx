@@ -188,7 +188,18 @@ const PHONE_SCREENS = [CaptureScreen, AiEngineScreen, ExportScreen];
 
 export default function Features() {
   return (
-    <section id="features" className="py-24 md:py-32 bg-forge-iron">
+    <section id="features" className="relative py-24 md:py-32 bg-forge-iron overflow-hidden">
+      {/* Spatial dot grid background */}
+      <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+        <div
+          className="absolute inset-0 opacity-[0.04]"
+          style={{
+            backgroundImage: "radial-gradient(circle, #94A3B8 1px, transparent 1px)",
+            backgroundSize: "24px 24px",
+          }}
+        />
+      </div>
+
       {FEATURES.map((feature, index) => {
         const isEven = index % 2 === 1;
         const PhoneScreen = PHONE_SCREENS[index];
@@ -196,7 +207,7 @@ export default function Features() {
         return (
           <motion.div
             key={feature.label}
-            className="max-w-7xl mx-auto px-6 mb-24 last:mb-0"
+            className="relative max-w-7xl mx-auto px-6 mb-24 last:mb-0"
             {...fadeUp}
             transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }}
           >
@@ -232,9 +243,27 @@ export default function Features() {
 
               {/* Mockup side */}
               <div className="flex items-center justify-center">
-                <PhoneMockup>
-                  {PhoneScreen && <PhoneScreen />}
-                </PhoneMockup>
+                {/* Spatial frame around phone mockup */}
+                <div className="relative">
+                  {/* Corner brackets */}
+                  <div className="absolute -inset-4 pointer-events-none" aria-hidden="true">
+                    <div className="absolute top-0 left-0 w-5 h-5 border-t border-l border-forge-graphite/50" />
+                    <div className="absolute top-0 right-0 w-5 h-5 border-t border-r border-forge-graphite/50" />
+                    <div className="absolute bottom-0 left-0 w-5 h-5 border-b border-l border-forge-graphite/50" />
+                    <div className="absolute bottom-0 right-0 w-5 h-5 border-b border-r border-forge-graphite/50" />
+                  </div>
+
+                  {/* Feature index label */}
+                  <div className="absolute -top-7 left-0 flex items-center gap-2" aria-hidden="true">
+                    <span className="text-[9px] font-mono uppercase tracking-[0.15em] text-forge-graphite">
+                      module 0{index + 1}
+                    </span>
+                  </div>
+
+                  <PhoneMockup>
+                    {PhoneScreen && <PhoneScreen />}
+                  </PhoneMockup>
+                </div>
               </div>
             </div>
           </motion.div>

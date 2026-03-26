@@ -10,8 +10,19 @@ const STEP_ICONS = [FolderPlus, Mic, Brain, Send];
 
 export default function HowItWorks() {
   return (
-    <section id="how-it-works" className="py-24 md:py-32 bg-forge-iron">
-      <div className="max-w-7xl mx-auto px-6">
+    <section id="how-it-works" className="relative py-24 md:py-32 bg-forge-iron overflow-hidden">
+      {/* Spatial dot grid background */}
+      <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+        <div
+          className="absolute inset-0 opacity-[0.04]"
+          style={{
+            backgroundImage: "radial-gradient(circle, #94A3B8 1px, transparent 1px)",
+            backgroundSize: "24px 24px",
+          }}
+        />
+      </div>
+
+      <div className="relative max-w-7xl mx-auto px-6">
         {/* Header */}
         <div className="text-center">
           <motion.div {...fadeUp}>
@@ -25,6 +36,17 @@ export default function HowItWorks() {
           >
             From Walk to Handoff in Four Steps
           </motion.h2>
+
+          {/* Spatial status indicator */}
+          <motion.div
+            className="flex items-center justify-center gap-2 mt-4"
+            {...fadeUp}
+            transition={{ duration: 0.6, ease: "easeOut", delay: 0.15 }}
+            aria-hidden="true"
+          >
+            <div className="w-1.5 h-1.5 rounded-full bg-forge-cyan animate-pulse" />
+            <span className="text-[9px] font-mono uppercase tracking-[0.15em] text-forge-smoke">4 steps detected</span>
+          </motion.div>
         </div>
 
         {/* Timeline */}
@@ -49,10 +71,26 @@ export default function HowItWorks() {
                 >
                   {/* Content card — takes half width on desktop */}
                   <div
-                    className={`pl-14 md:pl-0 md:w-[calc(50%-2.5rem)] ${
+                    className={`relative pl-14 md:pl-0 md:w-[calc(50%-2.5rem)] ${
                       isEven ? "md:pr-10 md:text-right" : "md:pl-10 md:text-left"
                     }`}
                   >
+                    {/* Spatial corner brackets on content area */}
+                    <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+                      <div className={`absolute top-0 w-4 h-4 border-t border-forge-graphite/40 ${isEven ? "right-0 border-r" : "left-0 border-l"}`} />
+                      <div className={`absolute bottom-0 w-4 h-4 border-b border-forge-graphite/40 ${isEven ? "right-0 border-r" : "left-0 border-l"}`} />
+                    </div>
+
+                    {/* Step index mono label */}
+                    <div
+                      className={`flex items-center gap-1.5 mb-2 ${isEven ? "md:justify-end" : "justify-start"}`}
+                      aria-hidden="true"
+                    >
+                      <span className="text-[9px] font-mono uppercase tracking-[0.15em] text-forge-graphite">
+                        step / 0{index + 1}
+                      </span>
+                    </div>
+
                     {/* Icon + title row */}
                     <div
                       className={`flex items-center gap-3 mb-3 ${

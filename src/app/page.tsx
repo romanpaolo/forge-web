@@ -5,7 +5,6 @@ import { Layers, Monitor } from "lucide-react";
 import Navbar from "@/components/sections/Navbar";
 import Hero from "@/components/sections/Hero";
 import Hero3D from "@/components/sections/Hero3D";
-import TrustBar from "@/components/sections/TrustBar";
 import Problem from "@/components/sections/Problem";
 import Solution from "@/components/sections/Solution";
 import Features from "@/components/sections/Features";
@@ -47,7 +46,6 @@ export default function Home() {
       {/* Hero — swaps based on mode */}
       {mode === "classic" ? <Hero /> : <Hero3D />}
 
-      <TrustBar />
       <Problem />
       <Solution />
       <Features />

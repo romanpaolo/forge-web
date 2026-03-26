@@ -4,7 +4,7 @@ const FOOTER_LINKS = {
   Product: [
     { label: "ScopeSnap", href: "#" },
     { label: "Pricing", href: "#pricing" },
-    { label: "Beta", href: "#beta" },
+    { label: "Beta", href: "#pricing" },
   ],
   Company: [
     { label: "About", href: "#" },

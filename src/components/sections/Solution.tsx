@@ -38,8 +38,19 @@ const cardVariant = {
 
 export default function Solution() {
   return (
-    <section className="py-24 md:py-32 bg-forge-steel">
-      <div className="max-w-7xl mx-auto px-6 text-center">
+    <section className="relative py-24 md:py-32 bg-forge-steel overflow-hidden">
+      {/* Spatial dot grid background */}
+      <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+        <div
+          className="absolute inset-0 opacity-[0.04]"
+          style={{
+            backgroundImage: "radial-gradient(circle, #94A3B8 1px, transparent 1px)",
+            backgroundSize: "24px 24px",
+          }}
+        />
+      </div>
+
+      <div className="relative max-w-7xl mx-auto px-6 text-center">
         <motion.div {...fadeUp}>
           <SectionLabel>THE FORGE WAY</SectionLabel>
         </motion.div>
@@ -61,9 +72,20 @@ export default function Solution() {
           organizes tasks by trade, and packages everything for handoff.
         </motion.p>
 
+        {/* Mono label */}
+        <motion.div
+          className="flex items-center justify-center gap-2 mt-10 mb-2"
+          {...fadeUp}
+          transition={{ duration: 0.6, ease: "easeOut", delay: 0.25 }}
+        >
+          <div className="w-8 h-px bg-forge-graphite" />
+          <span className="text-[9px] font-mono uppercase tracking-[0.15em] text-forge-graphite">workflow sequence</span>
+          <div className="w-8 h-px bg-forge-graphite" />
+        </motion.div>
+
         {/* Step cards with interleaved arrow connectors on lg */}
         <motion.div
-          className="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[1fr_auto_1fr_auto_1fr_auto_1fr] gap-6 lg:gap-3 items-center"
+          className="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[1fr_auto_1fr_auto_1fr_auto_1fr] gap-6 lg:gap-3 items-center"
           variants={staggerContainer}
           initial="initial"
           whileInView="whileInView"
@@ -83,7 +105,18 @@ export default function Solution() {
                     delay: index * 0.12,
                   }}
                 >
-                  <Card className="text-center h-full">
+                  <Card className="relative text-center h-full">
+                    {/* Corner dots */}
+                    <div className="absolute top-1.5 left-1.5 w-1 h-1 rounded-full bg-forge-graphite" aria-hidden="true" />
+                    <div className="absolute top-1.5 right-1.5 w-1 h-1 rounded-full bg-forge-graphite" aria-hidden="true" />
+                    <div className="absolute bottom-1.5 left-1.5 w-1 h-1 rounded-full bg-forge-graphite" aria-hidden="true" />
+                    <div className="absolute bottom-1.5 right-1.5 w-1 h-1 rounded-full bg-forge-graphite" aria-hidden="true" />
+
+                    {/* Index number */}
+                    <span className="absolute top-2 left-3 text-[8px] font-mono text-forge-graphite" aria-hidden="true">
+                      0{index + 1}
+                    </span>
+
                     <Icon className="text-forge-cyan w-8 h-8 mx-auto mb-4" />
                     <h3 className="text-xl font-semibold text-forge-white mb-2">
                       {step.title}

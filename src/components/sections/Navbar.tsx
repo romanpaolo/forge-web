@@ -47,7 +47,7 @@ export default function Navbar() {
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
             <a
-              href="#hero"
+              href="/"
               className="flex items-center gap-2 group"
               aria-label="Forge — back to top"
             >
@@ -108,7 +108,7 @@ export default function Navbar() {
           {/* Top bar */}
           <div className="flex items-center justify-between mb-12">
             <a
-              href="#hero"
+              href="/"
               className="flex items-center gap-2"
               onClick={handleNavClick}
               aria-label="Forge — back to top"

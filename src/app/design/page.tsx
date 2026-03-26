@@ -85,6 +85,7 @@ const NAV_SECTIONS = [
   { id: "imagery", label: "Imagery & Photography Style" },
   { id: "iconography", label: "Iconography & Graphic Elements" },
   { id: "layout-grid", label: "Layout & Grid Systems" },
+  { id: "spatial-design", label: "Spatial Design System" },
   { id: "digital-guidelines", label: "Digital Guidelines" },
   { id: "brand-asset-management", label: "Brand Asset Management" },
   { id: "appendix-landing", label: "Appendix A: Landing Page Structure" },
@@ -565,11 +566,11 @@ export default function DesignPage() {
 
         {/* ── Sticky sidebar ───────────────────────────────────────────────── */}
         <aside className="hidden md:block w-56 flex-shrink-0">
-          <div className="sticky top-40">
-            <p className="text-xs font-medium text-forge-smoke uppercase tracking-widest mb-4 px-4 font-mono">
+          <div className="sticky top-40 max-h-[calc(100vh-12rem)] flex flex-col">
+            <p className="text-xs font-medium text-forge-smoke uppercase tracking-widest mb-4 px-4 font-mono flex-shrink-0">
               Contents
             </p>
-            <nav className="flex flex-col gap-0.5" aria-label="Design guideline sections">
+            <nav className="flex flex-col gap-0.5 overflow-y-auto scrollbar-thin pr-2" aria-label="Design guideline sections" style={{ scrollbarWidth: "thin", scrollbarColor: "#334155 transparent" }}>
               {NAV_SECTIONS.map((section, i) => (
                 <button
                   key={section.id}
@@ -1849,6 +1850,270 @@ export default function DesignPage() {
                   <p className="text-forge-smoke text-xs">{label}</p>
                 </div>
               ))}
+            </div>
+          </Section>
+
+          {/* ── Spatial Design System ──────────────────────────────────────── */}
+          <Section
+            id="spatial-design"
+            tag="SP · Spatial"
+            title="Spatial Design System"
+            description="Design patterns for AR/spatial computing interfaces used across the Forge landing page and product. These elements create a unified field-intelligence aesthetic."
+          >
+            {/* ── Dot Grid Pattern ── */}
+            <h3 className="text-xs font-medium text-forge-smoke uppercase tracking-widest mb-4">
+              Dot Grid Background
+            </h3>
+            <div className="grid md:grid-cols-2 gap-4 mb-10">
+              <Card className="relative p-6 overflow-hidden min-h-[180px]">
+                <div
+                  className="absolute inset-0 opacity-[0.06]"
+                  style={{
+                    backgroundImage: "radial-gradient(circle, #94A3B8 1px, transparent 1px)",
+                    backgroundSize: "24px 24px",
+                  }}
+                />
+                <div className="relative">
+                  <p className="text-xs font-mono text-forge-cyan uppercase tracking-widest mb-2">Pattern</p>
+                  <p className="text-forge-ash text-sm leading-relaxed mb-3">
+                    Subtle radial dot grid applied to every section background. Creates spatial awareness and depth without distraction.
+                  </p>
+                  <div className="flex flex-col gap-1.5 text-xs font-mono text-forge-smoke">
+                    <span>radial-gradient(circle, #94A3B8 1px, transparent 1px)</span>
+                    <span>background-size: 24px 24px</span>
+                    <span>opacity: 0.04</span>
+                  </div>
+                </div>
+              </Card>
+              <Card className="p-6">
+                <p className="text-xs font-mono text-forge-cyan uppercase tracking-widest mb-2">Usage Rules</p>
+                <ul className="flex flex-col gap-2">
+                  {[
+                    "Apply to every section as a background layer",
+                    "Always use pointer-events-none and aria-hidden",
+                    "Pair with overflow-hidden on the section element",
+                    "Opacity must stay at 0.04 — never increase",
+                    "Grid spacing fixed at 24px — do not vary",
+                  ].map((rule) => (
+                    <li key={rule} className="flex items-start gap-2">
+                      <span className="text-forge-graphite mt-1">—</span>
+                      <span className="text-forge-ash text-sm">{rule}</span>
+                    </li>
+                  ))}
+                </ul>
+              </Card>
+            </div>
+
+            {/* ── Corner Brackets ── */}
+            <h3 className="text-xs font-medium text-forge-smoke uppercase tracking-widest mb-4">
+              Corner Brackets
+            </h3>
+            <div className="grid md:grid-cols-3 gap-4 mb-10">
+              {/* Demo */}
+              <Card className="relative p-8 min-h-[160px] flex items-center justify-center col-span-1">
+                <div className="absolute -inset-0 pointer-events-none" aria-hidden="true">
+                  <div className="absolute top-0 left-0 w-5 h-5 border-t border-l border-forge-graphite/50" />
+                  <div className="absolute top-0 right-0 w-5 h-5 border-t border-r border-forge-graphite/50" />
+                  <div className="absolute bottom-0 left-0 w-5 h-5 border-b border-l border-forge-graphite/50" />
+                  <div className="absolute bottom-0 right-0 w-5 h-5 border-b border-r border-forge-graphite/50" />
+                </div>
+                <span className="text-forge-ash text-sm font-mono">Content Area</span>
+              </Card>
+              <div className="col-span-2">
+                <Card className="p-6 h-full">
+                  <p className="text-xs font-mono text-forge-cyan uppercase tracking-widest mb-2">Specification</p>
+                  <p className="text-forge-ash text-sm leading-relaxed mb-3">
+                    L-shaped bracket elements placed at corners of key containers. Creates an AR viewport / targeting frame effect.
+                  </p>
+                  <div className="flex flex-col gap-1.5 text-xs font-mono text-forge-smoke">
+                    <span>Position: absolute, -inset-3 to -inset-6</span>
+                    <span>Size: w-5 h-5 (standard) or w-6 h-6 (large)</span>
+                    <span>Border: border-forge-graphite/50 (1px)</span>
+                    <span>Always: pointer-events-none + aria-hidden</span>
+                  </div>
+                </Card>
+              </div>
+            </div>
+
+            {/* ── Scanning Line ── */}
+            <h3 className="text-xs font-medium text-forge-smoke uppercase tracking-widest mb-4">
+              Scanning Line
+            </h3>
+            <div className="grid md:grid-cols-2 gap-4 mb-10">
+              <Card className="relative p-6 overflow-hidden min-h-[160px]">
+                {/* Live demo */}
+                <motion.div
+                  className="absolute left-0 right-0 h-px bg-gradient-to-r from-transparent via-forge-cyan/40 to-transparent pointer-events-none"
+                  animate={{ top: ["0%", "100%", "0%"] }}
+                  transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+                />
+                <div className="relative">
+                  <p className="text-xs font-mono text-forge-cyan uppercase tracking-widest mb-2">Live Preview</p>
+                  <p className="text-forge-ash text-sm">Horizontal gradient line animating vertically through the section. Suggests active scanning / data processing.</p>
+                </div>
+              </Card>
+              <Card className="p-6">
+                <p className="text-xs font-mono text-forge-cyan uppercase tracking-widest mb-2">Specification</p>
+                <div className="flex flex-col gap-1.5 text-xs font-mono text-forge-smoke">
+                  <span>Height: 1px</span>
+                  <span>Gradient: from-transparent via-forge-cyan/30 to-transparent</span>
+                  <span>Animation: top 0% → 100% → 0%, linear</span>
+                  <span>Duration: 6-10s, infinite repeat</span>
+                  <span>Use sparingly — max 2-3 sections per page</span>
+                  <span>Position: absolute, z-10</span>
+                </div>
+              </Card>
+            </div>
+
+            {/* ── Corner Dots ── */}
+            <h3 className="text-xs font-medium text-forge-smoke uppercase tracking-widest mb-4">
+              Corner Dots &amp; Index Numbers
+            </h3>
+            <div className="grid md:grid-cols-2 gap-4 mb-10">
+              <Card className="relative p-8 min-h-[140px]">
+                {/* Corner dots */}
+                <div className="absolute top-1.5 left-1.5 w-1 h-1 rounded-full bg-forge-graphite" />
+                <div className="absolute top-1.5 right-1.5 w-1 h-1 rounded-full bg-forge-graphite" />
+                <div className="absolute bottom-1.5 left-1.5 w-1 h-1 rounded-full bg-forge-graphite" />
+                <div className="absolute bottom-1.5 right-1.5 w-1 h-1 rounded-full bg-forge-graphite" />
+                {/* Index */}
+                <span className="absolute top-2 right-3 text-[8px] font-mono text-forge-graphite">01</span>
+                <p className="text-forge-ash text-sm">Card with corner dots and index number — applied to all repeating card elements.</p>
+              </Card>
+              <Card className="p-6">
+                <p className="text-xs font-mono text-forge-cyan uppercase tracking-widest mb-2">Specification</p>
+                <div className="flex flex-col gap-3">
+                  <div>
+                    <p className="text-forge-ash text-sm font-medium mb-1">Corner Dots</p>
+                    <div className="flex flex-col gap-1 text-xs font-mono text-forge-smoke">
+                      <span>Size: w-1 h-1 (4px)</span>
+                      <span>Color: bg-forge-graphite</span>
+                      <span>Position: 6px from each corner edge</span>
+                    </div>
+                  </div>
+                  <div>
+                    <p className="text-forge-ash text-sm font-medium mb-1">Index Numbers</p>
+                    <div className="flex flex-col gap-1 text-xs font-mono text-forge-smoke">
+                      <span>Font: font-mono, 8px</span>
+                      <span>Color: text-forge-graphite</span>
+                      <span>Format: zero-padded (01, 02, 03...)</span>
+                      <span>Position: top-2 right-3 or top-2 left-3</span>
+                    </div>
+                  </div>
+                </div>
+              </Card>
+            </div>
+
+            {/* ── Status Indicators ── */}
+            <h3 className="text-xs font-medium text-forge-smoke uppercase tracking-widest mb-4">
+              Status Indicators &amp; Mono Labels
+            </h3>
+            <div className="grid md:grid-cols-3 gap-4 mb-10">
+              {/* Active */}
+              <Card className="p-6">
+                <div className="flex items-center gap-2 mb-3">
+                  <div className="w-1.5 h-1.5 rounded-full bg-forge-cyan animate-pulse" />
+                  <span className="text-[9px] font-mono uppercase tracking-[0.15em] text-forge-smoke">active signal</span>
+                </div>
+                <p className="text-xs font-mono text-forge-cyan uppercase tracking-widest mb-1">Active / Pulsing</p>
+                <p className="text-forge-smoke text-sm">Cyan dot with animate-pulse. Used for live status, active counts.</p>
+              </Card>
+              {/* Warning */}
+              <Card className="p-6">
+                <div className="flex items-center gap-2 mb-3">
+                  <div className="w-1.5 h-1.5 rounded-full bg-red-400/70 animate-pulse" />
+                  <span className="text-[9px] font-mono uppercase tracking-[0.15em] text-forge-smoke">4 tools detected</span>
+                </div>
+                <p className="text-xs font-mono text-forge-cyan uppercase tracking-widest mb-1">Warning / Alert</p>
+                <p className="text-forge-smoke text-sm">Red dot for problem states, fragmented workflows, alerts.</p>
+              </Card>
+              {/* Divider label */}
+              <Card className="p-6">
+                <div className="flex items-center gap-2 mb-3">
+                  <div className="w-8 h-px bg-forge-graphite" />
+                  <span className="text-[9px] font-mono uppercase tracking-[0.15em] text-forge-graphite">section label</span>
+                  <div className="w-8 h-px bg-forge-graphite" />
+                </div>
+                <p className="text-xs font-mono text-forge-cyan uppercase tracking-widest mb-1">Divider Label</p>
+                <p className="text-forge-smoke text-sm">Centered mono label flanked by hairline rules. Used at section bottoms.</p>
+              </Card>
+            </div>
+
+            {/* ── Spatial Cards vs Standard Cards ── */}
+            <h3 className="text-xs font-medium text-forge-smoke uppercase tracking-widest mb-4">
+              Card Styles Comparison
+            </h3>
+            <div className="grid md:grid-cols-2 gap-4 mb-10">
+              <div>
+                <p className="text-[9px] font-mono uppercase tracking-[0.15em] text-forge-graphite mb-2">Standard Card</p>
+                <Card className="p-6">
+                  <p className="text-forge-ash text-sm">Default card with backdrop blur, subtle border, rounded corners. Used as base container.</p>
+                </Card>
+              </div>
+              <div>
+                <p className="text-[9px] font-mono uppercase tracking-[0.15em] text-forge-graphite mb-2">Spatial Card</p>
+                <Card className="relative p-6">
+                  <div className="absolute top-1.5 left-1.5 w-1 h-1 rounded-full bg-forge-graphite" />
+                  <div className="absolute top-1.5 right-1.5 w-1 h-1 rounded-full bg-forge-graphite" />
+                  <div className="absolute bottom-1.5 left-1.5 w-1 h-1 rounded-full bg-forge-graphite" />
+                  <div className="absolute bottom-1.5 right-1.5 w-1 h-1 rounded-full bg-forge-graphite" />
+                  <span className="absolute top-2 right-3 text-[8px] font-mono text-forge-graphite">01</span>
+                  <p className="text-forge-ash text-sm">Card with corner dots, index number, and optional corner brackets. Used for repeating elements in spatial UI.</p>
+                </Card>
+              </div>
+            </div>
+
+            {/* ── AR Viewport Frame ── */}
+            <h3 className="text-xs font-medium text-forge-smoke uppercase tracking-widest mb-4">
+              AR Viewport Frame
+            </h3>
+            <Card className="relative p-8 mb-10">
+              <div className="bg-forge-steel/20 border border-forge-graphite/30 p-6 md:p-8">
+                {/* Viewport header */}
+                <div className="flex items-center justify-between mb-6">
+                  <div className="flex items-center gap-3">
+                    <div className="w-2 h-2 rounded-full bg-forge-teal animate-pulse" />
+                    <span className="text-xs font-mono uppercase tracking-[0.15em] text-forge-smoke">spatial view / active</span>
+                  </div>
+                  <span className="text-[9px] font-mono text-forge-graphite">forge v1.0</span>
+                </div>
+                <p className="text-forge-ash text-sm leading-relaxed mb-4">
+                  Full-width bordered container with header status bar. Used for showcasing spatial workflows, data visualizations, and AR-style interfaces. Dark fill with subtle border creates a &ldquo;viewport&rdquo; effect.
+                </p>
+                <div className="flex flex-col gap-1.5 text-xs font-mono text-forge-smoke">
+                  <span>Background: bg-forge-steel/20</span>
+                  <span>Border: border-forge-graphite/30</span>
+                  <span>Header: status dot + mono label + version tag</span>
+                  <span>No border-radius — sharp edges throughout</span>
+                </div>
+              </div>
+            </Card>
+
+            {/* ── Radial Glow ── */}
+            <h3 className="text-xs font-medium text-forge-smoke uppercase tracking-widest mb-4">
+              Radial Glow Effects
+            </h3>
+            <div className="grid md:grid-cols-2 gap-4">
+              <Card className="relative p-6 overflow-hidden min-h-[140px]">
+                <div
+                  className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] rounded-full pointer-events-none"
+                  style={{ background: "radial-gradient(circle, rgba(14,165,233,0.06) 0%, transparent 70%)" }}
+                />
+                <div className="relative">
+                  <p className="text-xs font-mono text-forge-cyan uppercase tracking-widest mb-2">Cyan Glow</p>
+                  <p className="text-forge-smoke text-sm">Subtle radial gradient centered on key content areas. Draws focus without overwhelming.</p>
+                </div>
+              </Card>
+              <Card className="p-6">
+                <p className="text-xs font-mono text-forge-cyan uppercase tracking-widest mb-2">Specification</p>
+                <div className="flex flex-col gap-1.5 text-xs font-mono text-forge-smoke">
+                  <span>Shape: radial-gradient, circle</span>
+                  <span>Color: rgba(14,165,233,0.04) to transparent</span>
+                  <span>Size: 400-800px diameter</span>
+                  <span>Max opacity: 0.06 — never higher</span>
+                  <span>Use: 1-2 per section, centered on focal points</span>
+                </div>
+              </Card>
             </div>
           </Section>
 
