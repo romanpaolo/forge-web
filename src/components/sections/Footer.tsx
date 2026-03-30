@@ -12,8 +12,8 @@ const FOOTER_LINKS = {
     { label: "Contact", href: "#" },
   ],
   Legal: [
-    { label: "Privacy", href: "#" },
-    { label: "Terms", href: "#" },
+    { label: "Privacy", href: "/legal#privacy" },
+    { label: "Terms", href: "/legal#terms" },
   ],
 };
 

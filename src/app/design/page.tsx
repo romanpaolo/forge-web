@@ -610,7 +610,7 @@ export default function DesignPage() {
               <span className="text-forge-graphite">·</span>
               <span>forgeequipment.com</span>
               <span className="text-forge-graphite">·</span>
-              <span>Founded 2025</span>
+              <span>Founded 2026</span>
               <span className="text-forge-graphite">·</span>
               <span>Version 1.0 · March 2026</span>
             </div>
@@ -628,7 +628,7 @@ export default function DesignPage() {
                 { label: "Company", value: "Forge" },
                 { label: "Domain", value: "forgeequipment.com" },
                 { label: "Industry", value: "Construction Technology (ConTech) / SaaS" },
-                { label: "Founded", value: "2025" },
+                { label: "Founded", value: "2026" },
                 { label: "Type", value: "B2B" },
                 { label: "Market", value: "General Contractors, Project Managers, Construction Firms" },
               ].map((item) => (

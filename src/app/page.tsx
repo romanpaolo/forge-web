@@ -17,7 +17,7 @@ import FinalCTA from "@/components/sections/FinalCTA";
 import Footer from "@/components/sections/Footer";
 
 export default function Home() {
-  const [mode, setMode] = useState<"classic" | "spatial">("classic");
+  const [mode, setMode] = useState<"classic" | "spatial">("spatial");
 
   return (
     <main>
