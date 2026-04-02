@@ -7,14 +7,14 @@ import { fadeUp } from "@/lib/animations";
 export default function FinalCTA() {
   return (
     <section
-      className="relative py-24 md:py-32 text-center bg-forge-iron overflow-hidden"
+      className="relative py-24 md:py-32 text-center bg-transparent overflow-hidden"
       style={{
         background:
           "radial-gradient(ellipse at 50% 50%, rgba(14,165,233,0.06) 0%, transparent 70%)",
       }}
     >
-      {/* Spatial dot grid background */}
-      <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+      {/* Spatial dot grid background — parallax layer */}
+      <div className="absolute inset-0 pointer-events-none" aria-hidden="true" data-speed="0.85">
         <div
           className="absolute inset-0 opacity-[0.04]"
           style={{
@@ -71,7 +71,7 @@ export default function FinalCTA() {
             </Button>
 
             <p className="text-forge-smoke text-sm mt-4">
-              No credit card required. 20 spots only.
+              No credit card required. 30 spots only.
             </p>
 
             {/* Bottom mono label */}

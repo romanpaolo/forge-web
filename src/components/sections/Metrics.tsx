@@ -9,9 +9,9 @@ import { fadeUp } from "@/lib/animations";
 
 export default function Metrics() {
   return (
-    <section className="relative py-24 md:py-32 bg-forge-steel overflow-hidden">
-      {/* Spatial dot grid background */}
-      <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+    <section className="relative py-24 md:py-32 bg-transparent overflow-hidden">
+      {/* Spatial dot grid background — parallax layer */}
+      <div className="absolute inset-0 pointer-events-none" aria-hidden="true" data-speed="0.85">
         <div
           className="absolute inset-0 opacity-[0.04]"
           style={{
@@ -21,8 +21,9 @@ export default function Metrics() {
         />
       </div>
 
-      {/* Scanning line animation */}
+      {/* Scanning line animation — parallax layer */}
       <motion.div
+        data-speed="0.7"
         className="absolute left-0 right-0 h-px bg-gradient-to-r from-transparent via-forge-cyan/30 to-transparent pointer-events-none z-10"
         aria-hidden="true"
         animate={{ top: ["0%", "100%", "0%"] }}
