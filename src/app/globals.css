@@ -23,6 +23,13 @@ body {
   background: #050507;
   color: #F8FAFC;
   font-family: var(--font-body);
+  overflow-wrap: break-word;
+  word-break: normal;
+}
+
+h1, h2, h3, h4 {
+  overflow-wrap: normal;
+  word-break: keep-all;
 }
 
 html {

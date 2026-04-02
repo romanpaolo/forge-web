@@ -46,7 +46,7 @@ export default function FinalCTA() {
           </motion.div>
 
           <motion.h2
-            className="text-3xl md:text-5xl font-medium tracking-[-0.01em] uppercase text-forge-white"
+            className="text-2xl sm:text-3xl md:text-5xl font-medium tracking-[-0.01em] uppercase text-forge-white"
             {...fadeUp}
           >
             Stop Wasting Time After the Walk.

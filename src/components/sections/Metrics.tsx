@@ -36,7 +36,7 @@ export default function Metrics() {
         </motion.div>
 
         <motion.h2
-          className="text-3xl md:text-5xl font-medium tracking-[-0.01em] uppercase text-forge-white mt-6"
+          className="text-2xl sm:text-3xl md:text-5xl font-medium tracking-[-0.01em] uppercase text-forge-white mt-6"
           {...fadeUp}
           transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }}
         >
@@ -99,7 +99,7 @@ export default function Metrics() {
                 transition={{ duration: 0.6, ease: "easeOut", delay: 0.4 + index * 0.1 }}
                 className="relative flex flex-col items-center"
               >
-                <span className="text-4xl md:text-5xl font-medium text-forge-white font-[family-name:var(--font-mono)] tracking-tight">
+                <span className="text-2xl sm:text-4xl md:text-5xl font-medium text-forge-white font-[family-name:var(--font-mono)] tracking-tight">
                   {item.value}
                 </span>
                 <span className="text-forge-smoke text-sm uppercase tracking-[0.1em] mt-3">

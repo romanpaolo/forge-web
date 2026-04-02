@@ -16,21 +16,41 @@ const fadeUp = {
 };
 
 function CharacterReveal({ text, className, delay = 0, stagger = 0.03 }: { text: string; className?: string; delay?: number; stagger?: number }) {
-  const container = {
+  const containerVariants = {
     initial: {},
     animate: {
       transition: { staggerChildren: stagger, delayChildren: delay },
+    },
+  };
+  const wordVariants = {
+    initial: {},
+    animate: {
+      transition: { staggerChildren: stagger },
     },
   };
   const child = {
     initial: { opacity: 0, y: 20 },
     animate: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" as const } },
   };
+
+  const words = text.split(" ");
+
   return (
-    <motion.span className={className} variants={container} initial="initial" animate="animate" aria-label={text}>
-      {text.split("").map((char, i) => (
-        <motion.span key={i} variants={child} style={{ display: "inline-block" }}>
-          {char === " " ? "\u00A0" : char}
+    <motion.span
+      className={className}
+      variants={containerVariants}
+      initial="initial"
+      animate="animate"
+      aria-label={text}
+    >
+      {words.map((word, wi) => (
+        <motion.span key={wi} variants={wordVariants} style={{ display: "inline-block", whiteSpace: "nowrap" }}>
+          {word.split("").map((char, ci) => (
+            <motion.span key={ci} variants={child} style={{ display: "inline-block" }}>
+              {char}
+            </motion.span>
+          ))}
+          {wi < words.length - 1 && <span>&nbsp;</span>}
         </motion.span>
       ))}
     </motion.span>
@@ -77,7 +97,7 @@ export default function Hero3D() {
           </motion.div>
 
           {/* Headline — left-aligned, big, cinematic with character animation */}
-          <h1 className="text-6xl md:text-8xl lg:text-9xl font-medium tracking-[-0.03em] leading-[0.9] text-forge-white uppercase">
+          <h1 className="text-4xl sm:text-6xl md:text-8xl lg:text-9xl font-medium tracking-[-0.03em] leading-[0.9] text-forge-white uppercase">
             <CharacterReveal text="One Walk." delay={0.4} stagger={0.04} />
             <br />
             <CharacterReveal text="Zero Typing." delay={0.8} stagger={0.04} className="text-forge-ash/40" />

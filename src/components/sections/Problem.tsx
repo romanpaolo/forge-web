@@ -79,7 +79,7 @@ export default function Problem() {
           >
             <SectionLabel>THE PROBLEM</SectionLabel>
 
-            <h2 className="text-3xl md:text-5xl font-medium tracking-[-0.01em] uppercase text-forge-white leading-tight">
+            <h2 className="text-2xl sm:text-3xl md:text-5xl font-medium tracking-[-0.01em] uppercase text-forge-white leading-tight">
               Your Job Walks Are Costing You Hours, Not Minutes
             </h2>
 

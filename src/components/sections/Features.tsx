@@ -220,7 +220,7 @@ export default function Features() {
               <div className="flex flex-col gap-6">
                 <SectionLabel>{feature.label}</SectionLabel>
 
-                <h2 className="text-3xl md:text-5xl font-medium tracking-[-0.01em] text-forge-white">
+                <h2 className="text-2xl sm:text-3xl md:text-5xl font-medium tracking-[-0.01em] text-forge-white">
                   {feature.title}
                 </h2>
 
