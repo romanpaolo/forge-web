@@ -156,7 +156,7 @@ export default function SpatialVision() {
               </div>
 
               {/* Viewport metrics bar */}
-              <div className="flex items-center justify-between mt-10 pt-6 border-t border-forge-graphite/20">
+              <div className="flex items-center justify-between mt-10 pt-6">
                 {[
                   { label: "LATENCY", value: "<50ms" },
                   { label: "ACCURACY", value: "99.2%" },

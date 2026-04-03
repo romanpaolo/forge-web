@@ -10,9 +10,9 @@ const STEP_ICONS = [FolderPlus, Mic, Brain, Send];
 
 export default function HowItWorks() {
   return (
-    <section id="how-it-works" className="relative py-24 md:py-32 bg-forge-iron overflow-hidden">
-      {/* Spatial dot grid background */}
-      <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+    <section id="how-it-works" className="relative py-24 md:py-32 bg-transparent overflow-hidden">
+      {/* Spatial dot grid background — parallax layer */}
+      <div className="absolute inset-0 pointer-events-none" aria-hidden="true" data-speed="0.85">
         <div
           className="absolute inset-0 opacity-[0.04]"
           style={{
@@ -30,7 +30,7 @@ export default function HowItWorks() {
           </motion.div>
 
           <motion.h2
-            className="text-3xl md:text-5xl font-medium tracking-[-0.01em] uppercase text-forge-white mt-6"
+            className="text-2xl sm:text-3xl md:text-5xl font-medium tracking-[-0.01em] uppercase text-forge-white mt-6"
             {...fadeUp}
             transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }}
           >
@@ -109,7 +109,7 @@ export default function HowItWorks() {
                   {/* Center dot + step number — absolute on desktop, inline on mobile */}
                   <div className="absolute left-5 md:left-1/2 md:-translate-x-1/2 flex flex-col items-center gap-1.5">
                     {/* Orange dot on the line */}
-                    <div className="w-4 h-4 rounded-full bg-forge-cyan border-2 border-forge-iron shadow-[0_0_10px_rgba(14,165,233,0.5)]" />
+                    <div className="w-4 h-4 rounded-full bg-forge-cyan border-2 border-forge-body shadow-[0_0_10px_rgba(14,165,233,0.5)]" />
                   </div>
 
                   {/* Step number — desktop only, opposite side of card */}

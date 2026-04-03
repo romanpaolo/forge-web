@@ -37,10 +37,10 @@ export default function Navbar() {
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 backdrop-blur-sm ${
           scrolled
-            ? "bg-forge-iron/80 backdrop-blur-md border-b border-forge-graphite/40"
-            : "bg-transparent"
+            ? "bg-forge-body/80 backdrop-blur-md border-b border-forge-graphite/40"
+            : "bg-forge-body/30"
         }`}
       >
         <div className="max-w-7xl mx-auto px-6">
@@ -63,16 +63,17 @@ export default function Navbar() {
                 <a
                   key={link.href}
                   href={link.href}
-                  className="text-forge-smoke hover:text-forge-white transition-colors text-sm font-medium"
+                  className="relative text-forge-smoke hover:text-forge-white transition-colors text-sm font-medium group"
                 >
                   {link.label}
+                  <span className="absolute -bottom-1 left-0 w-0 h-px bg-forge-cyan transition-all duration-300 group-hover:w-full" />
                 </a>
               ))}
             </nav>
 
             {/* Desktop CTA */}
             <div className="hidden md:block">
-              <Button href="#pricing" variant="primary" size="sm">
+              <Button href="#pricing" variant="primary" size="sm" className="hover:shadow-[0_0_20px_rgba(248,250,252,0.15)] transition-shadow duration-300">
                 Get Early Access
               </Button>
             </div>
@@ -99,7 +100,7 @@ export default function Navbar() {
       >
         {/* Backdrop */}
         <div
-          className="absolute inset-0 bg-forge-iron/95 backdrop-blur-md"
+          className="absolute inset-0 bg-forge-body/95 backdrop-blur-md"
           onClick={() => setMobileOpen(false)}
         />
 

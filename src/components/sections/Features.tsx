@@ -188,9 +188,9 @@ const PHONE_SCREENS = [CaptureScreen, AiEngineScreen, ExportScreen];
 
 export default function Features() {
   return (
-    <section id="features" className="relative py-24 md:py-32 bg-forge-iron overflow-hidden">
-      {/* Spatial dot grid background */}
-      <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+    <section id="features" className="relative py-24 md:py-32 bg-transparent overflow-hidden">
+      {/* Spatial dot grid background — parallax layer */}
+      <div className="absolute inset-0 pointer-events-none" aria-hidden="true" data-speed="0.85">
         <div
           className="absolute inset-0 opacity-[0.04]"
           style={{
@@ -220,7 +220,7 @@ export default function Features() {
               <div className="flex flex-col gap-6">
                 <SectionLabel>{feature.label}</SectionLabel>
 
-                <h2 className="text-3xl md:text-5xl font-medium tracking-[-0.01em] text-forge-white">
+                <h2 className="text-2xl sm:text-3xl md:text-5xl font-medium tracking-[-0.01em] text-forge-white">
                   {feature.title}
                 </h2>
 

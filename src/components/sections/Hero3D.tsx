@@ -15,6 +15,48 @@ const fadeUp = {
   animate: { opacity: 1, y: 0 },
 };
 
+function CharacterReveal({ text, className, delay = 0, stagger = 0.03 }: { text: string; className?: string; delay?: number; stagger?: number }) {
+  const containerVariants = {
+    initial: {},
+    animate: {
+      transition: { staggerChildren: stagger, delayChildren: delay },
+    },
+  };
+  const wordVariants = {
+    initial: {},
+    animate: {
+      transition: { staggerChildren: stagger },
+    },
+  };
+  const child = {
+    initial: { opacity: 0, y: 20 },
+    animate: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" as const } },
+  };
+
+  const words = text.split(" ");
+
+  return (
+    <motion.span
+      className={className}
+      variants={containerVariants}
+      initial="initial"
+      animate="animate"
+      aria-label={text}
+    >
+      {words.map((word, wi) => (
+        <motion.span key={wi} variants={wordVariants} style={{ display: "inline-block", whiteSpace: "nowrap" }}>
+          {word.split("").map((char, ci) => (
+            <motion.span key={ci} variants={child} style={{ display: "inline-block" }}>
+              {char}
+            </motion.span>
+          ))}
+          {wi < words.length - 1 && <span>&nbsp;</span>}
+        </motion.span>
+      ))}
+    </motion.span>
+  );
+}
+
 const transition = (delay: number) => ({
   duration: 0.8,
   ease: "easeOut" as const,
@@ -54,18 +96,12 @@ export default function Hero3D() {
             ))}
           </motion.div>
 
-          {/* Headline — left-aligned, big, cinematic */}
-          <motion.h1
-            className="text-6xl md:text-8xl lg:text-9xl font-medium tracking-[-0.03em] leading-[0.9] text-forge-white uppercase"
-            variants={fadeUp}
-            initial="initial"
-            animate="animate"
-            transition={transition(0.4)}
-          >
-            One Walk.
+          {/* Headline — left-aligned, big, cinematic with character animation */}
+          <h1 className="text-4xl sm:text-6xl md:text-8xl lg:text-9xl font-medium tracking-[-0.03em] leading-[0.9] text-forge-white uppercase">
+            <CharacterReveal text="One Walk." delay={0.4} stagger={0.04} />
             <br />
-            <span className="text-forge-ash/40">Zero Typing.</span>
-          </motion.h1>
+            <CharacterReveal text="Zero Typing." delay={0.8} stagger={0.04} className="text-forge-ash/40" />
+          </h1>
 
           {/* Subtext + CTA row */}
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-8 mt-8">

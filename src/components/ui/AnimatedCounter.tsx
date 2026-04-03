@@ -40,7 +40,7 @@ export default function AnimatedCounter({
   }, [isInView, value]);
 
   return (
-    <span ref={ref} className="text-5xl md:text-7xl font-bold text-forge-cyan font-[family-name:var(--font-mono)]">
+    <span ref={ref} className="text-3xl sm:text-5xl md:text-7xl font-bold text-forge-cyan font-[family-name:var(--font-mono)]">
       {unit ? unit : `${count}${suffix}`}
     </span>
   );

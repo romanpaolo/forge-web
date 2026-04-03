@@ -15,9 +15,9 @@ const cardVariant = {
 
 export default function Testimonials() {
   return (
-    <section className="relative py-24 md:py-32 bg-forge-steel overflow-hidden">
-      {/* Spatial dot grid background */}
-      <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+    <section className="relative py-24 md:py-32 bg-transparent overflow-hidden">
+      {/* Spatial dot grid background — parallax layer */}
+      <div className="absolute inset-0 pointer-events-none" aria-hidden="true" data-speed="0.85">
         <div
           className="absolute inset-0 opacity-[0.04]"
           style={{
@@ -33,7 +33,7 @@ export default function Testimonials() {
         </motion.div>
 
         <motion.h2
-          className="text-3xl md:text-5xl font-medium tracking-[-0.01em] uppercase text-forge-white mt-6"
+          className="text-2xl sm:text-3xl md:text-5xl font-medium tracking-[-0.01em] uppercase text-forge-white mt-6"
           {...fadeUp}
           transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }}
         >

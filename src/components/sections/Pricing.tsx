@@ -17,9 +17,9 @@ const BENEFITS = [
 
 export default function Pricing() {
   return (
-    <section id="pricing" className="relative py-24 md:py-32 bg-forge-iron overflow-hidden">
-      {/* Spatial dot grid background */}
-      <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+    <section id="pricing" className="relative py-24 md:py-32 bg-transparent overflow-hidden">
+      {/* Spatial dot grid background — parallax layer */}
+      <div className="absolute inset-0 pointer-events-none" aria-hidden="true" data-speed="0.85">
         <div
           className="absolute inset-0 opacity-[0.04]"
           style={{
@@ -29,8 +29,9 @@ export default function Pricing() {
         />
       </div>
 
-      {/* Scanning line animation */}
+      {/* Scanning line animation — parallax layer */}
       <motion.div
+        data-speed="0.7"
         className="absolute left-0 right-0 h-px bg-gradient-to-r from-transparent via-forge-cyan/30 to-transparent pointer-events-none z-10"
         aria-hidden="true"
         animate={{ top: ["0%", "100%", "0%"] }}
@@ -43,11 +44,11 @@ export default function Pricing() {
         </motion.div>
 
         <motion.h2
-          className="text-3xl md:text-5xl font-medium tracking-[-0.01em] uppercase text-forge-white mt-6"
+          className="text-2xl sm:text-3xl md:text-5xl font-medium tracking-[-0.01em] uppercase text-forge-white mt-6"
           {...fadeUp}
           transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }}
         >
-          Join the First 20
+          Join the First 30
         </motion.h2>
 
         <motion.p
@@ -55,7 +56,7 @@ export default function Pricing() {
           {...fadeUp}
           transition={{ duration: 0.6, ease: "easeOut", delay: 0.2 }}
         >
-          We&rsquo;re hand-picking 20 contractors to shape Forge from day one. Free for the
+          We&rsquo;re hand-picking 30 contractors to shape Forge from day one. Free for the
           entire beta period. No credit card. No commitment.
         </motion.p>
 
@@ -77,7 +78,7 @@ export default function Pricing() {
             {/* Status label top-right */}
             <div className="absolute -top-7 right-0 flex items-center gap-2" aria-hidden="true">
               <div className="w-1.5 h-1.5 rounded-full bg-forge-cyan animate-pulse" />
-              <span className="text-[9px] font-mono uppercase tracking-[0.15em] text-forge-smoke">8 spots remaining</span>
+              <span className="text-[9px] font-mono uppercase tracking-[0.15em] text-forge-smoke">18 spots remaining</span>
             </div>
 
             <Card className="border-forge-graphite/50 shadow-[0_0_80px_rgba(14,165,233,0.05)] p-10 flex flex-col items-center gap-6">
@@ -122,7 +123,7 @@ export default function Pricing() {
 
               {/* Spots remaining */}
               <p className="text-forge-smoke font-medium text-sm font-[family-name:var(--font-mono)]">
-                8 of 20 spots remaining
+                18 of 30 spots remaining
               </p>
             </Card>
           </div>
