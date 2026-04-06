@@ -2,7 +2,6 @@ export const NAV_LINKS = [
   { label: "Product", href: "#product" },
   { label: "Features", href: "#features" },
   { label: "How It Works", href: "#how-it-works" },
-  { label: "Design", href: "/design" },
 ];
 
 export const FAQ_ITEMS = [

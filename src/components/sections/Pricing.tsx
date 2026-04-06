@@ -75,11 +75,6 @@ export default function Pricing() {
               <div className="absolute bottom-0 right-0 w-6 h-6 border-b border-r border-forge-graphite/50" />
             </div>
 
-            {/* Status label top-right */}
-            <div className="absolute -top-7 right-0 flex items-center gap-2" aria-hidden="true">
-              <div className="w-1.5 h-1.5 rounded-full bg-forge-cyan animate-pulse" />
-              <span className="text-[9px] font-mono uppercase tracking-[0.15em] text-forge-smoke">18 spots remaining</span>
-            </div>
 
             <Card className="border-forge-graphite/50 shadow-[0_0_80px_rgba(14,165,233,0.05)] p-10 flex flex-col items-center gap-6">
               {/* Badge */}
@@ -121,10 +116,6 @@ export default function Pricing() {
                 </Button>
               </motion.div>
 
-              {/* Spots remaining */}
-              <p className="text-forge-smoke font-medium text-sm font-[family-name:var(--font-mono)]">
-                18 of 30 spots remaining
-              </p>
             </Card>
           </div>
         </motion.div>
