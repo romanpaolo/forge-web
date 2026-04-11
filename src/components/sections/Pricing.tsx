@@ -107,7 +107,9 @@ export default function Pricing() {
                 style={{ borderRadius: "0px" }}
               >
                 <Button
-                  href="mailto:hello@forgebuild.io"
+                  href="https://calendly.com/christian-forge/30min"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   variant="primary"
                   size="lg"
                   className="w-full"

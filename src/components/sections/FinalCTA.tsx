@@ -66,7 +66,7 @@ export default function FinalCTA() {
             {...fadeUp}
             transition={{ duration: 0.6, ease: "easeOut", delay: 0.2 }}
           >
-            <Button href="#pricing" variant="primary" size="lg">
+            <Button href="https://calendly.com/christian-forge/30min" target="_blank" rel="noopener noreferrer" variant="primary" size="lg">
               Join Founders Council
             </Button>
 

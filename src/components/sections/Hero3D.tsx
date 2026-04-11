@@ -123,7 +123,7 @@ export default function Hero3D() {
               animate="animate"
               transition={transition(0.8)}
             >
-              <Button href="#pricing" variant="primary" size="md">
+              <Button href="https://calendly.com/christian-forge/30min" target="_blank" rel="noopener noreferrer" variant="primary" size="md">
                 Join Founders Council
               </Button>
               <Button href="#how-it-works" variant="secondary" size="md">
