@@ -4,10 +4,10 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 import SectionLabel from "@/components/ui/SectionLabel";
-import { FAQ_ITEMS } from "@/lib/constants";
+import { FAQ_ITEMS, type FaqItem } from "@/lib/constants";
 import { fadeUp } from "@/lib/animations";
 
-export default function FAQ() {
+export default function FAQ({ items = FAQ_ITEMS }: { items?: FaqItem[] }) {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   const handleToggle = (index: number) => {
@@ -60,12 +60,12 @@ export default function FAQ() {
           {/* Mono label */}
           <div className="flex items-center gap-2 mb-4" aria-hidden="true">
             <span className="text-[9px] font-mono uppercase tracking-[0.15em] text-forge-graphite">
-              {FAQ_ITEMS.length} questions
+              {items.length} questions
             </span>
             <div className="flex-1 h-px bg-forge-graphite/30" />
           </div>
 
-          {FAQ_ITEMS.map((item, index) => (
+          {items.map((item, index) => (
             <div
               key={item.question}
               className="border-b border-forge-graphite"

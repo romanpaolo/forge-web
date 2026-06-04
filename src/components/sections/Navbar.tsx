@@ -73,7 +73,7 @@ export default function Navbar() {
 
             {/* Desktop CTA */}
             <div className="hidden md:block">
-              <Button href="#pricing" variant="primary" size="sm" className="hover:shadow-[0_0_20px_rgba(248,250,252,0.15)] transition-shadow duration-300">
+              <Button href="/pricing" variant="primary" size="sm" className="hover:shadow-[0_0_20px_rgba(248,250,252,0.15)] transition-shadow duration-300">
                 Get Early Access
               </Button>
             </div>
@@ -146,7 +146,7 @@ export default function Navbar() {
           {/* Mobile CTA */}
           <div className="pt-8">
             <Button
-              href="#pricing"
+              href="/pricing"
               variant="primary"
               size="md"
               onClick={handleNavClick}

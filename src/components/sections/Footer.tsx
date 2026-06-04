@@ -3,13 +3,13 @@ import { Hexagon, Twitter, Linkedin } from "lucide-react";
 const FOOTER_LINKS = {
   Product: [
     { label: "ScopeSnap", href: "#" },
-    { label: "Pricing", href: "#pricing" },
-    { label: "Beta", href: "#pricing" },
+    { label: "Pricing", href: "/pricing" },
+    { label: "Beta", href: "/pricing" },
   ],
   Company: [
     { label: "About", href: "#" },
     { label: "Blog", href: "#" },
-    { label: "Contact", href: "#" },
+    { label: "Contact", href: "/support" },
   ],
   Legal: [
     { label: "Privacy", href: "/legal#privacy" },

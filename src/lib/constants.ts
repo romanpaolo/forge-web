@@ -2,9 +2,13 @@ export const NAV_LINKS = [
   { label: "Product", href: "#product" },
   { label: "Features", href: "#features" },
   { label: "How It Works", href: "#how-it-works" },
+  { label: "Pricing", href: "/pricing" },
+  { label: "Support", href: "/support" },
 ];
 
-export const FAQ_ITEMS = [
+export type FaqItem = { question: string; answer: string };
+
+export const FAQ_ITEMS: FaqItem[] = [
   {
     question: "What is Forge and how does ScopeSnap work?",
     answer: "Forge is an AI-powered field intelligence platform built for general contractors. ScopeSnap, our flagship tool, captures everything during your job walk — audio, photos, and voice tags — then uses AI to structure it into organized scope by area, tasks sorted by trade, open questions, and export-ready packets. One walk in, structured data out.",
@@ -36,6 +40,34 @@ export const FAQ_ITEMS = [
   {
     question: "Is my job walk data secure?",
     answer: "Your data is encrypted in transit and at rest. Forge processes your audio and photos through secure AI pipelines — nothing is shared, sold, or used to train models. Contractors stake their reputation on accurate data, and we take that trust seriously. Your field intelligence stays yours.",
+  },
+];
+
+// Support-page subset — help/account/data questions, distinct from the home FAQ.
+export const SUPPORT_FAQ: FaqItem[] = [
+  {
+    question: "How do I get help or report a problem?",
+    answer: "The fastest way to reach us is email — team@forge.equipment — or the contact form below. Tell us what you were doing, what you expected, and what happened instead. Screenshots help. During the beta you also have a direct line to the dev team through your Founders Council channel.",
+  },
+  {
+    question: "How quickly will I hear back?",
+    answer: "We aim to respond to every message within one business day. Beta members and active job-walk issues are prioritized — if something is blocking you in the field, say so in the subject line and we'll jump on it.",
+  },
+  {
+    question: "I found a bug — what should I do?",
+    answer: "Send it to team@forge.equipment with the word \"Bug\" in the subject. Include your device and browser, the project or walk where it happened, and the steps to reproduce it. Bug reports from Founders Council members shape our weekly fixes, so the more detail the better.",
+  },
+  {
+    question: "Can I cancel, pause, or delete my account?",
+    answer: "Yes. There are no contracts during the beta — cancel anytime and you keep access through the current period. To delete your account and personal data, email us and we'll remove it within 30 days, except where retention is required by law. See our Privacy Policy for details.",
+  },
+  {
+    question: "Is my job walk data secure?",
+    answer: "Your data is encrypted in transit and at rest. Forge processes your audio and photos through secure AI pipelines — nothing is shared, sold, or used to train models. Your field intelligence stays yours.",
+  },
+  {
+    question: "How do I join the Founders Council?",
+    answer: "Book a quick call with the team and we'll get you set up. We're hand-picking contractors to shape Forge from day one — full ScopeSnap access, unlimited job walks, and locked-in founding pricing, free during the entire beta.",
   },
 ];
 
