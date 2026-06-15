@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import Link from "next/link";
 import { Hexagon, Menu, X } from "lucide-react";
 import Navbar from "@/components/sections/Navbar";
 import SectionLabel from "@/components/ui/SectionLabel";
@@ -104,14 +105,14 @@ export default function LegalPage() {
       <header className="fixed top-16 left-0 right-0 z-40 bg-forge-iron/90 backdrop-blur-md border-b border-white/5">
         <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <a
+            <Link
               href="/"
               className="flex items-center gap-2 text-forge-smoke hover:text-forge-white transition-colors"
               aria-label="Back to Forge home"
             >
               <Hexagon size={18} strokeWidth={2} className="text-forge-cyan" aria-hidden="true" />
               <span className="font-bold text-forge-white tracking-tight">FORGE</span>
-            </a>
+            </Link>
             <span className="text-forge-graphite select-none">/</span>
             <span className="text-forge-smoke text-sm font-medium">Legal</span>
           </div>
@@ -375,7 +376,11 @@ export default function LegalPage() {
             </p>
 
             <Clause number="1" title="Information We Collect">
-              <p>We may collect:</p>
+              <p>
+                We collect the following directly from you through your use of the app — for
+                example, when you record a job-walk, capture or upload photos and plan sets, or
+                enter project details:
+              </p>
               <ul className="list-disc list-inside ml-2 flex flex-col gap-1">
                 <li>Contact information (name, email)</li>
                 <li>User inputs (project details, measurements, descriptions, audio recordings, and photos)</li>
@@ -398,17 +403,54 @@ export default function LegalPage() {
 
             <Clause number="3" title="Data Sharing">
               <p>
-                We do not sell your personal data. We may share data with:
+                We do not sell your personal data. To operate the Service we share data with the
+                third parties below, each bound by a data-processing agreement and permitted to use
+                your data only to provide their service to us:
               </p>
               <ul className="list-disc list-inside ml-2 flex flex-col gap-1">
-                <li>Stripe — for payment processing (subject to Stripe&rsquo;s Privacy Policy)</li>
-                <li>AI/LLM providers — for processing your inputs and generating outputs (your data is not used to train third-party models)</li>
-                <li>Hosting and analytics providers</li>
-                <li>Legal authorities if required by law</li>
+                <li>
+                  <strong className="text-forge-white">Anthropic (Claude)</strong> — receives your
+                  job-walk transcript and related project details (which may include client and
+                  site names, addresses, and pricing), job-site photos, and uploaded plan sets, to
+                  generate scope and estimate documents.
+                </li>
+                <li>
+                  <strong className="text-forge-white">OpenAI (Whisper)</strong> — receives your
+                  job-walk audio recordings to transcribe them to text.
+                </li>
+                <li>
+                  <strong className="text-forge-white">Tavily</strong> — receives a building-code
+                  search query (task description and project city, state, and ZIP) to retrieve code
+                  references.
+                </li>
+                <li>
+                  <strong className="text-forge-white">Stripe</strong> — payment processing
+                  (subject to Stripe&rsquo;s Privacy Policy).
+                </li>
+                <li>Hosting, infrastructure, and analytics providers — to run and monitor the Service.</li>
+                <li>Legal authorities — where required by law.</li>
               </ul>
+              <p>
+                Each AI provider above processes your data solely to perform the requested task on
+                our behalf. Under our agreements with them, your inputs are not used to train their
+                AI models, and they are contractually required to protect your data to a standard
+                at least equivalent to this Policy.
+              </p>
             </Clause>
 
-            <Clause number="4" title="Payment Data">
+            <Clause number="4" title="AI Processing">
+              <p>
+                Forge uses third-party AI to turn your job-walk into documents. When you record,
+                transcribe, or generate a scope or estimate: (1) your audio is sent to OpenAI
+                (Whisper) for transcription, and (2) the resulting transcript, related project
+                details, job-site photos, and any uploaded plan sets are sent to Anthropic (Claude)
+                to generate your documents. We send only what is needed to produce your document.
+                We ask for your consent before AI processing occurs, and you can withdraw consent
+                at any time in Settings; declining still lets you use the non-AI parts of Forge.
+              </p>
+            </Clause>
+
+            <Clause number="5" title="Payment Data">
               <p>
                 All payment processing is handled by Stripe. When you provide payment
                 information, it is transmitted directly to Stripe via their secure,
@@ -418,7 +460,7 @@ export default function LegalPage() {
               </p>
             </Clause>
 
-            <Clause number="5" title="Data Storage and Retention">
+            <Clause number="6" title="Data Storage and Retention">
               <p>
                 We take reasonable measures to protect your data, including encryption in
                 transit and at rest. We retain your account data for as long as your account
@@ -428,28 +470,33 @@ export default function LegalPage() {
               </p>
             </Clause>
 
-            <Clause number="6" title="Your Rights">
+            <Clause number="7" title="Your Rights">
               <p>
                 You may request access, correction, or deletion of your data at any time by
                 contacting us. We will respond to requests within 30 days.
               </p>
+              <p>
+                Where we rely on your consent (including for AI processing), you may withdraw it at
+                any time in the app&rsquo;s Settings or by contacting us. Withdrawing consent stops
+                future AI processing but does not affect processing already completed.
+              </p>
             </Clause>
 
-            <Clause number="7" title="Cookies">
+            <Clause number="8" title="Cookies">
               <p>
                 We may use cookies and similar technologies to improve user experience and
                 analyze usage patterns.
               </p>
             </Clause>
 
-            <Clause number="8" title="Changes to Policy">
+            <Clause number="9" title="Changes to Policy">
               <p>
                 We may update this Privacy Policy at any time. For material changes, we will
                 notify you via email or through the platform.
               </p>
             </Clause>
 
-            <Clause number="9" title="Contact">
+            <Clause number="10" title="Contact">
               <p>Forge Solutions, Corp</p>
               <p>
                 Email:{" "}
