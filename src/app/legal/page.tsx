@@ -22,11 +22,13 @@ function Section({
   id,
   tag,
   title,
+  effectiveDate = "March 29, 2026",
   children,
 }: {
   id: string;
   tag: string;
   title: string;
+  effectiveDate?: string;
   children: React.ReactNode;
 }) {
   return (
@@ -36,7 +38,7 @@ function Section({
         <h2 className="text-3xl font-semibold text-forge-white mt-4 mb-3 tracking-tight">
           {title}
         </h2>
-        <p className="text-forge-smoke text-sm">Effective Date: March 29, 2026</p>
+        <p className="text-forge-smoke text-sm">Effective Date: {effectiveDate}</p>
       </div>
       <div className="prose-legal max-w-3xl flex flex-col gap-8">{children}</div>
     </section>
@@ -370,7 +372,7 @@ export default function LegalPage() {
           </Section>
 
           {/* ── 2. Privacy Policy ────────────────────────────────────────── */}
-          <Section id="privacy" tag="Legal" title="Privacy Policy">
+          <Section id="privacy" tag="Legal" title="Privacy Policy" effectiveDate="June 16, 2026">
             <p className="text-forge-smoke text-sm leading-relaxed">
               Forge Solutions, Corp (&ldquo;we,&rdquo; &ldquo;our,&rdquo; or &ldquo;us&rdquo;) respects your privacy.
             </p>
