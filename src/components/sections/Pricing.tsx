@@ -8,7 +8,7 @@ import Button from "@/components/ui/Button";
 import { fadeUp, glowPulse } from "@/lib/animations";
 
 const BENEFITS = [
-  "Full ScopeSnap access",
+  "Full Forge access",
   "Unlimited job walks",
   "Direct line to the dev team",
   "Lock in founding member pricing",

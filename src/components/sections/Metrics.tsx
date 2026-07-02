@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import SectionLabel from "@/components/ui/SectionLabel";
 import Card from "@/components/ui/Card";
 import AnimatedCounter from "@/components/ui/AnimatedCounter";
-import { METRICS, MARKET_DATA } from "@/lib/constants";
+import { METRICS } from "@/lib/constants";
 import { fadeUp } from "@/lib/animations";
 
 export default function Metrics() {
@@ -74,41 +74,6 @@ export default function Metrics() {
             </motion.div>
           ))}
         </div>
-
-        {/* Market data — matching Forge team design */}
-        <motion.div
-          className="mt-20"
-          {...fadeUp}
-          transition={{ duration: 0.6, ease: "easeOut", delay: 0.3 }}
-        >
-          <h3 className="text-2xl md:text-3xl font-medium tracking-[-0.01em] uppercase text-forge-white">
-            The Future of Field Intelligence
-          </h3>
-
-          {/* Mono status label */}
-          <div className="flex items-center justify-center gap-2 mt-4" aria-hidden="true">
-            <div className="w-1.5 h-1.5 rounded-full bg-forge-cyan/60 animate-pulse" />
-            <span className="text-[9px] font-mono uppercase tracking-[0.15em] text-forge-graphite">market signal</span>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
-            {MARKET_DATA.map((item, index) => (
-              <motion.div
-                key={item.label}
-                {...fadeUp}
-                transition={{ duration: 0.6, ease: "easeOut", delay: 0.4 + index * 0.1 }}
-                className="relative flex flex-col items-center"
-              >
-                <span className="text-2xl sm:text-4xl md:text-5xl font-medium text-forge-white font-[family-name:var(--font-mono)] tracking-tight">
-                  {item.value}
-                </span>
-                <span className="text-forge-smoke text-sm uppercase tracking-[0.1em] mt-3">
-                  {item.label}
-                </span>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
       </div>
     </section>
   );

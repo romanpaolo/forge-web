@@ -159,7 +159,7 @@ export default function SpatialVision() {
               <div className="flex items-center justify-between mt-10 pt-6">
                 {[
                   { label: "LATENCY", value: "<50ms" },
-                  { label: "ACCURACY", value: "99.2%" },
+                  { label: "TRADES", value: "6" },
                   { label: "SPATIAL RES", value: "1cm" },
                   { label: "SYNC", value: "REAL-TIME" },
                 ].map(({ label, value }) => (

@@ -370,7 +370,7 @@ const LANDING_PAGE_SECTIONS = [
   {
     num: "03",
     title: "Features Showcase",
-    desc: "High-fidelity app mockups showing ScopeSnap",
+    desc: "High-fidelity app mockups showing Forge",
   },
   {
     num: "04",
@@ -2259,7 +2259,7 @@ export default function DesignPage() {
                     Brand Hashtags
                   </h4>
                   <div className="flex flex-wrap gap-2">
-                    {["#BuiltForTheTrades", "#ForgeAI", "#FieldIntelligence", "#ScopeSnap", "#ZeroTyping"].map((tag) => (
+                    {["#BuiltForTheTrades", "#ForgeAI", "#FieldIntelligence", "#OneWalk", "#ZeroTyping"].map((tag) => (
                       <span
                         key={tag}
                         className="text-xs font-mono text-forge-cyan bg-forge-cyan/10 border border-forge-cyan/20 px-3 py-1.5 rounded"

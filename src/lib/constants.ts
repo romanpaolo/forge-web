@@ -1,7 +1,9 @@
+// Anchor links are root-relative (/#features, not #features) so they work
+// from /pricing, /support, and /legal — not just the homepage.
 export const NAV_LINKS = [
-  { label: "Product", href: "#product" },
-  { label: "Features", href: "#features" },
-  { label: "How It Works", href: "#how-it-works" },
+  { label: "Product", href: "/#product" },
+  { label: "Features", href: "/#features" },
+  { label: "How It Works", href: "/#how-it-works" },
   { label: "Pricing", href: "/pricing" },
   { label: "Support", href: "/support" },
 ];
@@ -10,16 +12,16 @@ export type FaqItem = { question: string; answer: string };
 
 export const FAQ_ITEMS: FaqItem[] = [
   {
-    question: "What is Forge and how does ScopeSnap work?",
-    answer: "Forge is an AI-powered field intelligence platform built for general contractors. ScopeSnap, our flagship tool, captures everything during your job walk — audio, photos, and voice tags — then uses AI to structure it into organized scope by area, tasks sorted by trade, open questions, and export-ready packets. One walk in, structured data out.",
+    question: "What is Forge and how does it work?",
+    answer: "Forge is an AI-powered field intelligence platform built for general contractors. It captures everything during your job walk — audio, photos, and voice tags — then uses AI to structure it into organized scope by area, tasks sorted by trade, open questions, and export-ready packets. One walk in, structured data out.",
   },
   {
     question: "Do I need special hardware or an app download?",
-    answer: "No special hardware required. ScopeSnap works on any smartphone or tablet through a mobile web app — no app store downloads needed. If you use AR-enabled devices like Meta Glasses, Forge is designed to support spatial capture as that technology matures.",
+    answer: "No special hardware — your phone is all you need. Forge is a native iOS app on the App Store, paired with a full web dashboard your whole team can use from any browser. An Android app is in development.",
   },
   {
     question: "How accurate is the AI structuring?",
-    answer: "Forge's AI is built to structure, never assume. Every uncertain item is flagged for your review — it will never silently guess on scope details that affect your bid. You review and approve the full output before exporting. Our target accuracy is 99.2% on structured field data.",
+    answer: "Forge's AI is built to structure, never assume. Every uncertain item is flagged for your review — it will never silently guess on scope details that affect your bid. You review and approve the full output before exporting.",
   },
   {
     question: "What tools does Forge integrate with?",
@@ -27,7 +29,7 @@ export const FAQ_ITEMS: FaqItem[] = [
   },
   {
     question: "What does the Founders Council beta include?",
-    answer: "Founders Council members get full ScopeSnap access, unlimited job walks, a direct line to the dev team, and locked-in founding member pricing — all free during the entire beta period. No credit card, no contracts, cancel anytime. We're hand-picking 20 contractors to shape Forge from day one.",
+    answer: "Founders Council members get full Forge access, unlimited job walks, a direct line to the dev team, and locked-in founding member pricing — all free during the entire beta period. No credit card, no contracts, cancel anytime. We're hand-picking 30 contractors to shape Forge from day one.",
   },
   {
     question: "How long is the beta and what happens after?",
@@ -67,7 +69,7 @@ export const SUPPORT_FAQ: FaqItem[] = [
   },
   {
     question: "How do I join the Founders Council?",
-    answer: "Book a quick call with the team and we'll get you set up. We're hand-picking contractors to shape Forge from day one — full ScopeSnap access, unlimited job walks, and locked-in founding pricing, free during the entire beta.",
+    answer: "Book a quick call with the team and we'll get you set up. We're hand-picking contractors to shape Forge from day one — full Forge access, unlimited job walks, and locked-in founding pricing, free during the entire beta.",
   },
 ];
 
@@ -105,24 +107,6 @@ export const FEATURES = [
   },
 ];
 
-export const TESTIMONIALS = [
-  {
-    quote: "I used to spend my drive home just organizing notes from the walk. Now I hit export before I leave the job site.",
-    name: "Mike R.",
-    title: "GC, Austin TX",
-  },
-  {
-    quote: "We were wasting 30 minutes after every walk just getting notes into Buildertrend. That's gone now.",
-    name: "Christian",
-    title: "General Contractor",
-  },
-  {
-    quote: "My PM used to call me three times after every walk asking for details. Now she gets everything in one clean packet.",
-    name: "Sarah K.",
-    title: "GC, Denver CO",
-  },
-];
-
 export const STEPS = [
   {
     number: "01",
@@ -150,10 +134,4 @@ export const METRICS = [
   { value: 20, suffix: "+", unit: "", label: "Minutes saved per walk" },
   { value: 1, suffix: "", unit: "", label: "Workflow, not four" },
   { value: 0, suffix: "", unit: "Zero", label: "Typing required" },
-];
-
-export const MARKET_DATA = [
-  { value: "$39B+", label: "Total Addressable Market" },
-  { value: "$3.1B", label: "US Serviceable Market" },
-  { value: "$62M", label: "5-Year SOM" },
 ];

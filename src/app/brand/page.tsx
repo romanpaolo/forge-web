@@ -109,7 +109,7 @@ const TYPE_SCALE = [
     tracking: "tracking-normal",
     lineHeight: "leading-relaxed",
     spec: "16px · Regular · 1.6 line-height",
-    sample: "No special hardware required. ScopeSnap works on any smartphone or tablet with a browser.",
+    sample: "No special hardware required. Forge runs on your iPhone, with a full web dashboard in any browser.",
   },
   {
     label: "Caption",
