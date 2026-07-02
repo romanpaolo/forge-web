@@ -247,6 +247,20 @@ export default function LegalPage() {
             </Clause>
 
             <Clause number="6" title="Free Trials and Beta Access">
+              {/* Beta clarifier — keep consistent with the dashboard's beta notice. */}
+              <div className="border border-forge-cyan/40 bg-forge-cyan/5 p-4 flex flex-col gap-2">
+                <p className="text-forge-white font-semibold text-sm uppercase tracking-[0.1em]">
+                  Current Beta — Clarification (July 2, 2026)
+                </p>
+                <p>
+                  The current Forge beta is <strong className="text-forge-white">free</strong>.
+                  We do not collect a payment method, and nothing converts to a paid
+                  subscription or renews automatically. The subscription, billing, and
+                  auto-renewal terms in this section and Sections 4–5 take effect only
+                  when paid plans launch, and only after we give you prior notice and
+                  you expressly sign up for a paid plan.
+                </p>
+              </div>
               <p>
                 We may offer free trials or beta access at our discretion. When a free trial
                 or beta period ends, your account will convert to a paid subscription at the
