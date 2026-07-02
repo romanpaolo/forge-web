@@ -23,14 +23,15 @@ const outfit = Outfit({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://www.forge.equipment'),
   title: 'Forge — One Walk. Zero Typing. Job-Ready Data.',
   description: 'Forge turns a single job walk into structured scope, tasks by trade, and Buildertrend-ready exports. Built for general contractors.',
-  keywords: ['general contractor', 'job walk', 'ScopeSnap', 'Buildertrend', 'construction AI', 'scope of work'],
+  keywords: ['general contractor', 'job walk', 'Buildertrend', 'construction AI', 'scope of work', 'construction estimates'],
   openGraph: {
     title: 'Forge — The AI Job Walk Tool for Contractors',
     description: 'One walk in. Structured scope out. Save 20+ minutes per job.',
     type: 'website',
-    url: 'https://forgebuild.io',
+    url: 'https://www.forge.equipment',
     images: [{ url: '/og-image.png', width: 1200, height: 630 }],
   },
   twitter: {
