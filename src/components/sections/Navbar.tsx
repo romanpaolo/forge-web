@@ -5,6 +5,8 @@ import { Hexagon, Menu, X } from "lucide-react";
 import Button from "@/components/ui/Button";
 import { NAV_LINKS } from "@/lib/constants";
 
+const DASHBOARD_URL = "https://forge-web-nine.vercel.app";
+
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -71,8 +73,11 @@ export default function Navbar() {
               ))}
             </nav>
 
-            {/* Desktop CTA */}
-            <div className="hidden md:block">
+            {/* Desktop CTAs */}
+            <div className="hidden md:flex items-center gap-3">
+              <Button href={DASHBOARD_URL} variant="secondary" size="sm">
+                Sign in
+              </Button>
               <Button href="/pricing" variant="primary" size="sm" className="hover:shadow-[0_0_20px_rgba(248,250,252,0.15)] transition-shadow duration-300">
                 Get Early Access
               </Button>
@@ -143,8 +148,17 @@ export default function Navbar() {
             ))}
           </nav>
 
-          {/* Mobile CTA */}
-          <div className="pt-8">
+          {/* Mobile CTAs */}
+          <div className="pt-8 flex flex-col gap-3">
+            <Button
+              href={DASHBOARD_URL}
+              variant="secondary"
+              size="md"
+              onClick={handleNavClick}
+              className="w-full"
+            >
+              Sign in
+            </Button>
             <Button
               href="/pricing"
               variant="primary"

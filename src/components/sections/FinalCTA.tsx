@@ -74,6 +74,15 @@ export default function FinalCTA() {
               No credit card required. 30 spots only.
             </p>
 
+            <a
+              href="https://apps.apple.com/us/app/id6762521834"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-forge-smoke hover:text-forge-white text-sm transition-colors underline underline-offset-4 decoration-forge-graphite"
+            >
+              Download on the App Store
+            </a>
+
             {/* Bottom mono label */}
             <div className="flex items-center gap-2 mt-2" aria-hidden="true">
               <div className="w-8 h-px bg-forge-graphite" />

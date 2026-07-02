@@ -117,18 +117,28 @@ export default function Hero3D() {
             </motion.p>
 
             <motion.div
-              className="flex items-center gap-3"
+              className="flex flex-col items-start md:items-end gap-3"
               variants={fadeUp}
               initial="initial"
               animate="animate"
               transition={transition(0.8)}
             >
-              <Button href="https://calendly.com/christian-forge/30min" target="_blank" rel="noopener noreferrer" variant="primary" size="md">
-                Join Founders Council
-              </Button>
-              <Button href="#how-it-works" variant="secondary" size="md">
-                How It Works
-              </Button>
+              <div className="flex items-center gap-3">
+                <Button href="https://calendly.com/christian-forge/30min" target="_blank" rel="noopener noreferrer" variant="primary" size="md">
+                  Join Founders Council
+                </Button>
+                <Button href="#how-it-works" variant="secondary" size="md">
+                  How It Works
+                </Button>
+              </div>
+              <a
+                href="https://apps.apple.com/us/app/id6762521834"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-forge-smoke hover:text-forge-white text-sm transition-colors"
+              >
+                Download on the App Store
+              </a>
             </motion.div>
           </div>
 
