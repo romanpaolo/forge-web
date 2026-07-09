@@ -1,5 +1,13 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+## Environment variables
+
+All optional — the site builds and runs with none set.
+
+| Variable | Default | Effect |
+|---|---|---|
+| `NEXT_PUBLIC_ANDROID_WAITLIST` | unset (off) | Set to `true` at build time to render the Android waitlist form (homepage + `/pricing`). **Keep OFF until TCPA-compliant consent language is reviewed** (PRD Open Item #10) and a real collection endpoint is wired (see `src/components/sections/AndroidWaitlist.tsx`, `TODO(wiring)`). Everywhere else Android stays "coming soon" text. |
+
 ## Getting Started
 
 First, run the development server:
