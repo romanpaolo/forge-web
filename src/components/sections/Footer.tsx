@@ -1,16 +1,18 @@
 import { Hexagon } from "lucide-react";
-
-const APP_STORE_URL = "https://apps.apple.com/us/app/id6762521834";
+import { APP_STORE_URL, CASE_STUDY_PATH } from "@/lib/constants";
 
 // Only real destinations — no href="#" placeholders. About/Blog and social
 // icons return when they have somewhere to point.
 const FOOTER_LINKS = {
   Product: [
-    { label: "Features", href: "/#features" },
+    { label: "Product", href: "/#product" },
+    { label: "How It Works", href: "/#how-it-works" },
     { label: "Pricing", href: "/pricing" },
-    { label: "Beta", href: "/pricing" },
   ],
-  Company: [{ label: "Contact", href: "/support" }],
+  Company: [
+    { label: "Customers", href: CASE_STUDY_PATH },
+    { label: "Contact", href: "/support" },
+  ],
   Legal: [
     { label: "Privacy", href: "/legal#privacy" },
     { label: "Terms", href: "/legal#terms" },
