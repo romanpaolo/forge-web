@@ -1,0 +1,207 @@
+"use client";
+
+import { useState } from "react";
+import { Minus, Plus } from "lucide-react";
+import Button from "@/components/ui/Button";
+import { CALENDLY_URL, CASE_STUDY_PATH, trialSignupUrl } from "@/lib/constants";
+import {
+  MIN_SEATS,
+  INCLUDED_SEATS,
+  SEAT_MONTHLY,
+  SEAT_ANNUAL,
+  BASE_ANNUAL,
+  monthlyTotal,
+  annualTotal,
+  formatUsd,
+  type BillingPlan,
+} from "@/lib/pricing";
+
+/* Plan card + monthly/annual toggle + seat stepper — PRD 9.10 / Section 8.
+ * Price math is client-side display only (249 + 39×(seats−3) monthly;
+ * 2390 + 374×(seats−3) annual). The CTA carries plan+seats to the dashboard
+ * signup; live Stripe Checkout (PRD Section 13) is a later backend project. */
+
+const PLAN_FEATURES = [
+  "Unlimited job walks and recordings",
+  "AI-generated scope + estimate from every walk",
+  "iOS + Web access (Android coming soon)",
+  "Export to Buildertrend, PDF, and CSV",
+  "Full team roles — Owner, Admin, PM, Estimator, Sub",
+  "Email support",
+];
+
+export default function PlanConfigurator() {
+  const [plan, setPlan] = useState<BillingPlan>("monthly");
+  const [seats, setSeats] = useState(MIN_SEATS);
+
+  const extraSeats = seats - INCLUDED_SEATS;
+  const monthly = monthlyTotal(seats);
+  const annual = annualTotal(seats);
+  const annualPerMonth = Math.round(annual / 12);
+
+  return (
+    <div className="max-w-lg mx-auto">
+      {/* Monthly / Annual toggle */}
+      <div
+        className="flex items-center justify-center gap-0 border border-forge-graphite/60 w-fit mx-auto"
+        role="group"
+        aria-label="Billing period"
+      >
+        {(
+          [
+            { id: "monthly", label: "Monthly" },
+            { id: "annual", label: "Annual — save 20%" },
+          ] as const
+        ).map(({ id, label }) => (
+          <button
+            key={id}
+            onClick={() => setPlan(id)}
+            aria-pressed={plan === id}
+            className={`px-6 py-3 text-sm font-semibold uppercase tracking-[0.1em] font-[family-name:var(--font-mono)] transition-colors ${
+              plan === id
+                ? "bg-forge-white text-forge-iron"
+                : "text-forge-smoke hover:text-forge-white"
+            }`}
+          >
+            {label}
+          </button>
+        ))}
+      </div>
+
+      {/* Plan card */}
+      <div className="relative mt-12">
+        {/* Outer corner brackets */}
+        <div className="absolute -inset-4 pointer-events-none" aria-hidden="true">
+          <div className="absolute top-0 left-0 w-6 h-6 border-t border-l border-forge-graphite/50" />
+          <div className="absolute top-0 right-0 w-6 h-6 border-t border-r border-forge-graphite/50" />
+          <div className="absolute bottom-0 left-0 w-6 h-6 border-b border-l border-forge-graphite/50" />
+          <div className="absolute bottom-0 right-0 w-6 h-6 border-b border-r border-forge-graphite/50" />
+        </div>
+
+        <div className="bg-forge-graphite/50 backdrop-blur-sm border border-forge-cyan/30 shadow-[0_0_80px_rgba(14,165,233,0.05)] rounded-none p-8 md:p-10 flex flex-col gap-6">
+          <span className="bg-forge-white/5 text-forge-ash self-start px-4 py-1.5 text-sm font-bold uppercase tracking-[0.15em] font-[family-name:var(--font-mono)]">
+            FORGE
+          </span>
+
+          {/* Price */}
+          <div>
+            <div className="flex items-baseline gap-2">
+              <span className="text-5xl font-medium text-forge-white tabular-nums tracking-tight">
+                {plan === "monthly" ? formatUsd(monthly) : formatUsd(annual)}
+              </span>
+              <span className="text-forge-smoke text-lg">
+                {plan === "monthly" ? "/mo" : "/yr"}
+              </span>
+            </div>
+
+            {plan === "monthly" ? (
+              <>
+                <p className="text-forge-smoke text-sm mt-2">
+                  includes 3 seats · +{formatUsd(SEAT_MONTHLY)}/mo per additional seat
+                </p>
+                <p className="text-forge-graphite text-xs mt-1">
+                  (Annual: {formatUsd(BASE_ANNUAL)}/yr · +{formatUsd(SEAT_ANNUAL)}/yr per
+                  additional seat — save 20%)
+                </p>
+              </>
+            ) : (
+              <>
+                <p className="text-forge-smoke text-sm mt-2">
+                  ≈ {formatUsd(annualPerMonth)}/mo · includes 3 seats · +
+                  {formatUsd(SEAT_ANNUAL)}/yr per additional seat
+                </p>
+                <p className="text-forge-graphite text-xs mt-1">Save 20% billed annually</p>
+              </>
+            )}
+          </div>
+
+          {/* Seat stepper — starts at 3, min 3 */}
+          <div className="flex items-center justify-between border border-white/10 px-4 py-3">
+            <div>
+              <p className="text-forge-white text-sm font-medium tabular-nums">
+                {seats} seats
+              </p>
+              <p className="text-forge-graphite text-xs mt-0.5">
+                {extraSeats === 0
+                  ? "your first 3 seats are included"
+                  : `3 included + ${extraSeats} × ${
+                      plan === "monthly"
+                        ? `${formatUsd(SEAT_MONTHLY)}/mo`
+                        : `${formatUsd(SEAT_ANNUAL)}/yr`
+                    }`}
+              </p>
+            </div>
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => setSeats((s) => Math.max(MIN_SEATS, s - 1))}
+                disabled={seats <= MIN_SEATS}
+                aria-label="Remove a seat"
+                className="p-2 border border-forge-graphite text-forge-ash hover:text-forge-white hover:border-forge-smoke disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+              >
+                <Minus size={16} strokeWidth={2} />
+              </button>
+              <button
+                onClick={() => setSeats((s) => s + 1)}
+                aria-label="Add a seat"
+                className="p-2 border border-forge-graphite text-forge-ash hover:text-forge-white hover:border-forge-smoke transition-colors"
+              >
+                <Plus size={16} strokeWidth={2} />
+              </button>
+            </div>
+          </div>
+
+          {/* Feature list */}
+          <div>
+            <p className="text-forge-white text-sm font-medium">
+              Everything you need to scope and estimate from the field:
+            </p>
+            <ul className="flex flex-col gap-2.5 mt-4">
+              {PLAN_FEATURES.map((feature) => (
+                <li key={feature} className="flex items-start gap-3 text-left">
+                  <span className="text-forge-cyan font-mono text-sm shrink-0 mt-0.5" aria-hidden="true">
+                    ＋
+                  </span>
+                  <span className="text-forge-ash text-sm">{feature}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* CTAs — plan + seats ride along to the dashboard signup */}
+          <div className="flex flex-col gap-3 mt-2">
+            <Button href={trialSignupUrl(plan, seats)} variant="primary" size="lg" className="w-full">
+              Start Free Trial
+            </Button>
+            <p className="text-forge-smoke text-sm text-center">
+              Prefer a walkthrough first?{" "}
+              <a
+                href={CALENDLY_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-forge-white hover:text-forge-cyan transition-colors underline underline-offset-4 decoration-forge-graphite"
+              >
+                Talk to Sales
+              </a>
+            </p>
+          </div>
+
+          <p className="text-forge-graphite text-xs text-center">
+            14-day free trial on both plans — no credit card required to start.
+          </p>
+        </div>
+      </div>
+
+      {/* ROI line — PRD 9.10 / 10.6 */}
+      <p className="text-forge-smoke text-sm text-center leading-relaxed mt-10 max-w-md mx-auto">
+        Harris &amp; Sons cut estimating time 75% and added $330K in
+        Forge-attributed revenue in their first 90 days.{" "}
+        <a
+          href={CASE_STUDY_PATH}
+          className="text-forge-white hover:text-forge-cyan transition-colors underline underline-offset-4 decoration-forge-graphite whitespace-nowrap"
+        >
+          See the full story →
+        </a>
+      </p>
+    </div>
+  );
+}
