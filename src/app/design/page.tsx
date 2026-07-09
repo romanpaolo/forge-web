@@ -1632,17 +1632,17 @@ export default function DesignPage() {
                   {/* Simulated page section */}
                   <div className="bg-forge-iron/50 border border-white/5 rounded-lg p-5">
                     <p className="text-[9px] font-mono text-forge-smoke uppercase tracking-widest mb-2" style={{ fontFamily: "var(--font-mono)" }}>
-                      EARLY ACCESS
+                      FREE TRIAL
                     </p>
                     <p className="text-xl font-medium text-forge-white uppercase tracking-[-0.01em] mb-2" style={{ fontFamily: heading }}>
-                      Join Founders Council
+                      Start Free Trial
                     </p>
                     <p className="text-sm text-forge-smoke leading-relaxed mb-3" style={{ fontFamily: "var(--font-body)" }}>
-                      We&apos;re hand-picking 20 contractors to shape Forge from day one.
+                      Walk the job. Leave with the estimate. 14-day free trial, no card required.
                     </p>
                     <div className="inline-block bg-forge-white px-4 py-2">
                       <span className="text-xs font-medium text-forge-iron uppercase tracking-[0.1em]" style={{ fontFamily: "var(--font-mono)" }}>
-                        Join Founders Council
+                        Start Free Trial
                       </span>
                     </div>
                   </div>
@@ -2279,7 +2279,7 @@ export default function DesignPage() {
                   {
                     icon: Mail,
                     label: "Email Signature",
-                    value: "Dark-themed with Forge logo, name, title, and \"Join Founders Council\" CTA",
+                    value: "Dark-themed with Forge logo, name, title, and \"Start Free Trial\" CTA",
                   },
                   {
                     icon: FileText,
@@ -2489,7 +2489,7 @@ export default function DesignPage() {
                     {
                       icon: Globe,
                       label: "External",
-                      value: "Brand portal needed once beta scales — for press, partners, integration partners",
+                      value: "Brand portal needed as the brand scales — for press, partners, integration partners",
                     },
                     {
                       icon: FileText,

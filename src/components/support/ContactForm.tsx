@@ -22,7 +22,7 @@ const TOPICS = [
   "General question",
   "Bug report",
   "Billing & account",
-  "Founders Council",
+  "Sales & trials",
   "Feature request",
   "Data & privacy",
 ] as const;
