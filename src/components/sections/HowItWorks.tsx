@@ -1,16 +1,16 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { FolderPlus, Mic, Brain, Send } from "lucide-react";
+import { Mic, Brain, Send } from "lucide-react";
 import SectionLabel from "@/components/ui/SectionLabel";
 import { STEPS } from "@/lib/constants";
 import { fadeUp } from "@/lib/animations";
 
-const STEP_ICONS = [FolderPlus, Mic, Brain, Send];
+const STEP_ICONS = [Mic, Brain, Send];
 
 export default function HowItWorks() {
   return (
-    <section id="how-it-works" className="relative py-24 md:py-32 bg-transparent overflow-hidden">
+    <section id="how-it-works" className="relative py-24 md:py-32 bg-transparent section-depth-c overflow-hidden">
       {/* Spatial dot grid background — parallax layer */}
       <div className="absolute inset-0 pointer-events-none" aria-hidden="true" data-speed="0.85">
         <div
@@ -34,7 +34,7 @@ export default function HowItWorks() {
             {...fadeUp}
             transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }}
           >
-            From Walk to Handoff in Four Steps
+            From Walk to Estimate in Three Steps
           </motion.h2>
 
           {/* Spatial status indicator */}
@@ -45,7 +45,7 @@ export default function HowItWorks() {
             aria-hidden="true"
           >
             <div className="w-1.5 h-1.5 rounded-full bg-forge-cyan animate-pulse" />
-            <span className="text-[9px] font-mono uppercase tracking-[0.15em] text-forge-smoke">4 steps detected</span>
+            <span className="text-[9px] font-mono uppercase tracking-[0.15em] text-forge-smoke">{STEPS.length} steps detected</span>
           </motion.div>
         </div>
 
