@@ -3,7 +3,12 @@
 import { useState, useEffect } from "react";
 import { Hexagon, Menu, X } from "lucide-react";
 import Button from "@/components/ui/Button";
-import { NAV_LINKS } from "@/lib/constants";
+import {
+  NAV_LINKS,
+  DASHBOARD_URL,
+  CALENDLY_URL,
+  trialSignupUrl,
+} from "@/lib/constants";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -71,10 +76,30 @@ export default function Navbar() {
               ))}
             </nav>
 
-            {/* Desktop CTA */}
-            <div className="hidden md:block">
-              <Button href="/pricing" variant="primary" size="sm" className="hover:shadow-[0_0_20px_rgba(248,250,252,0.15)] transition-shadow duration-300">
-                Get Early Access
+            {/* Desktop CTAs — primary trial signup, clearly-secondary sales (PRD 9.1) */}
+            <div className="hidden md:flex items-center gap-3">
+              <a
+                href={DASHBOARD_URL}
+                className="text-forge-smoke hover:text-forge-white transition-colors text-sm font-medium mr-1"
+              >
+                Sign in
+              </a>
+              <Button
+                href={CALENDLY_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                variant="secondary"
+                size="sm"
+              >
+                Talk to Sales
+              </Button>
+              <Button
+                href={trialSignupUrl()}
+                variant="primary"
+                size="sm"
+                className="hover:shadow-[0_0_20px_rgba(248,250,252,0.15)] transition-shadow duration-300"
+              >
+                Start Free Trial
               </Button>
             </div>
 
@@ -143,16 +168,34 @@ export default function Navbar() {
             ))}
           </nav>
 
-          {/* Mobile CTA */}
-          <div className="pt-8">
+          {/* Mobile CTAs — primary trial signup, clearly-secondary sales (PRD 9.1) */}
+          <div className="pt-8 flex flex-col gap-3">
+            <a
+              href={DASHBOARD_URL}
+              onClick={handleNavClick}
+              className="text-forge-smoke hover:text-forge-white transition-colors text-base font-medium text-center py-2"
+            >
+              Sign in
+            </a>
             <Button
-              href="/pricing"
+              href={CALENDLY_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              variant="secondary"
+              size="md"
+              onClick={handleNavClick}
+              className="w-full"
+            >
+              Talk to Sales
+            </Button>
+            <Button
+              href={trialSignupUrl()}
               variant="primary"
               size="md"
               onClick={handleNavClick}
               className="w-full"
             >
-              Get Early Access
+              Start Free Trial
             </Button>
           </div>
         </div>

@@ -109,7 +109,7 @@ const TYPE_SCALE = [
     tracking: "tracking-normal",
     lineHeight: "leading-relaxed",
     spec: "16px · Regular · 1.6 line-height",
-    sample: "No special hardware required. ScopeSnap works on any smartphone or tablet with a browser.",
+    sample: "No special hardware required. Forge runs on your iPhone, with a full web dashboard in any browser.",
   },
   {
     label: "Caption",
@@ -557,7 +557,7 @@ export default function BrandPage() {
             <div className="flex flex-wrap items-center gap-4 mb-12">
               <Button variant="primary" size="md">
                 <ArrowRight size={16} strokeWidth={2} aria-hidden="true" />
-                Get Early Access
+                Start Free Trial
               </Button>
               <Button variant="secondary" size="md">
                 <Mic size={16} strokeWidth={2} aria-hidden="true" />
@@ -609,7 +609,7 @@ export default function BrandPage() {
               <SectionLabel>Capture</SectionLabel>
               <SectionLabel>AI Engine</SectionLabel>
               <SectionLabel>Export</SectionLabel>
-              <SectionLabel>Beta</SectionLabel>
+              <SectionLabel>Trial</SectionLabel>
               <SectionLabel>New</SectionLabel>
             </div>
           </Section>

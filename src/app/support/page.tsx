@@ -13,13 +13,13 @@ const CALENDLY_URL = "https://calendly.com/christian-forge/30min";
 export const metadata: Metadata = {
   title: "Support — Forge",
   description:
-    "Get help with Forge and ScopeSnap. Browse common questions, email the team, or book a call — we respond within one business day.",
+    "Get help with Forge. Browse common questions, email the team, or book a call — we respond within one business day.",
   openGraph: {
     title: "Forge Support — We've Got Your Back",
     description:
       "Questions, bugs, billing, or onboarding — reach the Forge team directly. Responses within one business day.",
     type: "website",
-    url: "https://forgebuild.io/support",
+    url: "https://www.forge.equipment/support",
     images: [{ url: "/og-image.png", width: 1200, height: 630 }],
   },
 };
@@ -102,7 +102,7 @@ export default function SupportPage() {
                   </span>
                   <span className="text-sm text-forge-smoke">30-min walkthrough</span>
                   <span className="mt-1 text-xs text-forge-graphite">
-                    Best for onboarding and Founders Council.
+                    Best for a guided demo before you start your trial.
                   </span>
                 </span>
               </a>

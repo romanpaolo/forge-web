@@ -23,20 +23,21 @@ const outfit = Outfit({
 });
 
 export const metadata: Metadata = {
-  title: 'Forge — One Walk. Zero Typing. Job-Ready Data.',
-  description: 'Forge turns a single job walk into structured scope, tasks by trade, and Buildertrend-ready exports. Built for general contractors.',
-  keywords: ['general contractor', 'job walk', 'ScopeSnap', 'Buildertrend', 'construction AI', 'scope of work'],
+  metadataBase: new URL('https://www.forge.equipment'),
+  title: 'Forge — Walk the Job. Leave with the Estimate.',
+  description: 'Forge turns a recorded walkthrough into a structured, trade-by-trade scope and a priced estimate — in minutes. Built for general contractors. 14-day free trial, no credit card required.',
+  keywords: ['general contractor', 'AI estimating', 'construction estimates', 'job walk', 'scope of work', 'Buildertrend'],
   openGraph: {
-    title: 'Forge — The AI Job Walk Tool for Contractors',
-    description: 'One walk in. Structured scope out. Save 20+ minutes per job.',
+    title: 'Forge — AI Estimating for General Contractors',
+    description: 'Walk the job. Leave with the estimate. A recorded walkthrough becomes a trade-by-trade scope and priced estimate in minutes.',
     type: 'website',
-    url: 'https://forgebuild.io',
+    url: 'https://www.forge.equipment',
     images: [{ url: '/og-image.png', width: 1200, height: 630 }],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Forge — One Walk. Zero Typing.',
-    description: 'AI-powered job walk tool for general contractors.',
+    title: 'Forge — Walk the Job. Leave with the Estimate.',
+    description: 'AI estimating for general contractors. 14-day free trial, no credit card required.',
   }
 };
 

@@ -4,10 +4,10 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 import SectionLabel from "@/components/ui/SectionLabel";
-import { FAQ_ITEMS, type FaqItem } from "@/lib/constants";
+import { type FaqItem } from "@/lib/constants";
 import { fadeUp } from "@/lib/animations";
 
-export default function FAQ({ items = FAQ_ITEMS }: { items?: FaqItem[] }) {
+export default function FAQ({ items }: { items: FaqItem[] }) {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   const handleToggle = (index: number) => {

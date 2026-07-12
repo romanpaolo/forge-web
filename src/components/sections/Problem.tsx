@@ -5,17 +5,11 @@ import { ArrowRight, Smartphone, Mic, FileSpreadsheet, ClipboardList } from "luc
 import { fadeUp } from "@/lib/animations";
 import SectionLabel from "@/components/ui/SectionLabel";
 
-const BULLET_POINTS = [
-  "20–40 min wasted per job walk",
-  "Data scattered across 4 tools",
-  "Inconsistent formatting every time",
-  "Critical details lost in translation",
-];
-
+// The old-school night-of-typing toolchain the copy below calls out.
 const FLOW_CARDS = [
-  { name: "Meta Glasses", Icon: Smartphone },
-  { name: "Otter.ai", Icon: Mic },
-  { name: "LLM-Embedded", Icon: FileSpreadsheet },
+  { name: "Voice Memo", Icon: Mic },
+  { name: "Notes App", Icon: Smartphone },
+  { name: "Spreadsheet", Icon: FileSpreadsheet },
   { name: "Buildertrend", Icon: ClipboardList },
 ];
 
@@ -48,8 +42,8 @@ const strikeVariants: Variants = {
 export default function Problem() {
   return (
     <section
-      id="product"
-      className="relative py-24 md:py-32 bg-transparent overflow-hidden"
+      id="problem"
+      className="relative py-24 md:py-32 bg-transparent section-depth-a overflow-hidden"
     >
       {/* Spatial dot grid background — parallax layer */}
       <div className="absolute inset-0 pointer-events-none" aria-hidden="true" data-speed="0.85">
@@ -79,27 +73,26 @@ export default function Problem() {
           >
             <SectionLabel>THE PROBLEM</SectionLabel>
 
-            <h2 className="text-2xl sm:text-3xl md:text-5xl font-medium tracking-[-0.01em] uppercase text-forge-white leading-tight">
-              Your Job Walks Are Costing You Hours, Not Minutes
+            {/* PRD 9.4 — word-for-word */}
+            <h2 className="text-2xl sm:text-3xl md:text-5xl font-medium tracking-[-0.01em] text-forge-white leading-tight">
+              Estimating still means a night of typing.
             </h2>
 
             <p className="text-forge-smoke text-lg leading-relaxed">
-              Every walk means juggling 4+ tools, copying notes between apps,
-              and reformatting everything before your PM can even touch it.
+              You walk the job. Then you get home and turn a voice memo and a
+              notes app into a scope of work and a line-item bid — by hand. One
+              missed line item and you&rsquo;re eating the cost, or fighting for a
+              change order.
             </p>
 
-            <ul className="flex flex-col gap-3 mt-2">
-              {BULLET_POINTS.map((point) => (
-                <li key={point} className="flex items-center gap-3">
-                  <ArrowRight
-                    size={18}
-                    className="text-forge-cyan flex-shrink-0"
-                    aria-hidden="true"
-                  />
-                  <span className="text-forge-ash">{point}</span>
-                </li>
-              ))}
-            </ul>
+            <p className="text-forge-white text-lg leading-relaxed flex items-start gap-3">
+              <ArrowRight
+                size={20}
+                className="text-forge-cyan flex-shrink-0 mt-1"
+                aria-hidden="true"
+              />
+              <span>Forge does that part while you&rsquo;re still standing in the kitchen.</span>
+            </p>
           </motion.div>
 
           {/* Right column — spatial flow diagram */}

@@ -2,8 +2,10 @@
 
 import { motion } from "framer-motion";
 import Button from "@/components/ui/Button";
+import { APP_STORE_URL, CALENDLY_URL, trialSignupUrl } from "@/lib/constants";
 import { fadeUp } from "@/lib/animations";
 
+// PRD 9.9 — final CTA, word-for-word.
 export default function FinalCTA() {
   return (
     <section
@@ -46,38 +48,49 @@ export default function FinalCTA() {
           </motion.div>
 
           <motion.h2
-            className="text-2xl sm:text-3xl md:text-5xl font-medium tracking-[-0.01em] uppercase text-forge-white"
+            className="text-2xl sm:text-3xl md:text-5xl font-medium tracking-[-0.01em] text-forge-white"
             {...fadeUp}
           >
-            Stop Wasting Time After the Walk.
+            Stop typing up estimates at 9pm.
           </motion.h2>
-
-          <motion.p
-            className="text-forge-smoke text-lg max-w-2xl mx-auto mt-6"
-            {...fadeUp}
-            transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }}
-          >
-            Forge gives you back 20+ minutes per job &mdash; and your PM gets clean,
-            structured data every single time.
-          </motion.p>
 
           <motion.div
             className="mt-10 flex flex-col items-center gap-4"
             {...fadeUp}
             transition={{ duration: 0.6, ease: "easeOut", delay: 0.2 }}
           >
-            <Button href="https://calendly.com/christian-forge/30min" target="_blank" rel="noopener noreferrer" variant="primary" size="lg">
-              Join Founders Council
-            </Button>
+            <div className="flex flex-col sm:flex-row items-center gap-3">
+              <Button href={trialSignupUrl()} variant="primary" size="lg">
+                Start Free Trial
+              </Button>
+              <Button
+                href={CALENDLY_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                variant="secondary"
+                size="lg"
+              >
+                Talk to Sales
+              </Button>
+            </div>
 
             <p className="text-forge-smoke text-sm mt-4">
-              No credit card required. 30 spots only.
+              14-day free trial. No credit card required. Cancel anytime.
             </p>
+
+            <a
+              href={APP_STORE_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-forge-smoke hover:text-forge-white text-sm transition-colors underline underline-offset-4 decoration-forge-graphite"
+            >
+              Download on the App Store
+            </a>
 
             {/* Bottom mono label */}
             <div className="flex items-center gap-2 mt-2" aria-hidden="true">
               <div className="w-8 h-px bg-forge-graphite" />
-              <span className="text-[9px] font-mono uppercase tracking-[0.15em] text-forge-graphite">founders council</span>
+              <span className="text-[9px] font-mono uppercase tracking-[0.15em] text-forge-graphite">walk the job / leave with the estimate</span>
               <div className="w-8 h-px bg-forge-graphite" />
             </div>
           </motion.div>

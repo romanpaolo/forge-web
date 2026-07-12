@@ -188,7 +188,7 @@ const PHONE_SCREENS = [CaptureScreen, AiEngineScreen, ExportScreen];
 
 export default function Features() {
   return (
-    <section id="features" className="relative py-24 md:py-32 bg-transparent overflow-hidden">
+    <section id="product" className="relative py-24 md:py-32 bg-transparent section-depth-b overflow-hidden">
       {/* Spatial dot grid background — parallax layer */}
       <div className="absolute inset-0 pointer-events-none" aria-hidden="true" data-speed="0.85">
         <div

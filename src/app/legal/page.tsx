@@ -246,13 +246,41 @@ export default function LegalPage() {
               </p>
             </Clause>
 
-            <Clause number="6" title="Free Trials and Beta Access">
+            <Clause number="6" title="Free Trials">
+              {/* Trial clarifier — updated for production pricing (supersedes the
+                  July 2, 2026 free-beta clarification). Keep consistent with the
+                  dashboard's trial notice. */}
+              <div className="border border-forge-cyan/40 bg-forge-cyan/5 p-4 flex flex-col gap-2">
+                <p className="text-forge-white font-semibold text-sm uppercase tracking-[0.1em]">
+                  Trial Terms — Updated July 9, 2026
+                </p>
+                <p>
+                  This section was updated on July 9, 2026 as Forge moved from its
+                  free beta to production pricing. It replaces the July 2, 2026
+                  &ldquo;free beta&rdquo; clarification.
+                </p>
+                <p>
+                  Every Forge plan starts with a{" "}
+                  <strong className="text-forge-white">14-day free trial</strong>. No
+                  payment method is required to start the trial, and{" "}
+                  <strong className="text-forge-white">
+                    nothing converts to a paid subscription automatically
+                  </strong>{" "}
+                  — we cannot charge a card we never collected. We will remind you
+                  before the trial ends. If you do not add a payment method by the
+                  end of the trial, your account is{" "}
+                  <strong className="text-forge-white">paused, not deleted</strong>:
+                  your data stays intact and access resumes once a payment method is
+                  added. Paid subscriptions (base plan $249/month including 3 seats,
+                  as described on our Pricing page) begin only when you expressly add
+                  a payment method, and then renew per Section 5.
+                </p>
+              </div>
               <p>
-                We may offer free trials or beta access at our discretion. When a free trial
-                or beta period ends, your account will convert to a paid subscription at the
-                rate disclosed at sign-up unless you cancel before the trial or beta period
-                expires. Founders Council members will receive advance notice before any
-                billing begins.
+                We may offer free trials at our discretion. A free trial never converts
+                to a paid subscription on its own — billing begins only after you add a
+                payment method. If a trial ends without one, the account is paused and
+                no data is deleted.
               </p>
             </Clause>
 
@@ -261,8 +289,10 @@ export default function LegalPage() {
                 We reserve the right to change subscription pricing. We will notify you at
                 least 30 days before any price increase takes effect. Continued use of the
                 Service after a price change constitutes acceptance of the new pricing.
-                Founders Council members retain their locked-in founding rate as described
-                at enrollment.
+              </p>
+              <p className="text-forge-graphite text-xs">
+                Updated July 9, 2026: removed a reference to beta-era founding-rate
+                enrollment, which no longer exists.
               </p>
             </Clause>
 
@@ -557,7 +587,7 @@ export default function LegalPage() {
           {/* Footer note */}
           <div className="pt-16 text-center">
             <p className="text-forge-smoke text-sm">
-              Forge Solutions, Corp · Updated March 2026
+              Forge Solutions, Corp · Updated July 2026
             </p>
             <p className="text-forge-graphite text-xs mt-1">
               For questions, contact{" "}

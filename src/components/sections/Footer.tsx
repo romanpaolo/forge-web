@@ -1,14 +1,16 @@
-import { Hexagon, Twitter, Linkedin } from "lucide-react";
+import { Hexagon } from "lucide-react";
+import { APP_STORE_URL, CASE_STUDY_PATH } from "@/lib/constants";
 
+// Only real destinations — no href="#" placeholders. About/Blog and social
+// icons return when they have somewhere to point.
 const FOOTER_LINKS = {
   Product: [
-    { label: "ScopeSnap", href: "#" },
+    { label: "Product", href: "/#product" },
+    { label: "How It Works", href: "/#how-it-works" },
     { label: "Pricing", href: "/pricing" },
-    { label: "Beta", href: "/pricing" },
   ],
   Company: [
-    { label: "About", href: "#" },
-    { label: "Blog", href: "#" },
+    { label: "Customers", href: CASE_STUDY_PATH },
     { label: "Contact", href: "/support" },
   ],
   Legal: [
@@ -61,22 +63,14 @@ export default function Footer() {
             &copy; 2026 Forge. Built for the trades.
           </p>
 
-          <div className="flex items-center gap-4">
-            <a
-              href="#"
-              aria-label="Twitter"
-              className="text-forge-smoke hover:text-forge-white transition-colors"
-            >
-              <Twitter size={18} strokeWidth={1.75} />
-            </a>
-            <a
-              href="#"
-              aria-label="LinkedIn"
-              className="text-forge-smoke hover:text-forge-white transition-colors"
-            >
-              <Linkedin size={18} strokeWidth={1.75} />
-            </a>
-          </div>
+          <a
+            href={APP_STORE_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-forge-smoke hover:text-forge-white text-sm transition-colors"
+          >
+            Download on the App Store
+          </a>
         </div>
       </div>
     </footer>
