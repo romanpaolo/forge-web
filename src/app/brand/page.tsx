@@ -100,7 +100,7 @@ const TYPE_SCALE = [
     tracking: "tracking-normal",
     lineHeight: "leading-relaxed",
     spec: "18px · Regular · 1.6 line-height",
-    sample: "Forge records everything — audio up to 90 minutes and photos you can voice-tag on the fly.",
+    sample: "Forge records everything: audio up to 90 minutes, plus photos you can voice-tag on the fly.",
   },
   {
     label: "Body",
@@ -466,7 +466,7 @@ export default function BrandPage() {
             <div className="grid sm:grid-cols-2 gap-4">
               <Card>
                 <p className="text-xs font-mono text-forge-smoke uppercase tracking-widest mb-3">
-                  Inter — Primary
+                  Inter: Primary
                 </p>
                 <p
                   className="text-3xl font-bold text-forge-white mb-2 tracking-tight"
@@ -491,7 +491,7 @@ export default function BrandPage() {
 
               <Card>
                 <p className="text-xs font-mono text-forge-smoke uppercase tracking-widest mb-3">
-                  JetBrains Mono — Code &amp; Metrics
+                  JetBrains Mono: Code &amp; Metrics
                 </p>
                 <p
                   className="text-3xl font-bold text-forge-cyan mb-2 tracking-tight"
@@ -525,7 +525,7 @@ export default function BrandPage() {
           >
             {/* Buttons */}
             <h3 className="text-xs font-medium text-forge-smoke uppercase tracking-widest mb-5">
-              Button — Variants
+              Button: Variants
             </h3>
             <div className="flex flex-wrap items-center gap-4 mb-10">
               <Button variant="primary" size="md">Primary Button</Button>
@@ -534,7 +534,7 @@ export default function BrandPage() {
             </div>
 
             <h3 className="text-xs font-medium text-forge-smoke uppercase tracking-widest mb-5">
-              Button — Sizes
+              Button: Sizes
             </h3>
             <div className="flex flex-wrap items-end gap-4 mb-12">
               <div className="text-center">
@@ -552,7 +552,7 @@ export default function BrandPage() {
             </div>
 
             <h3 className="text-xs font-medium text-forge-smoke uppercase tracking-widest mb-5">
-              Button — With Icons
+              Button: With Icons
             </h3>
             <div className="flex flex-wrap items-center gap-4 mb-12">
               <Button variant="primary" size="md">
@@ -644,10 +644,10 @@ export default function BrandPage() {
               <h4 className="text-sm font-medium text-forge-white mb-4">Usage Guidelines</h4>
               <ul className="flex flex-col gap-2.5 text-sm text-forge-smoke">
                 {[
-                  "Use Lucide React exclusively — do not mix icon libraries.",
+                  "Use Lucide React exclusively. Do not mix icon libraries.",
                   "Stroke weight: 1.5px for decorative/large icons, 2px for UI controls and inline usage.",
                   "Icon size: 24px standalone, 20px in navigation, 16px inside buttons.",
-                  "Never fill icons — always use the outlined variant.",
+                  "Never fill icons. Always use the outlined variant.",
                   "Pair icons with text labels in all interactive contexts for accessibility.",
                 ].map((rule, i) => (
                   <li key={i} className="flex items-start gap-2.5">

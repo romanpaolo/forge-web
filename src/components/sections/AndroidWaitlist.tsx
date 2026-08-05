@@ -30,7 +30,7 @@ const ANDROID_WAITLIST_ENDPOINT = "/api/android-waitlist";
 // PLACEHOLDER CONSENT LANGUAGE — NOT TCPA-REVIEWED. Do not ship the flag
 // enabled until compliance counsel replaces this copy (PRD Open Item #10).
 const PLACEHOLDER_CONSENT_COPY =
-  "I agree that Forge may call or text me at the number provided about Android availability. Message and data rates may apply. Reply STOP to opt out. [PLACEHOLDER — pending TCPA compliance review]";
+  "I agree that Forge may call or text me at the number provided about Android availability. Message and data rates may apply. Reply STOP to opt out. [PLACEHOLDER: pending TCPA compliance review]";
 
 const PHONE_RE = /^\+?1?[\s.-]?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/;
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -54,7 +54,7 @@ export default function AndroidWaitlist() {
     e.preventDefault();
 
     const nextErrors: typeof errors = {};
-    if (!phone.trim()) nextErrors.phone = "Phone number is required — we'll call you the day it's live.";
+    if (!phone.trim()) nextErrors.phone = "Phone number is required. We'll call you the day it's live.";
     else if (!PHONE_RE.test(phone.trim())) nextErrors.phone = "Enter a valid US phone number.";
     if (email.trim() && !EMAIL_RE.test(email.trim())) nextErrors.email = "Enter a valid email (or leave it blank).";
     if (!consent) nextErrors.consent = "We need your OK to contact you.";

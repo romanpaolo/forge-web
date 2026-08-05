@@ -24,11 +24,11 @@ const outfit = Outfit({
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.forge.equipment'),
-  title: 'Forge — Walk the Job. Leave with the Estimate.',
-  description: 'Forge turns a recorded walkthrough into a structured, trade-by-trade scope and a priced estimate — in minutes. Built for general contractors. 14-day free trial, no credit card required.',
+  title: 'Forge | Walk the Job. Leave with the Estimate.',
+  description: 'Forge turns a recorded walkthrough into a structured, trade-by-trade scope and a priced estimate in minutes. Built for general contractors. 14-day free trial, no credit card required.',
   keywords: ['general contractor', 'AI estimating', 'construction estimates', 'job walk', 'scope of work', 'Buildertrend'],
   openGraph: {
-    title: 'Forge — AI Estimating for General Contractors',
+    title: 'Forge | AI Estimating for General Contractors',
     description: 'Walk the job. Leave with the estimate. A recorded walkthrough becomes a trade-by-trade scope and priced estimate in minutes.',
     type: 'website',
     url: 'https://www.forge.equipment',
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Forge — Walk the Job. Leave with the Estimate.',
+    title: 'Forge | Walk the Job. Leave with the Estimate.',
     description: 'AI estimating for general contractors. 14-day free trial, no credit card required.',
   }
 };

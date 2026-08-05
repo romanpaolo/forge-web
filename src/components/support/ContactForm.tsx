@@ -60,7 +60,7 @@ export default function ContactForm() {
     setErrors(next);
     if (Object.keys(next).length > 0) return;
 
-    const subject = `[Support — ${topic}] from ${name.trim()}`;
+    const subject = `[Support: ${topic}] from ${name.trim()}`;
     const body = [
       `Name: ${name.trim()}`,
       `Email: ${email.trim()}`,

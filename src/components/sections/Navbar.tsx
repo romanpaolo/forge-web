@@ -54,7 +54,7 @@ export default function Navbar() {
             <a
               href="/"
               className="flex items-center gap-2 group"
-              aria-label="Forge — back to top"
+              aria-label="Forge, back to top"
             >
               <Hexagon size={20} strokeWidth={1.5} className="text-forge-ash" aria-hidden="true" />
               <span className="text-forge-white font-medium text-xl tracking-[0.15em]">
@@ -137,7 +137,7 @@ export default function Navbar() {
               href="/"
               className="flex items-center gap-2"
               onClick={handleNavClick}
-              aria-label="Forge — back to top"
+              aria-label="Forge, back to top"
             >
               <Hexagon size={20} strokeWidth={1.5} className="text-forge-ash" aria-hidden="true" />
               <span className="text-forge-white font-medium text-xl tracking-[0.15em]">

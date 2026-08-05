@@ -80,7 +80,7 @@ export default function Problem() {
 
             <p className="text-forge-smoke text-lg leading-relaxed">
               You walk the job. Then you get home and turn a voice memo and a
-              notes app into a scope of work and a line-item bid — by hand. One
+              notes app into a scope of work and a line-item bid. By hand. One
               missed line item and you&rsquo;re eating the cost, or fighting for a
               change order.
             </p>

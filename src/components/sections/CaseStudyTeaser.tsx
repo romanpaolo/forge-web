@@ -48,7 +48,7 @@ export default function CaseStudyTeaser() {
           transition={{ duration: 0.6, ease: "easeOut", delay: 0.2 }}
         >
           Harris &amp; Sons Construction cut estimating time 75%, prevented a
-          $40,000 scope-dispute loss, and grew projected revenue 60% — in
+          $40,000 scope-dispute loss, and grew projected revenue 60%. All in
           their first 90 days on Forge.
         </motion.p>
 

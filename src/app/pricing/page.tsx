@@ -9,11 +9,11 @@ import PlanConfigurator from "@/components/pricing/PlanConfigurator";
 import { PRICING_FAQ } from "@/lib/constants";
 
 export const metadata: Metadata = {
-  title: "Pricing — Forge",
+  title: "Pricing | Forge",
   description:
-    "One price: $249/month includes your first 3 seats, +$39/month per additional seat, 20% off billed annually. 14-day free trial — no credit card required to start.",
+    "One price: $249/month includes your first 3 seats, +$39/month per additional seat, 20% off billed annually. 14-day free trial. No credit card required to start.",
   openGraph: {
-    title: "Forge Pricing — One Price, First 3 Seats Included",
+    title: "Forge Pricing | One Price, First 3 Seats Included",
     description:
       "$249/month covers your first 3 seats. Add teammates for $39/month each. No per-walk fees, no usage caps. 14-day free trial, no card required.",
     type: "website",
@@ -35,7 +35,7 @@ export default function PricingPage() {
           One price. Your first three seats included.
         </h1>
         <p className="text-forge-smoke text-lg max-w-2xl mx-auto mt-6">
-          $249/month covers your first 3 seats — owner, PM, and estimator,
+          $249/month covers your first 3 seats: owner, PM, and estimator,
           however you split it. Add teammates for $39/month each. No per-walk
           fees, no usage caps.
         </p>

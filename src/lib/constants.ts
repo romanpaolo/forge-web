@@ -39,17 +39,17 @@ export const PRICING_FAQ: FaqItem[] = [
   {
     question: "Do I need to talk to sales to get started?",
     answer:
-      "No. Start Free Trial takes you straight into the product — no card required for the first 14 days. If you'd rather see it on a real job first, book time with our team instead.",
+      "No. Start Free Trial takes you straight into the product. No card required for the first 14 days. If you'd rather see it on a real job first, book time with our team instead.",
   },
   {
     question: "Do you need my card to start the trial?",
     answer:
-      "No. Use Forge free for 14 days without entering payment info. We'll remind you before the trial ends — add a payment method any time to keep your seats active. If you don't, your account pauses. Nothing gets deleted.",
+      "No. Use Forge free for 14 days without entering payment info. We'll remind you before the trial ends. Add a payment method any time to keep your seats active. If you don't, your account pauses. Nothing gets deleted.",
   },
   {
     question: "What counts as a seat?",
     answer:
-      "Anyone who logs into Forge — owner, admin, PM, estimator, or sub. Your first 3 are included in the base price; each additional teammate is $39/month (or $374/year on the annual plan).",
+      "Anyone who logs into Forge: owner, admin, PM, estimator, or sub. Your first 3 are included in the base price. Each additional teammate is $39/month, or $374/year on the annual plan.",
   },
   {
     question: "Is there a contract?",
@@ -59,13 +59,13 @@ export const PRICING_FAQ: FaqItem[] = [
   {
     question: "What platforms does Forge run on?",
     answer: ANDROID_WAITLIST_ENABLED
-      ? "iOS and Web today. Android is coming to the Play Store soon — join the waitlist below and we'll call you the day it's live."
+      ? "iOS and Web today. Android is coming to the Play Store soon. Join the waitlist below and we'll call you the day it's live."
       : "iOS and Web today. Android is coming to the Play Store soon.",
   },
   {
     question: "How is this different from Buildertrend?",
     answer:
-      "Forge isn't a Buildertrend replacement — it's what happens before Buildertrend. Record the walk, get a structured scope and estimate, then export straight into your existing Buildertrend job budget.",
+      "Forge isn't a Buildertrend replacement. It's what happens before Buildertrend. Record the walk, get a structured scope and estimate, then export straight into your existing Buildertrend job budget.",
   },
   {
     question: "Can I cancel anytime?",
@@ -78,32 +78,32 @@ export const SUPPORT_FAQ: FaqItem[] = [
   {
     question: "How do I get help or report a problem?",
     answer:
-      "The fastest way to reach us is email — team@forge.equipment — or the contact form below. Tell us what you were doing, what you expected, and what happened instead. Screenshots help.",
+      "The fastest way to reach us is email: team@forge.equipment. The contact form below works too. Tell us what you were doing, what you expected, and what happened instead. Screenshots help.",
   },
   {
     question: "How quickly will I hear back?",
     answer:
-      "We aim to respond to every message within one business day. Active job-walk issues are prioritized — if something is blocking you in the field, say so in the subject line and we'll jump on it.",
+      "We aim to respond to every message within one business day. Active job-walk issues are prioritized. If something is blocking you in the field, say so in the subject line and we'll jump on it.",
   },
   {
-    question: "I found a bug — what should I do?",
+    question: "I found a bug. What should I do?",
     answer:
       "Send it to team@forge.equipment with the word \"Bug\" in the subject. Include your device and browser, the project or walk where it happened, and the steps to reproduce it. The more detail the better.",
   },
   {
     question: "Can I cancel, pause, or delete my account?",
     answer:
-      "Yes. Monthly plans are month-to-month — cancel anytime from Settings, no call required, and you keep access through the current billing period. If your free trial ends without a payment method, your account pauses (nothing is deleted) and access resumes once a card is added. To delete your account and personal data, email us and we'll remove it within 30 days, except where retention is required by law. See our Privacy Policy for details.",
+      "Yes. Monthly plans are month-to-month. Cancel anytime from Settings, no call required, and you keep access through the current billing period. If your free trial ends without a payment method, your account pauses (nothing is deleted) and access resumes once a card is added. To delete your account and personal data, email us and we'll remove it within 30 days, except where retention is required by law. See our Privacy Policy for details.",
   },
   {
     question: "Is my job walk data secure?",
     answer:
-      "Your data is encrypted in transit and at rest. Forge processes your audio and photos through secure AI pipelines — nothing is shared, sold, or used to train models. Your field intelligence stays yours.",
+      "Your data is encrypted in transit and at rest. Forge processes your audio and photos through secure AI pipelines. Nothing is shared, sold, or used to train models. Your field intelligence stays yours.",
   },
   {
     question: "How does the free trial work?",
     answer:
-      "Every plan starts with a 14-day free trial — no credit card required. We'll remind you before it ends; add a payment method any time to keep your seats active. If you don't, your account pauses and nothing gets deleted.",
+      "Every plan starts with a 14-day free trial. No credit card required. We'll remind you before it ends. Add a payment method any time to keep your seats active. If you don't, your account pauses and nothing gets deleted.",
   },
 ];
 
@@ -112,7 +112,7 @@ export const FEATURES = [
     label: "CAPTURE",
     title: "Walk the Job. We'll Handle the Notes.",
     description:
-      "Start a job walk and Forge records everything — audio up to 90 minutes and photos you can voice-tag on the fly. Say \"Photo: kitchen sink wall\" and it's indexed automatically.",
+      "Start a job walk and Forge records everything: audio up to 90 minutes, plus photos you can voice-tag on the fly. Say \"Photo: kitchen sink wall\" and it's indexed automatically.",
     bullets: [
       "Audio recording up to 90 min",
       "Voice-tagged photo capture",
@@ -123,7 +123,7 @@ export const FEATURES = [
     label: "AI ENGINE",
     title: "Raw Walk → Priced Estimate in Minutes",
     description:
-      "Forge's AI doesn't guess. It organizes your walk into a scope broken out by trade and a priced, line-item estimate — flagging anything it's not confident about so you check it, not guess at it.",
+      "Forge's AI doesn't guess. It organizes your walk into a scope broken out by trade and a priced, line-item estimate. Anything it's not confident about gets flagged, so you check it, not guess at it.",
     bullets: [
       "Scope + questions organized by area",
       "Line-item estimate priced by trade",
@@ -136,7 +136,7 @@ export const FEATURES = [
     description:
       "Review the AI output, make edits inline, apply your markup, then export. Copy formatted notes directly to Buildertrend, download a PDF packet with photos, or send a PM handoff email.",
     bullets: [
-      "Inline editing — add, delete, reorder",
+      "Inline editing: add, delete, reorder",
       "One-tap copy to Buildertrend",
       "PDF + photo packet download",
       "PM handoff email template",
@@ -156,7 +156,7 @@ export const STEPS = [
     number: "02",
     title: "Forge structures it.",
     description:
-      "In minutes, Forge turns the walk into a scope broken out by trade and a priced estimate — flagging anything it's not confident about so you check it, not guess at it.",
+      "In minutes, Forge turns the walk into a scope broken out by trade and a priced estimate. Anything it's not confident about gets flagged, so you check it, not guess at it.",
   },
   {
     number: "03",

@@ -114,7 +114,7 @@ export default function Hero3D() {
               transition={transition(0.6)}
             >
               Forge turns a recorded walkthrough into a structured, trade-by-trade
-              scope and a priced estimate — in minutes, not the night before you
+              scope and a priced estimate. In minutes. Not the night before you
               were going to send it. Built for remodelers running $5M–$10M a year,
               not hobby crews.
             </motion.p>
@@ -128,7 +128,7 @@ export default function Hero3D() {
             >
               <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3">
                 <Button href={trialSignupUrl()} variant="primary" size="md">
-                  Start Free Trial — no credit card required
+                  Start Free Trial. No credit card required.
                 </Button>
                 <Button href={CALENDLY_URL} target="_blank" rel="noopener noreferrer" variant="secondary" size="md">
                   Talk to Sales

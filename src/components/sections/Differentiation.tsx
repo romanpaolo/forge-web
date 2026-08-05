@@ -32,7 +32,7 @@ export default function Differentiation() {
           transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }}
         >
           CompanyCam and tools like it are great at documenting a job once
-          you&rsquo;re building it. Forge is built for the walk before that — the
+          you&rsquo;re building it. Forge is built for the walk before that. The
           one where you have to turn what you saw into a number the client
           can sign.
         </motion.p>
@@ -67,7 +67,7 @@ export default function Differentiation() {
             <p className="text-forge-ash text-base md:text-lg leading-relaxed">
               <span className="text-forge-white font-semibold">Speed wins jobs.</span>{" "}
               Walk the house, get in your truck, and the estimate is already
-              built by the time you&rsquo;re back at the office — same day,
+              built by the time you&rsquo;re back at the office. Same day,
               sometimes the same meeting. The next three bids haven&rsquo;t even
               gone out yet.
             </p>

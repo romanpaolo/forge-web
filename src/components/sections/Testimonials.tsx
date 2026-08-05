@@ -37,7 +37,7 @@ export default function Testimonials() {
             darn good.&rdquo;
           </p>
           <footer className="text-forge-smoke text-base mt-8">
-            — Will L., General Contractor, trial user
+            Will L., General Contractor, trial user
           </footer>
         </motion.blockquote>
       </div>
