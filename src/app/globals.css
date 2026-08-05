@@ -39,7 +39,7 @@ html {
 /* ── Section depth tokens (PRD Open Item #8, Christian's design note) ──────
    Everything past the hero used to sit on flat black. These three subtle
    backdrops rotate across sections (a → b → c) to give each one separation
-   without leaving the dark-industrial brand. Keep them faint — they layer
+   without leaving the dark-industrial brand. Keep them faint - they layer
    under the existing dot-grid overlays. */
 .section-depth-a {
   background:

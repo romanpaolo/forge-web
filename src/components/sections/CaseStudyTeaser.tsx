@@ -4,16 +4,15 @@ import { motion } from "framer-motion";
 import SectionLabel from "@/components/ui/SectionLabel";
 import Card from "@/components/ui/Card";
 import { CASE_STUDY_PATH } from "@/lib/constants";
+import { HARRIS_SUMMARY_TEASER, HARRIS_TEASER_STATS } from "@/lib/caseStudy";
 import { fadeUp } from "@/lib/animations";
 
 // Homepage case-study teaser module - PRD 10.7, word-for-word. Sits between
 // Differentiation (9.7) and Proof (9.8) per 10.5. Numbers are self-reported
 // from Harris & Sons' own books - full disclosure lives on the case study page.
-const TEASER_STATS = [
-  { value: "75%", label: "less time estimating" },
-  { value: "$330K", label: "Forge-attributed revenue" },
-  { value: "$40K", label: "scope-dispute loss prevented" },
-];
+// Stats and prose derive from lib/caseStudy so this surface cannot drift out
+// of sync with the case-study page or the pricing ROI line.
+const TEASER_STATS = HARRIS_TEASER_STATS;
 
 export default function CaseStudyTeaser() {
   return (
@@ -47,9 +46,7 @@ export default function CaseStudyTeaser() {
           {...fadeUp}
           transition={{ duration: 0.6, ease: "easeOut", delay: 0.2 }}
         >
-          Harris &amp; Sons Construction cut estimating time 75%, prevented a
-          $40,000 scope-dispute loss, and grew projected revenue 60%. All in
-          their first 90 days on Forge.
+          {HARRIS_SUMMARY_TEASER}
         </motion.p>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-14 max-w-4xl mx-auto">

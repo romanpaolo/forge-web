@@ -47,7 +47,7 @@ def render(size: int) -> Image.Image:
     width = max(MIN_STROKE_PX, size * STROKE_W / 32) * SUPERSAMPLE
     draw.line(pts + [pts[0]], fill=STROKE, width=int(round(width)), joint="curve")
 
-    # Emulate stroke-linejoin="round" — PIL's joint="curve" leaves the corners
+    # Emulate stroke-linejoin="round". PIL's joint="curve" leaves the corners
     # of a closed polyline slightly clipped.
     r = width / 2.0
     for x, y in pts:

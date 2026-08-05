@@ -5,15 +5,19 @@ import Footer from "@/components/sections/Footer";
 import SectionLabel from "@/components/ui/SectionLabel";
 import Button from "@/components/ui/Button";
 import { CALENDLY_URL, trialSignupUrl } from "@/lib/constants";
+import {
+  HARRIS_STATS,
+  HARRIS_SUMMARY_LONG,
+  HARRIS_SUMMARY_META,
+  HARRIS_SUMMARY_OG,
+} from "@/lib/caseStudy";
 
 export const metadata: Metadata = {
-  title: "Harris & Sons Construction | Forge Customer Story",
-  description:
-    "How a family remodeling contractor cut estimating time 75%, prevented a $40,000 scope loss, and grew projected revenue 60%. All in 90 days on Forge.",
+  title: `${HARRIS_STATS.companyFull} | Forge Customer Story`,
+  description: HARRIS_SUMMARY_META,
   openGraph: {
-    title: "Two weeks to three days | Harris & Sons on Forge",
-    description:
-      "75% less estimating time, $330K in Forge-attributed revenue, a $40K scope-dispute loss prevented. All in the first 90 days.",
+    title: `Two weeks to three days | ${HARRIS_STATS.companyShort} on Forge`,
+    description: HARRIS_SUMMARY_OG,
     type: "article",
     url: "https://www.forge.equipment/customers/harris-and-sons",
     images: [{ url: "/og-image.png", width: 1200, height: 630 }],
@@ -29,8 +33,8 @@ const PDF_PATH = "/harris-and-sons-case-study.pdf";
 // PRD 10.1 / 10.7 - key metrics. The ~$4M is a PROJECTION, distinct from
 // actuals (Michael's audit); the footnote below the grid is load-bearing.
 const KEY_METRICS = [
-  { value: "$330K", label: "Revenue directly attributed to Forge" },
-  { value: "75%", label: "Reduction in estimating & documentation time" },
+  { value: HARRIS_STATS.attributedRevenue, label: "Revenue directly attributed to Forge" },
+  { value: HARRIS_STATS.estimatingTimeCut, label: "Reduction in estimating & documentation time" },
   { value: "$2K–$3K/mo", label: "Monthly admin savings across 20–30 estimates" },
   { value: "~$4M*", label: "Projected* annual revenue, up from $2.5M actual" },
 ];
@@ -39,7 +43,11 @@ const BEFORE_AFTER: { dimension: string; before: string; after: string }[] = [
   { dimension: "Estimate delivery", before: "Up to 2 weeks", after: "Under 3 days" },
   { dimension: "Notes workflow", before: "4+ tools, manual", after: "1 walk. Done." },
   { dimension: "Team output", before: "Baseline capacity", after: "2–3x in 90 days" },
-  { dimension: "Change order risk", before: "High: details lost", after: "$40K loss prevented" },
+  {
+    dimension: "Change order risk",
+    before: "High: details lost",
+    after: `${HARRIS_STATS.scopeLossPrevented} loss prevented`,
+  },
   { dimension: "Annual projection", before: "$2.5M", after: "~$4M" },
   { dimension: "Sales reps", before: "1", after: "2 (and growing)" },
 ];
@@ -50,7 +58,7 @@ const WHAT_CHANGED: { lead: string; rest: string }[] = [
     rest: "Turnaround dropped from two weeks to under three days. Harris & Sons' proposals are now more detailed than anyone else bidding the job.",
   },
   {
-    lead: "Forge documentation stopped a $40,000 loss.",
+    lead: `Forge documentation stopped a ${HARRIS_STATS.scopeLossPreventedLong} loss.`,
     rest: "When a scope dispute came up, the structured job-walk record gave them an unambiguous paper trail. Clean change order. No absorbed cost.",
   },
   {
@@ -58,7 +66,7 @@ const WHAT_CHANGED: { lead: string; rest: string }[] = [
     rest: "The efficiency freed up enough capacity to hire a second sales representative. That's a move the business couldn't justify before.",
   },
   {
-    lead: "Revenue projection jumped 60%. Same overhead.",
+    lead: `Revenue projection jumped ${HARRIS_STATS.revenueGrowth}. Same overhead.`,
     rest: "From $2.5M to nearly $4M for the upcoming year. Same ad spend. Forge let them scale safely without compromising their reputation.",
   },
 ];
@@ -105,9 +113,7 @@ export default function HarrisAndSonsPage() {
           </h1>
 
           <p className="text-forge-smoke text-lg md:text-xl leading-relaxed mt-8 max-w-2xl">
-            How a family remodeling contractor cut estimating time 75%,
-            prevented a $40,000 scope loss, and grew projected revenue 60%.
-            All in 90 days.
+            {HARRIS_SUMMARY_LONG}
           </p>
 
           <p className="text-[10px] font-mono uppercase tracking-[0.15em] text-forge-graphite mt-8">

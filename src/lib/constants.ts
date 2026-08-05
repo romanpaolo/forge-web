@@ -9,7 +9,14 @@ export const NAV_LINKS = [
   { label: "Support", href: "/support" },
 ];
 
-export const DASHBOARD_URL = "https://forge-web-nine.vercel.app";
+// The live product dashboard. Set NEXT_PUBLIC_DASHBOARD_URL in the Vercel
+// project to move it. The fallback is the current Vercel-assigned host, which
+// is what ships until the custom app domain (app.forge.equipment) exists.
+// next.config.ts reads the SAME env var for its app-path redirects: change the
+// env var and both the links and the redirects follow. Do not reintroduce a
+// second hardcoded copy of this host.
+export const DASHBOARD_URL =
+  process.env.NEXT_PUBLIC_DASHBOARD_URL || "https://forge-web-nine.vercel.app";
 export const CALENDLY_URL = "https://calendly.com/christian-forge/30min";
 export const APP_STORE_URL = "https://apps.apple.com/us/app/id6762521834";
 export const CASE_STUDY_PATH = "/customers/harris-and-sons";

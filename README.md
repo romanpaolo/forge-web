@@ -2,11 +2,12 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 ## Environment variables
 
-All optional — the site builds and runs with none set.
+All optional. The site builds and runs with none set.
 
 | Variable | Default | Effect |
 |---|---|---|
 | `NEXT_PUBLIC_ANDROID_WAITLIST` | unset (off) | Set to `true` at build time to render the Android waitlist form (homepage + `/pricing`). **Keep OFF until TCPA-compliant consent language is reviewed** (PRD Open Item #10) and a real collection endpoint is wired (see `src/components/sections/AndroidWaitlist.tsx`, `TODO(wiring)`). Everywhere else Android stays "coming soon" text. |
+| `NEXT_PUBLIC_DASHBOARD_URL` | `https://forge-web-nine.vercel.app` | Host for every product link: `Sign in`, `Start Free Trial`, and the `/invite/*`, `/sign/*`, `/auth/action`, `/login` redirects in `next.config.ts`. Set this to `https://app.forge.equipment` once that domain is assigned in Vercel, and the Vercel-assigned host stops appearing in user-facing URLs. Read by both `src/lib/constants.ts` and `next.config.ts`, so one env var moves everything. Requires a redeploy: it is inlined at build time. |
 
 ## Getting Started
 

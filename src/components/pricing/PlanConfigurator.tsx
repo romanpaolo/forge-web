@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Minus, Plus } from "lucide-react";
 import Button from "@/components/ui/Button";
 import { CALENDLY_URL, CASE_STUDY_PATH, trialSignupUrl } from "@/lib/constants";
+import { HARRIS_SUMMARY_ROI } from "@/lib/caseStudy";
 import {
   MIN_SEATS,
   INCLUDED_SEATS,
@@ -215,8 +216,7 @@ export default function PlanConfigurator() {
 
       {/* ROI line - PRD 9.10 / 10.6 */}
       <p className="text-forge-smoke text-sm text-center leading-relaxed mt-10 max-w-md mx-auto">
-        Harris &amp; Sons cut estimating time 75% and added $330K in
-        Forge-attributed revenue in their first 90 days.{" "}
+        {HARRIS_SUMMARY_ROI}{" "}
         <a
           href={CASE_STUDY_PATH}
           className="text-forge-white hover:text-forge-cyan transition-colors underline underline-offset-4 decoration-forge-graphite whitespace-nowrap"
