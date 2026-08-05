@@ -16,7 +16,7 @@ import {
   type BillingPlan,
 } from "@/lib/pricing";
 
-/* Plan card + monthly/annual toggle + seat stepper — PRD 9.10 / Section 8.
+/* Plan card + monthly/annual toggle + seat stepper - PRD 9.10 / Section 8.
  * Price math is client-side display only (249 + 39×(seats−3) monthly;
  * 2390 + 374×(seats−3) annual). The CTA carries plan+seats to the dashboard
  * signup; live Stripe Checkout (PRD Section 13) is a later backend project. */
@@ -137,7 +137,7 @@ export default function PlanConfigurator() {
             )}
           </div>
 
-          {/* Seat stepper — starts at 3, min 3 */}
+          {/* Seat stepper - starts at 3, min 3 */}
           <div className="flex items-center justify-between border border-white/10 px-4 py-3">
             <div>
               <p className="text-forge-white text-sm font-medium tabular-nums">
@@ -189,7 +189,7 @@ export default function PlanConfigurator() {
             </ul>
           </div>
 
-          {/* CTAs — plan + seats ride along to the dashboard signup */}
+          {/* CTAs - plan + seats ride along to the dashboard signup */}
           <div className="flex flex-col gap-3 mt-2">
             <Button href={trialSignupUrl(plan, seats)} variant="primary" size="lg" className="w-full">
               Start Free Trial
@@ -213,7 +213,7 @@ export default function PlanConfigurator() {
         </div>
       </div>
 
-      {/* ROI line — PRD 9.10 / 10.6 */}
+      {/* ROI line - PRD 9.10 / 10.6 */}
       <p className="text-forge-smoke text-sm text-center leading-relaxed mt-10 max-w-md mx-auto">
         Harris &amp; Sons cut estimating time 75% and added $330K in
         Forge-attributed revenue in their first 90 days.{" "}

@@ -1062,9 +1062,9 @@ export default function DesignPage() {
               Logo Configurations
             </h3>
 
-            {/* Combination Mark — Dark BG */}
+            {/* Combination Mark - Dark BG */}
             <div className="grid md:grid-cols-2 gap-4 mb-6">
-              {/* Horizontal — with icon */}
+              {/* Horizontal - with icon */}
               <Card className="p-8 flex flex-col items-center justify-center gap-2 min-h-[160px]">
                 <div className="flex items-center gap-3">
                   <Hexagon size={28} strokeWidth={1.5} className="text-forge-ash" aria-hidden="true" />
@@ -1075,7 +1075,7 @@ export default function DesignPage() {
                 <p className="text-[10px] font-mono text-forge-smoke uppercase tracking-widest mt-3">Combination Mark · Horizontal · Dark BG</p>
               </Card>
 
-              {/* Stacked — with icon */}
+              {/* Stacked - with icon */}
               <Card className="p-8 flex flex-col items-center justify-center gap-2 min-h-[160px]">
                 <div className="flex flex-col items-center gap-2">
                   <Hexagon size={36} strokeWidth={1.5} className="text-forge-ash" aria-hidden="true" />
@@ -1106,7 +1106,7 @@ export default function DesignPage() {
                 <p className="text-[10px] font-mono text-forge-cyan uppercase tracking-widest mt-3">Icon / Symbol · Selected</p>
               </Card>
 
-              {/* Combination Mark — PREFERRED */}
+              {/* Combination Mark - PREFERRED */}
               <Card className="p-8 flex flex-col items-center justify-center gap-2 min-h-[160px] border-forge-cyan/30 bg-forge-cyan/5">
                 <div className="flex items-center gap-3">
                   <Hexagon size={28} strokeWidth={1.5} className="text-forge-ash" aria-hidden="true" />
@@ -1121,7 +1121,7 @@ export default function DesignPage() {
             </div>
 
             <div className="grid md:grid-cols-2 gap-4 mb-6">
-              {/* Lettermark — not selected */}
+              {/* Lettermark - not selected */}
               <div className="p-8 flex flex-col items-center justify-center gap-2 min-h-[160px] border border-white/5 rounded-xl opacity-50">
                 <div className="flex items-center gap-1">
                   <Hexagon size={18} strokeWidth={1.5} className="text-forge-smoke" aria-hidden="true" />
@@ -1132,7 +1132,7 @@ export default function DesignPage() {
                 <p className="text-[10px] font-mono text-forge-smoke uppercase tracking-widest mt-3">Lettermark · Not Selected</p>
               </div>
 
-              {/* Emblem — not selected */}
+              {/* Emblem - not selected */}
               <div className="p-8 flex flex-col items-center justify-center gap-2 min-h-[160px] border border-white/5 rounded-xl opacity-50">
                 <div className="relative flex items-center justify-center">
                   <Hexagon size={80} strokeWidth={1} className="text-forge-smoke" aria-hidden="true" />
@@ -2343,7 +2343,7 @@ export default function DesignPage() {
               </Card>
             </SubSection>
 
-            {/* Competitive Landscape — kept from original section 11 */}
+            {/* Competitive Landscape - kept from original section 11 */}
             <SubSection title="Competitive Landscape">
               <div className="flex flex-col gap-4 mb-6">
                 {COMPETITORS.map((comp) => (

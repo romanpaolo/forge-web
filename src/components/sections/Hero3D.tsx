@@ -72,18 +72,18 @@ const transition = (delay: number) => ({
 export default function Hero3D() {
   return (
     <section id="hero" className="relative overflow-hidden h-screen flex flex-col">
-      {/* 3D Background — fills entire viewport */}
+      {/* 3D Background - fills entire viewport */}
       <Suspense fallback={<div className="absolute inset-0 bg-forge-body" />}>
         <HexNutScene />
       </Suspense>
 
-      {/* Bottom-anchored content — sits below the 3D scene */}
+      {/* Bottom-anchored content - sits below the 3D scene */}
       <div className="relative z-10 mt-auto pb-16 md:pb-20">
         {/* Gradient fade from transparent to dark at bottom */}
         <div className="absolute inset-x-0 bottom-0 h-80 bg-gradient-to-t from-forge-body via-forge-body/80 to-transparent pointer-events-none" />
 
         <div className="relative max-w-5xl mx-auto px-6">
-          {/* Eyebrow — PRD 9.2 */}
+          {/* Eyebrow - PRD 9.2 */}
           <motion.div
             className="flex items-center gap-3 mb-6"
             variants={fadeUp}
@@ -97,7 +97,7 @@ export default function Hero3D() {
             </span>
           </motion.div>
 
-          {/* Headline — left-aligned, big, cinematic with character animation */}
+          {/* Headline - left-aligned, big, cinematic with character animation */}
           <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-medium tracking-[-0.03em] leading-[0.95] text-forge-white uppercase">
             <CharacterReveal text="Walk the job." delay={0.4} stagger={0.03} />
             <br />
@@ -148,7 +148,7 @@ export default function Hero3D() {
             </motion.div>
           </div>
 
-          {/* Bottom stat bar — PRD 9.3 (product mechanics, not customer outcomes) */}
+          {/* Bottom stat bar - PRD 9.3 (product mechanics, not customer outcomes) */}
           <motion.div
             className="flex flex-wrap items-center gap-x-8 gap-y-3 mt-12 pt-6 border-t border-forge-graphite/30"
             variants={fadeUp}

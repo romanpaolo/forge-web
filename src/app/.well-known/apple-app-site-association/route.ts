@@ -1,12 +1,12 @@
 /**
- * Apple App Site Association (AASA) — universal-links manifest.
+ * Apple App Site Association (AASA) - universal-links manifest.
  *
  * The iOS app carries `applinks:www.forge.equipment`, so Apple's CDN
  * fetches `https://www.forge.equipment/.well-known/apple-app-site-association`
  * (no redirect, exact `application/json` MIME, no `.json` extension).
  * This Route Handler serves the SAME manifest as the dashboard's SSOT at
  * `Forge_Web/Forge/dashboard/app/.well-known/apple-app-site-association/route.ts`
- * — keep the two byte-identical (same appID, same path list) whenever
+ * - keep the two byte-identical (same appID, same path list) whenever
  * either changes.
  *
  * `appID` is `<TeamID>.<BundleID>`:
@@ -14,21 +14,21 @@
  *   - BundleID: equipment.forge.Forge (matches Forge_IOS Info.plist)
  *
  * Path list:
- *   - "NOT /privacy" / "NOT /terms" / "NOT /support" — MUST stay
+ *   - "NOT /privacy" / "NOT /terms" / "NOT /support" - MUST stay
  *     in-browser: App Store reviewers tap these from the listing to
  *     validate policy/support URLs; opening the app instead is a
  *     rejection. (On this host /privacy and /terms 308 to /legal#…,
- *     which is fine — exclusions just keep the tap in Safari.)
- *   - "/invite/*"  — invite links open the iOS Accept-Invite flow when
+ *     which is fine - exclusions just keep the tap in Safari.)
+ *   - "/invite/*"  - invite links open the iOS Accept-Invite flow when
  *     the app is installed; otherwise this host forwards them to the
  *     dashboard (see next.config.ts redirects).
- *   - "/accept/*"  — kept in lockstep with the backend/dashboard AASA.
+ *   - "/accept/*"  - kept in lockstep with the backend/dashboard AASA.
  *
  * `dynamic = "force-static"`: the response never varies per-request, so
  * Next bakes it at build time and serves it from the CDN edge.
  *
  * Do NOT add a `public/.well-known/apple-app-site-association` static
- * file alongside this — dual sources for the same extensionless path is
+ * file alongside this - dual sources for the same extensionless path is
  * a build-order-dependent routing conflict (see the 2026-05-25 incident
  * documented in the dashboard SSOT file).
  */
@@ -81,7 +81,7 @@ export async function GET() {
   return new Response(JSON.stringify(AASA), {
     status: 200,
     headers: {
-      // Apple requires `application/json` exactly — the bare type is
+      // Apple requires `application/json` exactly - the bare type is
       // safest across older OS versions.
       "Content-Type": "application/json",
       // Long-ish edge cache; contents change only on bundle-id / team-id /

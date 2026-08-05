@@ -22,13 +22,13 @@ export const metadata: Metadata = {
   },
 };
 
-// Pricing page — PRD 9.10, word-for-word.
+// Pricing page - PRD 9.10, word-for-word.
 export default function PricingPage() {
   return (
     <div className="min-h-screen bg-forge-body text-forge-white">
       <Navbar />
 
-      {/* Page header — clears the fixed Navbar */}
+      {/* Page header - clears the fixed Navbar */}
       <header className="max-w-7xl mx-auto px-6 pt-40 pb-8 text-center">
         <SectionLabel>Pricing</SectionLabel>
         <h1 className="text-2xl sm:text-3xl md:text-5xl font-medium tracking-[-0.01em] text-forge-white mt-6">
@@ -48,10 +48,10 @@ export default function PricingPage() {
         </div>
       </section>
 
-      {/* FAQ — the 7 Q&As from PRD 9.10 */}
+      {/* FAQ - the 7 Q&As from PRD 9.10 */}
       <FAQ items={PRICING_FAQ} />
 
-      {/* Android waitlist — renders ONLY behind NEXT_PUBLIC_ANDROID_WAITLIST=true */}
+      {/* Android waitlist - renders ONLY behind NEXT_PUBLIC_ANDROID_WAITLIST=true */}
       <AndroidWaitlist />
 
       <FinalCTA />

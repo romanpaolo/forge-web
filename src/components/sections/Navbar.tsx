@@ -76,7 +76,7 @@ export default function Navbar() {
               ))}
             </nav>
 
-            {/* Desktop CTAs — primary trial signup, clearly-secondary sales (PRD 9.1) */}
+            {/* Desktop CTAs - primary trial signup, clearly-secondary sales (PRD 9.1) */}
             <div className="hidden md:flex items-center gap-3">
               <a
                 href={DASHBOARD_URL}
@@ -168,7 +168,7 @@ export default function Navbar() {
             ))}
           </nav>
 
-          {/* Mobile CTAs — primary trial signup, clearly-secondary sales (PRD 9.1) */}
+          {/* Mobile CTAs - primary trial signup, clearly-secondary sales (PRD 9.1) */}
           <div className="pt-8 flex flex-col gap-3">
             <a
               href={DASHBOARD_URL}

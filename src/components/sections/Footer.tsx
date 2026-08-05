@@ -1,7 +1,7 @@
 import { Hexagon } from "lucide-react";
 import { APP_STORE_URL, CASE_STUDY_PATH } from "@/lib/constants";
 
-// Only real destinations — no href="#" placeholders. About/Blog and social
+// Only real destinations - no href="#" placeholders. About/Blog and social
 // icons return when they have somewhere to point.
 const FOOTER_LINKS = {
   Product: [

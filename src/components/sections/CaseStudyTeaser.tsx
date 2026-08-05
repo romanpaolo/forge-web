@@ -6,9 +6,9 @@ import Card from "@/components/ui/Card";
 import { CASE_STUDY_PATH } from "@/lib/constants";
 import { fadeUp } from "@/lib/animations";
 
-// Homepage case-study teaser module — PRD 10.7, word-for-word. Sits between
+// Homepage case-study teaser module - PRD 10.7, word-for-word. Sits between
 // Differentiation (9.7) and Proof (9.8) per 10.5. Numbers are self-reported
-// from Harris & Sons' own books — full disclosure lives on the case study page.
+// from Harris & Sons' own books - full disclosure lives on the case study page.
 const TEASER_STATS = [
   { value: "75%", label: "less time estimating" },
   { value: "$330K", label: "Forge-attributed revenue" },
@@ -18,7 +18,7 @@ const TEASER_STATS = [
 export default function CaseStudyTeaser() {
   return (
     <section className="relative py-24 md:py-32 bg-transparent section-depth-c overflow-hidden">
-      {/* Spatial dot grid background — parallax layer */}
+      {/* Spatial dot grid background - parallax layer */}
       <div className="absolute inset-0 pointer-events-none" aria-hidden="true" data-speed="0.85">
         <div
           className="absolute inset-0 opacity-[0.04]"

@@ -61,7 +61,7 @@ export default function SupportPage() {
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-16">
-            {/* Direct options — rounded-lg buttons, matching /legal's nav style. */}
+            {/* Direct options - rounded-lg buttons, matching /legal's nav style. */}
             <div className="flex flex-col gap-4">
               <a
                 href={`mailto:${SUPPORT_EMAIL}`}
@@ -108,7 +108,7 @@ export default function SupportPage() {
               </a>
             </div>
 
-            {/* Contact form (client component — composes a mailto). */}
+            {/* Contact form (client component - composes a mailto). */}
             <div>
               <ContactForm />
             </div>

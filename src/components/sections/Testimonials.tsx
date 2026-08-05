@@ -4,13 +4,13 @@ import { motion } from "framer-motion";
 import SectionLabel from "@/components/ui/SectionLabel";
 import { fadeUp } from "@/lib/animations";
 
-// PRD 9.8 — Will's trial-user quote (cleared for use: Will confirmed
+// PRD 9.8 - Will's trial-user quote (cleared for use: Will confirmed
 // name/text). Follows the Harris & Sons case-study teaser per 10.5: concrete
 // stats first, plain-spoken no-financial-stake reaction second.
 export default function Testimonials() {
   return (
     <section className="relative py-24 md:py-32 bg-transparent section-depth-a overflow-hidden">
-      {/* Spatial dot grid background — parallax layer */}
+      {/* Spatial dot grid background - parallax layer */}
       <div className="absolute inset-0 pointer-events-none" aria-hidden="true" data-speed="0.85">
         <div
           className="absolute inset-0 opacity-[0.04]"

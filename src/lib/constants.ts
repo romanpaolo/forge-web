@@ -1,5 +1,5 @@
 // Anchor links are root-relative (/#product, not #product) so they work
-// from /pricing, /support, and /legal — not just the homepage.
+// from /pricing, /support, and /legal - not just the homepage.
 // Nav per PRD 9.1: Product / How It Works / Customers / Pricing / Support.
 export const NAV_LINKS = [
   { label: "Product", href: "/#product" },
@@ -16,8 +16,8 @@ export const CASE_STUDY_PATH = "/customers/harris-and-sons";
 
 // "Start Free Trial" routes to the dashboard signup, which already
 // auto-provisions accounts card-free (14-day trial). plan + seats ride along
-// as query params so the dashboard — and the future Stripe Checkout flow
-// (PRD Section 13, blocked on backend work) — can pre-fill the choice made
+// as query params so the dashboard - and the future Stripe Checkout flow
+// (PRD Section 13, blocked on backend work) - can pre-fill the choice made
 // on the marketing site. v1 is trial-signup routing, NOT live Stripe.
 export function trialSignupUrl(
   plan: "monthly" | "annual" = "monthly",
@@ -34,7 +34,7 @@ export const ANDROID_WAITLIST_ENABLED =
 
 export type FaqItem = { question: string; answer: string };
 
-// Pricing-page FAQ — PRD 9.10, word-for-word (7 Q&As).
+// Pricing-page FAQ - PRD 9.10, word-for-word (7 Q&As).
 export const PRICING_FAQ: FaqItem[] = [
   {
     question: "Do I need to talk to sales to get started?",
@@ -73,7 +73,7 @@ export const PRICING_FAQ: FaqItem[] = [
   },
 ];
 
-// Support-page subset — help/account/data questions, distinct from the pricing FAQ.
+// Support-page subset - help/account/data questions, distinct from the pricing FAQ.
 export const SUPPORT_FAQ: FaqItem[] = [
   {
     question: "How do I get help or report a problem?",
@@ -144,7 +144,7 @@ export const FEATURES = [
   },
 ];
 
-// How it works — PRD 9.5, word-for-word (3 steps).
+// How it works - PRD 9.5, word-for-word (3 steps).
 export const STEPS = [
   {
     number: "01",
@@ -166,9 +166,9 @@ export const STEPS = [
   },
 ];
 
-// Hero stat bar — PRD 9.3. "6 TRADES" is intentionally gone (read as a
+// Hero stat bar - PRD 9.3. "6 TRADES" is intentionally gone (read as a
 // limitation). 4th stat stays "MINUTES TO A PRICED SCOPE" until the real
-// median processing time is pulled from production (Open Item #2 — do NOT
+// median processing time is pulled from production (Open Item #2 - do NOT
 // invent a harder number).
 export const HERO_STATS = [
   { value: "20+", label: "MIN SAVED PER WALK" },

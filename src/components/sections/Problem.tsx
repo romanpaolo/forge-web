@@ -45,7 +45,7 @@ export default function Problem() {
       id="problem"
       className="relative py-24 md:py-32 bg-transparent section-depth-a overflow-hidden"
     >
-      {/* Spatial dot grid background — parallax layer */}
+      {/* Spatial dot grid background - parallax layer */}
       <div className="absolute inset-0 pointer-events-none" aria-hidden="true" data-speed="0.85">
         <div
           className="absolute inset-0 opacity-[0.04]"
@@ -73,7 +73,7 @@ export default function Problem() {
           >
             <SectionLabel>THE PROBLEM</SectionLabel>
 
-            {/* PRD 9.4 — word-for-word */}
+            {/* PRD 9.4 - word-for-word */}
             <h2 className="text-2xl sm:text-3xl md:text-5xl font-medium tracking-[-0.01em] text-forge-white leading-tight">
               Estimating still means a night of typing.
             </h2>
@@ -95,7 +95,7 @@ export default function Problem() {
             </p>
           </motion.div>
 
-          {/* Right column — spatial flow diagram */}
+          {/* Right column - spatial flow diagram */}
           <motion.div
             initial="hidden"
             whileInView="visible"
@@ -109,7 +109,7 @@ export default function Problem() {
               transition={{ duration: 6, repeat: Infinity, ease: "linear" }}
             />
 
-            {/* Corner brackets — spatial UI frame */}
+            {/* Corner brackets - spatial UI frame */}
             <div className="absolute -inset-3 pointer-events-none" aria-hidden="true">
               {/* Top-left */}
               <div className="absolute top-0 left-0 w-5 h-5 border-t border-l border-forge-graphite/50" />
@@ -121,7 +121,7 @@ export default function Problem() {
               <div className="absolute bottom-0 right-0 w-5 h-5 border-b border-r border-forge-graphite/50" />
             </div>
 
-            {/* Status indicator — top right */}
+            {/* Status indicator - top right */}
             <div className="absolute -top-6 right-0 flex items-center gap-2 z-10">
               <div className="w-1.5 h-1.5 rounded-full bg-red-400/70 animate-pulse" />
               <span className="text-[9px] font-mono uppercase tracking-[0.15em] text-forge-smoke">4 tools detected</span>

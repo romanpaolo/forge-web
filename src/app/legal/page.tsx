@@ -247,7 +247,7 @@ export default function LegalPage() {
             </Clause>
 
             <Clause number="6" title="Free Trials">
-              {/* Trial clarifier — updated for production pricing (supersedes the
+              {/* Trial clarifier - updated for production pricing (supersedes the
                   July 2, 2026 free-beta clarification). Keep consistent with the
                   dashboard's trial notice. */}
               <div className="border border-forge-cyan/40 bg-forge-cyan/5 p-4 flex flex-col gap-2">

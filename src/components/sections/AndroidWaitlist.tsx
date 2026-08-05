@@ -7,27 +7,27 @@ import Button from "@/components/ui/Button";
 import { ANDROID_WAITLIST_ENABLED } from "@/lib/constants";
 
 /* ────────────────────────────────────────────────────────────────────────────
- * Android waitlist — PRD 7.7 / Open Item #10.
+ * Android waitlist - PRD 7.7 / Open Item #10.
  *
  * GATED OFF BY DEFAULT. This entire block renders ONLY when the site is built
  * with NEXT_PUBLIC_ANDROID_WAITLIST=true. It ships dark because the consent
- * language below is a PLACEHOLDER — cold-text/cold-call opt-in needs real
+ * language below is a PLACEHOLDER - cold-text/cold-call opt-in needs real
  * TCPA-compliant language and an opt-out mechanism reviewed by compliance
  * counsel before this goes live. Everywhere else Android stays "coming soon"
  * text only.
  *
- * Captures phone (REQUIRED — the follow-up motion is cold-calling; email
+ * Captures phone (REQUIRED - the follow-up motion is cold-calling; email
  * reach rates aren't good enough) + optional email.
  *
  * TODO(wiring): no backend endpoint exists yet. Submissions POST to the
- * constant below and fall through to a graceful confirmation either way —
+ * constant below and fall through to a graceful confirmation either way -
  * wire a real collector (backend route or form service) before enabling.
  * ──────────────────────────────────────────────────────────────────────────── */
 
 // TODO(wiring): replace with the real collection endpoint before enabling the flag.
 const ANDROID_WAITLIST_ENDPOINT = "/api/android-waitlist";
 
-// PLACEHOLDER CONSENT LANGUAGE — NOT TCPA-REVIEWED. Do not ship the flag
+// PLACEHOLDER CONSENT LANGUAGE - NOT TCPA-REVIEWED. Do not ship the flag
 // enabled until compliance counsel replaces this copy (PRD Open Item #10).
 const PLACEHOLDER_CONSENT_COPY =
   "I agree that Forge may call or text me at the number provided about Android availability. Message and data rates may apply. Reply STOP to opt out. [PLACEHOLDER: pending TCPA compliance review]";
@@ -47,7 +47,7 @@ export default function AndroidWaitlist() {
   const [errors, setErrors] = useState<{ phone?: string; email?: string; consent?: string }>({});
   const [submitted, setSubmitted] = useState(false);
 
-  // TCPA review pending — the block simply does not exist until the flag is on.
+  // TCPA review pending - the block simply does not exist until the flag is on.
   if (!ANDROID_WAITLIST_ENABLED) return null;
 
   const handleSubmit = async (e: FormEvent) => {
@@ -61,7 +61,7 @@ export default function AndroidWaitlist() {
     setErrors(nextErrors);
     if (Object.keys(nextErrors).length > 0) return;
 
-    // TODO(wiring): stub — endpoint does not exist yet. Failures are
+    // TODO(wiring): stub - endpoint does not exist yet. Failures are
     // swallowed on purpose so the visitor still gets the graceful state;
     // replace with real error handling when the collector is wired.
     try {
@@ -71,7 +71,7 @@ export default function AndroidWaitlist() {
         body: JSON.stringify({ phone: phone.trim(), email: email.trim() || undefined, consent, source: "marketing-site" }),
       });
     } catch {
-      // Swallowed — see TODO(wiring) above.
+      // Swallowed - see TODO(wiring) above.
     }
     setSubmitted(true);
   };
@@ -140,7 +140,7 @@ export default function AndroidWaitlist() {
                 className="mt-0.5 accent-[#0EA5E9]"
                 aria-invalid={!!errors.consent}
               />
-              {/* PLACEHOLDER consent copy — see header comment. NOT TCPA-reviewed. */}
+              {/* PLACEHOLDER consent copy - see header comment. NOT TCPA-reviewed. */}
               <span className="text-forge-smoke text-xs leading-relaxed">{PLACEHOLDER_CONSENT_COPY}</span>
             </label>
             {errors.consent && <p className="text-red-400 text-xs -mt-3">{errors.consent}</p>}

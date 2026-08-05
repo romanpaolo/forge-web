@@ -1,6 +1,6 @@
-// Production pricing — PRD Section 8 (Ethan Rife, Michael-audited, 2026-07).
+// Production pricing - PRD Section 8 (Ethan Rife, Michael-audited, 2026-07).
 // These are the ONLY approved numbers. Client-side math here is a display
-// convenience; the future Stripe Checkout flow (PRD Section 13 — blocked on
+// convenience; the future Stripe Checkout flow (PRD Section 13 - blocked on
 // backend work) recomputes entitlements server-side from subscription line
 // items and never trusts these values.
 

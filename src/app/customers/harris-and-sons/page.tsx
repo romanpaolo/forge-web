@@ -22,11 +22,11 @@ export const metadata: Metadata = {
 
 // The committed PDF is generated from THIS page via headless Chrome print
 // styling (see the @media print block below). Christian's designed case-study
-// PDF can replace the file at public/harris-and-sons-case-study.pdf any time —
+// PDF can replace the file at public/harris-and-sons-case-study.pdf any time -
 // no code change needed.
 const PDF_PATH = "/harris-and-sons-case-study.pdf";
 
-// PRD 10.1 / 10.7 — key metrics. The ~$4M is a PROJECTION, distinct from
+// PRD 10.1 / 10.7 - key metrics. The ~$4M is a PROJECTION, distinct from
 // actuals (Michael's audit); the footnote below the grid is load-bearing.
 const KEY_METRICS = [
   { value: "$330K", label: "Revenue directly attributed to Forge" },
@@ -94,7 +94,7 @@ export default function HarrisAndSonsPage() {
       </div>
 
       <main className="max-w-4xl mx-auto px-6 pt-40 pb-24 print-article">
-        {/* ── Header — PRD 10.7, word-for-word ─────────────────────────── */}
+        {/* ── Header - PRD 10.7, word-for-word ─────────────────────────── */}
         <header>
           <SectionLabel>CUSTOMER STORY · HARRIS &amp; SONS CONSTRUCTION · BEND, OR</SectionLabel>
 
@@ -114,7 +114,7 @@ export default function HarrisAndSonsPage() {
             RESIDENTIAL REMODELING · GENERAL CONTRACTING · BEND, OREGON · FAMILY-OWNED
           </p>
 
-          {/* Disclosure — PRD 10.3, must ship with the page */}
+          {/* Disclosure - PRD 10.3, must ship with the page */}
           <p className="text-forge-smoke text-sm leading-relaxed border-l-2 border-forge-cyan/50 pl-4 mt-8 max-w-2xl">
             Harris &amp; Sons Construction is owned by Forge cofounder Christian
             Harris. The results below are from Harris &amp; Sons&rsquo; own books.

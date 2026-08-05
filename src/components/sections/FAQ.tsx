@@ -16,7 +16,7 @@ export default function FAQ({ items }: { items: FaqItem[] }) {
 
   return (
     <section className="relative py-24 md:py-32 bg-transparent overflow-hidden">
-      {/* Spatial dot grid background — parallax layer */}
+      {/* Spatial dot grid background - parallax layer */}
       <div className="absolute inset-0 pointer-events-none" aria-hidden="true" data-speed="0.85">
         <div
           className="absolute inset-0 opacity-[0.04]"
