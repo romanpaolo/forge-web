@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     description:
       "Questions, bugs, billing, or onboarding. Reach the Forge team directly. Responses within one business day.",
     type: "website",
-    url: "https://forgebuild.io/support",
+    url: "https://www.forge.equipment/support",
     images: [{ url: "/og-image.png", width: 1200, height: 630 }],
   },
 };

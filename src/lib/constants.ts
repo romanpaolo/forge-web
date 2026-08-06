@@ -1,3 +1,31 @@
+// ─── URL constants ────────────────────────────────────────────────────────────
+
+// TODO: update to the real app subdomain once DNS is pointed (e.g. app.forge.equipment)
+export const DASHBOARD_URL = "https://www.forge.equipment";
+
+export const CALENDLY_URL = "https://calendly.com/christian-forge/30min";
+
+// TODO: replace "#" with the real App Store listing URL once live
+export const APP_STORE_URL = "#";
+
+export const CASE_STUDY_PATH = "/customers/harris-and-sons";
+
+// Trial goes to the Stripe Pro checkout. plan/seats params reserved for future
+// Stripe payment-link customization (e.g. prefilled_quantity).
+export function trialSignupUrl(
+  _plan?: string,
+  _seats?: number,
+): string {
+  return "https://buy.stripe.com/fZu5kDcDC99H3ES73c3Nm05";
+}
+
+// Gated by NEXT_PUBLIC_ANDROID_WAITLIST env var. Keep false in production until
+// TCPA-compliant consent copy is reviewed (see AndroidWaitlist.tsx header comment).
+export const ANDROID_WAITLIST_ENABLED =
+  process.env.NEXT_PUBLIC_ANDROID_WAITLIST === "true";
+
+// ─── Navigation ───────────────────────────────────────────────────────────────
+
 export const NAV_LINKS = [
   { label: "Product", href: "#product" },
   { label: "Features", href: "#features" },

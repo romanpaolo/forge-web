@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     description:
       "Join the Founders Council. Full ScopeSnap access, unlimited job walks, locked-in founding rate.",
     type: "website",
-    url: "https://forgebuild.io/pricing",
+    url: "https://www.forge.equipment/pricing",
     images: [{ url: "/og-image.png", width: 1200, height: 630 }],
   },
 };

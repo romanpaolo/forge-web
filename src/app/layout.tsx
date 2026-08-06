@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     title: 'Forge: The AI Job Walk Tool for Contractors',
     description: 'One walk in. Structured scope out. Save 20+ minutes per job.',
     type: 'website',
-    url: 'https://forgebuild.io',
+    url: 'https://www.forge.equipment',
     images: [{ url: '/og-image.png', width: 1200, height: 630 }],
   },
   twitter: {

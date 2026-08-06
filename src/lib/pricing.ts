@@ -3,6 +3,40 @@
 // /pricing ships only the free Founders Council offer (the <Pricing /> section),
 // which matches the rest of the site's "free during beta" messaging.
 
+// ─── Plan configurator math (249 + 39×(seats−3) monthly; 2390 + 374×(seats−3) annual) ───
+
+export type BillingPlan = "monthly" | "annual";
+
+export const MIN_SEATS = 3;
+export const INCLUDED_SEATS = 3;
+
+/** Base price for 3 included seats, monthly billing */
+const BASE_MONTHLY = 249;
+
+/** Base price for 3 included seats, annual billing */
+export const BASE_ANNUAL = 2390;
+
+/** Per additional seat per month (above INCLUDED_SEATS) */
+export const SEAT_MONTHLY = 39;
+
+/** Per additional seat per year (above INCLUDED_SEATS) */
+export const SEAT_ANNUAL = 374;
+
+export function monthlyTotal(seats: number): number {
+  return BASE_MONTHLY + Math.max(0, seats - INCLUDED_SEATS) * SEAT_MONTHLY;
+}
+
+export function annualTotal(seats: number): number {
+  return BASE_ANNUAL + Math.max(0, seats - INCLUDED_SEATS) * SEAT_ANNUAL;
+}
+
+/** Format a whole-dollar amount as "$249" with no cents. */
+export function formatUsd(amount: number): string {
+  return `$${amount.toLocaleString("en-US")}`;
+}
+
+// ─── Tier definitions ────────────────────────────────────────────────────────
+
 export type PricingTier = {
   name: string;
   /** Display string, e.g. "$49" — kept as text so we never compute money. */
