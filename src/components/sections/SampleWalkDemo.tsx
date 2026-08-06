@@ -23,21 +23,21 @@ import { fadeUp } from "@/lib/animations";
  * ──────────────────────────────────────────────────────────────────────────── */
 
 const TRANSCRIPT_LINES = [
-  { t: "00:04", text: "Alright — kitchen remodel at the Hendersons'. Full gut, about two-twenty square feet." },
+  { t: "00:04", text: "Alright, kitchen remodel at the Hendersons'. Full gut, about two twenty square feet." },
   { t: "00:19", text: "Demo the existing cabinets, tops, and the tile floor. Soffit above the uppers comes out too." },
-  { t: "00:41", text: "Client wants shaker cabinets and quartz counters — call it thirty-two linear feet of run." },
-  { t: "01:08", text: "Sink moves about three feet left into the island, so plumbing rough-in shifts. New supply and drain." },
-  { t: "01:32", text: "Dedicated twenty-amp circuit for the island outlets, four recessed cans, under-cabinet lighting." },
-  { t: "01:57", text: "Flooring is LVP — maybe seven-fifty square feet if we run it into the dining room. Need to confirm with the client." },
+  { t: "00:41", text: "Client wants shaker cabinets and quartz counters, call it thirty-two linear feet of run." },
+  { t: "01:08", text: "Sink moves about three feet left into the island, so plumbing rough in shifts. New supply and drain." },
+  { t: "01:32", text: "Dedicated twenty amp circuit for the island outlets, four recessed cans, under cabinet lighting." },
+  { t: "01:57", text: "Flooring is LVP, maybe seven fifty square feet if we run it into the dining room. Need to confirm with the client." },
 ];
 
 type Confidence = "high" | "med" | "low";
 
 const SCOPE_GROUPS: { trade: string; items: string[]; confidence: Confidence }[] = [
-  { trade: "Demolition", items: ["Remove cabinets, counters & soffit", "Tear out tile floor", "Haul-off & disposal"], confidence: "high" },
+  { trade: "Demolition", items: ["Remove cabinets, counters & soffit", "Tear out tile floor", "Haul off & disposal"], confidence: "high" },
   { trade: "Cabinetry & Counters", items: ["32 LF shaker cabinets", "Quartz countertops", "Island install"], confidence: "high" },
-  { trade: "Plumbing", items: ["Relocate sink 3 ft to island", "New supply + drain rough-in", "Dishwasher hookup"], confidence: "med" },
-  { trade: "Electrical", items: ["Dedicated 20A island circuit", "4 recessed cans", "Under-cabinet lighting"], confidence: "high" },
+  { trade: "Plumbing", items: ["Relocate sink 3 ft to island", "New supply + drain rough in", "Dishwasher hookup"], confidence: "med" },
+  { trade: "Electrical", items: ["Dedicated 20A island circuit", "4 recessed cans", "Under cabinet lighting"], confidence: "high" },
   { trade: "Flooring", items: ["LVP supply + install", "Underlayment prep"], confidence: "low" },
 ];
 
@@ -54,9 +54,9 @@ const ESTIMATE_ITEMS: {
   { description: "Demolition & disposal", trade: "Demolition", qty: 1, unit: "LS", unitCost: 2800, total: 2800, confidence: "high" },
   { description: "Shaker cabinets, supply + install", trade: "Cabinetry", qty: 32, unit: "LF", unitCost: 310, total: 9920, confidence: "high" },
   { description: "Quartz countertops, fab + install", trade: "Counters", qty: 58, unit: "SF", unitCost: 85, total: 4930, confidence: "high" },
-  { description: "Sink relocation — rough-in + trim", trade: "Plumbing", qty: 1, unit: "LS", unitCost: 2400, total: 2400, confidence: "med", flag: "Slab vs. crawlspace not confirmed on walk" },
+  { description: "Sink relocation: rough in + trim", trade: "Plumbing", qty: 1, unit: "LS", unitCost: 2400, total: 2400, confidence: "med", flag: "Slab vs. crawlspace not confirmed on walk" },
   { description: "Island circuit, 4 cans, UC lighting", trade: "Electrical", qty: 1, unit: "LS", unitCost: 2150, total: 2150, confidence: "high" },
-  { description: "LVP flooring, supply + install", trade: "Flooring", qty: 750, unit: "SF", unitCost: 6.5, total: 4875, confidence: "low", flag: "Confirm dining-room area with client" },
+  { description: "LVP flooring, supply + install", trade: "Flooring", qty: 750, unit: "SF", unitCost: 6.5, total: 4875, confidence: "low", flag: "Confirm dining room area with client" },
 ];
 
 const GRAND_TOTAL = ESTIMATE_ITEMS.reduce((sum, li) => sum + li.total, 0);
@@ -183,8 +183,8 @@ export default function SampleWalkDemo() {
             transition={{ duration: 0.6, ease: "easeOut", delay: 0.2 }}
           >
             Press play on an actual scope-walk recording and watch it turn into
-            a trade-by-trade scope and priced estimate in real time — right
-            here, no sign-up required.
+            a trade-by-trade scope and priced estimate in real time,
+            right here, no sign-up required.
           </motion.p>
         </div>
 

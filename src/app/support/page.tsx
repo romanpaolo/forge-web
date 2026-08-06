@@ -11,15 +11,15 @@ const SUPPORT_EMAIL = "team@forge.equipment";
 const CALENDLY_URL = "https://calendly.com/christian-forge/30min";
 
 export const metadata: Metadata = {
-  title: "Support — Forge",
+  title: "Support | Forge",
   description:
-    "Get help with Forge. Browse common questions, email the team, or book a call — we respond within one business day.",
+    "Get help with Forge and ScopeSnap. Browse common questions, email the team, or book a call. We respond within one business day.",
   openGraph: {
-    title: "Forge Support — We've Got Your Back",
+    title: "Forge Support: We've Got Your Back",
     description:
-      "Questions, bugs, billing, or onboarding — reach the Forge team directly. Responses within one business day.",
+      "Questions, bugs, billing, or onboarding. Reach the Forge team directly. Responses within one business day.",
     type: "website",
-    url: "https://www.forge.equipment/support",
+    url: "https://forgebuild.io/support",
     images: [{ url: "/og-image.png", width: 1200, height: 630 }],
   },
 };
@@ -40,7 +40,7 @@ export default function SupportPage() {
           <p className="text-forge-smoke text-lg leading-relaxed max-w-2xl">
             Stuck on a job walk, hit a bug, or have a question about your
             account? Browse the common questions below, or reach the team
-            directly — we respond within one business day.
+            directly. We respond within one business day.
           </p>
         </section>
 
@@ -56,7 +56,7 @@ export default function SupportPage() {
             Reach the team
           </h2>
           <p className="text-forge-smoke text-sm leading-relaxed max-w-2xl mb-12">
-            Pick whatever&rsquo;s fastest for you — email us, book a call, or send
+            Pick whatever&rsquo;s fastest for you: email us, book a call, or send
             the form below.
           </p>
 
@@ -100,9 +100,9 @@ export default function SupportPage() {
                   <span className="text-sm font-semibold text-forge-white group-hover:text-forge-cyan transition-colors">
                     Book a call
                   </span>
-                  <span className="text-sm text-forge-smoke">30-min walkthrough</span>
+                  <span className="text-sm text-forge-smoke">30 min walkthrough</span>
                   <span className="mt-1 text-xs text-forge-graphite">
-                    Best for a guided demo before you start your trial.
+                    Best for onboarding and Founders Council.
                   </span>
                 </span>
               </a>

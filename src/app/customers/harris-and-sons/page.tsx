@@ -7,13 +7,13 @@ import Button from "@/components/ui/Button";
 import { CALENDLY_URL, trialSignupUrl } from "@/lib/constants";
 
 export const metadata: Metadata = {
-  title: "Harris & Sons Construction — Forge Customer Story",
+  title: "Harris & Sons Construction: Forge Customer Story",
   description:
-    "How a family remodeling contractor cut estimating time 75%, prevented a $40,000 scope loss, and grew projected revenue 60% — in 90 days on Forge.",
+    "How a family remodeling contractor cut estimating time 75%, prevented a $40,000 scope loss, and grew projected revenue 60%, in 90 days on Forge.",
   openGraph: {
-    title: "Two weeks to three days — Harris & Sons on Forge",
+    title: "Two weeks to three days: Harris & Sons on Forge",
     description:
-      "75% less estimating time, $330K in Forge-attributed revenue, a $40K scope-dispute loss prevented — in the first 90 days.",
+      "75% less estimating time, $330K in Forge attributed revenue, a $40K scope dispute loss prevented, in the first 90 days.",
     type: "article",
     url: "https://www.forge.equipment/customers/harris-and-sons",
     images: [{ url: "/og-image.png", width: 1200, height: 630 }],
@@ -31,15 +31,15 @@ const PDF_PATH = "/harris-and-sons-case-study.pdf";
 const KEY_METRICS = [
   { value: "$330K", label: "Revenue directly attributed to Forge" },
   { value: "75%", label: "Reduction in estimating & documentation time" },
-  { value: "$2K–$3K/mo", label: "Monthly admin savings across 20–30 estimates" },
+  { value: "$2K to $3K/mo", label: "Monthly admin savings across 20 to 30 estimates" },
   { value: "~$4M*", label: "Projected* annual revenue, up from $2.5M actual" },
 ];
 
 const BEFORE_AFTER: { dimension: string; before: string; after: string }[] = [
   { dimension: "Estimate delivery", before: "Up to 2 weeks", after: "Under 3 days" },
   { dimension: "Notes workflow", before: "4+ tools, manual", after: "1 walk. Done." },
-  { dimension: "Team output", before: "Baseline capacity", after: "2–3x in 90 days" },
-  { dimension: "Change order risk", before: "High — details lost", after: "$40K loss prevented" },
+  { dimension: "Team output", before: "Baseline capacity", after: "2 to 3x in 90 days" },
+  { dimension: "Change order risk", before: "High, details lost", after: "$40K loss prevented" },
   { dimension: "Annual projection", before: "$2.5M", after: "~$4M" },
   { dimension: "Sales reps", before: "1", after: "2 (and growing)" },
 ];
@@ -51,14 +51,14 @@ const WHAT_CHANGED: { lead: string; rest: string }[] = [
   },
   {
     lead: "Forge documentation stopped a $40,000 loss.",
-    rest: "When a scope dispute came up, the structured job-walk record gave them an unambiguous paper trail. Clean change order. No absorbed cost.",
+    rest: "When a scope dispute came up, the structured job walk record gave them an unambiguous paper trail. Clean change order. No absorbed cost.",
   },
   {
-    lead: "Team output grew 2–3x in 90 days.",
-    rest: "The efficiency freed up enough capacity to hire a second sales representative — a move the business couldn't justify before.",
+    lead: "Team output grew 2 to 3x in 90 days.",
+    rest: "The efficiency freed up enough capacity to hire a second sales representative, a move the business couldn't justify before.",
   },
   {
-    lead: "Revenue projection jumped 60% — same overhead.",
+    lead: "Revenue projection jumped 60%, same overhead.",
     rest: "From $2.5M to nearly $4M for the upcoming year. Same ad spend. Forge let them scale safely without compromising their reputation.",
   },
 ];
@@ -106,7 +106,7 @@ export default function HarrisAndSonsPage() {
 
           <p className="text-forge-smoke text-lg md:text-xl leading-relaxed mt-8 max-w-2xl">
             How a family remodeling contractor cut estimating time 75%,
-            prevented a $40,000 scope loss, and grew projected revenue 60% —
+            prevented a $40,000 scope loss, and grew projected revenue 60%,
             in 90 days.
           </p>
 
@@ -149,7 +149,7 @@ export default function HarrisAndSonsPage() {
           </div>
 
           <p className="text-forge-graphite text-xs mt-4">
-            *Projected for the year ahead based on current pace — not yet actualized.
+            *Projected for the year ahead based on current pace. Not yet actualized.
           </p>
         </section>
 
@@ -159,8 +159,8 @@ export default function HarrisAndSonsPage() {
           <p className="text-forge-ash text-base md:text-lg leading-relaxed max-w-2xl">
             Christian Harris runs a family-owned general contracting business
             specializing in residential remodeling. Harris &amp; Sons handles
-            20–30 estimates a month across kitchens, baths, additions, and
-            full remodels — competing against larger regional contractors for
+            20 to 30 estimates a month across kitchens, baths, additions, and
+            full remodels, competing against larger regional contractors for
             every job.
           </p>
         </section>
@@ -174,11 +174,11 @@ export default function HarrisAndSonsPage() {
               didn&rsquo;t have was a back office that could keep up. Job-walk notes
               were scattered across tools. Estimates took up to two weeks to
               deliver. Details got lost between the site visit and the project
-              manager&rsquo;s desk — every time.
+              manager&rsquo;s desk, every time.
             </p>
             <p className="text-forge-ash text-base md:text-lg leading-relaxed">
-              At 20–30 estimates a month, that administrative drag cost
-              $75–$100 per deal — $2,000–$3,000 a month in time nobody was
+              At 20 to 30 estimates a month, that administrative drag cost
+              $75 to $100 per deal, $2,000 to $3,000 a month in time nobody was
               getting back.
             </p>
           </div>
@@ -238,7 +238,7 @@ export default function HarrisAndSonsPage() {
               decision made on the walk.&rdquo;
             </p>
             <footer className="text-forge-smoke text-base mt-4">
-              — Christian Harris, Harris &amp; Sons Construction, Bend, Oregon
+              Christian Harris, Harris &amp; Sons Construction, Bend, Oregon
             </footer>
           </blockquote>
         </section>

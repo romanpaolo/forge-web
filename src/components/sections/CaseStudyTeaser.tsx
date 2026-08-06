@@ -11,8 +11,8 @@ import { fadeUp } from "@/lib/animations";
 // from Harris & Sons' own books — full disclosure lives on the case study page.
 const TEASER_STATS = [
   { value: "75%", label: "less time estimating" },
-  { value: "$330K", label: "Forge-attributed revenue" },
-  { value: "$40K", label: "scope-dispute loss prevented" },
+  { value: "$330K", label: "Forge attributed revenue" },
+  { value: "$40K", label: "scope dispute loss prevented" },
 ];
 
 export default function CaseStudyTeaser() {
@@ -48,7 +48,7 @@ export default function CaseStudyTeaser() {
           transition={{ duration: 0.6, ease: "easeOut", delay: 0.2 }}
         >
           Harris &amp; Sons Construction cut estimating time 75%, prevented a
-          $40,000 scope-dispute loss, and grew projected revenue 60% — in
+          $40,000 scope dispute loss, and grew projected revenue 60%, in
           their first 90 days on Forge.
         </motion.p>
 

@@ -203,7 +203,7 @@ export default function LegalPage() {
 
             <Clause number="1" title="Description of Service">
               <p>
-                Forge Solutions, Corp provides an AI-powered tool that generates construction
+                Forge Solutions, Corp provides an AI powered tool that generates construction
                 estimates based on user-provided inputs (&ldquo;Service&rdquo;). The Service is intended
                 for informational and productivity purposes only.
               </p>
@@ -242,7 +242,7 @@ export default function LegalPage() {
                 (monthly or annual) unless you cancel before the renewal date. You may
                 cancel your subscription at any time through your account settings or by
                 contacting us. Cancellation takes effect at the end of the current billing
-                period — you will retain access until then.
+                period. You will retain access until then.
               </p>
             </Clause>
 
@@ -252,7 +252,7 @@ export default function LegalPage() {
                   dashboard's trial notice. */}
               <div className="border border-forge-cyan/40 bg-forge-cyan/5 p-4 flex flex-col gap-2">
                 <p className="text-forge-white font-semibold text-sm uppercase tracking-[0.1em]">
-                  Trial Terms — Updated July 9, 2026
+                  Trial Terms: Updated July 9, 2026
                 </p>
                 <p>
                   This section was updated on July 9, 2026 as Forge moved from its
@@ -266,7 +266,7 @@ export default function LegalPage() {
                   <strong className="text-forge-white">
                     nothing converts to a paid subscription automatically
                   </strong>{" "}
-                  — we cannot charge a card we never collected. We will remind you
+                  (we cannot charge a card we never collected). We will remind you
                   before the trial ends. If you do not add a payment method by the
                   end of the trial, your account is{" "}
                   <strong className="text-forge-white">paused, not deleted</strong>:
@@ -278,7 +278,7 @@ export default function LegalPage() {
               </div>
               <p>
                 We may offer free trials at our discretion. A free trial never converts
-                to a paid subscription on its own — billing begins only after you add a
+                to a paid subscription on its own: billing begins only after you add a
                 payment method. If a trial ends without one, the account is paused and
                 no data is deleted.
               </p>
@@ -327,7 +327,7 @@ export default function LegalPage() {
                 and AI models, are owned by Forge Solutions, Corp. You retain ownership of
                 the data you input into the Service. By using the Service, you grant us a
                 limited license to process your inputs solely for the purpose of generating
-                outputs and improving the Service. AI-generated outputs are provided for your
+                outputs and improving the Service. AI generated outputs are provided for your
                 use but carry no guarantee of originality or accuracy.
               </p>
             </Clause>
@@ -409,8 +409,8 @@ export default function LegalPage() {
 
             <Clause number="1" title="Information We Collect">
               <p>
-                We collect the following directly from you through your use of the app — for
-                example, when you record a job-walk, capture or upload photos and plan sets, or
+                We collect the following directly from you through your use of the app, for
+                example when you record a job walk, capture or upload photos and plan sets, or
                 enter project details:
               </p>
               <ul className="list-disc list-inside ml-2 flex flex-col gap-1">
@@ -418,7 +418,7 @@ export default function LegalPage() {
                 <li>User inputs (project details, measurements, descriptions, audio recordings, and photos)</li>
                 <li>Usage data (interactions with the platform)</li>
                 <li>Device and log data</li>
-                <li>Billing information (processed and stored by Stripe — we do not store your full card details)</li>
+                <li>Billing information (processed and stored by Stripe; we do not store your full card details)</li>
               </ul>
             </Clause>
 
@@ -441,26 +441,26 @@ export default function LegalPage() {
               </p>
               <ul className="list-disc list-inside ml-2 flex flex-col gap-1">
                 <li>
-                  <strong className="text-forge-white">Anthropic (Claude)</strong> — receives your
-                  job-walk transcript and related project details (which may include client and
+                  <strong className="text-forge-white">Anthropic (Claude)</strong>: receives your
+                  job walk transcript and related project details (which may include client and
                   site names, addresses, and pricing), job-site photos, and uploaded plan sets, to
                   generate scope and estimate documents.
                 </li>
                 <li>
-                  <strong className="text-forge-white">OpenAI (Whisper)</strong> — receives your
-                  job-walk audio recordings to transcribe them to text.
+                  <strong className="text-forge-white">OpenAI (Whisper)</strong>: receives your
+                  job walk audio recordings to transcribe them to text.
                 </li>
                 <li>
-                  <strong className="text-forge-white">Tavily</strong> — receives a building-code
+                  <strong className="text-forge-white">Tavily</strong>: receives a building code
                   search query (task description and project city, state, and ZIP) to retrieve code
                   references.
                 </li>
                 <li>
-                  <strong className="text-forge-white">Stripe</strong> — payment processing
+                  <strong className="text-forge-white">Stripe</strong>: payment processing
                   (subject to Stripe&rsquo;s Privacy Policy).
                 </li>
-                <li>Hosting, infrastructure, and analytics providers — to run and monitor the Service.</li>
-                <li>Legal authorities — where required by law.</li>
+                <li>Hosting, infrastructure, and analytics providers, to run and monitor the Service.</li>
+                <li>Legal authorities, where required by law.</li>
               </ul>
               <p>
                 Each AI provider above processes your data solely to perform the requested task on
@@ -472,7 +472,7 @@ export default function LegalPage() {
 
             <Clause number="4" title="AI Processing">
               <p>
-                Forge uses third-party AI to turn your job-walk into documents. When you record,
+                Forge uses third party AI to turn your job walk into documents. When you record,
                 transcribe, or generate a scope or estimate: (1) your audio is sent to OpenAI
                 (Whisper) for transcription, and (2) the resulting transcript, related project
                 details, job-site photos, and any uploaded plan sets are sent to Anthropic (Claude)
@@ -578,7 +578,7 @@ export default function LegalPage() {
           {/* ── 4. Disclaimer ────────────────────────────────────────────── */}
           <Section id="disclaimer" tag="Legal" title="Disclaimer">
             <p className="text-forge-smoke text-sm leading-relaxed">
-              AI-generated estimates are provided for informational purposes only and may
+              AI generated estimates are provided for informational purposes only and may
               not reflect actual project costs. Users are responsible for verifying all
               outputs before making decisions.
             </p>

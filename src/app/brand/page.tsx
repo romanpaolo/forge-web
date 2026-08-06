@@ -63,7 +63,7 @@ const TYPE_SCALE = [
     weight: "font-bold",
     tracking: "tracking-tight",
     lineHeight: "leading-tight",
-    spec: "48–64px · Bold · −0.02em",
+    spec: "48 to 64px · Bold · 0.02em",
     sample: "Build Faster. Scope Smarter.",
   },
   {
@@ -72,7 +72,7 @@ const TYPE_SCALE = [
     weight: "font-semibold",
     tracking: "tracking-tight",
     lineHeight: "leading-snug",
-    spec: "32–40px · Semibold · −0.01em",
+    spec: "32 to 40px · Semibold · 0.01em",
     sample: "Walk the Job. We'll Handle the Notes.",
   },
   {
@@ -81,7 +81,7 @@ const TYPE_SCALE = [
     weight: "font-medium",
     tracking: "tracking-normal",
     lineHeight: "leading-snug",
-    spec: "24–28px · Medium · 0em",
+    spec: "24 to 28px · Medium · 0em",
     sample: "Raw Walk to Structured Scope",
   },
   {
@@ -91,7 +91,7 @@ const TYPE_SCALE = [
     tracking: "tracking-normal",
     lineHeight: "leading-normal",
     spec: "20px · Semibold · 0em",
-    sample: "One Tap to Buildertrend-Ready",
+    sample: "One Tap to Buildertrend Ready",
   },
   {
     label: "Body Large",
@@ -100,7 +100,7 @@ const TYPE_SCALE = [
     tracking: "tracking-normal",
     lineHeight: "leading-relaxed",
     spec: "18px · Regular · 1.6 line-height",
-    sample: "Forge records everything — audio up to 90 minutes and photos you can voice-tag on the fly.",
+    sample: "Forge records audio up to 90 minutes and photos you can voice tag on the fly.",
   },
   {
     label: "Body",
@@ -148,7 +148,7 @@ const VOICE_ATTRIBUTES = [
   {
     label: "Practical",
     description: "Grounded in real contractor workflows. Every feature solves a real problem.",
-    example: "\"One-tap copy to Buildertrend. Done.\"",
+    example: "\"One tap copy to Buildertrend. Done.\"",
   },
   {
     label: "Empathetic",
@@ -166,7 +166,7 @@ const CORE_VALUES = [
   { label: "Efficiency", icon: Zap, description: "Save time on every walk, every project." },
   { label: "Accuracy", icon: Target, description: "Flag uncertainty. Never guess. Always verify." },
   { label: "Simplicity", icon: Layers, description: "One workflow replaces four." },
-  { label: "Trade-First", icon: Users, description: "Built for how contractors actually work." },
+  { label: "Trade First", icon: Users, description: "Built for how contractors actually work." },
   { label: "Trust", icon: Shield, description: "You review and approve everything before export." },
 ];
 
@@ -466,7 +466,7 @@ export default function BrandPage() {
             <div className="grid sm:grid-cols-2 gap-4">
               <Card>
                 <p className="text-xs font-mono text-forge-smoke uppercase tracking-widest mb-3">
-                  Inter — Primary
+                  Inter: Primary
                 </p>
                 <p
                   className="text-3xl font-bold text-forge-white mb-2 tracking-tight"
@@ -491,7 +491,7 @@ export default function BrandPage() {
 
               <Card>
                 <p className="text-xs font-mono text-forge-smoke uppercase tracking-widest mb-3">
-                  JetBrains Mono — Code &amp; Metrics
+                  JetBrains Mono: Code &amp; Metrics
                 </p>
                 <p
                   className="text-3xl font-bold text-forge-cyan mb-2 tracking-tight"
@@ -525,7 +525,7 @@ export default function BrandPage() {
           >
             {/* Buttons */}
             <h3 className="text-xs font-medium text-forge-smoke uppercase tracking-widest mb-5">
-              Button — Variants
+              Button Variants
             </h3>
             <div className="flex flex-wrap items-center gap-4 mb-10">
               <Button variant="primary" size="md">Primary Button</Button>
@@ -534,7 +534,7 @@ export default function BrandPage() {
             </div>
 
             <h3 className="text-xs font-medium text-forge-smoke uppercase tracking-widest mb-5">
-              Button — Sizes
+              Button Sizes
             </h3>
             <div className="flex flex-wrap items-end gap-4 mb-12">
               <div className="text-center">
@@ -552,7 +552,7 @@ export default function BrandPage() {
             </div>
 
             <h3 className="text-xs font-medium text-forge-smoke uppercase tracking-widest mb-5">
-              Button — With Icons
+              Button With Icons
             </h3>
             <div className="flex flex-wrap items-center gap-4 mb-12">
               <Button variant="primary" size="md">
@@ -619,7 +619,7 @@ export default function BrandPage() {
             id="iconography"
             tag="Icons"
             title="Iconography"
-            description="All icons are from Lucide React. Use outlined style with 1.5px–2px stroke weight. Default size is 20px for UI, 16px for inline/button usage."
+            description="All icons are from Lucide React. Use outlined style with 1.5 to 2px stroke weight. Default size is 20px for UI, 16px for inline/button usage."
           >
             <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-3 mb-10">
               {ICONS.map(({ name, component: Icon }) => (
@@ -644,10 +644,10 @@ export default function BrandPage() {
               <h4 className="text-sm font-medium text-forge-white mb-4">Usage Guidelines</h4>
               <ul className="flex flex-col gap-2.5 text-sm text-forge-smoke">
                 {[
-                  "Use Lucide React exclusively — do not mix icon libraries.",
+                  "Use Lucide React exclusively. Do not mix icon libraries.",
                   "Stroke weight: 1.5px for decorative/large icons, 2px for UI controls and inline usage.",
                   "Icon size: 24px standalone, 20px in navigation, 16px inside buttons.",
-                  "Never fill icons — always use the outlined variant.",
+                  "Never fill icons. Always use the outlined variant.",
                   "Pair icons with text labels in all interactive contexts for accessibility.",
                 ].map((rule, i) => (
                   <li key={i} className="flex items-start gap-2.5">

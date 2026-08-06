@@ -23,10 +23,10 @@ import {
 
 const PLAN_FEATURES = [
   "Unlimited job walks and recordings",
-  "AI-generated scope + estimate from every walk",
+  "AI generated scope + estimate from every walk",
   "iOS + Web access (Android coming soon)",
   "Export to Buildertrend, PDF, and CSV",
-  "Full team roles — Owner, Admin, PM, Estimator, Sub",
+  "Full team roles: Owner, Admin, PM, Estimator, Sub",
   "Email support",
 ];
 
@@ -50,7 +50,7 @@ export default function PlanConfigurator() {
         {(
           [
             { id: "monthly", label: "Monthly" },
-            { id: "annual", label: "Annual — save 20%" },
+            { id: "annual", label: "Annual: save 20%" },
           ] as const
         ).map(({ id, label }) => (
           <button
@@ -101,7 +101,7 @@ export default function PlanConfigurator() {
                 </p>
                 <p className="text-forge-graphite text-xs mt-1">
                   (Annual: {formatUsd(BASE_ANNUAL)}/yr · +{formatUsd(SEAT_ANNUAL)}/yr per
-                  additional seat — save 20%)
+                  additional seat, save 20%)
                 </p>
               </>
             ) : (
@@ -186,7 +186,7 @@ export default function PlanConfigurator() {
           </div>
 
           <p className="text-forge-graphite text-xs text-center">
-            14-day free trial on both plans — no credit card required to start.
+            14-day free trial on both plans. No credit card required to start.
           </p>
         </div>
       </div>
@@ -194,7 +194,7 @@ export default function PlanConfigurator() {
       {/* ROI line — PRD 9.10 / 10.6 */}
       <p className="text-forge-smoke text-sm text-center leading-relaxed mt-10 max-w-md mx-auto">
         Harris &amp; Sons cut estimating time 75% and added $330K in
-        Forge-attributed revenue in their first 90 days.{" "}
+        Forge attributed revenue in their first 90 days.{" "}
         <a
           href={CASE_STUDY_PATH}
           className="text-forge-white hover:text-forge-cyan transition-colors underline underline-offset-4 decoration-forge-graphite whitespace-nowrap"
