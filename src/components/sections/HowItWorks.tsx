@@ -1,12 +1,12 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Mic, Brain, Send } from "lucide-react";
+import { Mic, Brain, Send, CheckCircle } from "lucide-react";
 import SectionLabel from "@/components/ui/SectionLabel";
 import { STEPS } from "@/lib/constants";
 import { fadeUp } from "@/lib/animations";
 
-const STEP_ICONS = [Mic, Brain, Send];
+const STEP_ICONS = [Mic, Brain, Send, CheckCircle];
 
 export default function HowItWorks() {
   return (
