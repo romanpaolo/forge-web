@@ -10,16 +10,31 @@ export const NAV_LINKS = [
 ];
 
 // The live product dashboard. Set NEXT_PUBLIC_DASHBOARD_URL in the Vercel
-// project to move it. The fallback is the current Vercel-assigned host, which
-// is what ships until the custom app domain (app.forge.equipment) exists.
+// project to move it. The fallback is app.forge.equipment, the custom app
+// domain that went live 2026-08-08 — production no longer needs the env var
+// set; it's there for preview/staging builds pointing at a different
+// dashboard deploy.
 // next.config.ts reads the SAME env var for its app-path redirects: change the
 // env var and both the links and the redirects follow. Do not reintroduce a
 // second hardcoded copy of this host.
 export const DASHBOARD_URL =
-  process.env.NEXT_PUBLIC_DASHBOARD_URL || "https://forge-web-nine.vercel.app";
+  process.env.NEXT_PUBLIC_DASHBOARD_URL || "https://app.forge.equipment";
 export const CALENDLY_URL = "https://calendly.com/christian-forge/30min";
 export const APP_STORE_URL = "https://apps.apple.com/us/app/id6762521834";
 export const CASE_STUDY_PATH = "/customers/harris-and-sons";
+
+// Sign-in entry point into the product. Deliberately targets `/login`
+// rather than the bare DASHBOARD_URL: hitting the dashboard root as a
+// signed-out user works, but only by bouncing through the app shell's auth
+// guard first, which flashes a redirect before the form appears. Naming the
+// route directly is one hop instead of two.
+// Note the landing ALSO serves /login itself as a 307 to this same target
+// (next.config.ts), so an inbound forge.equipment/login link keeps working
+// - but in-page links should point at the real destination, not our own
+// redirect, so a user never takes two hops when one will do.
+export function loginUrl(): string {
+  return `${DASHBOARD_URL}/login`;
+}
 
 // "Start Free Trial" routes to the dashboard signup, which already
 // auto-provisions accounts card-free (14-day trial). plan + seats ride along

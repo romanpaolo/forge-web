@@ -22,7 +22,17 @@
  *   - "/invite/*"  - invite links open the iOS Accept-Invite flow when
  *     the app is installed; otherwise this host forwards them to the
  *     dashboard (see next.config.ts redirects).
- *   - "/accept/*"  - kept in lockstep with the backend/dashboard AASA.
+ *
+ * `/accept/*` was REMOVED from all three manifests on 2026-08-08 - it was
+ * carried only to keep the three in lockstep with each other, never
+ * because anything used it. Verified dead first: no /accept route on this
+ * project or the dashboard, the backend mints only /invite/ //share/ and
+ * /sign/ links, and ForgeApp.handleIncomingURL matches on "invite" alone.
+ * (The /api/invites/:token/accept calls in iOS and Android are a POST API
+ * endpoint, not a universal-link web path.) See the dashboard SSOT file
+ * for the full rationale. If an /accept route is ever built, restore the
+ * path to ALL THREE manifests and add the handleIncomingURL branch in the
+ * same change.
  *
  * `dynamic = "force-static"`: the response never varies per-request, so
  * Next bakes it at build time and serves it from the CDN edge.
@@ -67,7 +77,6 @@ const AASA: AppleAppSiteAssociation = {
           "NOT /terms",
           "NOT /support",
           "/invite/*",
-          "/accept/*",
         ],
       },
     ],

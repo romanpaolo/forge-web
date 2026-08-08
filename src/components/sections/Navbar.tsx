@@ -5,8 +5,8 @@ import { Hexagon, Menu, X } from "lucide-react";
 import Button from "@/components/ui/Button";
 import {
   NAV_LINKS,
-  DASHBOARD_URL,
   CALENDLY_URL,
+  loginUrl,
   trialSignupUrl,
 } from "@/lib/constants";
 
@@ -79,7 +79,7 @@ export default function Navbar() {
             {/* Desktop CTAs - primary trial signup, clearly-secondary sales (PRD 9.1) */}
             <div className="hidden md:flex items-center gap-3">
               <a
-                href={DASHBOARD_URL}
+                href={loginUrl()}
                 className="text-forge-smoke hover:text-forge-white transition-colors text-sm font-medium mr-1"
               >
                 Sign in
@@ -171,7 +171,7 @@ export default function Navbar() {
           {/* Mobile CTAs - primary trial signup, clearly-secondary sales (PRD 9.1) */}
           <div className="pt-8 flex flex-col gap-3">
             <a
-              href={DASHBOARD_URL}
+              href={loginUrl()}
               onClick={handleNavClick}
               className="text-forge-smoke hover:text-forge-white transition-colors text-base font-medium text-center py-2"
             >
