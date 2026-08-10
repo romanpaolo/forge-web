@@ -34,10 +34,10 @@ const TRANSCRIPT_LINES = [
 type Confidence = "high" | "med" | "low";
 
 const SCOPE_GROUPS: { trade: string; items: string[]; confidence: Confidence }[] = [
-  { trade: "Demolition", items: ["Remove cabinets, counters & soffit", "Tear out tile floor", "Haul-off & disposal"], confidence: "high" },
+  { trade: "Demolition", items: ["Remove cabinets, counters & soffit", "Tear out tile floor", "Haul off & disposal"], confidence: "high" },
   { trade: "Cabinetry & Counters", items: ["32 LF shaker cabinets", "Quartz countertops", "Island install"], confidence: "high" },
-  { trade: "Plumbing", items: ["Relocate sink 3 ft to island", "New supply + drain rough-in", "Dishwasher hookup"], confidence: "med" },
-  { trade: "Electrical", items: ["Dedicated 20A island circuit", "4 recessed cans", "Under-cabinet lighting"], confidence: "high" },
+  { trade: "Plumbing", items: ["Relocate sink 3 ft to island", "New supply + drain rough in", "Dishwasher hookup"], confidence: "med" },
+  { trade: "Electrical", items: ["Dedicated 20A island circuit", "4 recessed cans", "Under cabinet lighting"], confidence: "high" },
   { trade: "Flooring", items: ["LVP supply + install", "Underlayment prep"], confidence: "low" },
 ];
 
@@ -56,7 +56,7 @@ const ESTIMATE_ITEMS: {
   { description: "Quartz countertops, fab + install", trade: "Counters", qty: 58, unit: "SF", unitCost: 85, total: 4930, confidence: "high" },
   { description: "Sink relocation: rough-in + trim", trade: "Plumbing", qty: 1, unit: "LS", unitCost: 2400, total: 2400, confidence: "med", flag: "Slab vs. crawlspace not confirmed on walk" },
   { description: "Island circuit, 4 cans, UC lighting", trade: "Electrical", qty: 1, unit: "LS", unitCost: 2150, total: 2150, confidence: "high" },
-  { description: "LVP flooring, supply + install", trade: "Flooring", qty: 750, unit: "SF", unitCost: 6.5, total: 4875, confidence: "low", flag: "Confirm dining-room area with client" },
+  { description: "LVP flooring, supply + install", trade: "Flooring", qty: 750, unit: "SF", unitCost: 6.5, total: 4875, confidence: "low", flag: "Confirm dining room area with client" },
 ];
 
 const GRAND_TOTAL = ESTIMATE_ITEMS.reduce((sum, li) => sum + li.total, 0);

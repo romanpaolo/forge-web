@@ -1,8 +1,17 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { Star } from "lucide-react";
 import SectionLabel from "@/components/ui/SectionLabel";
-import { fadeUp } from "@/lib/animations";
+import Card from "@/components/ui/Card";
+import { TESTIMONIALS } from "@/lib/constants";
+import { fadeUp, staggerContainer } from "@/lib/animations";
+
+const cardVariant = {
+  initial: { opacity: 0, y: 30 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true, margin: "-100px" },
+};
 
 // PRD 9.8 - Will's trial-user quote (cleared for use: Will confirmed
 // name/text). Follows the Harris & Sons case-study teaser per 10.5: concrete
@@ -26,8 +35,8 @@ export default function Testimonials() {
           <SectionLabel>FROM THE FIELD</SectionLabel>
         </motion.div>
 
-        <motion.blockquote
-          className="max-w-3xl mx-auto mt-8"
+        <motion.h2
+          className="text-2xl sm:text-3xl md:text-5xl font-medium tracking-[-0.01em] uppercase text-forge-white mt-6"
           {...fadeUp}
           transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }}
         >

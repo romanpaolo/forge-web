@@ -2,9 +2,9 @@
 // from /pricing, /support, and /legal - not just the homepage.
 // Nav per PRD 9.1: Product / How It Works / Customers / Pricing / Support.
 export const NAV_LINKS = [
-  { label: "Product", href: "/#product" },
-  { label: "How It Works", href: "/#how-it-works" },
-  { label: "Customers", href: "/customers/harris-and-sons" },
+  { label: "Product", href: "#product" },
+  { label: "Features", href: "#features" },
+  { label: "How It Works", href: "#how-it-works" },
   { label: "Pricing", href: "/pricing" },
   { label: "Support", href: "/support" },
 ];
@@ -84,9 +84,8 @@ export const PRICING_FAQ: FaqItem[] = [
       "Anyone who logs into Forge: owner, admin, PM, estimator, or sub. Your first 3 are included in the base price. Each additional teammate is $39/month, or $374/year on the annual plan.",
   },
   {
-    question: "Is there a contract?",
-    answer:
-      "No. Monthly is month-to-month. Annual is billed once a year at a 20% discount and can be cancelled at renewal.",
+    question: "What tools does Forge integrate with?",
+    answer: "The current version supports one tap formatted copy for Buildertrend, PDF packet downloads with photos, and PM handoff emails. Direct API integrations with Buildertrend, Procore, and CoConstruct are on the roadmap. Forge is designed to fit into your existing workflow, not replace it.",
   },
   {
     question: "What platforms does Forge run on?",
@@ -147,7 +146,7 @@ export const FEATURES = [
       "Start a job walk and Forge records everything: audio up to 90 minutes, plus photos you can voice-tag on the fly. Say \"Photo: kitchen sink wall\" and it's indexed automatically.",
     bullets: [
       "Audio recording up to 90 min",
-      "Voice-tagged photo capture",
+      "Voice tagged photo capture",
       "All media stored under one project",
     ],
   },
@@ -158,15 +157,14 @@ export const FEATURES = [
       "Forge's AI doesn't guess. It organizes your walk into a scope broken out by trade and a priced, line-item estimate. Anything it's not confident about gets flagged, so you check it, not guess at it.",
     bullets: [
       "Scope + questions organized by area",
-      "Line-item estimate priced by trade",
+      "Tasks broken down by trade",
       "Uncertainties flagged, never assumed",
     ],
   },
   {
     label: "EXPORT",
-    title: "One Tap to Buildertrend-Ready",
-    description:
-      "Review the AI output, make edits inline, apply your markup, then export. Copy formatted notes directly to Buildertrend, download a PDF packet with photos, or send a PM handoff email.",
+    title: "One Tap to Buildertrend Ready",
+    description: "Review the AI output, make edits inline, then export. Copy formatted notes directly to Buildertrend, download a PDF packet with photos, or send a PM handoff email.",
     bullets: [
       "Inline editing: add, delete, reorder",
       "One-tap copy to Buildertrend",
@@ -179,10 +177,9 @@ export const FEATURES = [
 // How it works - PRD 9.5, word-for-word (3 steps).
 export const STEPS = [
   {
-    number: "01",
-    title: "Walk it.",
-    description:
-      "Hit record on your phone and walk the job. Talk like you would to your PM. No forms, no \"what type of meeting is this\" screen first.",
+    quote: "I used to spend my drive home just organizing notes from the walk. Now I hit export before I leave the job site.",
+    name: "Mike R.",
+    title: "GC, Austin TX",
   },
   {
     number: "02",
@@ -191,10 +188,9 @@ export const STEPS = [
       "In minutes, Forge turns the walk into a scope broken out by trade and a priced estimate. Anything it's not confident about gets flagged, so you check it, not guess at it.",
   },
   {
-    number: "03",
-    title: "Review, then send.",
-    description:
-      "Edit any line, apply your markup, export straight to Buildertrend, PDF, or CSV. Nothing leaves Forge until you approve it.",
+    quote: "My PM used to call me three times after every walk asking for details. Now she gets everything in one clean packet.",
+    name: "Sarah K.",
+    title: "GC, Denver CO",
   },
 ];
 
