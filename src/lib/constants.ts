@@ -41,8 +41,18 @@ export function loginUrl(): string {
 // as query params so the dashboard - and the future Stripe Checkout flow
 // (PRD Section 13, blocked on backend work) - can pre-fill the choice made
 // on the marketing site. v1 is trial-signup routing, NOT live Stripe.
+// Default is ANNUAL here and MONTHLY in the app. That asymmetry is a CEO
+// decision (Ethan Rife, 2026-08-09: "Annual as default on site, monthly as
+// default in app"), not an inconsistency to tidy up: the marketing site is
+// where the 20% annual discount does its work, while someone already
+// inside the product converting mid-trial is choosing commitment level
+// rather than shopping on price.
+//
+// The app-side default lives in billing.controller.ts
+// (`dto.billingPeriod ?? "monthly"`). If either moves, move both
+// deliberately.
 export function trialSignupUrl(
-  plan: "monthly" | "annual" = "monthly",
+  plan: "monthly" | "annual" = "annual",
   seats = 3,
 ): string {
   return `${DASHBOARD_URL}/login?mode=signup&plan=${plan}&seats=${seats}`;
