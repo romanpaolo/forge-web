@@ -100,9 +100,9 @@ export default function SupportPage() {
                   <span className="text-sm font-semibold text-forge-white group-hover:text-forge-cyan transition-colors">
                     Book a call
                   </span>
-                  <span className="text-sm text-forge-smoke">30 min walkthrough</span>
+                  <span className="text-sm text-forge-smoke">30-min walkthrough</span>
                   <span className="mt-1 text-xs text-forge-graphite">
-                    Best for onboarding and Founders Council.
+                    Best for a guided demo before you start your trial.
                   </span>
                 </span>
               </a>

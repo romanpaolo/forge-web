@@ -203,7 +203,7 @@ export default function LegalPage() {
 
             <Clause number="1" title="Description of Service">
               <p>
-                Forge Solutions, Corp provides an AI powered tool that generates construction
+                Forge Solutions, Corp provides an AI-powered tool that generates construction
                 estimates based on user-provided inputs (&ldquo;Service&rdquo;). The Service is intended
                 for informational and productivity purposes only.
               </p>
@@ -327,7 +327,7 @@ export default function LegalPage() {
                 and AI models, are owned by Forge Solutions, Corp. You retain ownership of
                 the data you input into the Service. By using the Service, you grant us a
                 limited license to process your inputs solely for the purpose of generating
-                outputs and improving the Service. AI generated outputs are provided for your
+                outputs and improving the Service. AI-generated outputs are provided for your
                 use but carry no guarantee of originality or accuracy.
               </p>
             </Clause>
@@ -472,7 +472,7 @@ export default function LegalPage() {
 
             <Clause number="4" title="AI Processing">
               <p>
-                Forge uses third party AI to turn your job walk into documents. When you record,
+                Forge uses third-party AI to turn your job-walk into documents. When you record,
                 transcribe, or generate a scope or estimate: (1) your audio is sent to OpenAI
                 (Whisper) for transcription, and (2) the resulting transcript, related project
                 details, job-site photos, and any uploaded plan sets are sent to Anthropic (Claude)
@@ -578,7 +578,7 @@ export default function LegalPage() {
           {/* ── 4. Disclaimer ────────────────────────────────────────────── */}
           <Section id="disclaimer" tag="Legal" title="Disclaimer">
             <p className="text-forge-smoke text-sm leading-relaxed">
-              AI generated estimates are provided for informational purposes only and may
+              AI-generated estimates are provided for informational purposes only and may
               not reflect actual project costs. Users are responsible for verifying all
               outputs before making decisions.
             </p>

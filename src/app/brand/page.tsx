@@ -63,7 +63,7 @@ const TYPE_SCALE = [
     weight: "font-bold",
     tracking: "tracking-tight",
     lineHeight: "leading-tight",
-    spec: "48 to 64px · Bold · 0.02em",
+    spec: "48–64px · Bold · −0.02em",
     sample: "Build Faster. Scope Smarter.",
   },
   {
@@ -72,7 +72,7 @@ const TYPE_SCALE = [
     weight: "font-semibold",
     tracking: "tracking-tight",
     lineHeight: "leading-snug",
-    spec: "32 to 40px · Semibold · 0.01em",
+    spec: "32–40px · Semibold · −0.01em",
     sample: "Walk the Job. We'll Handle the Notes.",
   },
   {
@@ -81,7 +81,7 @@ const TYPE_SCALE = [
     weight: "font-medium",
     tracking: "tracking-normal",
     lineHeight: "leading-snug",
-    spec: "24 to 28px · Medium · 0em",
+    spec: "24–28px · Medium · 0em",
     sample: "Raw Walk to Structured Scope",
   },
   {
@@ -91,7 +91,7 @@ const TYPE_SCALE = [
     tracking: "tracking-normal",
     lineHeight: "leading-normal",
     spec: "20px · Semibold · 0em",
-    sample: "One Tap to Buildertrend Ready",
+    sample: "One Tap to Buildertrend-Ready",
   },
   {
     label: "Body Large",
@@ -148,7 +148,7 @@ const VOICE_ATTRIBUTES = [
   {
     label: "Practical",
     description: "Grounded in real contractor workflows. Every feature solves a real problem.",
-    example: "\"One tap copy to Buildertrend. Done.\"",
+    example: "\"One-tap copy to Buildertrend. Done.\"",
   },
   {
     label: "Empathetic",
@@ -166,7 +166,7 @@ const CORE_VALUES = [
   { label: "Efficiency", icon: Zap, description: "Save time on every walk, every project." },
   { label: "Accuracy", icon: Target, description: "Flag uncertainty. Never guess. Always verify." },
   { label: "Simplicity", icon: Layers, description: "One workflow replaces four." },
-  { label: "Trade First", icon: Users, description: "Built for how contractors actually work." },
+  { label: "Trade-First", icon: Users, description: "Built for how contractors actually work." },
   { label: "Trust", icon: Shield, description: "You review and approve everything before export." },
 ];
 
@@ -619,7 +619,7 @@ export default function BrandPage() {
             id="iconography"
             tag="Icons"
             title="Iconography"
-            description="All icons are from Lucide React. Use outlined style with 1.5 to 2px stroke weight. Default size is 20px for UI, 16px for inline/button usage."
+            description="All icons are from Lucide React. Use outlined style with 1.5px–2px stroke weight. Default size is 20px for UI, 16px for inline/button usage."
           >
             <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-3 mb-10">
               {ICONS.map(({ name, component: Icon }) => (

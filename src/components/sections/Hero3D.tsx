@@ -4,6 +4,12 @@ import { Suspense } from "react";
 import { motion } from "framer-motion";
 import dynamic from "next/dynamic";
 import Button from "@/components/ui/Button";
+import {
+  APP_STORE_URL,
+  CALENDLY_URL,
+  HERO_STATS,
+  trialSignupUrl,
+} from "@/lib/constants";
 
 const HexNutScene = dynamic(() => import("@/components/three/HexNutScene"), {
   ssr: false,
@@ -79,34 +85,29 @@ export default function Hero3D() {
         <div className="relative max-w-5xl mx-auto px-6">
           {/* Eyebrow - PRD 9.2 */}
           <motion.div
-            className="flex items-center gap-4 mb-6"
+            className="flex items-center gap-3 mb-6"
             variants={fadeUp}
             initial="initial"
             animate="animate"
             transition={transition(0.2)}
           >
-            {["CAPTURE", "STRUCTURE", "EXPORT"].map((step, i) => (
-              <div key={step} className="flex items-center gap-3">
-                {i > 0 && <div className="w-8 h-px bg-forge-graphite" />}
-                <div className="flex items-center gap-2">
-                  <div className={`w-1.5 h-1.5 rounded-full ${i === 0 ? "bg-forge-cyan" : i === 1 ? "bg-forge-teal" : "bg-forge-ash/40"}`} />
-                  <span className="text-[10px] font-mono uppercase tracking-[0.15em] text-forge-smoke">{step}</span>
-                </div>
-              </div>
-            ))}
+            <div className="w-1.5 h-1.5 rounded-full bg-forge-cyan" />
+            <span className="text-[10px] font-mono uppercase tracking-[0.15em] text-forge-smoke">
+              AI ESTIMATING FOR GENERAL CONTRACTORS
+            </span>
           </motion.div>
 
           {/* Headline - left-aligned, big, cinematic with character animation */}
           <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-medium tracking-[-0.03em] leading-[0.95] text-forge-white uppercase">
             <CharacterReveal text="Walk the job." delay={0.4} stagger={0.03} />
             <br />
-            <CharacterReveal text="Zero Typing." delay={0.8} stagger={0.04} className="text-forge-ash/40" />
+            <CharacterReveal text="Leave with the estimate." delay={0.8} stagger={0.02} className="text-forge-ash/40" />
           </h1>
 
           {/* Subtext + CTA row */}
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-8 mt-8">
             <motion.p
-              className="text-forge-smoke text-base md:text-lg leading-relaxed max-w-md"
+              className="text-forge-smoke text-base md:text-lg leading-relaxed max-w-xl"
               variants={fadeUp}
               initial="initial"
               animate="animate"
@@ -119,7 +120,7 @@ export default function Hero3D() {
             </motion.p>
 
             <motion.div
-              className="flex items-center gap-3"
+              className="flex flex-col items-start md:items-end gap-3"
               variants={fadeUp}
               initial="initial"
               animate="animate"
@@ -149,18 +150,13 @@ export default function Hero3D() {
 
           {/* Bottom stat bar - PRD 9.3 (product mechanics, not customer outcomes) */}
           <motion.div
-            className="flex items-center gap-8 mt-12 pt-6 border-t border-forge-graphite/30"
+            className="flex flex-wrap items-center gap-x-8 gap-y-3 mt-12 pt-6 border-t border-forge-graphite/30"
             variants={fadeUp}
             initial="initial"
             animate="animate"
             transition={transition(1.0)}
           >
-            {[
-              { value: "20+", label: "MIN SAVED" },
-              { value: "1", label: "WORKFLOW" },
-              { value: "0", label: "TYPING" },
-              { value: "6", label: "TRADES" },
-            ].map(({ value, label }) => (
+            {HERO_STATS.map(({ value, label }) => (
               <div key={label} className="flex items-baseline gap-2">
                 <span className="text-2xl md:text-3xl font-medium text-forge-white font-[family-name:var(--font-mono)]">{value}</span>
                 <span className="text-[9px] font-mono uppercase tracking-[0.15em] text-forge-smoke">{label}</span>

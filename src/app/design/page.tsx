@@ -140,7 +140,7 @@ const COLOR_SWATCHES = [
     name: "Primary Text",
     hex: "#F8FAFC",
     variable: "--color-forge-white",
-    label: "Near White",
+    label: "Near-White",
     textLight: false,
   },
   {
@@ -230,7 +230,7 @@ const CORE_VALUES = [
     description: "If it takes more than one tap, it's too complicated",
   },
   {
-    label: "Trade First",
+    label: "Trade-First",
     icon: Users,
     description: "Built by people who understand the jobsite, not just the office",
   },
@@ -244,31 +244,31 @@ const CORE_VALUES = [
 const TYPE_SCALE = [
   {
     label: "H1",
-    spec: "48 to 64px · Bold · 0.02em",
+    spec: "48–64px · Bold · −0.02em",
     className: "text-5xl font-bold tracking-tight leading-tight",
     sample: "Build Faster. Scope Smarter.",
   },
   {
     label: "H2",
-    spec: "32 to 40px · Semibold · 0.01em",
+    spec: "32–40px · Semibold · −0.01em",
     className: "text-4xl font-semibold tracking-tight leading-snug",
     sample: "Walk the Job. We'll Handle the Notes.",
   },
   {
     label: "H3",
-    spec: "24 to 28px · Medium",
+    spec: "24–28px · Medium",
     className: "text-2xl font-medium leading-snug",
     sample: "Raw Walk to Structured Scope",
   },
   {
     label: "Body",
-    spec: "16 to 18px · Regular · 1.6 line-height",
+    spec: "16–18px · Regular · 1.6 line-height",
     className: "text-base font-normal leading-relaxed",
     sample: "Forge records everything: audio up to 90 minutes, plus photos you can voice-tag on the fly.",
   },
   {
     label: "Caption",
-    spec: "12 to 14px · Medium · uppercase",
+    spec: "12–14px · Medium · uppercase",
     className: "text-sm font-medium uppercase tracking-[0.15em]",
     sample: "Version 1.0 · Last updated March 2026",
   },
@@ -370,7 +370,7 @@ const LANDING_PAGE_SECTIONS = [
   {
     num: "03",
     title: "Features Showcase",
-    desc: "High-fidelity app mockups showing ScopeSnap",
+    desc: "High-fidelity app mockups showing Forge",
   },
   {
     num: "04",
@@ -653,7 +653,7 @@ export default function DesignPage() {
                   </h3>
                 </div>
                 <p className="text-forge-smoke text-sm leading-relaxed">
-                  Contractors waste 20 to 40 minutes after every job walk juggling 4+ tools
+                  Contractors waste 20–40 minutes after every job walk juggling 4+ tools
                   (Meta Glasses, Otter.ai, ChatGPT, Buildertrend) just to organize notes,
                   reformat scope, and hand off data to their PM. Critical details get lost in
                   translation, formatting is inconsistent, and the process is entirely manual.
@@ -750,11 +750,11 @@ export default function DesignPage() {
                     </div>
                     <div>
                       <p className="text-xs font-mono text-forge-smoke uppercase tracking-[0.12em] mb-1">Age</p>
-                      <p className="text-forge-white text-sm">30 to 55 years</p>
+                      <p className="text-forge-white text-sm">30–55 years</p>
                     </div>
                     <div>
                       <p className="text-xs font-mono text-forge-smoke uppercase tracking-[0.12em] mb-1">Income</p>
-                      <p className="text-forge-white text-sm">$75K to $200K+</p>
+                      <p className="text-forge-white text-sm">$75K–$200K+</p>
                     </div>
                     <div>
                       <p className="text-xs font-mono text-forge-smoke uppercase tracking-[0.12em] mb-1">Geography</p>
@@ -788,7 +788,7 @@ export default function DesignPage() {
                 </h3>
                 <div className="flex flex-col gap-2">
                   {[
-                    "Post walk data entry taking 20 to 40 min per job",
+                    "Post-walk data entry taking 20–40 min per job",
                     "Juggling 4+ disconnected tools",
                     "Inconsistent formatting across projects",
                     "Critical details lost between field and office",
@@ -834,7 +834,7 @@ export default function DesignPage() {
                 <span className="text-xs font-mono text-forge-smoke uppercase tracking-[0.15em]">Positioning Statement</span>
               </div>
               <p className="text-forge-ash text-base leading-relaxed italic">
-                &ldquo;For general contractors and project managers, Forge is the AI powered
+                &ldquo;For general contractors and project managers, Forge is the AI-powered
                 field intelligence platform that turns a single job walk into structured,
                 export-ready data, because it replaces four disconnected tools with one
                 seamless workflow that saves 20+ minutes per walk with zero typing required.&rdquo;
@@ -1564,7 +1564,7 @@ export default function DesignPage() {
                   font: "var(--font-mono)",
                   name: "JetBrains Mono",
                   category: "Monospace",
-                  description: "Developer native typeface. Creates a highly technical, code first impression when used for headings. Best for data-heavy contexts or a strongly engineering-focused brand position.",
+                  description: "Developer-native typeface. Creates a highly technical, code-first impression when used for headings. Best for data-heavy contexts or a strongly engineering-focused brand position.",
                   weights: "400 Regular · 500 Medium · 700 Bold",
                 },
               ].map(({ font, name, category, description, weights }) => (
@@ -1632,17 +1632,17 @@ export default function DesignPage() {
                   {/* Simulated page section */}
                   <div className="bg-forge-iron/50 border border-white/5 rounded-lg p-5">
                     <p className="text-[9px] font-mono text-forge-smoke uppercase tracking-widest mb-2" style={{ fontFamily: "var(--font-mono)" }}>
-                      EARLY ACCESS
+                      FREE TRIAL
                     </p>
                     <p className="text-xl font-medium text-forge-white uppercase tracking-[-0.01em] mb-2" style={{ fontFamily: heading }}>
-                      Join Founders Council
+                      Start Free Trial
                     </p>
                     <p className="text-sm text-forge-smoke leading-relaxed mb-3" style={{ fontFamily: "var(--font-body)" }}>
-                      We&apos;re hand picking 20 contractors to shape Forge from day one.
+                      Walk the job. Leave with the estimate. 14-day free trial, no card required.
                     </p>
                     <div className="inline-block bg-forge-white px-4 py-2">
                       <span className="text-xs font-medium text-forge-iron uppercase tracking-[0.1em]" style={{ fontFamily: "var(--font-mono)" }}>
-                        Join Founders Council
+                        Start Free Trial
                       </span>
                     </div>
                   </div>
@@ -1796,7 +1796,7 @@ export default function DesignPage() {
                     { label: "Mobile", value: "24px (px-6)" },
                     { label: "Tablet", value: "48px (px-12)" },
                     { label: "Desktop", value: "80px (px-20)" },
-                    { label: "Section Spacing", value: "120 to 160px vertical" },
+                    { label: "Section Spacing", value: "120–160px vertical" },
                   ].map(({ label, value }) => (
                     <div key={label} className="flex items-center justify-between p-3.5 bg-forge-steel/20 border border-white/5 rounded-lg">
                       <span className="text-forge-smoke text-sm">{label}</span>
@@ -2247,7 +2247,7 @@ export default function DesignPage() {
                   <div className="flex flex-col gap-2 mb-4">
                     {[
                       { label: "Profile Image", value: "Forge icon mark (compass/crosshair) on dark background" },
-                      { label: "Post Templates", value: "Dark themed for testimonials, feature highlights, metrics" },
+                      { label: "Post Templates", value: "Dark-themed for testimonials, feature highlights, metrics" },
                     ].map(({ label, value }) => (
                       <div key={label} className="flex gap-3 p-3.5 bg-forge-steel/20 border border-white/5 rounded-lg">
                         <span className="text-xs font-mono text-forge-smoke uppercase tracking-[0.1em] w-24 flex-shrink-0 pt-0.5">{label}</span>
@@ -2259,7 +2259,7 @@ export default function DesignPage() {
                     Brand Hashtags
                   </h4>
                   <div className="flex flex-wrap gap-2">
-                    {["#BuiltForTheTrades", "#ForgeAI", "#FieldIntelligence", "#ScopeSnap", "#ZeroTyping"].map((tag) => (
+                    {["#BuiltForTheTrades", "#ForgeAI", "#FieldIntelligence", "#OneWalk", "#ZeroTyping"].map((tag) => (
                       <span
                         key={tag}
                         className="text-xs font-mono text-forge-cyan bg-forge-cyan/10 border border-forge-cyan/20 px-3 py-1.5 rounded"
@@ -2279,7 +2279,7 @@ export default function DesignPage() {
                   {
                     icon: Mail,
                     label: "Email Signature",
-                    value: "Dark themed with Forge logo, name, title, and \"Join Founders Council\" CTA",
+                    value: "Dark-themed with Forge logo, name, title, and \"Start Free Trial\" CTA",
                   },
                   {
                     icon: FileText,
@@ -2308,7 +2308,7 @@ export default function DesignPage() {
               <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-6">
                 {[
                   { label: "Easing", value: "ease-in-out" },
-                  { label: "Duration", value: "300 to 500ms" },
+                  { label: "Duration", value: "300–500ms" },
                   { label: "Scroll reveals", value: "Smooth slide-up fade" },
                   { label: "Parallax", value: "Subtle depth on 3D elements" },
                   { label: "Glow pulse", value: "Subtle pulse on key metrics and CTAs" },
