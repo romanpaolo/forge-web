@@ -5,7 +5,7 @@ import Button from "@/components/ui/Button";
 import { APP_STORE_URL, CALENDLY_URL, trialSignupUrl } from "@/lib/constants";
 import { fadeUp } from "@/lib/animations";
 
-// PRD 9.9 — final CTA, word-for-word.
+// PRD 9.9 - final CTA, word-for-word.
 export default function FinalCTA() {
   return (
     <section
@@ -15,7 +15,7 @@ export default function FinalCTA() {
           "radial-gradient(ellipse at 50% 50%, rgba(14,165,233,0.06) 0%, transparent 70%)",
       }}
     >
-      {/* Spatial dot grid background — parallax layer */}
+      {/* Spatial dot grid background - parallax layer */}
       <div className="absolute inset-0 pointer-events-none" aria-hidden="true" data-speed="0.85">
         <div
           className="absolute inset-0 opacity-[0.04]"

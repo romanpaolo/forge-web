@@ -12,7 +12,7 @@ import { useState } from "react";
 //   (a) a "use server" action in this file's parent server component, or
 //   (b) an app/api/contact/route.ts handler,
 // posting to a transactional email provider such as Resend. That adds a new
-// dependency (`resend`) and a RESEND_API_KEY in .env — intentionally omitted here
+// dependency (`resend`) and a RESEND_API_KEY in .env - intentionally omitted here
 // to keep this route dependency- and config-free.
 // ─────────────────────────────────────────────────────────────────────────────
 

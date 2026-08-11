@@ -19,7 +19,7 @@ export function Logo3DNutMetallic({ size = 48, className = "" }: LogoProps) {
           <stop offset="100%" stopColor="#334155" />
         </linearGradient>
       </defs>
-      {/* Outer hex — gradient filled */}
+      {/* Outer hex - gradient filled */}
       <path d="M32 4L56 18V46L32 60L8 46V18L32 4Z" fill={`url(#${id}-a)`} />
       {/* Inner hex for bevel depth */}
       <path d="M32 10L50 21V43L32 54L14 43V21L32 10Z" fill={`url(#${id}-b)`} />
@@ -35,7 +35,7 @@ export function Logo3DNutMetallic({ size = 48, className = "" }: LogoProps) {
 }
 
 // ─── 3D Concept B: Beveled Hex ───────────────────────────────────────────────
-// Hex with per-face shading — each of the 6 faces has different tone
+// Hex with per-face shading - each of the 6 faces has different tone
 export function Logo3DNutIsometric({ size = 48, className = "" }: LogoProps) {
   return (
     <svg width={size} height={size} viewBox="0 0 64 64" fill="none" className={className}>
@@ -62,7 +62,7 @@ export function Logo3DNutIsometric({ size = 48, className = "" }: LogoProps) {
 }
 
 // ─── 3D Concept C: Cyan Glow Hex ────────────────────────────────────────────
-// Dark hex nut with glowing cyan edges — sci-fi/holographic
+// Dark hex nut with glowing cyan edges - sci-fi/holographic
 export function Logo3DNutGlow({ size = 48, className = "" }: LogoProps) {
   const id = "glo";
   return (
@@ -90,7 +90,7 @@ export function Logo3DNutGlow({ size = 48, className = "" }: LogoProps) {
 }
 
 // ─── 3D Concept D: Wireframe Hex ────────────────────────────────────────────
-// All construction lines visible — technical/blueprint style
+// All construction lines visible - technical/blueprint style
 export function Logo3DNutWireframe({ size = 48, className = "" }: LogoProps) {
   return (
     <svg width={size} height={size} viewBox="0 0 64 64" fill="none" className={className}>
@@ -149,7 +149,7 @@ export function Logo3DNutChrome({ size = 48, className = "" }: LogoProps) {
 }
 
 // ─── 3D Concept F: Floating Hex ─────────────────────────────────────────────
-// Hex nut hovering with shadow below — elevated premium feel
+// Hex nut hovering with shadow below - elevated premium feel
 export function Logo3DNutFloating({ size = 48, className = "" }: LogoProps) {
   const id = "flt";
   return (
@@ -162,7 +162,7 @@ export function Logo3DNutFloating({ size = 48, className = "" }: LogoProps) {
       </defs>
       {/* Shadow */}
       <ellipse cx="32" cy="62" rx="20" ry="4" fill={`url(#${id}-sh)`} />
-      {/* Hex nut — lifted */}
+      {/* Hex nut - lifted */}
       <path d="M32 2L54 15V41L32 54L10 41V15L32 2Z" fill="#111827" stroke="#475569" strokeWidth="1" strokeLinejoin="round" />
       {/* Inner bevel */}
       <path d="M32 9L48 19V39L32 49L16 39V19L32 9Z" stroke="#334155" strokeWidth="0.5" strokeLinejoin="round" opacity="0.4" />
@@ -176,13 +176,13 @@ export function Logo3DNutFloating({ size = 48, className = "" }: LogoProps) {
 }
 
 // ─── 3D Concept G: Embossed Hex ─────────────────────────────────────────────
-// Flat hex with pressed-in depth — stamped/machined relief
+// Flat hex with pressed-in depth - stamped/machined relief
 export function Logo3DNutEmbossed({ size = 48, className = "" }: LogoProps) {
   return (
     <svg width={size} height={size} viewBox="0 0 64 64" fill="none" className={className}>
-      {/* Outer hex — surface */}
+      {/* Outer hex - surface */}
       <path d="M32 4L56 18V46L32 60L8 46V18L32 4Z" fill="#1E293B" stroke="#475569" strokeWidth="1.5" strokeLinejoin="round" />
-      {/* Pressed-in hex — shadow edge top-right */}
+      {/* Pressed-in hex - shadow edge top-right */}
       <path d="M32 13L47 22V42L32 51L17 42V22L32 13Z" fill="#111827" />
       <path d="M32 13L47 22" stroke="#0F172A" strokeWidth="1" /> {/* dark edge */}
       <path d="M47 22V42" stroke="#0F172A" strokeWidth="1" />
@@ -233,14 +233,14 @@ export function Logo3DNutHologram({ size = 48, className = "" }: LogoProps) {
 }
 
 // ─── 3D Concept I: Stacked Hex Nuts ─────────────────────────────────────────
-// Two hex nuts stacked with offset — layered depth
+// Two hex nuts stacked with offset - layered depth
 export function Logo3DNutStacked({ size = 48, className = "" }: LogoProps) {
   return (
     <svg width={size} height={size} viewBox="0 0 64 64" fill="none" className={className}>
-      {/* Back hex — offset down-right */}
+      {/* Back hex - offset down-right */}
       <path d="M36 8L58 21V47L36 60L14 47V21L36 8Z" fill="#111827" stroke="#334155" strokeWidth="0.75" strokeLinejoin="round" />
       <circle cx="36" cy="34" r="9" fill="#050507" stroke="#334155" strokeWidth="0.5" />
-      {/* Front hex — main */}
+      {/* Front hex - main */}
       <path d="M28 4L50 17V43L28 56L6 43V17L28 4Z" fill="#1E293B" stroke="#64748B" strokeWidth="1" strokeLinejoin="round" />
       <circle cx="28" cy="30" r="9" fill="#0A0A0F" stroke="#64748B" strokeWidth="0.75" />
       <circle cx="28" cy="30" r="5.5" stroke="#334155" strokeWidth="0.5" opacity="0.4" />
@@ -249,17 +249,17 @@ export function Logo3DNutStacked({ size = 48, className = "" }: LogoProps) {
 }
 
 // ─── 3D Concept J: Exploded Hex ─────────────────────────────────────────────
-// Hex nut with concentric layers separated — deconstructed view
+// Hex nut with concentric layers separated - deconstructed view
 export function Logo3DNutExploded({ size = 48, className = "" }: LogoProps) {
   return (
     <svg width={size} height={size} viewBox="0 0 64 64" fill="none" className={className}>
-      {/* Outer ring — expanded out */}
+      {/* Outer ring - expanded out */}
       <path d="M32 2L58 17V47L32 62L6 47V17L32 2Z" stroke="#475569" strokeWidth="0.75" strokeLinejoin="round" opacity="0.5" />
       {/* Main hex body */}
       <path d="M32 8L52 20V44L32 56L12 44V20L32 8Z" fill="#1E293B" stroke="#64748B" strokeWidth="1" strokeLinejoin="round" />
       {/* Inner bevel */}
       <path d="M32 14L46 23V41L32 50L18 41V23L32 14Z" stroke="#475569" strokeWidth="0.5" strokeLinejoin="round" opacity="0.4" />
-      {/* Bore — expanded ring */}
+      {/* Bore - expanded ring */}
       <circle cx="32" cy="32" r="13" stroke="#475569" strokeWidth="0.5" opacity="0.3" strokeDasharray="3 3" />
       {/* Bore */}
       <circle cx="32" cy="32" r="9" fill="#050507" stroke="#64748B" strokeWidth="0.75" />
@@ -272,18 +272,18 @@ export function Logo3DNutExploded({ size = 48, className = "" }: LogoProps) {
 }
 
 // ─── 3D Concept K: Orbital Hex ──────────────────────────────────────────────
-// Hex nut with orbital ring — field intelligence + precision
+// Hex nut with orbital ring - field intelligence + precision
 export function Logo3DNutOrbital({ size = 48, className = "" }: LogoProps) {
   return (
     <svg width={size} height={size} viewBox="0 0 64 64" fill="none" className={className}>
-      {/* Orbital ring — behind */}
+      {/* Orbital ring - behind */}
       <ellipse cx="32" cy="32" rx="29" ry="10" stroke="#0EA5E9" strokeWidth="0.5" opacity="0.3" transform="rotate(-25 32 32)" />
       {/* Hex nut */}
       <path d="M32 8L52 20V44L32 56L12 44V20L32 8Z" fill="#111827" stroke="#475569" strokeWidth="1" strokeLinejoin="round" />
       {/* Bore */}
       <circle cx="32" cy="32" r="9" fill="#050507" stroke="#64748B" strokeWidth="0.75" />
       <circle cx="32" cy="32" r="5.5" stroke="#334155" strokeWidth="0.5" opacity="0.3" />
-      {/* Orbital ring — front arc (passes in front) */}
+      {/* Orbital ring - front arc (passes in front) */}
       <ellipse cx="32" cy="32" rx="29" ry="10" stroke="#0EA5E9" strokeWidth="0.75" opacity="0.5" transform="rotate(-25 32 32)" strokeDasharray="40 52" strokeDashoffset="-10" />
       {/* Orbital dot */}
       <circle cx="8" cy="40" r="2" fill="#0EA5E9" opacity="0.7" />
@@ -292,7 +292,7 @@ export function Logo3DNutOrbital({ size = 48, className = "" }: LogoProps) {
 }
 
 // ─── 3D Concept L: Targeting Hex ────────────────────────────────────────────
-// Hex nut with crosshair scope overlay — precision field targeting
+// Hex nut with crosshair scope overlay - precision field targeting
 export function Logo3DNutTargeting({ size = 48, className = "" }: LogoProps) {
   return (
     <svg width={size} height={size} viewBox="0 0 64 64" fill="none" className={className}>

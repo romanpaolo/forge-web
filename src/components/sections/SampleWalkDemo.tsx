@@ -10,7 +10,7 @@ import { fadeUp } from "@/lib/animations";
 
 /* ────────────────────────────────────────────────────────────────────────────
  * Phase 1 interactive demo (PRD 9.6 + Section 6): a scripted, timed replay of
- * what the product does after you stop recording — transcript → scope by
+ * what the product does after you stop recording - transcript → scope by
  * trade → priced estimate with confidence flags. NO LLM calls, NO audio.
  *
  * SWAP-IN POINT: the dataset below is an authored, realistic kitchen-remodel
@@ -19,25 +19,25 @@ import { fadeUp } from "@/lib/animations";
  * totalCost } and EstimateConfidenceDto confidenceByTrade buckets
  * low | med | high). When Christian's real anonymized recording asset lands,
  * replace TRANSCRIPT_LINES / SCOPE_GROUPS / ESTIMATE_ITEMS with the
- * transcript + output of that walk — the reveal machinery needs no changes.
+ * transcript + output of that walk - the reveal machinery needs no changes.
  * ──────────────────────────────────────────────────────────────────────────── */
 
 const TRANSCRIPT_LINES = [
-  { t: "00:04", text: "Alright, kitchen remodel at the Hendersons'. Full gut, about two twenty square feet." },
+  { t: "00:04", text: "Alright. Kitchen remodel at the Hendersons'. Full gut, about two-twenty square feet." },
   { t: "00:19", text: "Demo the existing cabinets, tops, and the tile floor. Soffit above the uppers comes out too." },
-  { t: "00:41", text: "Client wants shaker cabinets and quartz counters, call it thirty-two linear feet of run." },
-  { t: "01:08", text: "Sink moves about three feet left into the island, so plumbing rough in shifts. New supply and drain." },
-  { t: "01:32", text: "Dedicated twenty amp circuit for the island outlets, four recessed cans, under cabinet lighting." },
-  { t: "01:57", text: "Flooring is LVP, maybe seven fifty square feet if we run it into the dining room. Need to confirm with the client." },
+  { t: "00:41", text: "Client wants shaker cabinets and quartz counters. Call it thirty-two linear feet of run." },
+  { t: "01:08", text: "Sink moves about three feet left into the island, so plumbing rough-in shifts. New supply and drain." },
+  { t: "01:32", text: "Dedicated twenty-amp circuit for the island outlets, four recessed cans, under-cabinet lighting." },
+  { t: "01:57", text: "Flooring is LVP. Maybe seven-fifty square feet if we run it into the dining room. Need to confirm with the client." },
 ];
 
 type Confidence = "high" | "med" | "low";
 
 const SCOPE_GROUPS: { trade: string; items: string[]; confidence: Confidence }[] = [
-  { trade: "Demolition", items: ["Remove cabinets, counters & soffit", "Tear out tile floor", "Haul off & disposal"], confidence: "high" },
+  { trade: "Demolition", items: ["Remove cabinets, counters & soffit", "Tear out tile floor", "Haul-off & disposal"], confidence: "high" },
   { trade: "Cabinetry & Counters", items: ["32 LF shaker cabinets", "Quartz countertops", "Island install"], confidence: "high" },
-  { trade: "Plumbing", items: ["Relocate sink 3 ft to island", "New supply + drain rough in", "Dishwasher hookup"], confidence: "med" },
-  { trade: "Electrical", items: ["Dedicated 20A island circuit", "4 recessed cans", "Under cabinet lighting"], confidence: "high" },
+  { trade: "Plumbing", items: ["Relocate sink 3 ft to island", "New supply + drain rough-in", "Dishwasher hookup"], confidence: "med" },
+  { trade: "Electrical", items: ["Dedicated 20A island circuit", "4 recessed cans", "Under-cabinet lighting"], confidence: "high" },
   { trade: "Flooring", items: ["LVP supply + install", "Underlayment prep"], confidence: "low" },
 ];
 
@@ -54,14 +54,14 @@ const ESTIMATE_ITEMS: {
   { description: "Demolition & disposal", trade: "Demolition", qty: 1, unit: "LS", unitCost: 2800, total: 2800, confidence: "high" },
   { description: "Shaker cabinets, supply + install", trade: "Cabinetry", qty: 32, unit: "LF", unitCost: 310, total: 9920, confidence: "high" },
   { description: "Quartz countertops, fab + install", trade: "Counters", qty: 58, unit: "SF", unitCost: 85, total: 4930, confidence: "high" },
-  { description: "Sink relocation: rough in + trim", trade: "Plumbing", qty: 1, unit: "LS", unitCost: 2400, total: 2400, confidence: "med", flag: "Slab vs. crawlspace not confirmed on walk" },
+  { description: "Sink relocation: rough-in + trim", trade: "Plumbing", qty: 1, unit: "LS", unitCost: 2400, total: 2400, confidence: "med", flag: "Slab vs. crawlspace not confirmed on walk" },
   { description: "Island circuit, 4 cans, UC lighting", trade: "Electrical", qty: 1, unit: "LS", unitCost: 2150, total: 2150, confidence: "high" },
-  { description: "LVP flooring, supply + install", trade: "Flooring", qty: 750, unit: "SF", unitCost: 6.5, total: 4875, confidence: "low", flag: "Confirm dining room area with client" },
+  { description: "LVP flooring, supply + install", trade: "Flooring", qty: 750, unit: "SF", unitCost: 6.5, total: 4875, confidence: "low", flag: "Confirm dining-room area with client" },
 ];
 
 const GRAND_TOTAL = ESTIMATE_ITEMS.reduce((sum, li) => sum + li.total, 0);
 
-/* Step timeline — each entry is the delay (ms) BEFORE advancing past that step. */
+/* Step timeline - each entry is the delay (ms) BEFORE advancing past that step. */
 const N_T = TRANSCRIPT_LINES.length; // steps 1..6   transcript lines
 const N_S = SCOPE_GROUPS.length; //     steps 8..12  scope groups (7 = "structuring…")
 const N_E = ESTIMATE_ITEMS.length; //   steps 14..19 estimate rows (13 = "pricing…")
@@ -95,7 +95,7 @@ function usd(n: number): string {
   return `$${n.toLocaleString("en-US")}`;
 }
 
-/** Counts up to `value` once mounted — used for the grand total. */
+/** Counts up to `value` once mounted - used for the grand total. */
 function CountUpTotal({ value }: { value: number }) {
   const [count, setCount] = useState(0);
   useEffect(() => {
@@ -108,7 +108,7 @@ function CountUpTotal({ value }: { value: number }) {
       if (p < 1) raf = requestAnimationFrame(tick);
     };
     raf = requestAnimationFrame(tick);
-    // rAF is throttled/paused in hidden tabs — guarantee the final value lands.
+    // rAF is throttled/paused in hidden tabs - guarantee the final value lands.
     const settle = setTimeout(() => setCount(value), duration + 200);
     return () => {
       cancelAnimationFrame(raf);
@@ -151,7 +151,7 @@ export default function SampleWalkDemo() {
 
   return (
     <section id="demo" className="relative py-24 md:py-32 bg-transparent section-depth-a overflow-hidden">
-      {/* Spatial dot grid background — parallax layer */}
+      {/* Spatial dot grid background - parallax layer */}
       <div className="absolute inset-0 pointer-events-none" aria-hidden="true" data-speed="0.85">
         <div
           className="absolute inset-0 opacity-[0.04]"
@@ -163,7 +163,7 @@ export default function SampleWalkDemo() {
       </div>
 
       <div className="relative max-w-7xl mx-auto px-6">
-        {/* Header — PRD 9.6, word-for-word */}
+        {/* Header - PRD 9.6, word-for-word */}
         <div className="text-center">
           <motion.div {...fadeUp}>
             <SectionLabel>SEE IT WORK</SectionLabel>
@@ -183,8 +183,8 @@ export default function SampleWalkDemo() {
             transition={{ duration: 0.6, ease: "easeOut", delay: 0.2 }}
           >
             Press play on an actual scope-walk recording and watch it turn into
-            a trade-by-trade scope and priced estimate in real time,
-            right here, no sign-up required.
+            a trade-by-trade scope and priced estimate in real time. Right
+            here, no sign-up required.
           </motion.p>
         </div>
 
@@ -194,7 +194,7 @@ export default function SampleWalkDemo() {
           {...fadeUp}
           transition={{ duration: 0.6, ease: "easeOut", delay: 0.25 }}
         >
-          {/* Corner brackets — spatial UI frame */}
+          {/* Corner brackets - spatial UI frame */}
           <div className="absolute -inset-4 pointer-events-none" aria-hidden="true">
             <div className="absolute top-0 left-0 w-6 h-6 border-t border-l border-forge-graphite/50" />
             <div className="absolute top-0 right-0 w-6 h-6 border-t border-r border-forge-graphite/50" />
@@ -225,7 +225,7 @@ export default function SampleWalkDemo() {
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-3">
-            {/* Pane 1 — transcript */}
+            {/* Pane 1 - transcript */}
             <div className={paneClass}>
               <div className={paneHeaderClass}>
                 <span className="text-forge-cyan">01</span> transcript
@@ -260,7 +260,7 @@ export default function SampleWalkDemo() {
               </AnimatePresence>
             </div>
 
-            {/* Pane 2 — scope by trade */}
+            {/* Pane 2 - scope by trade */}
             <div className={paneClass}>
               <div className={paneHeaderClass}>
                 <span className="text-forge-cyan">02</span> scope by trade
@@ -298,7 +298,7 @@ export default function SampleWalkDemo() {
               </AnimatePresence>
             </div>
 
-            {/* Pane 3 — priced estimate */}
+            {/* Pane 3 - priced estimate */}
             <div className={paneClass}>
               <div className={paneHeaderClass}>
                 <span className="text-forge-cyan">03</span> priced estimate
@@ -359,7 +359,7 @@ export default function SampleWalkDemo() {
           </div>
         </motion.div>
 
-        {/* Bridge to the sales-assisted path — PRD 9.6 */}
+        {/* Bridge to the sales-assisted path - PRD 9.6 */}
         <motion.div
           className="text-center mt-12"
           {...fadeUp}

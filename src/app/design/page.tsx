@@ -140,7 +140,7 @@ const COLOR_SWATCHES = [
     name: "Primary Text",
     hex: "#F8FAFC",
     variable: "--color-forge-white",
-    label: "Near White",
+    label: "Near-White",
     textLight: false,
   },
   {
@@ -230,7 +230,7 @@ const CORE_VALUES = [
     description: "If it takes more than one tap, it's too complicated",
   },
   {
-    label: "Trade First",
+    label: "Trade-First",
     icon: Users,
     description: "Built by people who understand the jobsite, not just the office",
   },
@@ -244,31 +244,31 @@ const CORE_VALUES = [
 const TYPE_SCALE = [
   {
     label: "H1",
-    spec: "48 to 64px · Bold · 0.02em",
+    spec: "48–64px · Bold · −0.02em",
     className: "text-5xl font-bold tracking-tight leading-tight",
     sample: "Build Faster. Scope Smarter.",
   },
   {
     label: "H2",
-    spec: "32 to 40px · Semibold · 0.01em",
+    spec: "32–40px · Semibold · −0.01em",
     className: "text-4xl font-semibold tracking-tight leading-snug",
     sample: "Walk the Job. We'll Handle the Notes.",
   },
   {
     label: "H3",
-    spec: "24 to 28px · Medium",
+    spec: "24–28px · Medium",
     className: "text-2xl font-medium leading-snug",
     sample: "Raw Walk to Structured Scope",
   },
   {
     label: "Body",
-    spec: "16 to 18px · Regular · 1.6 line-height",
+    spec: "16–18px · Regular · 1.6 line-height",
     className: "text-base font-normal leading-relaxed",
-    sample: "Forge records audio up to 90 minutes and photos you can voice tag on the fly.",
+    sample: "Forge records everything: audio up to 90 minutes, plus photos you can voice-tag on the fly.",
   },
   {
     label: "Caption",
-    spec: "12 to 14px · Medium · uppercase",
+    spec: "12–14px · Medium · uppercase",
     className: "text-sm font-medium uppercase tracking-[0.15em]",
     sample: "Version 1.0 · Last updated March 2026",
   },
@@ -305,7 +305,7 @@ const COMPETITORS = [
   {
     name: "Manual Workflow",
     positioning: "Otter.ai + ChatGPT + Buildertrend: flexible, familiar tools",
-    lacks: "No integration between tools, massive time waste (20 to 40 min/walk), zero consistency",
+    lacks: "No integration between tools, massive time waste (20–40 min/walk), zero consistency",
     tier: "Status Quo",
   },
 ];
@@ -370,7 +370,7 @@ const LANDING_PAGE_SECTIONS = [
   {
     num: "03",
     title: "Features Showcase",
-    desc: "High-fidelity app mockups showing ScopeSnap",
+    desc: "High-fidelity app mockups showing Forge",
   },
   {
     num: "04",
@@ -653,12 +653,12 @@ export default function DesignPage() {
                   </h3>
                 </div>
                 <p className="text-forge-smoke text-sm leading-relaxed">
-                  Contractors waste 20 to 40 minutes after every job walk juggling 4+ tools
+                  Contractors waste 20–40 minutes after every job walk juggling 4+ tools
                   (Meta Glasses, Otter.ai, ChatGPT, Buildertrend) just to organize notes,
                   reformat scope, and hand off data to their PM. Critical details get lost in
                   translation, formatting is inconsistent, and the process is entirely manual.
-                  Forge was built to eliminate that post walk chaos, turning a single job walk
-                  into structured, export ready data with zero typing.
+                  Forge was built to eliminate that post-walk chaos by turning a single job walk
+                  into structured, export-ready data with zero typing.
                 </p>
               </Card>
 
@@ -691,13 +691,13 @@ export default function DesignPage() {
                 <SectionLabel>Mission</SectionLabel>
                 <p className="text-forge-white text-lg font-medium leading-relaxed mt-4">
                   &ldquo;To give contractors back their time by turning raw job walks into
-                  structured, job ready data. No typing, no reformatting, no wasted hours.&rdquo;
+                  structured, job-ready data. No typing, no reformatting, no wasted hours.&rdquo;
                 </p>
               </Card>
               <Card className="p-6">
                 <SectionLabel>Vision</SectionLabel>
                 <p className="text-forge-ash text-base leading-relaxed mt-4">
-                  &ldquo;Forge becomes the operating system for field intelligence, the single
+                  &ldquo;Forge becomes the operating system for field intelligence. The single
                   platform where every job walk, site visit, and field observation is
                   automatically captured, structured, and routed to the right people and
                   systems.&rdquo;
@@ -750,11 +750,11 @@ export default function DesignPage() {
                     </div>
                     <div>
                       <p className="text-xs font-mono text-forge-smoke uppercase tracking-[0.12em] mb-1">Age</p>
-                      <p className="text-forge-white text-sm">30 to 55 years</p>
+                      <p className="text-forge-white text-sm">30–55 years</p>
                     </div>
                     <div>
                       <p className="text-xs font-mono text-forge-smoke uppercase tracking-[0.12em] mb-1">Income</p>
-                      <p className="text-forge-white text-sm">$75K to $200K+</p>
+                      <p className="text-forge-white text-sm">$75K–$200K+</p>
                     </div>
                     <div>
                       <p className="text-xs font-mono text-forge-smoke uppercase tracking-[0.12em] mb-1">Geography</p>
@@ -788,7 +788,7 @@ export default function DesignPage() {
                 </h3>
                 <div className="flex flex-col gap-2">
                   {[
-                    "Post walk data entry taking 20 to 40 min per job",
+                    "Post-walk data entry taking 20–40 min per job",
                     "Juggling 4+ disconnected tools",
                     "Inconsistent formatting across projects",
                     "Critical details lost between field and office",
@@ -834,9 +834,9 @@ export default function DesignPage() {
                 <span className="text-xs font-mono text-forge-smoke uppercase tracking-[0.15em]">Positioning Statement</span>
               </div>
               <p className="text-forge-ash text-base leading-relaxed italic">
-                &ldquo;For general contractors and project managers, Forge is the AI powered
+                &ldquo;For general contractors and project managers, Forge is the AI-powered
                 field intelligence platform that turns a single job walk into structured,
-                export ready data, because it replaces four disconnected tools with one
+                export-ready data, because it replaces four disconnected tools with one
                 seamless workflow that saves 20+ minutes per walk with zero typing required.&rdquo;
               </p>
             </Card>
@@ -847,7 +847,7 @@ export default function DesignPage() {
             id="brand-personality"
             tag="04 · Personality"
             title="Brand Personality & Voice"
-            description="How Forge sounds and feels across all touchpoints, from marketing copy to in app microcopy."
+            description="How Forge sounds and feels across all touchpoints, from marketing copy to in-app microcopy."
           >
             <h3 className="text-xs font-medium text-forge-smoke uppercase tracking-widest mb-6">
               Personality Spectrum
@@ -1062,9 +1062,9 @@ export default function DesignPage() {
               Logo Configurations
             </h3>
 
-            {/* Combination Mark — Dark BG */}
+            {/* Combination Mark - Dark BG */}
             <div className="grid md:grid-cols-2 gap-4 mb-6">
-              {/* Horizontal — with icon */}
+              {/* Horizontal - with icon */}
               <Card className="p-8 flex flex-col items-center justify-center gap-2 min-h-[160px]">
                 <div className="flex items-center gap-3">
                   <Hexagon size={28} strokeWidth={1.5} className="text-forge-ash" aria-hidden="true" />
@@ -1075,7 +1075,7 @@ export default function DesignPage() {
                 <p className="text-[10px] font-mono text-forge-smoke uppercase tracking-widest mt-3">Combination Mark · Horizontal · Dark BG</p>
               </Card>
 
-              {/* Stacked — with icon */}
+              {/* Stacked - with icon */}
               <Card className="p-8 flex flex-col items-center justify-center gap-2 min-h-[160px]">
                 <div className="flex flex-col items-center gap-2">
                   <Hexagon size={36} strokeWidth={1.5} className="text-forge-ash" aria-hidden="true" />
@@ -1106,7 +1106,7 @@ export default function DesignPage() {
                 <p className="text-[10px] font-mono text-forge-cyan uppercase tracking-widest mt-3">Icon / Symbol · Selected</p>
               </Card>
 
-              {/* Combination Mark — PREFERRED */}
+              {/* Combination Mark - PREFERRED */}
               <Card className="p-8 flex flex-col items-center justify-center gap-2 min-h-[160px] border-forge-cyan/30 bg-forge-cyan/5">
                 <div className="flex items-center gap-3">
                   <Hexagon size={28} strokeWidth={1.5} className="text-forge-ash" aria-hidden="true" />
@@ -1121,7 +1121,7 @@ export default function DesignPage() {
             </div>
 
             <div className="grid md:grid-cols-2 gap-4 mb-6">
-              {/* Lettermark — not selected */}
+              {/* Lettermark - not selected */}
               <div className="p-8 flex flex-col items-center justify-center gap-2 min-h-[160px] border border-white/5 rounded-xl opacity-50">
                 <div className="flex items-center gap-1">
                   <Hexagon size={18} strokeWidth={1.5} className="text-forge-smoke" aria-hidden="true" />
@@ -1132,7 +1132,7 @@ export default function DesignPage() {
                 <p className="text-[10px] font-mono text-forge-smoke uppercase tracking-widest mt-3">Lettermark · Not Selected</p>
               </div>
 
-              {/* Emblem — not selected */}
+              {/* Emblem - not selected */}
               <div className="p-8 flex flex-col items-center justify-center gap-2 min-h-[160px] border border-white/5 rounded-xl opacity-50">
                 <div className="relative flex items-center justify-center">
                   <Hexagon size={80} strokeWidth={1} className="text-forge-smoke" aria-hidden="true" />
@@ -1222,7 +1222,7 @@ export default function DesignPage() {
                   </div>
                   <div className="flex items-baseline gap-2">
                     <span className="text-xs font-mono text-forge-cyan uppercase tracking-widest">{name}</span>
-                    <span className="text-xs text-forge-smoke">{note}</span>
+                    <span className="text-xs text-forge-smoke">&middot; {note}</span>
                   </div>
                   {/* Tagline preview */}
                   <p className="text-forge-smoke text-sm mt-3" style={{ fontFamily: font }}>
@@ -1369,7 +1369,7 @@ export default function DesignPage() {
             id="color-palette"
             tag="06 · Colors"
             title="Color Palette"
-            description="All design tokens are CSS custom properties. Cyan is for primary CTAs and key highlights. Never use it for large background fills."
+            description="All design tokens are CSS custom properties. Cyan is for primary CTAs and key highlights. Never for large background fills."
           >
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 mb-10">
               {COLOR_SWATCHES.map((swatch) => (
@@ -1564,7 +1564,7 @@ export default function DesignPage() {
                   font: "var(--font-mono)",
                   name: "JetBrains Mono",
                   category: "Monospace",
-                  description: "Developer native typeface. Creates a highly technical, code first impression when used for headings. Best for data-heavy contexts or a strongly engineering-focused brand position.",
+                  description: "Developer-native typeface. Creates a highly technical, code-first impression when used for headings. Best for data-heavy contexts or a strongly engineering-focused brand position.",
                   weights: "400 Regular · 500 Medium · 700 Bold",
                 },
               ].map(({ font, name, category, description, weights }) => (
@@ -1632,17 +1632,17 @@ export default function DesignPage() {
                   {/* Simulated page section */}
                   <div className="bg-forge-iron/50 border border-white/5 rounded-lg p-5">
                     <p className="text-[9px] font-mono text-forge-smoke uppercase tracking-widest mb-2" style={{ fontFamily: "var(--font-mono)" }}>
-                      EARLY ACCESS
+                      FREE TRIAL
                     </p>
                     <p className="text-xl font-medium text-forge-white uppercase tracking-[-0.01em] mb-2" style={{ fontFamily: heading }}>
-                      Join Founders Council
+                      Start Free Trial
                     </p>
                     <p className="text-sm text-forge-smoke leading-relaxed mb-3" style={{ fontFamily: "var(--font-body)" }}>
-                      We&apos;re hand picking 20 contractors to shape Forge from day one.
+                      Walk the job. Leave with the estimate. 14-day free trial, no card required.
                     </p>
                     <div className="inline-block bg-forge-white px-4 py-2">
                       <span className="text-xs font-medium text-forge-iron uppercase tracking-[0.1em]" style={{ fontFamily: "var(--font-mono)" }}>
-                        Join Founders Council
+                        Start Free Trial
                       </span>
                     </div>
                   </div>
@@ -1796,7 +1796,7 @@ export default function DesignPage() {
                     { label: "Mobile", value: "24px (px-6)" },
                     { label: "Tablet", value: "48px (px-12)" },
                     { label: "Desktop", value: "80px (px-20)" },
-                    { label: "Section Spacing", value: "120 to 160px vertical" },
+                    { label: "Section Spacing", value: "120–160px vertical" },
                   ].map(({ label, value }) => (
                     <div key={label} className="flex items-center justify-between p-3.5 bg-forge-steel/20 border border-white/5 rounded-lg">
                       <span className="text-forge-smoke text-sm">{label}</span>
@@ -1896,7 +1896,7 @@ export default function DesignPage() {
                     "Grid spacing fixed at 24px. Do not vary",
                   ].map((rule) => (
                     <li key={rule} className="flex items-start gap-2">
-                      <span className="text-forge-graphite mt-1">·</span>
+                      <span className="text-forge-graphite mt-1">&middot;</span>
                       <span className="text-forge-ash text-sm">{rule}</span>
                     </li>
                   ))}
@@ -1959,7 +1959,7 @@ export default function DesignPage() {
                   <span>Gradient: from-transparent via-forge-cyan/30 to-transparent</span>
                   <span>Animation: top 0% → 100% → 0%, linear</span>
                   <span>Duration: 6-10s, infinite repeat</span>
-                  <span>Use sparingly. Max 2 to 3 sections per page</span>
+                  <span>Use sparingly: max 2-3 sections per page</span>
                   <span>Position: absolute, z-10</span>
                 </div>
               </Card>
@@ -2084,7 +2084,7 @@ export default function DesignPage() {
                   <span>Background: bg-forge-steel/20</span>
                   <span>Border: border-forge-graphite/30</span>
                   <span>Header: status dot + mono label + version tag</span>
-                  <span>No border radius. Sharp edges throughout</span>
+                  <span>No border-radius: sharp edges throughout</span>
                 </div>
               </div>
             </Card>
@@ -2110,7 +2110,7 @@ export default function DesignPage() {
                   <span>Shape: radial-gradient, circle</span>
                   <span>Color: rgba(14,165,233,0.04) to transparent</span>
                   <span>Size: 400-800px diameter</span>
-                  <span>Max opacity: 0.06. Never higher</span>
+                  <span>Max opacity: 0.06, never higher</span>
                   <span>Use: 1-2 per section, centered on focal points</span>
                 </div>
               </Card>
@@ -2138,7 +2138,7 @@ export default function DesignPage() {
                 <div className="flex flex-col gap-2 text-sm text-forge-smoke">
                   <div className="flex items-start gap-2">
                     <Check size={14} strokeWidth={2} className="text-forge-cyan mt-0.5 flex-shrink-0" />
-                    <span>Square corners. 0px border radius</span>
+                    <span>Square corners: 0px border radius</span>
                   </div>
                   <div className="flex items-start gap-2">
                     <Check size={14} strokeWidth={2} className="text-forge-cyan mt-0.5 flex-shrink-0" />
@@ -2247,7 +2247,7 @@ export default function DesignPage() {
                   <div className="flex flex-col gap-2 mb-4">
                     {[
                       { label: "Profile Image", value: "Forge icon mark (compass/crosshair) on dark background" },
-                      { label: "Post Templates", value: "Dark themed for testimonials, feature highlights, metrics" },
+                      { label: "Post Templates", value: "Dark-themed for testimonials, feature highlights, metrics" },
                     ].map(({ label, value }) => (
                       <div key={label} className="flex gap-3 p-3.5 bg-forge-steel/20 border border-white/5 rounded-lg">
                         <span className="text-xs font-mono text-forge-smoke uppercase tracking-[0.1em] w-24 flex-shrink-0 pt-0.5">{label}</span>
@@ -2259,7 +2259,7 @@ export default function DesignPage() {
                     Brand Hashtags
                   </h4>
                   <div className="flex flex-wrap gap-2">
-                    {["#BuiltForTheTrades", "#ForgeAI", "#FieldIntelligence", "#ScopeSnap", "#ZeroTyping"].map((tag) => (
+                    {["#BuiltForTheTrades", "#ForgeAI", "#FieldIntelligence", "#OneWalk", "#ZeroTyping"].map((tag) => (
                       <span
                         key={tag}
                         className="text-xs font-mono text-forge-cyan bg-forge-cyan/10 border border-forge-cyan/20 px-3 py-1.5 rounded"
@@ -2279,7 +2279,7 @@ export default function DesignPage() {
                   {
                     icon: Mail,
                     label: "Email Signature",
-                    value: "Dark themed with Forge logo, name, title, and \"Join Founders Council\" CTA",
+                    value: "Dark-themed with Forge logo, name, title, and \"Start Free Trial\" CTA",
                   },
                   {
                     icon: FileText,
@@ -2308,7 +2308,7 @@ export default function DesignPage() {
               <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-6">
                 {[
                   { label: "Easing", value: "ease-in-out" },
-                  { label: "Duration", value: "300 to 500ms" },
+                  { label: "Duration", value: "300–500ms" },
                   { label: "Scroll reveals", value: "Smooth slide-up fade" },
                   { label: "Parallax", value: "Subtle depth on 3D elements" },
                   { label: "Glow pulse", value: "Subtle pulse on key metrics and CTAs" },
@@ -2343,7 +2343,7 @@ export default function DesignPage() {
               </Card>
             </SubSection>
 
-            {/* Competitive Landscape — kept from original section 11 */}
+            {/* Competitive Landscape - kept from original section 11 */}
             <SubSection title="Competitive Landscape">
               <div className="flex flex-col gap-4 mb-6">
                 {COMPETITORS.map((comp) => (
@@ -2383,14 +2383,14 @@ export default function DesignPage() {
                 </div>
                 <p className="text-forge-ash text-base leading-relaxed mb-4">
                   No existing tool is purpose-built for the walk-to-handoff workflow. Forge owns
-                  the 20 to 40 minutes after every job walk, the gap between the field and the office
+                  the 20–40 minutes after every job walk. The gap between the field and the office
                   that every other tool ignores.
                 </p>
                 <div className="grid sm:grid-cols-3 gap-3">
                   {[
-                    { label: "Walk capture", value: "Native audio + photo, voice tagged" },
+                    { label: "Walk capture", value: "Native audio + photo, voice-tagged" },
                     { label: "AI structure", value: "Scope, tasks, flags: zero typing" },
-                    { label: "Export", value: "Buildertrend ready, PDF, PM handoff" },
+                    { label: "Export", value: "Buildertrend-ready, PDF, PM handoff" },
                   ].map(({ label, value }) => (
                     <div key={label} className="p-3.5 bg-forge-cyan/5 border border-forge-cyan/15 rounded-lg">
                       <p className="text-forge-cyan text-xs font-mono uppercase tracking-[0.1em] mb-1">{label}</p>
@@ -2489,7 +2489,7 @@ export default function DesignPage() {
                     {
                       icon: Globe,
                       label: "External",
-                      value: "Brand portal needed once beta scales, for press, partners, integration partners",
+                      value: "Brand portal needed as the brand scales: for press, partners, integration partners",
                     },
                     {
                       icon: FileText,

@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Minus, Plus } from "lucide-react";
 import Button from "@/components/ui/Button";
 import { CALENDLY_URL, CASE_STUDY_PATH, trialSignupUrl } from "@/lib/constants";
+import { HARRIS_SUMMARY_ROI } from "@/lib/caseStudy";
 import {
   MIN_SEATS,
   INCLUDED_SEATS,
@@ -16,22 +17,30 @@ import {
   type BillingPlan,
 } from "@/lib/pricing";
 
-/* Plan card + monthly/annual toggle + seat stepper — PRD 9.10 / Section 8.
+/* Plan card + monthly/annual toggle + seat stepper - PRD 9.10 / Section 8.
  * Price math is client-side display only (249 + 39×(seats−3) monthly;
  * 2390 + 374×(seats−3) annual). The CTA carries plan+seats to the dashboard
  * signup; live Stripe Checkout (PRD Section 13) is a later backend project. */
 
 const PLAN_FEATURES = [
   "Unlimited job walks and recordings",
-  "AI generated scope + estimate from every walk",
+  "AI-generated scope + estimate from every walk",
   "iOS + Web access (Android coming soon)",
   "Export to Buildertrend, PDF, and CSV",
   "Full team roles: Owner, Admin, PM, Estimator, Sub",
   "Email support",
 ];
 
+const BILLING_OPTIONS = [
+  { id: "monthly", label: "Monthly" },
+  { id: "annual", label: "Annual" },
+] as const;
+
 export default function PlanConfigurator() {
-  const [plan, setPlan] = useState<BillingPlan>("monthly");
+  // Annual is the default on the MARKETING pricing page (PRD Part 3). The
+  // in-app trial-to-paid upgrade flow in Forge_Web keeps monthly as its
+  // default and is deliberately untouched.
+  const [plan, setPlan] = useState<BillingPlan>("annual");
   const [seats, setSeats] = useState(MIN_SEATS);
 
   const extraSeats = seats - INCLUDED_SEATS;
@@ -41,31 +50,45 @@ export default function PlanConfigurator() {
 
   return (
     <div className="max-w-lg mx-auto">
-      {/* Monthly / Annual toggle */}
-      <div
-        className="flex items-center justify-center gap-0 border border-forge-graphite/60 w-fit mx-auto"
-        role="group"
-        aria-label="Billing period"
-      >
-        {(
-          [
-            { id: "monthly", label: "Monthly" },
-            { id: "annual", label: "Annual: save 20%" },
-          ] as const
-        ).map(({ id, label }) => (
-          <button
-            key={id}
-            onClick={() => setPlan(id)}
-            aria-pressed={plan === id}
-            className={`px-6 py-3 text-sm font-semibold uppercase tracking-[0.1em] font-[family-name:var(--font-mono)] transition-colors ${
-              plan === id
-                ? "bg-forge-white text-forge-iron"
-                : "text-forge-smoke hover:text-forge-white"
-            }`}
-          >
-            {label}
-          </button>
-        ))}
+      {/* Monthly / Annual segmented control. Square, hard-edged, filled active
+          state to match Button's primary variant. The savings badge is attached
+          to the annual segment itself, not floated beside the control. */}
+      <div className="flex justify-center">
+        <div
+          className="inline-flex divide-x divide-forge-graphite/60 border border-forge-graphite/60 rounded-none"
+          role="group"
+          aria-label="Billing period"
+        >
+          {BILLING_OPTIONS.map(({ id, label }) => {
+            const active = plan === id;
+            return (
+              <button
+                key={id}
+                type="button"
+                onClick={() => setPlan(id)}
+                aria-pressed={active}
+                className={`flex items-center gap-2.5 px-6 py-3 text-sm font-semibold uppercase tracking-[0.1em] font-[family-name:var(--font-mono)] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-forge-cyan ${
+                  active
+                    ? "bg-forge-white text-forge-iron"
+                    : "text-forge-smoke hover:text-forge-white hover:bg-forge-white/5"
+                }`}
+              >
+                {label}
+                {id === "annual" && (
+                  <span
+                    className={`px-1.5 py-0.5 text-[10px] leading-none font-bold tracking-[0.08em] rounded-none ${
+                      active
+                        ? "bg-forge-iron text-forge-white"
+                        : "bg-forge-cyan/15 text-forge-cyan border border-forge-cyan/40"
+                    }`}
+                  >
+                    SAVE 20%
+                  </span>
+                )}
+              </button>
+            );
+          })}
+        </div>
       </div>
 
       {/* Plan card */}
@@ -101,7 +124,7 @@ export default function PlanConfigurator() {
                 </p>
                 <p className="text-forge-graphite text-xs mt-1">
                   (Annual: {formatUsd(BASE_ANNUAL)}/yr · +{formatUsd(SEAT_ANNUAL)}/yr per
-                  additional seat, save 20%)
+                  additional seat · save 20%)
                 </p>
               </>
             ) : (
@@ -115,7 +138,7 @@ export default function PlanConfigurator() {
             )}
           </div>
 
-          {/* Seat stepper — starts at 3, min 3 */}
+          {/* Seat stepper - starts at 3, min 3 */}
           <div className="flex items-center justify-between border border-white/10 px-4 py-3">
             <div>
               <p className="text-forge-white text-sm font-medium tabular-nums">
@@ -167,7 +190,7 @@ export default function PlanConfigurator() {
             </ul>
           </div>
 
-          {/* CTAs — plan + seats ride along to the dashboard signup */}
+          {/* CTAs - plan + seats ride along to the dashboard signup */}
           <div className="flex flex-col gap-3 mt-2">
             <Button href={trialSignupUrl(plan, seats)} variant="primary" size="lg" className="w-full">
               Start Free Trial
@@ -191,10 +214,9 @@ export default function PlanConfigurator() {
         </div>
       </div>
 
-      {/* ROI line — PRD 9.10 / 10.6 */}
+      {/* ROI line - PRD 9.10 / 10.6 */}
       <p className="text-forge-smoke text-sm text-center leading-relaxed mt-10 max-w-md mx-auto">
-        Harris &amp; Sons cut estimating time 75% and added $330K in
-        Forge attributed revenue in their first 90 days.{" "}
+        {HARRIS_SUMMARY_ROI}{" "}
         <a
           href={CASE_STUDY_PATH}
           className="text-forge-white hover:text-forge-cyan transition-colors underline underline-offset-4 decoration-forge-graphite whitespace-nowrap"

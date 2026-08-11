@@ -5,12 +5,12 @@ import { Zap } from "lucide-react";
 import SectionLabel from "@/components/ui/SectionLabel";
 import { fadeUp } from "@/lib/animations";
 
-// PRD 9.7 — differentiation vs. CompanyCam (a clear lane, not a takedown),
+// PRD 9.7 - differentiation vs. CompanyCam (a clear lane, not a takedown),
 // plus Christian's "speed wins jobs" paragraph as a sub-block.
 export default function Differentiation() {
   return (
     <section className="relative py-24 md:py-32 bg-transparent section-depth-b overflow-hidden">
-      {/* Spatial dot grid background — parallax layer */}
+      {/* Spatial dot grid background - parallax layer */}
       <div className="absolute inset-0 pointer-events-none" aria-hidden="true" data-speed="0.85">
         <div
           className="absolute inset-0 opacity-[0.04]"
@@ -32,8 +32,8 @@ export default function Differentiation() {
           transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }}
         >
           CompanyCam and tools like it are great at documenting a job once
-          you&rsquo;re building it. Forge is built for the walk before that,
-          the one where you have to turn what you saw into a number the client
+          you&rsquo;re building it. Forge is built for the walk before that. The
+          one where you have to turn what you saw into a number the client
           can sign.
         </motion.p>
 
@@ -67,7 +67,7 @@ export default function Differentiation() {
             <p className="text-forge-ash text-base md:text-lg leading-relaxed">
               <span className="text-forge-white font-semibold">Speed wins jobs.</span>{" "}
               Walk the house, get in your truck, and the estimate is already
-              built by the time you&rsquo;re back at the office, same day,
+              built by the time you&rsquo;re back at the office. Same day,
               sometimes the same meeting. The next three bids haven&rsquo;t even
               gone out yet.
             </p>

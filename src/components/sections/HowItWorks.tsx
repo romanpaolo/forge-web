@@ -11,7 +11,7 @@ const STEP_ICONS = [Mic, Brain, Send, CheckCircle];
 export default function HowItWorks() {
   return (
     <section id="how-it-works" className="relative py-24 md:py-32 bg-transparent section-depth-c overflow-hidden">
-      {/* Spatial dot grid background — parallax layer */}
+      {/* Spatial dot grid background - parallax layer */}
       <div className="absolute inset-0 pointer-events-none" aria-hidden="true" data-speed="0.85">
         <div
           className="absolute inset-0 opacity-[0.04]"
@@ -69,7 +69,7 @@ export default function HowItWorks() {
                     isEven ? "md:flex-row" : "md:flex-row-reverse"
                   }`}
                 >
-                  {/* Content card — takes half width on desktop */}
+                  {/* Content card - takes half width on desktop */}
                   <div
                     className={`relative pl-14 md:pl-0 md:w-[calc(50%-2.5rem)] ${
                       isEven ? "md:pr-10 md:text-right" : "md:pl-10 md:text-left"
@@ -106,13 +106,13 @@ export default function HowItWorks() {
                     <p className="text-forge-smoke leading-relaxed">{step.description}</p>
                   </div>
 
-                  {/* Center dot + step number — absolute on desktop, inline on mobile */}
+                  {/* Center dot + step number - absolute on desktop, inline on mobile */}
                   <div className="absolute left-5 md:left-1/2 md:-translate-x-1/2 flex flex-col items-center gap-1.5">
                     {/* Orange dot on the line */}
                     <div className="w-4 h-4 rounded-full bg-forge-cyan border-2 border-forge-body shadow-[0_0_10px_rgba(14,165,233,0.5)]" />
                   </div>
 
-                  {/* Step number — desktop only, opposite side of card */}
+                  {/* Step number - desktop only, opposite side of card */}
                   <div
                     className={`hidden md:flex md:w-[calc(50%-2.5rem)] items-start ${
                       isEven ? "md:pl-16" : "md:pr-16 md:justify-end"

@@ -5,15 +5,19 @@ import Footer from "@/components/sections/Footer";
 import SectionLabel from "@/components/ui/SectionLabel";
 import Button from "@/components/ui/Button";
 import { CALENDLY_URL, trialSignupUrl } from "@/lib/constants";
+import {
+  HARRIS_STATS,
+  HARRIS_SUMMARY_LONG,
+  HARRIS_SUMMARY_META,
+  HARRIS_SUMMARY_OG,
+} from "@/lib/caseStudy";
 
 export const metadata: Metadata = {
-  title: "Harris & Sons Construction: Forge Customer Story",
-  description:
-    "How a family remodeling contractor cut estimating time 75%, prevented a $40,000 scope loss, and grew projected revenue 60%, in 90 days on Forge.",
+  title: `${HARRIS_STATS.companyFull} | Forge Customer Story`,
+  description: HARRIS_SUMMARY_META,
   openGraph: {
-    title: "Two weeks to three days: Harris & Sons on Forge",
-    description:
-      "75% less estimating time, $330K in Forge attributed revenue, a $40K scope dispute loss prevented, in the first 90 days.",
+    title: `Two weeks to three days | ${HARRIS_STATS.companyShort} on Forge`,
+    description: HARRIS_SUMMARY_OG,
     type: "article",
     url: "https://www.forge.equipment/customers/harris-and-sons",
     images: [{ url: "/og-image.png", width: 1200, height: 630 }],
@@ -22,24 +26,28 @@ export const metadata: Metadata = {
 
 // The committed PDF is generated from THIS page via headless Chrome print
 // styling (see the @media print block below). Christian's designed case-study
-// PDF can replace the file at public/harris-and-sons-case-study.pdf any time —
+// PDF can replace the file at public/harris-and-sons-case-study.pdf any time -
 // no code change needed.
 const PDF_PATH = "/harris-and-sons-case-study.pdf";
 
-// PRD 10.1 / 10.7 — key metrics. The ~$4M is a PROJECTION, distinct from
+// PRD 10.1 / 10.7 - key metrics. The ~$4M is a PROJECTION, distinct from
 // actuals (Michael's audit); the footnote below the grid is load-bearing.
 const KEY_METRICS = [
-  { value: "$330K", label: "Revenue directly attributed to Forge" },
-  { value: "75%", label: "Reduction in estimating & documentation time" },
-  { value: "$2K to $3K/mo", label: "Monthly admin savings across 20 to 30 estimates" },
+  { value: HARRIS_STATS.attributedRevenue, label: "Revenue directly attributed to Forge" },
+  { value: HARRIS_STATS.estimatingTimeCut, label: "Reduction in estimating & documentation time" },
+  { value: "$2K–$3K/mo", label: "Monthly admin savings across 20–30 estimates" },
   { value: "~$4M*", label: "Projected* annual revenue, up from $2.5M actual" },
 ];
 
 const BEFORE_AFTER: { dimension: string; before: string; after: string }[] = [
   { dimension: "Estimate delivery", before: "Up to 2 weeks", after: "Under 3 days" },
   { dimension: "Notes workflow", before: "4+ tools, manual", after: "1 walk. Done." },
-  { dimension: "Team output", before: "Baseline capacity", after: "2 to 3x in 90 days" },
-  { dimension: "Change order risk", before: "High, details lost", after: "$40K loss prevented" },
+  { dimension: "Team output", before: "Baseline capacity", after: "2–3x in 90 days" },
+  {
+    dimension: "Change order risk",
+    before: "High: details lost",
+    after: `${HARRIS_STATS.scopeLossPrevented} loss prevented`,
+  },
   { dimension: "Annual projection", before: "$2.5M", after: "~$4M" },
   { dimension: "Sales reps", before: "1", after: "2 (and growing)" },
 ];
@@ -50,15 +58,15 @@ const WHAT_CHANGED: { lead: string; rest: string }[] = [
     rest: "Turnaround dropped from two weeks to under three days. Harris & Sons' proposals are now more detailed than anyone else bidding the job.",
   },
   {
-    lead: "Forge documentation stopped a $40,000 loss.",
-    rest: "When a scope dispute came up, the structured job walk record gave them an unambiguous paper trail. Clean change order. No absorbed cost.",
+    lead: `Forge documentation stopped a ${HARRIS_STATS.scopeLossPreventedLong} loss.`,
+    rest: "When a scope dispute came up, the structured job-walk record gave them an unambiguous paper trail. Clean change order. No absorbed cost.",
   },
   {
-    lead: "Team output grew 2 to 3x in 90 days.",
-    rest: "The efficiency freed up enough capacity to hire a second sales representative, a move the business couldn't justify before.",
+    lead: "Team output grew 2–3x in 90 days.",
+    rest: "The efficiency freed up enough capacity to hire a second sales representative. That's a move the business couldn't justify before.",
   },
   {
-    lead: "Revenue projection jumped 60%, same overhead.",
+    lead: `Revenue projection jumped ${HARRIS_STATS.revenueGrowth}. Same overhead.`,
     rest: "From $2.5M to nearly $4M for the upcoming year. Same ad spend. Forge let them scale safely without compromising their reputation.",
   },
 ];
@@ -94,7 +102,7 @@ export default function HarrisAndSonsPage() {
       </div>
 
       <main className="max-w-4xl mx-auto px-6 pt-40 pb-24 print-article">
-        {/* ── Header — PRD 10.7, word-for-word ─────────────────────────── */}
+        {/* ── Header - PRD 10.7, word-for-word ─────────────────────────── */}
         <header>
           <SectionLabel>CUSTOMER STORY · HARRIS &amp; SONS CONSTRUCTION · BEND, OR</SectionLabel>
 
@@ -105,16 +113,14 @@ export default function HarrisAndSonsPage() {
           </h1>
 
           <p className="text-forge-smoke text-lg md:text-xl leading-relaxed mt-8 max-w-2xl">
-            How a family remodeling contractor cut estimating time 75%,
-            prevented a $40,000 scope loss, and grew projected revenue 60%,
-            in 90 days.
+            {HARRIS_SUMMARY_LONG}
           </p>
 
           <p className="text-[10px] font-mono uppercase tracking-[0.15em] text-forge-graphite mt-8">
             RESIDENTIAL REMODELING · GENERAL CONTRACTING · BEND, OREGON · FAMILY-OWNED
           </p>
 
-          {/* Disclosure — PRD 10.3, must ship with the page */}
+          {/* Disclosure - PRD 10.3, must ship with the page */}
           <p className="text-forge-smoke text-sm leading-relaxed border-l-2 border-forge-cyan/50 pl-4 mt-8 max-w-2xl">
             Harris &amp; Sons Construction is owned by Forge cofounder Christian
             Harris. The results below are from Harris &amp; Sons&rsquo; own books.
@@ -159,8 +165,8 @@ export default function HarrisAndSonsPage() {
           <p className="text-forge-ash text-base md:text-lg leading-relaxed max-w-2xl">
             Christian Harris runs a family-owned general contracting business
             specializing in residential remodeling. Harris &amp; Sons handles
-            20 to 30 estimates a month across kitchens, baths, additions, and
-            full remodels, competing against larger regional contractors for
+            20–30 estimates a month across kitchens, baths, additions, and
+            full remodels. They compete against larger regional contractors for
             every job.
           </p>
         </section>
@@ -174,12 +180,12 @@ export default function HarrisAndSonsPage() {
               didn&rsquo;t have was a back office that could keep up. Job-walk notes
               were scattered across tools. Estimates took up to two weeks to
               deliver. Details got lost between the site visit and the project
-              manager&rsquo;s desk, every time.
+              manager&rsquo;s desk. Every time.
             </p>
             <p className="text-forge-ash text-base md:text-lg leading-relaxed">
-              At 20 to 30 estimates a month, that administrative drag cost
-              $75 to $100 per deal, $2,000 to $3,000 a month in time nobody was
-              getting back.
+              At 20–30 estimates a month, that administrative drag cost
+              $75–$100 per deal. That&rsquo;s $2,000–$3,000 a month in time nobody
+              was getting back.
             </p>
           </div>
         </section>

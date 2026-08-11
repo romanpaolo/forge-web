@@ -5,7 +5,7 @@ interface LogoProps {
 }
 
 // ─── Concept A: Classic Hex Nut ──────────────────────────────────────────────
-// Clean hexagonal nut — outer hex + inner circle bore hole
+// Clean hexagonal nut - outer hex + inner circle bore hole
 export function LogoNutClassic({ size = 48, className = "", color = "currentColor" }: LogoProps) {
   return (
     <svg width={size} height={size} viewBox="0 0 64 64" fill="none" className={className}>
@@ -16,7 +16,7 @@ export function LogoNutClassic({ size = 48, className = "", color = "currentColo
 }
 
 // ─── Concept B: Hex Nut with Thread Lines ────────────────────────────────────
-// Hex nut with internal threading detail — industrial precision
+// Hex nut with internal threading detail - industrial precision
 export function LogoNutThreaded({ size = 48, className = "", color = "currentColor" }: LogoProps) {
   return (
     <svg width={size} height={size} viewBox="0 0 64 64" fill="none" className={className}>
@@ -31,13 +31,13 @@ export function LogoNutThreaded({ size = 48, className = "", color = "currentCol
 }
 
 // ─── Concept C: Hex Nut Beveled ──────────────────────────────────────────────
-// Hex nut with chamfered inner edges — shows depth/3D
+// Hex nut with chamfered inner edges - shows depth/3D
 export function LogoNutBeveled({ size = 48, className = "", color = "currentColor" }: LogoProps) {
   return (
     <svg width={size} height={size} viewBox="0 0 64 64" fill="none" className={className}>
       {/* Outer hex */}
       <path d="M32 4L56 18V46L32 60L8 46V18L32 4Z" stroke={color} strokeWidth="2" strokeLinejoin="round" />
-      {/* Inner hex — same orientation, shows depth */}
+      {/* Inner hex - same orientation, shows depth */}
       <path d="M32 12L48 22V42L32 52L16 42V22L32 12Z" stroke={color} strokeWidth="0.75" opacity="0.3" strokeLinejoin="round" />
       {/* Bore hole */}
       <circle cx="32" cy="32" r="10" stroke={color} strokeWidth="1.5" />
@@ -53,7 +53,7 @@ export function LogoNutBeveled({ size = 48, className = "", color = "currentColo
 }
 
 // ─── Concept D: Hex Nut with Crosshair ───────────────────────────────────────
-// Hex nut + precision crosshair — construction meets field intelligence
+// Hex nut + precision crosshair - construction meets field intelligence
 export function LogoNutCrosshair({ size = 48, className = "", color = "currentColor" }: LogoProps) {
   return (
     <svg width={size} height={size} viewBox="0 0 64 64" fill="none" className={className}>
@@ -69,7 +69,7 @@ export function LogoNutCrosshair({ size = 48, className = "", color = "currentCo
 }
 
 // ─── Concept E: Double Hex Nut ───────────────────────────────────────────────
-// Two nested hex nuts rotated — resembles a lock washer or precision coupling
+// Two nested hex nuts rotated - resembles a lock washer or precision coupling
 export function LogoNutDouble({ size = 48, className = "", color = "currentColor" }: LogoProps) {
   return (
     <svg width={size} height={size} viewBox="0 0 64 64" fill="none" className={className}>
@@ -86,13 +86,13 @@ export function LogoNutDouble({ size = 48, className = "", color = "currentColor
 }
 
 // ─── Concept F: Hex Nut Split ────────────────────────────────────────────────
-// Hex nut with a split/gap — suggests transformation, raw → refined
+// Hex nut with a split/gap - suggests transformation, raw → refined
 export function LogoNutSplit({ size = 48, className = "", color = "currentColor" }: LogoProps) {
   return (
     <svg width={size} height={size} viewBox="0 0 64 64" fill="none" className={className}>
       {/* Top half of hex */}
       <path d="M32 4L56 18V30H8V18L32 4Z" stroke={color} strokeWidth="2" strokeLinejoin="round" />
-      {/* Bottom half of hex — offset down by 4px for split gap */}
+      {/* Bottom half of hex - offset down by 4px for split gap */}
       <path d="M8 34V46L32 60L56 46V34H8Z" stroke={color} strokeWidth="2" strokeLinejoin="round" />
       {/* Bore hole top arc */}
       <path d="M44 32A12 12 0 0 0 20 32" stroke={color} strokeWidth="1.5" />
@@ -103,7 +103,7 @@ export function LogoNutSplit({ size = 48, className = "", color = "currentColor"
 }
 
 // ─── Concept G: Hex Nut Minimal ──────────────────────────────────────────────
-// Ultra-minimal hex nut — single weight, clean negative space
+// Ultra-minimal hex nut - single weight, clean negative space
 export function LogoNutMinimal({ size = 48, className = "", color = "currentColor" }: LogoProps) {
   return (
     <svg width={size} height={size} viewBox="0 0 64 64" fill="none" className={className}>
@@ -114,7 +114,7 @@ export function LogoNutMinimal({ size = 48, className = "", color = "currentColo
 }
 
 // ─── Concept H: Hex Nut Heavy ────────────────────────────────────────────────
-// Bold, thick hex nut — strong industrial presence
+// Bold, thick hex nut - strong industrial presence
 export function LogoNutHeavy({ size = 48, className = "", color = "currentColor" }: LogoProps) {
   return (
     <svg width={size} height={size} viewBox="0 0 64 64" fill="none" className={className}>
@@ -125,11 +125,11 @@ export function LogoNutHeavy({ size = 48, className = "", color = "currentColor"
 }
 
 // ─── Concept I: Hex Socket ───────────────────────────────────────────────────
-// Hex socket (Allen key hole) inside a circle — tool + precision
+// Hex socket (Allen key hole) inside a circle - tool + precision
 export function LogoHexSocket({ size = 48, className = "", color = "currentColor" }: LogoProps) {
   return (
     <svg width={size} height={size} viewBox="0 0 64 64" fill="none" className={className}>
-      {/* Outer circle — bolt head */}
+      {/* Outer circle - bolt head */}
       <circle cx="32" cy="32" r="28" stroke={color} strokeWidth="1.5" />
       {/* Inner hex socket */}
       <path d="M32 16L46 24V40L32 48L18 40V24L32 16Z" stroke={color} strokeWidth="2" strokeLinejoin="round" />
@@ -138,13 +138,13 @@ export function LogoHexSocket({ size = 48, className = "", color = "currentColor
 }
 
 // ─── Concept J: Hex Nut with Data Lines ──────────────────────────────────────
-// Hex nut + horizontal scan lines — hardware meets structured data
+// Hex nut + horizontal scan lines - hardware meets structured data
 export function LogoNutData({ size = 48, className = "", color = "currentColor" }: LogoProps) {
   return (
     <svg width={size} height={size} viewBox="0 0 64 64" fill="none" className={className}>
       <path d="M32 4L56 18V46L32 60L8 46V18L32 4Z" stroke={color} strokeWidth="2" strokeLinejoin="round" />
       <circle cx="32" cy="32" r="12" stroke={color} strokeWidth="1.5" />
-      {/* Data scan lines — horizontal, clipped to hex */}
+      {/* Data scan lines - horizontal, clipped to hex */}
       <line x1="10" y1="24" x2="54" y2="24" stroke={color} strokeWidth="0.5" opacity="0.2" />
       <line x1="8" y1="32" x2="56" y2="32" stroke={color} strokeWidth="0.5" opacity="0.2" />
       <line x1="10" y1="40" x2="54" y2="40" stroke={color} strokeWidth="0.5" opacity="0.2" />
@@ -155,13 +155,13 @@ export function LogoNutData({ size = 48, className = "", color = "currentColor" 
 }
 
 // ─── Concept K: Hex Wrench ───────────────────────────────────────────────────
-// Hex nut with wrench flats highlighted — the tool that builds
+// Hex nut with wrench flats highlighted - the tool that builds
 export function LogoNutWrench({ size = 48, className = "", color = "currentColor" }: LogoProps) {
   return (
     <svg width={size} height={size} viewBox="0 0 64 64" fill="none" className={className}>
       {/* Outer hex */}
       <path d="M32 4L56 18V46L32 60L8 46V18L32 4Z" stroke={color} strokeWidth="2" strokeLinejoin="round" />
-      {/* Wrench flat indicators — left and right */}
+      {/* Wrench flat indicators - left and right */}
       <line x1="8" y1="18" x2="8" y2="46" stroke={color} strokeWidth="3" strokeLinecap="round" />
       <line x1="56" y1="18" x2="56" y2="46" stroke={color} strokeWidth="3" strokeLinecap="round" />
       {/* Bore */}
@@ -171,7 +171,7 @@ export function LogoNutWrench({ size = 48, className = "", color = "currentColor
 }
 
 // ─── Concept L: Hex Nut Perspective ──────────────────────────────────────────
-// Hex nut shown at slight 3D angle — depth and dimension
+// Hex nut shown at slight 3D angle - depth and dimension
 export function LogoNutPerspective({ size = 48, className = "", color = "currentColor" }: LogoProps) {
   return (
     <svg width={size} height={size} viewBox="0 0 64 64" fill="none" className={className}>
@@ -181,7 +181,7 @@ export function LogoNutPerspective({ size = 48, className = "", color = "current
       {/* Side faces */}
       <path d="M12 16V40L32 50V26L12 16Z" stroke={color} strokeWidth="1.5" strokeLinejoin="round" />
       <path d="M52 16V40L32 50V26L52 16Z" stroke={color} strokeWidth="1.5" strokeLinejoin="round" />
-      {/* Bore hole — ellipse on top face */}
+      {/* Bore hole - ellipse on top face */}
       <ellipse cx="32" cy="16" rx="8" ry="4" stroke={color} strokeWidth="1.5" />
     </svg>
   );

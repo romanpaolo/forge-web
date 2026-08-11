@@ -13,9 +13,9 @@ const CALENDLY_URL = "https://calendly.com/christian-forge/30min";
 export const metadata: Metadata = {
   title: "Support | Forge",
   description:
-    "Get help with Forge and ScopeSnap. Browse common questions, email the team, or book a call. We respond within one business day.",
+    "Get help with Forge. Browse common questions, email the team, or book a call. We respond within one business day.",
   openGraph: {
-    title: "Forge Support: We've Got Your Back",
+    title: "Forge Support | We've Got Your Back",
     description:
       "Questions, bugs, billing, or onboarding. Reach the Forge team directly. Responses within one business day.",
     type: "website",
@@ -61,7 +61,7 @@ export default function SupportPage() {
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-16">
-            {/* Direct options — rounded-lg buttons, matching /legal's nav style. */}
+            {/* Direct options - rounded-lg buttons, matching /legal's nav style. */}
             <div className="flex flex-col gap-4">
               <a
                 href={`mailto:${SUPPORT_EMAIL}`}
@@ -100,15 +100,15 @@ export default function SupportPage() {
                   <span className="text-sm font-semibold text-forge-white group-hover:text-forge-cyan transition-colors">
                     Book a call
                   </span>
-                  <span className="text-sm text-forge-smoke">30 min walkthrough</span>
+                  <span className="text-sm text-forge-smoke">30-min walkthrough</span>
                   <span className="mt-1 text-xs text-forge-graphite">
-                    Best for onboarding and Founders Council.
+                    Best for a guided demo before you start your trial.
                   </span>
                 </span>
               </a>
             </div>
 
-            {/* Contact form (client component — composes a mailto). */}
+            {/* Contact form (client component - composes a mailto). */}
             <div>
               <ContactForm />
             </div>

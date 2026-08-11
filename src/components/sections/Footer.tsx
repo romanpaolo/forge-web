@@ -1,13 +1,25 @@
 import { Hexagon } from "lucide-react";
-import { APP_STORE_URL, CASE_STUDY_PATH } from "@/lib/constants";
+import {
+  APP_STORE_URL,
+  CASE_STUDY_PATH,
+  loginUrl,
+  trialSignupUrl,
+} from "@/lib/constants";
 
-// Only real destinations — no href="#" placeholders. About/Blog and social
+// Only real destinations - no href="#" placeholders. About/Blog and social
 // icons return when they have somewhere to point.
+//
+// The two app links below cross onto app.forge.equipment. Both go through
+// the shared helpers in constants.ts rather than hardcoding a host, so the
+// footer follows NEXT_PUBLIC_DASHBOARD_URL along with everything else -
+// there is exactly one place that decides where the product lives.
 const FOOTER_LINKS = {
   Product: [
     { label: "Product", href: "/#product" },
     { label: "How It Works", href: "/#how-it-works" },
     { label: "Pricing", href: "/pricing" },
+    { label: "Sign in", href: loginUrl() },
+    { label: "Start free trial", href: trialSignupUrl() },
   ],
   Company: [
     { label: "Customers", href: CASE_STUDY_PATH },

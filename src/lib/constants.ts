@@ -1,101 +1,141 @@
-// ─── URL constants ────────────────────────────────────────────────────────────
-
-// TODO: update to the real app subdomain once DNS is pointed (e.g. app.forge.equipment)
-export const DASHBOARD_URL = "https://www.forge.equipment";
-
-export const CALENDLY_URL = "https://calendly.com/christian-forge/30min";
-
-// TODO: replace "#" with the real App Store listing URL once live
-export const APP_STORE_URL = "#";
-
-export const CASE_STUDY_PATH = "/customers/harris-and-sons";
-
-// Trial goes to the Stripe Pro checkout. plan/seats params reserved for future
-// Stripe payment-link customization (e.g. prefilled_quantity).
-export function trialSignupUrl(
-  _plan?: string,
-  _seats?: number,
-): string {
-  return "https://buy.stripe.com/fZu5kDcDC99H3ES73c3Nm05";
-}
-
-// Gated by NEXT_PUBLIC_ANDROID_WAITLIST env var. Keep false in production until
-// TCPA-compliant consent copy is reviewed (see AndroidWaitlist.tsx header comment).
-export const ANDROID_WAITLIST_ENABLED =
-  process.env.NEXT_PUBLIC_ANDROID_WAITLIST === "true";
-
-// ─── Navigation ───────────────────────────────────────────────────────────────
-
+// Anchor links are root-relative (/#product, not #product) so they work
+// from /pricing, /support, and /legal - not just the homepage.
+// Nav per PRD 9.1: Product / How It Works / Customers / Pricing / Support.
 export const NAV_LINKS = [
-  { label: "Product", href: "#product" },
-  { label: "Features", href: "#features" },
-  { label: "How It Works", href: "#how-it-works" },
+  { label: "Product", href: "/#product" },
+  { label: "How It Works", href: "/#how-it-works" },
+  { label: "Customers", href: "/customers/harris-and-sons" },
   { label: "Pricing", href: "/pricing" },
   { label: "Support", href: "/support" },
 ];
 
+// The live product dashboard. Set NEXT_PUBLIC_DASHBOARD_URL in the Vercel
+// project to move it. The fallback is app.forge.equipment, the custom app
+// domain that went live 2026-08-08 — production no longer needs the env var
+// set; it's there for preview/staging builds pointing at a different
+// dashboard deploy.
+// next.config.ts reads the SAME env var for its app-path redirects: change the
+// env var and both the links and the redirects follow. Do not reintroduce a
+// second hardcoded copy of this host.
+export const DASHBOARD_URL =
+  process.env.NEXT_PUBLIC_DASHBOARD_URL || "https://app.forge.equipment";
+export const CALENDLY_URL = "https://calendly.com/christian-forge/30min";
+export const APP_STORE_URL = "https://apps.apple.com/us/app/id6762521834";
+export const CASE_STUDY_PATH = "/customers/harris-and-sons";
+
+// Sign-in entry point into the product. Deliberately targets `/login`
+// rather than the bare DASHBOARD_URL: hitting the dashboard root as a
+// signed-out user works, but only by bouncing through the app shell's auth
+// guard first, which flashes a redirect before the form appears. Naming the
+// route directly is one hop instead of two.
+// Note the landing ALSO serves /login itself as a 307 to this same target
+// (next.config.ts), so an inbound forge.equipment/login link keeps working
+// - but in-page links should point at the real destination, not our own
+// redirect, so a user never takes two hops when one will do.
+export function loginUrl(): string {
+  return `${DASHBOARD_URL}/login`;
+}
+
+// "Start Free Trial" routes to the dashboard signup, which already
+// auto-provisions accounts card-free (14-day trial). plan + seats ride along
+// as query params so the dashboard - and the future Stripe Checkout flow
+// (PRD Section 13, blocked on backend work) - can pre-fill the choice made
+// on the marketing site. v1 is trial-signup routing, NOT live Stripe.
+// Default is ANNUAL here and MONTHLY in the app. That asymmetry is a CEO
+// decision (Ethan Rife, 2026-08-09: "Annual as default on site, monthly as
+// default in app"), not an inconsistency to tidy up: the marketing site is
+// where the 20% annual discount does its work, while someone already
+// inside the product converting mid-trial is choosing commitment level
+// rather than shopping on price.
+//
+// The app-side default lives in billing.controller.ts
+// (`dto.billingPeriod ?? "monthly"`). If either moves, move both
+// deliberately.
+export function trialSignupUrl(
+  plan: "monthly" | "annual" = "annual",
+  seats = 3,
+): string {
+  return `${DASHBOARD_URL}/login?mode=signup&plan=${plan}&seats=${seats}`;
+}
+
+// Android waitlist is gated OFF by default: the consent language is a
+// placeholder pending TCPA compliance review (PRD Open Item #10). Flip by
+// setting NEXT_PUBLIC_ANDROID_WAITLIST=true at build time.
+export const ANDROID_WAITLIST_ENABLED =
+  process.env.NEXT_PUBLIC_ANDROID_WAITLIST === "true";
+
 export type FaqItem = { question: string; answer: string };
 
-export const FAQ_ITEMS: FaqItem[] = [
+// Pricing-page FAQ - PRD 9.10, word-for-word (7 Q&As).
+export const PRICING_FAQ: FaqItem[] = [
   {
-    question: "What is Forge and how does ScopeSnap work?",
-    answer: "Forge is an AI powered field intelligence platform built for general contractors. ScopeSnap, our flagship tool, captures audio, photos, and voice tags during your job walk, then uses AI to structure them into organized scope by area, tasks sorted by trade, open questions, and export ready packets. One walk in, structured data out.",
+    question: "Do I need to talk to sales to get started?",
+    answer:
+      "No. Start Free Trial takes you straight into the product. No card required for the first 14 days. If you'd rather see it on a real job first, book time with our team instead.",
   },
   {
-    question: "Do I need special hardware or an app download?",
-    answer: "No special hardware required. ScopeSnap works on any smartphone or tablet through a mobile web app. No app store downloads needed. If you use AR enabled devices like Meta Glasses, Forge is designed to support spatial capture as that technology matures.",
+    question: "Do you need my card to start the trial?",
+    answer:
+      "No. Use Forge free for 14 days without entering payment info. We'll remind you before the trial ends. Add a payment method any time to keep your seats active. If you don't, your account pauses. Nothing gets deleted.",
   },
   {
-    question: "How accurate is the AI structuring?",
-    answer: "Forge's AI is built to structure, never assume. Every uncertain item is flagged for your review. It will never silently guess on scope details that affect your bid. You review and approve the full output before exporting. Our target accuracy is 99.2% on structured field data.",
+    question: "What counts as a seat?",
+    answer:
+      "Anyone who logs into Forge: owner, admin, PM, estimator, or sub. Your first 3 are included in the base price. Each additional teammate is $39/month, or $374/year on the annual plan.",
   },
   {
-    question: "What tools does Forge integrate with?",
-    answer: "The current version supports one tap formatted copy for Buildertrend, PDF packet downloads with photos, and PM handoff emails. Direct API integrations with Buildertrend, Procore, and CoConstruct are on the roadmap. Forge is designed to fit into your existing workflow, not replace it.",
+    question: "Is there a contract?",
+    answer:
+      "No. Monthly is month-to-month. Annual is billed once a year at a 20% discount and can be cancelled at renewal.",
   },
   {
-    question: "What does the Founders Council beta include?",
-    answer: "Founders Council members get full ScopeSnap access, unlimited job walks, a direct line to the dev team, and locked-in founding member pricing, all free during the entire beta period. No credit card, no contracts, cancel anytime. We're hand picking 20 contractors to shape Forge from day one.",
+    question: "What platforms does Forge run on?",
+    answer: ANDROID_WAITLIST_ENABLED
+      ? "iOS and Web today. Android is coming to the Play Store soon. Join the waitlist below and we'll call you the day it's live."
+      : "iOS and Web today. Android is coming to the Play Store soon.",
   },
   {
-    question: "How long is the beta and what happens after?",
-    answer: "The beta runs approximately 90 days. During that time, you use every feature for free while we collect your feedback to refine the product. After beta, Founders Council members lock in special pricing that won't be available to later users. You'll never pay more than your founding rate.",
+    question: "How is this different from Buildertrend?",
+    answer:
+      "Forge isn't a Buildertrend replacement. It's what happens before Buildertrend. Record the walk, get a structured scope and estimate, then export straight into your existing Buildertrend job budget.",
   },
   {
-    question: "What makes Forge different from Buildertrend or Procore?",
-    answer: "Buildertrend and Procore are project management platforms. They're great at organizing data once it's entered. Forge solves the step before: capturing and structuring field data so it's ready for those tools. Instead of spending 20 to 40 minutes after every walk typing notes into Buildertrend, Forge gets it done in one tap with zero typing.",
-  },
-  {
-    question: "Is my job walk data secure?",
-    answer: "Your data is encrypted in transit and at rest. Forge processes your audio and photos through secure AI pipelines. Nothing is shared, sold, or used to train models. Contractors stake their reputation on accurate data, and we take that trust seriously. Your field intelligence stays yours.",
+    question: "Can I cancel anytime?",
+    answer: "Yes, from Settings, no call required.",
   },
 ];
 
-// Support-page subset — help/account/data questions, distinct from the home FAQ.
+// Support-page subset - help/account/data questions, distinct from the pricing FAQ.
 export const SUPPORT_FAQ: FaqItem[] = [
   {
     question: "How do I get help or report a problem?",
-    answer: "The fastest way to reach us is email (team@forge.equipment) or the contact form below. Tell us what you were doing, what you expected, and what happened instead. Screenshots help. During the beta you also have a direct line to the dev team through your Founders Council channel.",
+    answer:
+      "The fastest way to reach us is email: team@forge.equipment. The contact form below works too. Tell us what you were doing, what you expected, and what happened instead. Screenshots help.",
   },
   {
     question: "How quickly will I hear back?",
-    answer: "We aim to respond to every message within one business day. Beta members and active job walk issues are prioritized. If something is blocking you in the field, say so in the subject line and we'll jump on it.",
+    answer:
+      "We aim to respond to every message within one business day. Active job-walk issues are prioritized. If something is blocking you in the field, say so in the subject line and we'll jump on it.",
   },
   {
     question: "I found a bug. What should I do?",
-    answer: "Send it to team@forge.equipment with the word \"Bug\" in the subject. Include your device and browser, the project or walk where it happened, and the steps to reproduce it. Bug reports from Founders Council members shape our weekly fixes, so the more detail the better.",
+    answer:
+      "Send it to team@forge.equipment with the word \"Bug\" in the subject. Include your device and browser, the project or walk where it happened, and the steps to reproduce it. The more detail the better.",
   },
   {
     question: "Can I cancel, pause, or delete my account?",
-    answer: "Yes. There are no contracts during the beta. Cancel anytime and you keep access through the current period. To delete your account and personal data, email us and we'll remove it within 30 days, except where retention is required by law. See our Privacy Policy for details.",
+    answer:
+      "Yes. Monthly plans are month-to-month. Cancel anytime from Settings, no call required, and you keep access through the current billing period. If your free trial ends without a payment method, your account pauses (nothing is deleted) and access resumes once a card is added. To delete your account and personal data, email us and we'll remove it within 30 days, except where retention is required by law. See our Privacy Policy for details.",
   },
   {
     question: "Is my job walk data secure?",
-    answer: "Your data is encrypted in transit and at rest. Forge processes your audio and photos through secure AI pipelines. Nothing is shared, sold, or used to train models. Your field intelligence stays yours.",
+    answer:
+      "Your data is encrypted in transit and at rest. Forge processes your audio and photos through secure AI pipelines. Nothing is shared, sold, or used to train models. Your field intelligence stays yours.",
   },
   {
-    question: "How do I join the Founders Council?",
-    answer: "Book a quick call with the team and we'll get you set up. We're hand picking contractors to shape Forge from day one: full ScopeSnap access, unlimited job walks, and locked-in founding pricing, free during the entire beta.",
+    question: "How does the free trial work?",
+    answer:
+      "Every plan starts with a 14-day free trial. No credit card required. We'll remind you before it ends. Add a payment method any time to keep your seats active. If you don't, your account pauses and nothing gets deleted.",
   },
 ];
 
@@ -103,85 +143,68 @@ export const FEATURES = [
   {
     label: "CAPTURE",
     title: "Walk the Job. We'll Handle the Notes.",
-    description: "Start a job walk and Forge records audio up to 90 minutes and photos you can voice tag on the fly. Say \"Photo: kitchen sink wall\" and it's indexed automatically.",
+    description:
+      "Start a job walk and Forge records everything: audio up to 90 minutes, plus photos you can voice-tag on the fly. Say \"Photo: kitchen sink wall\" and it's indexed automatically.",
     bullets: [
       "Audio recording up to 90 min",
-      "Voice tagged photo capture",
+      "Voice-tagged photo capture",
       "All media stored under one project",
     ],
   },
   {
     label: "AI ENGINE",
-    title: "Raw Walk → Structured Scope in Seconds",
-    description: "Forge's AI doesn't guess. It organizes your walk into confirmed decisions, open questions, risks, and atomic tasks sorted by trade: demo, framing, plumbing, electrical, and more.",
+    title: "Raw Walk → Priced Estimate in Minutes",
+    description:
+      "Forge's AI doesn't guess. It organizes your walk into a scope broken out by trade and a priced, line-item estimate. Anything it's not confident about gets flagged, so you check it, not guess at it.",
     bullets: [
       "Scope + questions organized by area",
-      "Tasks broken down by trade",
+      "Line-item estimate priced by trade",
       "Uncertainties flagged, never assumed",
     ],
   },
   {
     label: "EXPORT",
-    title: "One Tap to Buildertrend Ready",
-    description: "Review the AI output, make edits inline, then export. Copy formatted notes directly to Buildertrend, download a PDF packet with photos, or send a PM handoff email.",
+    title: "One Tap to Buildertrend-Ready",
+    description:
+      "Review the AI output, make edits inline, apply your markup, then export. Copy formatted notes directly to Buildertrend, download a PDF packet with photos, or send a PM handoff email.",
     bullets: [
       "Inline editing: add, delete, reorder",
-      "One tap copy to Buildertrend",
+      "One-tap copy to Buildertrend",
       "PDF + photo packet download",
       "PM handoff email template",
     ],
   },
 ];
 
-export const TESTIMONIALS = [
-  {
-    quote: "I used to spend my drive home just organizing notes from the walk. Now I hit export before I leave the job site.",
-    name: "Mike R.",
-    title: "GC, Austin TX",
-  },
-  {
-    quote: "We were wasting 30 minutes after every walk just getting notes into Buildertrend. That's gone now.",
-    name: "Christian",
-    title: "General Contractor",
-  },
-  {
-    quote: "My PM used to call me three times after every walk asking for details. Now she gets everything in one clean packet.",
-    name: "Sarah K.",
-    title: "GC, Denver CO",
-  },
-];
-
+// How it works - PRD 9.5, word-for-word (3 steps).
 export const STEPS = [
   {
     number: "01",
-    title: "Create Your Project",
-    description: "Name, address, project type. 30 seconds.",
+    title: "Walk it.",
+    description:
+      "Hit record on your phone and walk the job. Talk like you would to your PM. No forms, no \"what type of meeting is this\" screen first.",
   },
   {
     number: "02",
-    title: "Walk and Capture",
-    description: "Hit record, walk the job, snap photos, voice tag as you go.",
+    title: "Forge structures it.",
+    description:
+      "In minutes, Forge turns the walk into a scope broken out by trade and a priced estimate. Anything it's not confident about gets flagged, so you check it, not guess at it.",
   },
   {
     number: "03",
-    title: "AI Does the Heavy Lifting",
-    description: "Forge transcribes, structures scope by area, breaks tasks by trade, flags open questions.",
-  },
-  {
-    number: "04",
-    title: "Review, Approve, Export",
-    description: "Edit anything inline. One tap to copy into Buildertrend, download PDF, or email your PM.",
+    title: "Review, then send.",
+    description:
+      "Edit any line, apply your markup, export straight to Buildertrend, PDF, or CSV. Nothing leaves Forge until you approve it.",
   },
 ];
 
-export const METRICS = [
-  { value: 20, suffix: "+", unit: "", label: "Minutes saved per walk" },
-  { value: 1, suffix: "", unit: "", label: "Workflow, not four" },
-  { value: 0, suffix: "", unit: "Zero", label: "Typing required" },
-];
-
-export const MARKET_DATA = [
-  { value: "$39B+", label: "Total Addressable Market" },
-  { value: "$3.1B", label: "US Serviceable Market" },
-  { value: "$62M", label: "5-Year SOM" },
+// Hero stat bar - PRD 9.3. "6 TRADES" is intentionally gone (read as a
+// limitation). 4th stat stays "MINUTES TO A PRICED SCOPE" until the real
+// median processing time is pulled from production (Open Item #2 - do NOT
+// invent a harder number).
+export const HERO_STATS = [
+  { value: "20+", label: "MIN SAVED PER WALK" },
+  { value: "1", label: "WORKFLOW" },
+  { value: "0", label: "TYPING" },
+  { value: "MINUTES", label: "TO A PRICED SCOPE" },
 ];
