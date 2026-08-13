@@ -46,6 +46,18 @@ export default function Differentiation() {
           That&rsquo;s the whole difference.
         </motion.h2>
 
+        {/* Reputation-protection proof point (Ethan, 2026-08-13). Ties to the
+            $40K scope-dispute loss the Harris & Sons story documents. */}
+        <motion.p
+          className="text-forge-smoke text-base md:text-lg leading-relaxed mt-8"
+          {...fadeUp}
+          transition={{ duration: 0.6, ease: "easeOut", delay: 0.18 }}
+        >
+          Every walk is timestamped and saved. When a client says they were
+          never told about a cost, you have the record instead of your memory
+          against theirs.
+        </motion.p>
+
         {/* Christian's speed-wins-jobs sub-block */}
         <motion.div
           className="relative mt-14 text-left"

@@ -2,7 +2,12 @@
 
 import { motion } from "framer-motion";
 import Button from "@/components/ui/Button";
-import { APP_STORE_URL, CALENDLY_URL, trialSignupUrl } from "@/lib/constants";
+import {
+  APP_STORE_URL,
+  CALENDLY_URL,
+  PLAY_STORE_URL,
+  trialSignupUrl,
+} from "@/lib/constants";
 import { fadeUp } from "@/lib/animations";
 
 // PRD 9.9 - final CTA, word-for-word.
@@ -78,14 +83,24 @@ export default function FinalCTA() {
               14-day free trial. No credit card required. Cancel anytime.
             </p>
 
-            <a
-              href={APP_STORE_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-forge-smoke hover:text-forge-white text-sm transition-colors underline underline-offset-4 decoration-forge-graphite"
-            >
-              Download on the App Store
-            </a>
+            <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2">
+              <a
+                href={APP_STORE_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-forge-smoke hover:text-forge-white text-sm transition-colors underline underline-offset-4 decoration-forge-graphite"
+              >
+                Download on the App Store
+              </a>
+              <a
+                href={PLAY_STORE_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-forge-smoke hover:text-forge-white text-sm transition-colors underline underline-offset-4 decoration-forge-graphite"
+              >
+                Get it on Google Play
+              </a>
+            </div>
 
             {/* Bottom mono label */}
             <div className="flex items-center gap-2 mt-2" aria-hidden="true">
