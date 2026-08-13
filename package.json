@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "check:em-dashes": "node scripts/check-em-dashes.mjs",
+    "ci": "node scripts/check-em-dashes.mjs && tsc --noEmit && next build"
   },
   "dependencies": {
     "@react-three/drei": "^10.7.7",
