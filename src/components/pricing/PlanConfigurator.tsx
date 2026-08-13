@@ -14,6 +14,7 @@ import {
   monthlyTotal,
   annualTotal,
   annualAsMonthly,
+  annualHeadlineMonthly,
   formatUsd,
   type BillingPlan,
 } from "@/lib/pricing";
@@ -24,10 +25,16 @@ import {
  * signup; live Stripe Checkout (PRD Section 13) is a later backend project.
  *
  * The headline is always a monthly figure, on both plans (Ethan Rife,
- * 2026-08-13, matching how Apollo and CompanyCam quote annual plans). Annual
- * divides its total by 12 for the headline and prints the annual total that
- * actually gets charged in the small line underneath. Seats follow the same
- * rule. The prices themselves did not change. */
+ * 2026-08-13, matching how Apollo and CompanyCam quote annual plans). Seats
+ * follow the same rule, and the annual total that actually gets charged is
+ * printed in the small line underneath. The prices themselves did not change.
+ *
+ * The annual headline is the sum of the two per-part monthly figures the card
+ * prints, not the annual total divided by twelve. Those two readings diverge
+ * once a seat is added (at five seats: $261 vs $262, reaching $2 apart at
+ * twelve), and the version a customer can add up wins over the version that is
+ * a few cents closer. `annualHeadlineMonthly` in lib/pricing.ts carries the
+ * full reasoning and the table. */
 
 const PLAN_FEATURES = [
   "Unlimited job walks and recordings",
@@ -58,8 +65,14 @@ export default function PlanConfigurator() {
   // amount charged once a year.
   const baseAnnualAsMonthly = annualAsMonthly(BASE_ANNUAL);
   const seatAnnualAsMonthly = annualAsMonthly(SEAT_ANNUAL);
+  // The annual headline is built from the same two per-part figures printed
+  // below it, so the card adds up for a reader who checks. Using
+  // `annualAsMonthly(annual)` here is arithmetically closer to the real charge
+  // but prints $262 above parts that sum to $261 at five seats, widening to $2
+  // by twelve. See `annualHeadlineMonthly` for the full reasoning; the exact
+  // annual amount is printed verbatim underneath either way.
   const headlineMonthly =
-    plan === "monthly" ? monthlyTotal(seats) : annualAsMonthly(annual);
+    plan === "monthly" ? monthlyTotal(seats) : annualHeadlineMonthly(seats);
   const seatMonthly = plan === "monthly" ? SEAT_MONTHLY : seatAnnualAsMonthly;
 
   return (

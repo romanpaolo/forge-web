@@ -46,6 +46,42 @@ export function annualAsMonthly(annualAmount: number): number {
   return Math.round(annualAmount / 12);
 }
 
+/**
+ * The headline monthly figure for the annual plan, built from the SAME two
+ * per-part numbers the card prints underneath it.
+ *
+ * ── Why this is not `annualAsMonthly(annualTotal(seats))` ────────────────
+ *
+ * Both are defensible readings of "the annual total divided by twelve", and
+ * they diverge once a seat is added, because rounding the whole and rounding
+ * the parts are different operations:
+ *
+ *   seats   annual total   total ÷ 12 (rounded)   199 + 31 × extra
+ *   3       $2,390         199                    199
+ *   5       $3,138         262                    261
+ *   12      $5,756         480                    478
+ *
+ * The first column is arithmetically closer to the true annual charge. The
+ * second is the one a customer can VERIFY, because the card shows them
+ * "$199/month" and "+$31/month per additional seat" and they can add it up.
+ * At five seats the first reading prints a headline of $262 above parts that
+ * sum to $261, and there is no way for a reader to work out where the extra
+ * dollar came from. Two seats later the gap is $2.
+ *
+ * A price a customer cannot reconcile reads as a mistake even when it is
+ * closer to correct, so the card is made internally consistent and the exact
+ * annual figure it will actually charge is printed in full right beneath it
+ * ("billed as $3,138/yr"). The truth is on the card either way; this decides
+ * which number carries it.
+ *
+ * Display only. Pricing logic is untouched: `annualTotal()` is still what a
+ * customer is charged, and it is exact.
+ */
+export function annualHeadlineMonthly(seats: number): number {
+  const extra = Math.max(0, seats - INCLUDED_SEATS);
+  return annualAsMonthly(BASE_ANNUAL) + annualAsMonthly(SEAT_ANNUAL) * extra;
+}
+
 export function formatUsd(amount: number): string {
   return `$${amount.toLocaleString("en-US")}`;
 }
