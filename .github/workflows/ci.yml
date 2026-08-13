@@ -1,0 +1,75 @@
+# CI for the Forge landing site (forge.equipment).
+#
+# This repo had NO CI at all. Every other Forge repo has a lane; the one that a
+# prospective customer actually reads did not, so the copy standard and the
+# build both rested on whoever was editing remembering to check.
+#
+# The lane is deliberately SMALL. Each step below is here because it can fail
+# for a real reason and its failure is actionable. Steps that would be green for
+# reasons unrelated to correctness, or red for reasons nobody intends to fix
+# today, are listed in the footer with why, rather than added as decoration.
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main, staging]
+
+jobs:
+  build-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      # The copy standard, enforced instead of remembered. RZ flagged the em
+      # dash as the clearest tell that copy was machine-written; Ethan restated
+      # it for this repo on 2026-08-12. Same rule as forge-backend's guard,
+      # byte for byte: a SPACED U+2014 in text the site renders. Unspaced forms
+      # and en-dash ranges ("$5M-$10M") are correct typography and are not
+      # flagged. See the script header for the fix shapes.
+      - name: No spaced em dashes in rendered copy
+        run: node scripts/check-em-dashes.mjs
+
+      # `tsc --noEmit`. Catches the class this repo is most exposed to: a copy
+      # or constant edit that breaks a type nothing else would notice until
+      # Vercel built it.
+      - name: Typecheck
+        run: npx tsc --noEmit
+
+      # `next build`. The landing site has no tests, so this is the only thing
+      # that proves every route still renders. It is fast (about 3s) and it
+      # catches a broken import or a bad JSX edit that typecheck alone can miss
+      # in a server component.
+      - name: Build
+        run: npm run build
+
+# ── Deliberately NOT in this lane ─────────────────────────────────────────
+#
+# `npm run lint`. It reports 20 problems (14 errors, 6 warnings) on a clean
+# `origin/main` today, all in files unrelated to any current change:
+# AnimatedCounter.tsx, Navbar.tsx, Features.tsx, HexNutScene.tsx,
+# brand/page.tsx, design/page.tsx. Adding it as a required step would make
+# every PR red on arrival for pre-existing debt, and the predictable response
+# to a lane that is always red is to stop reading it. That is worse than not
+# having the step.
+#
+# The honest options are to fix the 20 findings in their own PR and then add
+# this step, or to add it with a FLOOR (fail only if the count RISES above the
+# recorded baseline) the way Forge_Web's ci:lint gate does. Either is a real
+# improvement. Neither is this PR, because adding a guard and simultaneously
+# excusing the violations it finds is how an allowlist becomes permanent.
+#
+# Tests. There is no test script in this repo and no test framework installed.
+# A marketing site of 40 source files with a `next build` gate is not obviously
+# under-covered, but if interactive behaviour grows (the pricing configurator
+# already has real arithmetic in `src/lib/pricing.ts`, and its rounding is
+# load-bearing on what a customer is quoted), that arithmetic wants unit tests
+# and this is where they would run.
