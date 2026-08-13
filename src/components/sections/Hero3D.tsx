@@ -8,6 +8,7 @@ import {
   APP_STORE_URL,
   CALENDLY_URL,
   HERO_STATS,
+  PLAY_STORE_URL,
   trialSignupUrl,
 } from "@/lib/constants";
 
@@ -135,16 +136,29 @@ export default function Hero3D() {
                 </Button>
               </div>
               <p className="text-forge-smoke text-sm">
-                Live on iOS and Web. Android coming soon.{" "}
+                Live on iOS, Web, and Android.
+              </p>
+              {/* Store links, one per mobile platform. Both use the same type
+                  size and link treatment so the row reads as a matched pair
+                  rather than two differently-sized store badges. */}
+              <div className="flex flex-wrap items-center gap-x-5 gap-y-2 md:justify-end">
                 <a
                   href={APP_STORE_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:text-forge-white transition-colors underline underline-offset-4 decoration-forge-graphite"
+                  className="text-forge-smoke hover:text-forge-white text-sm transition-colors underline underline-offset-4 decoration-forge-graphite"
                 >
                   Download on the App Store
                 </a>
-              </p>
+                <a
+                  href={PLAY_STORE_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-forge-smoke hover:text-forge-white text-sm transition-colors underline underline-offset-4 decoration-forge-graphite"
+                >
+                  Get it on Google Play
+                </a>
+              </div>
             </motion.div>
           </div>
 

@@ -1,3 +1,5 @@
+import { HARRIS_STATS } from "@/lib/caseStudy";
+
 // Anchor links are root-relative (/#product, not #product) so they work
 // from /pricing, /support, and /legal - not just the homepage.
 // Nav per PRD 9.1: Product / How It Works / Customers / Pricing / Support.
@@ -21,6 +23,12 @@ export const DASHBOARD_URL =
   process.env.NEXT_PUBLIC_DASHBOARD_URL || "https://app.forge.equipment";
 export const CALENDLY_URL = "https://calendly.com/christian-forge/30min";
 export const APP_STORE_URL = "https://apps.apple.com/us/app/id6762521834";
+// Android shipped 2026-08-13, so the store links are a pair everywhere the
+// App Store link appears (hero, final CTA, footer). The pcampaignid param is
+// the one Google hands out with the listing's share link; swap it for a real
+// campaign id if the marketing side ever wants attribution split by surface.
+export const PLAY_STORE_URL =
+  "https://play.google.com/store/apps/details?id=com.forgesolutions.forge&pcampaignid=web_share";
 export const CASE_STUDY_PATH = "/customers/harris-and-sons";
 
 // Sign-in entry point into the product. Deliberately targets `/login`
@@ -90,9 +98,8 @@ export const PRICING_FAQ: FaqItem[] = [
   },
   {
     question: "What platforms does Forge run on?",
-    answer: ANDROID_WAITLIST_ENABLED
-      ? "iOS and Web today. Android is coming to the Play Store soon. Join the waitlist below and we'll call you the day it's live."
-      : "iOS and Web today. Android is coming to the Play Store soon.",
+    answer:
+      "iOS, Web, and Android. Download from the App Store or Google Play.",
   },
   {
     question: "How is this different from Buildertrend?",
@@ -202,8 +209,14 @@ export const STEPS = [
 // limitation). 4th stat stays "MINUTES TO A PRICED SCOPE" until the real
 // median processing time is pulled from production (Open Item #2 - do NOT
 // invent a harder number).
+//
+// The first stat used to be "20+ MIN SAVED PER WALK", which measured only the
+// walk itself. Ethan Rife replaced it 2026-08-13 with the whole-process number
+// so the hero and the Harris & Sons case study state the same figure. It reads
+// from HARRIS_STATS rather than repeating "75%": caseStudy.ts owns every number
+// that appears on more than one surface, and this is now one of them.
 export const HERO_STATS = [
-  { value: "20+", label: "MIN SAVED PER WALK" },
+  { value: HARRIS_STATS.estimatingTimeCut, label: "LESS TIME ESTIMATING" },
   { value: "1", label: "WORKFLOW" },
   { value: "0", label: "TYPING" },
   { value: "MINUTES", label: "TO A PRICED SCOPE" },

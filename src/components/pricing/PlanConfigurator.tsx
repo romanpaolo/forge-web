@@ -25,7 +25,7 @@ import {
 const PLAN_FEATURES = [
   "Unlimited job walks and recordings",
   "AI-generated scope + estimate from every walk",
-  "iOS + Web access (Android coming soon)",
+  "iOS, Web, and Android access",
   "Export to Buildertrend, PDF, and CSV",
   "Full team roles: Owner, Admin, PM, Estimator, Sub",
   "Email support",

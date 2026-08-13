@@ -3,6 +3,7 @@ import {
   APP_STORE_URL,
   CASE_STUDY_PATH,
   loginUrl,
+  PLAY_STORE_URL,
   trialSignupUrl,
 } from "@/lib/constants";
 
@@ -75,14 +76,24 @@ export default function Footer() {
             &copy; 2026 Forge. Built for the trades.
           </p>
 
-          <a
-            href={APP_STORE_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-forge-smoke hover:text-forge-white text-sm transition-colors"
-          >
-            Download on the App Store
-          </a>
+          <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2">
+            <a
+              href={APP_STORE_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-forge-smoke hover:text-forge-white text-sm transition-colors"
+            >
+              Download on the App Store
+            </a>
+            <a
+              href={PLAY_STORE_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-forge-smoke hover:text-forge-white text-sm transition-colors"
+            >
+              Get it on Google Play
+            </a>
+          </div>
         </div>
       </div>
     </footer>
