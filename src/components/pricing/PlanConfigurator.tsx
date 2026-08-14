@@ -13,6 +13,8 @@ import {
   BASE_ANNUAL,
   monthlyTotal,
   annualTotal,
+  annualAsMonthly,
+  annualHeadlineMonthly,
   formatUsd,
   type BillingPlan,
 } from "@/lib/pricing";
@@ -20,7 +22,19 @@ import {
 /* Plan card + monthly/annual toggle + seat stepper - PRD 9.10 / Section 8.
  * Price math is client-side display only (249 + 39×(seats−3) monthly;
  * 2390 + 374×(seats−3) annual). The CTA carries plan+seats to the dashboard
- * signup; live Stripe Checkout (PRD Section 13) is a later backend project. */
+ * signup; live Stripe Checkout (PRD Section 13) is a later backend project.
+ *
+ * The headline is always a monthly figure, on both plans (Ethan Rife,
+ * 2026-08-13, matching how Apollo and CompanyCam quote annual plans). Seats
+ * follow the same rule, and the annual total that actually gets charged is
+ * printed in the small line underneath. The prices themselves did not change.
+ *
+ * The annual headline is the sum of the two per-part monthly figures the card
+ * prints, not the annual total divided by twelve. Those two readings diverge
+ * once a seat is added (at five seats: $261 vs $262, reaching $2 apart at
+ * twelve), and the version a customer can add up wins over the version that is
+ * a few cents closer. `annualHeadlineMonthly` in lib/pricing.ts carries the
+ * full reasoning and the table. */
 
 const PLAN_FEATURES = [
   "Unlimited job walks and recordings",
@@ -44,9 +58,22 @@ export default function PlanConfigurator() {
   const [seats, setSeats] = useState(MIN_SEATS);
 
   const extraSeats = seats - INCLUDED_SEATS;
-  const monthly = monthlyTotal(seats);
   const annual = annualTotal(seats);
-  const annualPerMonth = Math.round(annual / 12);
+
+  // Every price on this card is quoted per month. On the annual plan that
+  // means the annual figure ÷ 12; `annual` itself is still shown, as the
+  // amount charged once a year.
+  const baseAnnualAsMonthly = annualAsMonthly(BASE_ANNUAL);
+  const seatAnnualAsMonthly = annualAsMonthly(SEAT_ANNUAL);
+  // The annual headline is built from the same two per-part figures printed
+  // below it, so the card adds up for a reader who checks. Using
+  // `annualAsMonthly(annual)` here is arithmetically closer to the real charge
+  // but prints $262 above parts that sum to $261 at five seats, widening to $2
+  // by twelve. See `annualHeadlineMonthly` for the full reasoning; the exact
+  // annual amount is printed verbatim underneath either way.
+  const headlineMonthly =
+    plan === "monthly" ? monthlyTotal(seats) : annualHeadlineMonthly(seats);
+  const seatMonthly = plan === "monthly" ? SEAT_MONTHLY : seatAnnualAsMonthly;
 
   return (
     <div className="max-w-lg mx-auto">
@@ -106,35 +133,36 @@ export default function PlanConfigurator() {
             FORGE
           </span>
 
-          {/* Price */}
+          {/* Price - always a monthly figure, on both plans */}
           <div>
             <div className="flex items-baseline gap-2">
               <span className="text-5xl font-medium text-forge-white tabular-nums tracking-tight">
-                {plan === "monthly" ? formatUsd(monthly) : formatUsd(annual)}
+                {formatUsd(headlineMonthly)}
               </span>
-              <span className="text-forge-smoke text-lg">
-                {plan === "monthly" ? "/mo" : "/yr"}
-              </span>
+              <span className="text-forge-smoke text-lg">/month</span>
             </div>
 
+            {plan === "annual" && (
+              <p className="text-forge-ash text-[11px] uppercase tracking-[0.14em] font-[family-name:var(--font-mono)] mt-2">
+                USD, billed annually
+              </p>
+            )}
+
+            <p className="text-forge-smoke text-sm mt-2">
+              includes 3 seats · +{formatUsd(seatMonthly)}/month per additional seat
+            </p>
+
             {plan === "monthly" ? (
-              <>
-                <p className="text-forge-smoke text-sm mt-2">
-                  includes 3 seats · +{formatUsd(SEAT_MONTHLY)}/mo per additional seat
-                </p>
-                <p className="text-forge-graphite text-xs mt-1">
-                  (Annual: {formatUsd(BASE_ANNUAL)}/yr · +{formatUsd(SEAT_ANNUAL)}/yr per
-                  additional seat · save 20%)
-                </p>
-              </>
+              <p className="text-forge-graphite text-xs mt-1">
+                (Annual: {formatUsd(baseAnnualAsMonthly)}/month · +
+                {formatUsd(seatAnnualAsMonthly)}/month per additional seat · save 20%)
+              </p>
             ) : (
-              <>
-                <p className="text-forge-smoke text-sm mt-2">
-                  ≈ {formatUsd(annualPerMonth)}/mo · includes 3 seats · +
-                  {formatUsd(SEAT_ANNUAL)}/yr per additional seat
-                </p>
-                <p className="text-forge-graphite text-xs mt-1">Save 20% billed annually</p>
-              </>
+              // Smoke, not graphite: this is the amount that actually gets
+              // charged, so it stays secondary to the headline but readable.
+              <p className="text-forge-smoke text-xs mt-1">
+                billed as {formatUsd(annual)}/yr · save 20%
+              </p>
             )}
           </div>
 
@@ -147,11 +175,7 @@ export default function PlanConfigurator() {
               <p className="text-forge-graphite text-xs mt-0.5">
                 {extraSeats === 0
                   ? "your first 3 seats are included"
-                  : `3 included + ${extraSeats} × ${
-                      plan === "monthly"
-                        ? `${formatUsd(SEAT_MONTHLY)}/mo`
-                        : `${formatUsd(SEAT_ANNUAL)}/yr`
-                    }`}
+                  : `3 included + ${extraSeats} × ${formatUsd(seatMonthly)}/month`}
               </p>
             </div>
             <div className="flex items-center gap-2">
