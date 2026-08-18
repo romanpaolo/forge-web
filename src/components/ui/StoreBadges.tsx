@@ -108,6 +108,21 @@ export default function StoreBadges({
           style={{
             height: playCanvasH,
             width: playCanvasW,
+            // REQUIRED, and the whole padding correction depends on it.
+            // Tailwind's preflight sets `img { max-width: 100% }`, and this
+            // img is DELIBERATELY wider than its parent `<a>` — the parent is
+            // sized to the badge's VISIBLE artwork while the img is sized to
+            // the asset's full canvas, with the transparent inset pulled out
+            // by the negative margins below. Without `max-width: none` the
+            // preflight rule clamped the img to the parent's width while
+            // leaving the inline height untouched, so the asset rendered at
+            // 134.28x59.52 instead of 153.81x59.52: aspect 2.2559 against the
+            // true 2.5840, a 12.7% horizontal squash, on every page and every
+            // viewport. Both vendors' brand guidelines prohibit distorting
+            // the badge, so the "fix" was shipping the violation it was
+            // supposed to prevent. Measured, not guessed: lifting the
+            // constraint in-browser restored the width exactly, 564/646.
+            maxWidth: "none",
             marginTop: -playInsetY,
             marginBottom: -playInsetY,
             marginLeft: -playInsetX,
