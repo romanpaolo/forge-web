@@ -79,7 +79,7 @@ export const PRICING_FAQ: FaqItem[] = [
   {
     question: "Do I need to talk to sales to get started?",
     answer:
-      "No. Start Free Trial takes you straight into the product. No card required for the first 14 days. If you'd rather see it on a real job first, book time with our team instead.",
+      "No. Start Free Trial takes you straight into the product, with 14 days free. If you'd rather see it on a real job first, book time with our team instead.",
   },
   {
     question: "Do you need my card to start the trial?",

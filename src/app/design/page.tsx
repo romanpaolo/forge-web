@@ -1638,7 +1638,7 @@ export default function DesignPage() {
                       Start Free Trial
                     </p>
                     <p className="text-sm text-forge-smoke leading-relaxed mb-3" style={{ fontFamily: "var(--font-body)" }}>
-                      Walk the job. Leave with the estimate. 14-day free trial, no card required.
+                      Walk the job. Leave with the estimate. 14-day free trial.
                     </p>
                     <div className="inline-block bg-forge-white px-4 py-2">
                       <span className="text-xs font-medium text-forge-iron uppercase tracking-[0.1em]" style={{ fontFamily: "var(--font-mono)" }}>

@@ -15,7 +15,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Forge Pricing | One Price, First 3 Seats Included",
     description:
-      "$249/month covers your first 3 seats. Add teammates for $39/month each. No per-walk fees, no usage caps. 14-day free trial, no card required.",
+      "$249/month covers your first 3 seats. Add teammates for $39/month each. No per-walk fees, no usage caps. 14-day free trial.",
     type: "website",
     url: "https://www.forge.equipment/pricing",
     images: [{ url: "/og-image.png", width: 1200, height: 630 }],
