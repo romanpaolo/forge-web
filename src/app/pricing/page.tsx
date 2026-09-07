@@ -34,7 +34,7 @@ export default function PricingPage() {
         <h1 className="text-2xl sm:text-3xl md:text-5xl font-medium tracking-[-0.01em] text-forge-white mt-6">
           One price. Your first three seats included.
         </h1>
-        {/* F-075 (RZ ruling 2026-09-07). This paragraph used to quote one
+        {/* F-075 (Michael's ruling 2026-09-07). This paragraph used to quote one
             seat price for "teammates", and the FAQ below it counted a sub
             as one of those teammates, so the page as a whole told a
             contractor a subcontractor costs $39 and eats an included seat.

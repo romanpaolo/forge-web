@@ -94,7 +94,7 @@ export const PRICING_FAQ: FaqItem[] = [
       "No. Use Forge free for 14 days without entering payment info. We'll remind you before the trial ends. Add a payment method any time to keep your seats active. If you don't, your account pauses. Nothing gets deleted.",
   },
   {
-    // F-075 (RZ ruling 2026-09-07). The old answer was wrong in three ways
+    // F-075 (Michael's ruling 2026-09-07). The old answer was wrong in three ways
     // at once, and all three came from the same mistake: it had one seat
     // model where the product has two.
     //
@@ -115,7 +115,7 @@ export const PRICING_FAQ: FaqItem[] = [
     // Three ways wrong in one paragraph is the tell that it was written
     // from an OLDER seat model, so the same wording was swept for
     // everywhere a customer can read it rather than patched only here.
-    // F-076 (RZ 2026-09-07). The second sentence is the only edit to the
+    // F-076 (Michael, 2026-09-07). The second sentence is the only edit to the
     // PRD 9.10 wording, and it is here because this answer is the other
     // place on the pricing surface that lists the roles. It read as five
     // interchangeable seats; the Master Subscription Agreement (1.6)

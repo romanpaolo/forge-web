@@ -18,7 +18,7 @@ export const SEAT_ANNUAL = 374;
 
 /*
  * SUB SEATS - the second seat class (F-001, RZ 2026-08-28; annual ratified
- * 2026-08-31; marketing copy corrected under F-075, RZ 2026-09-07).
+ * 2026-08-31; marketing copy corrected under F-075, Michael 2026-09-07).
  *
  * A sub seat is NOT a discounted staff seat, and the difference is not
  * only the price:

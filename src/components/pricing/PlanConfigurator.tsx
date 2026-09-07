@@ -39,7 +39,7 @@ import {
  * a few cents closer. `annualHeadlineMonthly` in lib/pricing.ts carries the
  * full reasoning and the table. */
 
-/* The roles bullets, and why there are two of them (F-076, RZ 2026-09-07).
+/* The roles bullets, and why there are two of them (F-076, Michael 2026-09-07).
  *
  * This list used to sell "Full team roles: Owner, Admin, PM, Estimator,
  * Sub" in one line. The Master Subscription Agreement (section 1.6, in
@@ -220,7 +220,7 @@ export default function PlanConfigurator() {
             </div>
           </div>
 
-          {/* F-075 (RZ ruling 2026-09-07). Every label above says STAFF
+          {/* F-075 (Michael's ruling 2026-09-07). Every label above says STAFF
               seat now, and this line is why: the arithmetic this card does
               is 249 + 39 x (seats - 3), which is the staff formula and
               only the staff formula. Subs are a second class that the
