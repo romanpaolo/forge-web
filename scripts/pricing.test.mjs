@@ -1,6 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { readFileSync } from "node:fs";
+import { readFileSync, readdirSync } from "node:fs";
+import { join } from "node:path";
 import { runInNewContext } from "node:vm";
 import ts from "typescript";
 
@@ -42,6 +43,11 @@ for (const [staff, subs, monthly, annual] of [
   [1, 2, 249, 2390],
   [1, 3, 258.99, 2485.90],
   [2, 2, 258.99, 2485.90],
+  // F-075 done_when: a three person shop plus one Sub bills what the
+  // agreement and the backend biller bill. The three staff take the
+  // included seats, the Sub is the one seat past them at the Sub rate.
+  // The retired one-rate page quoted $288 here (the Sub at $39).
+  [3, 1, 258.99, 2485.90],
   [3, 2, 268.98, 2581.80],
   [4, 1, 297.99, 2859.90],
   [5, 10, 426.90, 4097],
@@ -81,4 +87,68 @@ test("quote formatting keeps meaningful cents and explicit Sub rate precision", 
   assert.equal(pricing.formatSeatUsd(9.99), "$9.99");
   assert.equal(pricing.formatSeatUsd(95.90), "$95.90");
   assert.equal(pricing.formatSeatUsd(7.99), "$7.99");
+});
+
+// ── Seat copy (F-075 / F-076) ────────────────────────────────────────────
+// The copy has to state the rule the agreement (MSA 3.4, served by the app at
+// app.forge.equipment/legal/msa) and the backend biller state: the included
+// seats are shared, staff first; past them staff and Subs have their own
+// prices; an admin can switch an included seat; a Sub seat bought past the
+// included seats stays a Sub seat; a Sub is not a team role. Read as source
+// text so no JSX runtime or new test dependency is needed. SRC_ROOT lets the
+// same assertions run against another checkout (red proof on the old copy).
+const SRC_ROOT = process.env.SRC_ROOT ?? new URL("../src/", import.meta.url).pathname;
+
+function readSrc(rel) {
+  return readFileSync(join(SRC_ROOT, rel), "utf8");
+}
+
+function allSourceFiles(dir = SRC_ROOT) {
+  return readdirSync(dir, { withFileTypes: true }).flatMap((entry) => {
+    const full = join(dir, entry.name);
+    if (entry.isDirectory()) return allSourceFiles(full);
+    return /\.(ts|tsx|md)$/.test(entry.name) ? [full] : [];
+  });
+}
+
+function seatFaqAnswer() {
+  const match = /question: "What counts as a seat\?",\s*answer:\s*"([^"]*)"/.exec(
+    readSrc("lib/constants.ts"),
+  );
+  assert.ok(match, "the pricing FAQ has a 'What counts as a seat?' answer");
+  return match[1];
+}
+
+test("no page sells a Sub as a full team role or prices it as a teammate", () => {
+  for (const file of allSourceFiles()) {
+    const text = readFileSync(file, "utf8");
+    assert.doesNotMatch(text, /Full team roles/, `${file} lists 'Full team roles'`);
+    assert.doesNotMatch(text, /additional teammate/i, `${file} prices an 'additional teammate'`);
+    for (const line of text.split("\n").filter((l) => /Team roles:/.test(l))) {
+      assert.doesNotMatch(line, /\bSub\b/, `${file} lists Sub as a team role: ${line.trim()}`);
+    }
+  }
+});
+
+test("the seat FAQ prices each class and says a Sub is not a team role", () => {
+  const answer = seatFaqAnswer();
+  assert.match(answer, /each additional staff seat is \$39\/month or \$374\/year/);
+  assert.match(answer, /each additional Sub seat is \$9\.99\/month or \$95\.90\/year/);
+  assert.match(answer, /A Sub seat is for a subcontractor and is not a team role/);
+  assert.match(answer, /never sees your pricing, your estimates or your team's conversations/);
+  assert.doesNotMatch(answer, /teammate/i);
+});
+
+test("the seat FAQ states MSA 3.4's allocation and swap rules", () => {
+  const answer = seatFaqAnswer();
+  assert.match(answer, /Staff use the included seats first, then Subs use any remaining/);
+  assert.match(answer, /your admin can switch an included seat between staff and Sub at any time/);
+  assert.match(answer, /A Sub seat added beyond the included 3 keeps Sub access and can't be changed to a staff seat/);
+});
+
+test("the calculator note states the swap rule beside the Sub price", () => {
+  const source = readSrc("components/pricing/PlanConfigurator.tsx");
+  assert.match(source, /switch an included seat between staff and Sub at any time/);
+  assert.match(source, /stays a Sub seat/);
+  assert.match(source, /"Team roles: Owner, Admin, PM, and Estimator"/);
 });

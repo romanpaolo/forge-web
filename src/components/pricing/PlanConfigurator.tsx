@@ -234,12 +234,17 @@ export default function PlanConfigurator() {
             </div>
           </div>
 
+          {/* F-075 (Ethan, 2026-09-14; MSA 3.4): the swap rule sits beside the
+              allocation rule, because a Sub seat bought past the included
+              three is priced lower precisely because it stays a Sub seat. */}
           <p className="text-forge-smoke text-xs">
             Your first {INCLUDED_SEATS} seats can be staff or Sub seats. Staff use
             the included seats first, then Subs use any remaining. Additional Sub
             seats are {plan === "annual"
               ? `${formatSeatUsd(SUB_SEAT_ANNUAL)}/year`
-              : `${formatSeatUsd(SUB_SEAT_MONTHLY)}/month`} each.
+              : `${formatSeatUsd(SUB_SEAT_MONTHLY)}/month`} each. Your admin can
+            switch an included seat between staff and Sub at any time. A Sub seat
+            added beyond the included {INCLUDED_SEATS} stays a Sub seat.
           </p>
 
           {/* Feature list */}

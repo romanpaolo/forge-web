@@ -75,10 +75,17 @@ export const PRICING_FAQ: FaqItem[] = [
   },
   {
     // F075 Sep8: included seats are type-agnostic, staff first.
-    // F076: describe assigned-task access without promising bid submission.
+    // F075 Sep14 (Ethan): an admin can switch an included seat between staff
+    // and Sub; a Sub seat bought past the included 3 stays a Sub seat. That
+    // is MSA 3.4 at app.forge.equipment/legal/msa and the backend's
+    // PURCHASED_SUB_SEAT_LOCKED refusal.
+    // F076 Sep14 (Ethan): a Sub is not a team role and is described by what
+    // it cannot see. The sentence is the app's own (Forge_Web lib/display.ts
+    // SUB_ROLE_SCOPE_COPY), so the site promises exactly what the product
+    // enforces and no bid submission or Sub estimate walk.
     question: "What counts as a seat?",
     answer:
-      "A staff seat is an owner, admin, PM, or estimator. A Sub seat is for a subcontractor. Your first 3 seats can be either kind and are included in the base price. Staff use the included seats first, then Subs use any remaining. Beyond those 3, each additional staff seat is $39/month or $374/year, and each additional Sub seat is $9.99/month or $95.90/year. A Sub can access assigned tasks, with no view of the job's full scope, your estimates, or anyone else's pricing.",
+      "A staff seat is an owner, admin, PM, or estimator, and each has a team role. A Sub seat is for a subcontractor and is not a team role: a Sub sees only the jobs and tasks you assign to them, can add updates and photos to that work, and never sees your pricing, your estimates or your team's conversations. Your first 3 seats can be either kind and are included in the base price. Staff use the included seats first, then Subs use any remaining, and your admin can switch an included seat between staff and Sub at any time. Beyond those 3, each additional staff seat is $39/month or $374/year, and each additional Sub seat is $9.99/month or $95.90/year. A Sub seat added beyond the included 3 keeps Sub access and can't be changed to a staff seat.",
   },
   {
     question: "Is there a contract?",
