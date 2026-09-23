@@ -14,3 +14,13 @@ The approved MSA, September2 effective date, version1.0, permanent archive, pars
 ## Delivery boundary
 
 This is a reviewable update to existing upstream PR13. PR11 and PR12 remain open until the maintainer reviews the superseding diff. On September9 the authenticated rz4life account had pull access but no push/admin access to romanpaolo/forge-web. Vercel linked production still served upstream main bdd1b06d, and fork protection required project authorization for previews. Normal maintainer merge and deployment confirmation remain necessary. No direct production deployment, permissions changes, customer messages or checkout actions were performed.
+
+## 2026-09-23 update: MSA linked, not copied; seat copy current
+
+Two commits on top of 6e92e2a, recorded here because two statements above are no longer true of this PR.
+
+- **The MSA copy, its routes and its integrity guard are removed.** The 2026-09-22 integration PRD (ruling 11) makes the app the one published home for the legal text, and the MSA follows it: `/legal#msa` now links to `app.forge.equipment/legal/msa`, and `/legal/msa` and `/legal/msa/*` forward there. The copy this PR carried had already drifted: its clause 3.4 lacked the admin-swap sentence and "A Sub Seat added at the Sub Seat Fee keeps the access limits in Section 1.6 and cannot be changed to a full Seat", both in the app's `content/legal/msa/2026-09-v1.md`. The "byte-identical to PR11" and "55 numbered clauses render" checks above describe the removed copy.
+- **Seat copy states Ethan's 2026-09-14 rule** (MSA 3.4): an admin can switch an included seat between staff and Sub, and a Sub seat added beyond the included 3 stays a Sub seat. A Sub seat is "not a team role", described with the app's own sentence (Forge_Web `lib/display.ts` SUB_ROLE_SCOPE_COPY).
+- **Tests** (`npm run test:pricing`, 25): adds 3 staff + 1 Sub = $258.99/month, $2,485.90/year (live main returns $249 for it), source checks that no page lists "Full team roles", prices an "additional teammate" or lists Sub on a "Team roles:" line, the FAQ swap and allocation rules, and that no MSA body text or content file is in `src` and the legal page and old addresses point at the app.
+
+Merging still needs the maintainer: the authenticated account has push to the fork only.

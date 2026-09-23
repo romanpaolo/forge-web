@@ -73,6 +73,22 @@ const nextConfig: NextConfig = {
         destination: `${DASHBOARD_URL}/login`,
         permanent: false,
       },
+      // The Master Subscription Agreement is published by the app, once
+      // (F-050, ruling 11). An Order Form or an old link that cites
+      // forge.equipment/legal/msa or a dated /legal/msa/vX.Y address lands
+      // on the app's copy instead of a 404. The app's /legal/msa route
+      // exists and lists every dated version; its version ids are its own,
+      // so a dated path forwards to the index rather than guessing one.
+      {
+        source: "/legal/msa",
+        destination: `${DASHBOARD_URL}/legal/msa`,
+        permanent: false,
+      },
+      {
+        source: "/legal/msa/:path*",
+        destination: `${DASHBOARD_URL}/legal/msa`,
+        permanent: false,
+      },
     ];
   },
 };

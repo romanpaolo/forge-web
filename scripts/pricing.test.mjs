@@ -152,3 +152,26 @@ test("the calculator note states the swap rule beside the Sub price", () => {
   assert.match(source, /stays a Sub seat/);
   assert.match(source, /"Team roles: Owner, Admin, PM, and Estimator"/);
 });
+
+// ── The MSA is linked, not copied (F-050, ruling 11) ─────────────────────
+// The agreement is published once, by the app at app.forge.equipment/legal/msa.
+// A second copy here had already drifted: this PR's earlier v1.0.md carried a
+// clause 3.4 without the admin-swap and "cannot be changed to a full Seat"
+// sentences the app's copy states. So the site links, and a copy of the body
+// coming back fails here.
+test("no copy of the MSA body lives in this site", () => {
+  for (const file of allSourceFiles()) {
+    const text = readFileSync(file, "utf8");
+    assert.doesNotMatch(text, /3\.4 Sub Seats\./, `${file} carries MSA clause 3.4`);
+    assert.doesNotMatch(text, /1\.6 Sub Seat\./, `${file} carries MSA clause 1.6`);
+    assert.doesNotMatch(file, /content\/legal\/msa\//, `${file} is an MSA content file`);
+  }
+});
+
+test("the legal page and old MSA addresses point at the app's copy", () => {
+  assert.match(readSrc("lib/constants.ts"), /return `\$\{DASHBOARD_URL\}\/legal\/msa`;/);
+  assert.match(readSrc("app/legal/page.tsx"), /href=\{msaUrl\(\)\}/);
+  const config = readFileSync(join(SRC_ROOT, "../next.config.ts"), "utf8");
+  assert.match(config, /source: "\/legal\/msa",\s*destination: `\$\{DASHBOARD_URL\}\/legal\/msa`/);
+  assert.match(config, /source: "\/legal\/msa\/:path\*",\s*destination: `\$\{DASHBOARD_URL\}\/legal\/msa`/);
+});

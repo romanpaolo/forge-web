@@ -44,6 +44,15 @@ export function loginUrl(): string {
   return `${DASHBOARD_URL}/login`;
 }
 
+// The Master Subscription Agreement is published once, by the app
+// (Forge_Web app/legal/msa, current version plus every dated version at
+// /legal/msa/<id>). This site links there instead of carrying a copy
+// (F-050, ruling 11 in the 2026-09-22 integration PRD). next.config.ts
+// forwards /legal/msa and /legal/msa/* here for the same reason.
+export function msaUrl(): string {
+  return `${DASHBOARD_URL}/legal/msa`;
+}
+
 // Trial navigation carries only the existing signup-mode hint. Dashboard
 // app/login/page.tsx does not consume plan or seat-count parameters, and
 // Firebase signup accepts email/password only. Calculator counts are a
