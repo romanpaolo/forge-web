@@ -19,6 +19,18 @@
   --font-mono: 'JetBrains Mono', monospace;
 }
 
+/* The width at which the full desktop header (logo, five links, Sign in, two
+   buttons) switches on; below it the header is the logo plus the menu button.
+   MEASURED, not guessed (F-631): every item one line, at least 24px between
+   the logo, the link group and the CTA group, needs 1107px. 70rem (1120px)
+   is the next whole rem above it. If a header item or label changes, re-run
+   `npm run check:text-fit` against a running build; it audits 1100 and 1180
+   on every route and fails on any wrapped or touching header item.
+   Used as `nav:` in Navbar.tsx. */
+@theme {
+  --breakpoint-nav: 70rem;
+}
+
 body {
   background: #050507;
   color: #F8FAFC;
