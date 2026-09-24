@@ -53,6 +53,28 @@ jobs:
       - name: Build
         run: npm run build
 
+      # Text fits at every screen width (F-631). RZ's standard: whatever the
+      # angle or size of the screen, text fits the space it has. Serves the
+      # build above and loads every route in src/app (derived from the page.tsx
+      # files, so a new page is covered by construction) at 23 portrait widths
+      # from 320 to 1920 and three short landscape screens. Fails on a control
+      # label broken over lines, text overlapping or touching other text, text
+      # clipped without an ellipsis, a page that scrolls sideways, or a route
+      # that renders no text at all. Written for the 2026-09-24 header, whose
+      # links and buttons wrapped onto two and three lines from 768 to 1024px.
+      # Local: `npx next start -p 3107` then
+      # `TEXT_FIT_CHANNEL=chrome npm run check:text-fit -- http://localhost:3107`.
+      - name: Text fits at every width
+        run: |
+          npx playwright install --with-deps chromium
+          npx next start -p 3107 > /tmp/next-start.log 2>&1 &
+          for i in $(seq 1 60); do
+            curl -sf -o /dev/null http://localhost:3107/ && break
+            sleep 1
+          done
+          curl -sf -o /dev/null http://localhost:3107/ || { echo "next start did not answer on :3107"; cat /tmp/next-start.log; exit 1; }
+          npm run check:text-fit -- http://localhost:3107
+
 # ── Deliberately NOT in this lane ─────────────────────────────────────────
 #
 # `npm run lint`. It reports 20 problems (14 errors, 6 warnings) on a clean
