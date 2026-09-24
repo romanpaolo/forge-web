@@ -202,8 +202,10 @@ export default function SampleWalkDemo() {
             <div className="absolute bottom-0 right-0 w-6 h-6 border-b border-r border-forge-graphite/50" />
           </div>
 
-          {/* Stage header */}
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mb-4">
+          {/* Stage header. Side by side from md (768px): at 640-767px the
+              caption and the one-line "Try a sample walk" button do not fit one
+              row, and the button label was squeezed onto two lines (F-631). */}
+          <div className="flex flex-col md:flex-row items-center justify-between gap-4 mb-4">
             <div className="flex items-center gap-2" aria-hidden="true">
               <div className={`w-1.5 h-1.5 rounded-full ${playing ? "bg-forge-cyan animate-pulse" : "bg-forge-graphite"}`} />
               <span className="text-[9px] font-mono uppercase tracking-[0.15em] text-forge-smoke">

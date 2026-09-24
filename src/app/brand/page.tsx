@@ -342,7 +342,9 @@ export default function BrandPage() {
 
       <div className="max-w-7xl mx-auto px-6 pt-40 pb-24 flex gap-16">
         {/* ── Sticky sidebar ──────────────────────────────────────────────── */}
-        <aside className="hidden md:block w-52 flex-shrink-0">
+        {/* Same sidebar rule as /legal: as wide as its longest label, never
+            narrower than w-52, labels one line (F-631). */}
+        <aside className="hidden md:block w-max min-w-52 flex-shrink-0">
           <div className="sticky top-40">
             <p className="text-xs font-medium text-forge-smoke uppercase tracking-widest mb-4 px-4">
               Sections
@@ -352,7 +354,7 @@ export default function BrandPage() {
                 <button
                   key={section.id}
                   onClick={() => scrollTo(section.id)}
-                  className={`text-left px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-150 ${
+                  className={`text-left whitespace-nowrap px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-150 ${
                     activeSection === section.id
                       ? "bg-forge-cyan/10 text-forge-cyan border-l-2 border-forge-cyan"
                       : "text-forge-smoke hover:text-forge-white hover:bg-white/5 border-l-2 border-transparent"
@@ -393,7 +395,11 @@ export default function BrandPage() {
                   <h3 className="text-xs font-medium text-forge-smoke uppercase tracking-widest mb-4">
                     {group.group}
                   </h3>
-                  <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3">
+                  {/* Columns sized to the longest token name
+                      ("--color-forge-cyan-light", 173px of 12px mono plus
+                      padding) instead of a fixed count, so no token is cut to
+                      an ellipsis and no name runs under its neighbour (F-631). */}
+                  <div className="grid grid-cols-[repeat(auto-fill,minmax(13rem,1fr))] gap-3">
                     {group.swatches.map((swatch) => (
                       <div
                         key={swatch.variable}
@@ -412,7 +418,7 @@ export default function BrandPage() {
                             {swatch.name}
                           </p>
                           <CopyButton text={swatch.hex} />
-                          <p className="text-xs text-forge-graphite font-mono mt-1 truncate">
+                          <p className="text-xs text-forge-graphite font-mono mt-1 whitespace-nowrap">
                             {swatch.variable}
                           </p>
                         </div>
@@ -448,7 +454,7 @@ export default function BrandPage() {
                   </div>
                   <div className="flex-1 min-w-0">
                     <p
-                      className={`${item.size} ${item.weight} ${item.tracking} ${item.lineHeight} text-forge-white truncate`}
+                      className={`${item.size} ${item.weight} ${item.tracking} ${item.lineHeight} text-forge-white`}
                       style={{ fontFamily: "var(--font-body)" }}
                     >
                       {item.sample}
@@ -478,9 +484,12 @@ export default function BrandPage() {
                   className="text-forge-ash text-sm leading-relaxed"
                   style={{ fontFamily: "var(--font-body)" }}
                 >
-                  ABCDEFGHIJKLMNOPQRSTUVWXYZ
+                  {/* <wbr /> splits each alphabet at its midpoint only when
+                      the card is narrower than the whole line (a 320px phone),
+                      instead of the line running out of the card (F-631). */}
+                  ABCDEFGHIJKLM<wbr />NOPQRSTUVWXYZ
                   <br />
-                  abcdefghijklmnopqrstuvwxyz
+                  abcdefghijklm<wbr />nopqrstuvwxyz
                   <br />
                   0123456789 !@#$%&
                 </p>
@@ -503,9 +512,12 @@ export default function BrandPage() {
                   className="text-forge-ash text-sm leading-relaxed"
                   style={{ fontFamily: "var(--font-mono)" }}
                 >
-                  ABCDEFGHIJKLMNOPQRSTUVWXYZ
+                  {/* <wbr /> splits each alphabet at its midpoint only when
+                      the card is narrower than the whole line (a 320px phone),
+                      instead of the line running out of the card (F-631). */}
+                  ABCDEFGHIJKLM<wbr />NOPQRSTUVWXYZ
                   <br />
-                  abcdefghijklmnopqrstuvwxyz
+                  abcdefghijklm<wbr />nopqrstuvwxyz
                   <br />
                   0123456789 !@#$%&
                 </p>
@@ -791,11 +803,14 @@ export default function BrandPage() {
                 { label: "max-w-3xl", value: "768px", usage: "Text-heavy blocks" },
                 { label: "max-w-2xl", value: "672px", usage: "Narrow prose, descriptions" },
               ].map((w) => (
-                <div key={w.label} className="flex items-center gap-4">
+                // flex-wrap: on a phone the label, a bar and the value do not
+                // fit one row; the value moves under them instead of pushing
+                // the page wider than the screen (F-631).
+                <div key={w.label} className="flex flex-wrap items-center gap-x-4 gap-y-1">
                   <div className="w-32 flex-shrink-0">
                     <span className="text-xs font-mono text-forge-smoke">{w.label}</span>
                   </div>
-                  <div className="flex-1 bg-forge-iron rounded-sm h-6 relative overflow-hidden border border-white/5">
+                  <div className="flex-1 min-w-24 bg-forge-iron rounded-sm h-6 relative overflow-hidden border border-white/5">
                     <div
                       className="absolute left-0 top-0 h-full bg-forge-cyan/20 border-r border-forge-cyan/40"
                       style={{

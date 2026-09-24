@@ -71,7 +71,12 @@ const transition = (delay: number) => ({
 
 export default function Hero3D() {
   return (
-    <section id="hero" className="relative overflow-hidden h-screen flex flex-col">
+    // min-h-svh, not h-screen: the hero is at least one screen tall and grows
+    // with its copy. At a fixed h-screen with overflow-hidden, a short landscape
+    // screen (844x390, 1024x600) clipped the headline and CTAs and slid them
+    // under the fixed 64px header. pt-24 keeps the copy clear of that header
+    // when the content is taller than the screen (F-631).
+    <section id="hero" className="relative overflow-hidden min-h-svh pt-24 flex flex-col">
       {/* 3D Background - fills entire viewport */}
       <Suspense fallback={<div className="absolute inset-0 bg-forge-body" />}>
         <HexNutScene />
@@ -104,8 +109,10 @@ export default function Hero3D() {
             <CharacterReveal text="Leave with the estimate." delay={0.8} stagger={0.02} className="text-forge-ash/40" />
           </h1>
 
-          {/* Subtext + CTA row */}
-          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-8 mt-8">
+          {/* Subtext + CTA row. Side by side from lg (1024px): below that the
+              paragraph and the two one-line buttons do not fit one row, and the
+              buttons used to be squeezed onto two and three lines (F-631). */}
+          <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8 mt-8">
             <motion.p
               className="text-forge-smoke text-base md:text-lg leading-relaxed max-w-xl"
               variants={fadeUp}
@@ -115,32 +122,41 @@ export default function Hero3D() {
             >
               Forge turns a recorded walkthrough into a structured, trade-by-trade
               scope and a priced estimate. In minutes. Not the night before you
-              were going to send it. Built for remodelers running $5M–$10M a year,
+              were going to send it. Built for remodelers running{" "}
+              {/* One range, one line: the browser may break after an en dash,
+                  and beside the CTAs (1440px) the paragraph ended one line on
+                  "$5M–" and started the next on "$10M" (F-631). */}
+              <span className="whitespace-nowrap">$5M–$10M</span> a year,
               not hobby crews.
             </motion.p>
 
             <motion.div
-              className="flex flex-col items-start md:items-end gap-3"
+              className="flex flex-col items-start lg:items-end gap-3"
               variants={fadeUp}
               initial="initial"
               animate="animate"
               transition={transition(0.8)}
             >
               <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3">
+                {/* The button says what it does, like every other trial
+                    button on the site; "No credit card required." moves to
+                    the line under the buttons, as FinalCTA does. A six-word
+                    sentence cannot stay on one line inside a button at 320px
+                    (F-631). */}
                 <Button href={trialSignupUrl()} variant="primary" size="md">
-                  Start Free Trial. No credit card required.
+                  Start Free Trial
                 </Button>
                 <Button href={CALENDLY_URL} target="_blank" rel="noopener noreferrer" variant="secondary" size="md">
                   Talk to Sales
                 </Button>
               </div>
               <p className="text-forge-smoke text-sm">
-                Live on iOS, Web, and Android.
+                No credit card required. Live on iOS, Web, and Android.
               </p>
               {/* Store links, one per mobile platform. Both use the same type
                   size and link treatment so the row reads as a matched pair
                   rather than two differently-sized store badges. */}
-              <div className="flex flex-wrap items-center gap-x-5 gap-y-2 md:justify-end">
+              <div className="flex flex-wrap items-center gap-x-5 gap-y-2 lg:justify-end">
                 <StoreBadges align="start" />
               </div>
             </motion.div>

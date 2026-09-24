@@ -194,15 +194,18 @@ export default function HarrisAndSonsPage() {
         <section className="mt-20">
           <CaseSectionHeader>BEFORE VS. AFTER</CaseSectionHeader>
 
+          {/* Column labels are one line at every width (F-631); on a phone
+              the table scrolls sideways inside this box instead of breaking
+              "BEFORE FORGE" over two lines. */}
           <div className="overflow-x-auto">
             <table className="w-full text-left border border-forge-smoke/10">
               <thead>
                 <tr className="border-b border-forge-smoke/10">
-                  <th scope="col" className="p-4 text-[10px] font-mono uppercase tracking-[0.15em] text-forge-smoke font-medium" />
-                  <th scope="col" className="p-4 text-[10px] font-mono uppercase tracking-[0.15em] text-forge-smoke font-medium">
+                  <th scope="col" className="p-4 whitespace-nowrap text-[10px] font-mono uppercase tracking-[0.15em] text-forge-smoke font-medium" />
+                  <th scope="col" className="p-4 whitespace-nowrap text-[10px] font-mono uppercase tracking-[0.15em] text-forge-smoke font-medium">
                     BEFORE FORGE
                   </th>
-                  <th scope="col" className="p-4 text-[10px] font-mono uppercase tracking-[0.15em] text-forge-cyan font-medium">
+                  <th scope="col" className="p-4 whitespace-nowrap text-[10px] font-mono uppercase tracking-[0.15em] text-forge-cyan font-medium">
                     AFTER FORGE
                   </th>
                 </tr>

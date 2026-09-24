@@ -525,7 +525,7 @@ export default function DesignPage() {
           </div>
 
           <button
-            className="md:hidden text-forge-smoke hover:text-forge-white transition-colors"
+            className="lg:hidden text-forge-smoke hover:text-forge-white transition-colors"
             onClick={() => setMobileSidebarOpen((o) => !o)}
             aria-label="Toggle section navigation"
           >
@@ -536,7 +536,7 @@ export default function DesignPage() {
 
       {/* ── Mobile overlay nav ───────────────────────────────────────────────── */}
       {mobileSidebarOpen && (
-        <div className="fixed inset-0 z-40 md:hidden pt-16">
+        <div className="fixed inset-0 z-40 lg:hidden pt-16">
           <div
             className="absolute inset-0 bg-forge-iron/95 backdrop-blur-md"
             onClick={() => setMobileSidebarOpen(false)}
@@ -565,7 +565,12 @@ export default function DesignPage() {
       <div className="max-w-7xl mx-auto px-6 pt-40 pb-24 flex gap-16">
 
         {/* ── Sticky sidebar ───────────────────────────────────────────────── */}
-        <aside className="hidden md:block w-56 flex-shrink-0">
+        {/* As wide as its longest label (w-56 floor), labels one line (F-631).
+            The contents list runs to "14 Appendix A: Landing Page Structure"
+            (305px), so the sidebar shows from lg (1024px), where the page
+            still has a readable main column beside it; below lg the same list
+            is behind the Contents toggle in the top bar. */}
+        <aside className="hidden lg:block w-max min-w-56 flex-shrink-0">
           <div className="sticky top-40 max-h-[calc(100vh-12rem)] flex flex-col">
             <p className="text-xs font-medium text-forge-smoke uppercase tracking-widest mb-4 px-4 font-mono flex-shrink-0">
               Contents
@@ -575,7 +580,7 @@ export default function DesignPage() {
                 <button
                   key={section.id}
                   onClick={() => scrollTo(section.id)}
-                  className={`text-left px-4 py-2.5 text-sm font-medium transition-all duration-150 flex items-center gap-3 ${
+                  className={`text-left whitespace-nowrap px-4 py-2.5 text-sm font-medium transition-all duration-150 flex items-center gap-3 ${
                     activeSection === section.id
                       ? "bg-forge-cyan/10 text-forge-cyan border-l-2 border-forge-cyan"
                       : "text-forge-smoke hover:text-forge-white hover:bg-white/5 border-l-2 border-transparent"
@@ -946,7 +951,11 @@ export default function DesignPage() {
               ))}
             </div>
 
-            {/* Combo marks with each icon */}
+            {/* Combo marks with each icon. The cards here and in "3D
+                Combination Marks" flex-wrap: in a half-width card at 768-900px,
+                or a full-width one at 320px, the variant name sat flush against
+                FORGE or ran past the card edge; it now moves under the mark
+                (F-631). */}
             <h3 className="text-xs font-medium text-forge-smoke uppercase tracking-widest mb-3 mt-10">
               Combination Marks: Icon + Wordmark
             </h3>
@@ -965,14 +974,14 @@ export default function DesignPage() {
                 { Component: LogoNutData, name: "Data Lines" },
                 { Component: LogoNutPerspective, name: "Perspective" },
               ].map(({ Component, name }) => (
-                <Card key={name} className="p-6 flex items-center justify-between min-h-[100px] hover:border-forge-cyan/30 transition-colors">
+                <Card key={name} className="p-6 flex flex-wrap items-center justify-between gap-x-6 gap-y-3 min-h-[100px] hover:border-forge-cyan/30 transition-colors">
                   <div className="flex items-center gap-4">
                     <Component size={36} color="#F8FAFC" />
                     <span className="text-2xl font-medium text-forge-white tracking-[0.2em] uppercase" style={{ fontFamily: "var(--font-body)" }}>
                       FORGE
                     </span>
                   </div>
-                  <span className="text-[10px] font-mono text-forge-smoke uppercase tracking-widest">{name}</span>
+                  <span className="text-[10px] font-mono text-forge-smoke uppercase tracking-widest whitespace-nowrap">{name}</span>
                 </Card>
               ))}
             </div>
@@ -1045,14 +1054,14 @@ export default function DesignPage() {
                 { Component: Logo3DNutMetallic, name: "Metallic" },
                 { Component: Logo3DNutTargeting, name: "Targeting" },
               ].map(({ Component, name }) => (
-                <Card key={name} className="p-6 flex items-center justify-between min-h-[100px] hover:border-forge-cyan/30 transition-colors">
+                <Card key={name} className="p-6 flex flex-wrap items-center justify-between gap-x-6 gap-y-3 min-h-[100px] hover:border-forge-cyan/30 transition-colors">
                   <div className="flex items-center gap-5">
                     <Component size={44} />
                     <span className="text-2xl font-medium text-forge-white tracking-[0.2em] uppercase" style={{ fontFamily: "var(--font-body)" }}>
                       FORGE
                     </span>
                   </div>
-                  <span className="text-[10px] font-mono text-forge-smoke uppercase tracking-widest">{name}</span>
+                  <span className="text-[10px] font-mono text-forge-smoke uppercase tracking-widest whitespace-nowrap">{name}</span>
                 </Card>
               ))}
             </div>
@@ -1371,7 +1380,9 @@ export default function DesignPage() {
             title="Color Palette"
             description="All design tokens are CSS custom properties. Cyan is for primary CTAs and key highlights. Never for large background fills."
           >
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 mb-10">
+            {/* Columns sized to the longest token name, as on /brand: no
+                token cut to an ellipsis or run under its neighbour (F-631). */}
+            <div className="grid grid-cols-[repeat(auto-fill,minmax(13rem,1fr))] gap-3 mb-10">
               {COLOR_SWATCHES.map((swatch) => (
                 <div key={swatch.variable} className="rounded-xl overflow-hidden border border-white/5">
                   <div
@@ -1383,7 +1394,7 @@ export default function DesignPage() {
                     <p className="text-forge-white text-sm font-medium mb-0.5">{swatch.name}</p>
                     <p className="text-forge-smoke text-xs mb-1">{swatch.label}</p>
                     <CopyButton text={swatch.hex} />
-                    <p className="text-xs text-forge-graphite font-mono mt-1 truncate">
+                    <p className="text-xs text-forge-graphite font-mono mt-1 whitespace-nowrap">
                       {swatch.variable}
                     </p>
                   </div>
@@ -1499,9 +1510,12 @@ export default function DesignPage() {
                   className="text-forge-ash text-sm leading-relaxed"
                   style={{ fontFamily: "var(--font-body)" }}
                 >
-                  ABCDEFGHIJKLMNOPQRSTUVWXYZ
+                  {/* <wbr /> splits each alphabet at its midpoint only when
+                      the card is narrower than the whole line (a 320px phone),
+                      instead of the line running out of the card (F-631). */}
+                  ABCDEFGHIJKLM<wbr />NOPQRSTUVWXYZ
                   <br />
-                  abcdefghijklmnopqrstuvwxyz
+                  abcdefghijklm<wbr />nopqrstuvwxyz
                   <br />
                   0123456789 !@#$%&amp;
                 </p>
@@ -1524,9 +1538,12 @@ export default function DesignPage() {
                   className="text-forge-ash text-sm leading-relaxed"
                   style={{ fontFamily: "var(--font-mono)" }}
                 >
-                  ABCDEFGHIJKLMNOPQRSTUVWXYZ
+                  {/* <wbr /> splits each alphabet at its midpoint only when
+                      the card is narrower than the whole line (a 320px phone),
+                      instead of the line running out of the card (F-631). */}
+                  ABCDEFGHIJKLM<wbr />NOPQRSTUVWXYZ
                   <br />
-                  abcdefghijklmnopqrstuvwxyz
+                  abcdefghijklm<wbr />nopqrstuvwxyz
                   <br />
                   0123456789 !@#$%&amp;
                 </p>
@@ -1779,7 +1796,7 @@ export default function DesignPage() {
                     { label: "Base Unit", value: "8px" },
                     { label: "Gutter", value: "16px between columns" },
                   ].map(({ label, value }) => (
-                    <div key={label} className="flex items-center justify-between p-3.5 bg-forge-steel/20 border border-white/5 rounded-lg">
+                    <div key={label} className="flex items-center justify-between gap-4 p-3.5 bg-forge-steel/20 border border-white/5 rounded-lg">
                       <span className="text-forge-smoke text-sm">{label}</span>
                       <span className="text-forge-white text-sm font-mono">{value}</span>
                     </div>
@@ -1798,7 +1815,7 @@ export default function DesignPage() {
                     { label: "Desktop", value: "80px (px-20)" },
                     { label: "Section Spacing", value: "120–160px vertical" },
                   ].map(({ label, value }) => (
-                    <div key={label} className="flex items-center justify-between p-3.5 bg-forge-steel/20 border border-white/5 rounded-lg">
+                    <div key={label} className="flex items-center justify-between gap-4 p-3.5 bg-forge-steel/20 border border-white/5 rounded-lg">
                       <span className="text-forge-smoke text-sm">{label}</span>
                       <span className="text-forge-white text-sm font-mono">{value}</span>
                     </div>
@@ -1810,7 +1827,11 @@ export default function DesignPage() {
             <h3 className="text-xs font-medium text-forge-smoke uppercase tracking-widest mb-4">
               Spacing Scale (8px base)
             </h3>
-            <div className="flex flex-col gap-2.5 mb-10">
+            {/* Bars draw each step at 1x below sm and 2x from sm. At 2x the
+                96px row (192px bar plus its labels) was wider than a 320px
+                phone and pushed the page sideways; 1x keeps the steps in
+                proportion (F-631). */}
+            <div className="flex flex-col gap-2.5 mb-10 [--bar-scale:1] sm:[--bar-scale:2]">
               {[
                 { label: "4px", tw: "space-1", px: 4 },
                 { label: "8px", tw: "space-2", px: 8 },
@@ -1828,10 +1849,10 @@ export default function DesignPage() {
                   </span>
                   <div
                     className="bg-forge-cyan/25 rounded-sm h-5 flex-shrink-0"
-                    style={{ width: Math.min(px * 2, 300) }}
+                    style={{ width: `calc(min(${px}px * var(--bar-scale), 300px))` }}
                     aria-hidden="true"
                   />
-                  <span className="text-xs font-mono text-forge-graphite">{tw}</span>
+                  <span className="text-xs font-mono text-forge-graphite whitespace-nowrap">{tw}</span>
                 </div>
               ))}
             </div>
@@ -2409,7 +2430,11 @@ export default function DesignPage() {
             title="Brand Asset Management"
             description="File organization, naming conventions, version control, and access permissions for all Forge brand assets."
           >
-            <div className="grid md:grid-cols-2 gap-8 mb-10">
+            {/* grid-cols-1 is minmax(0,1fr): the one-column phone layout is the
+                screen's width, not the width of the longest unbreakable file
+                name ("forge_[asset]_[variant]_[colormode].[ext]"), which now
+                wraps inside its box instead of widening the page (F-631). */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
               <div>
                 <h3 className="text-xs font-medium text-forge-smoke uppercase tracking-widest mb-4">
                   File Organization
@@ -2439,7 +2464,7 @@ export default function DesignPage() {
                   ].map(({ icon: Icon, label, value }) => (
                     <div key={label} className="flex gap-3 p-4 bg-forge-steel/20 border border-white/5 rounded-lg">
                       <Icon size={15} strokeWidth={1.5} className="text-forge-cyan flex-shrink-0 mt-0.5" />
-                      <div>
+                      <div className="min-w-0">
                         <p className="text-xs font-mono text-forge-smoke uppercase tracking-[0.1em] mb-1">{label}</p>
                         <p className="text-forge-ash text-sm">{value}</p>
                       </div>

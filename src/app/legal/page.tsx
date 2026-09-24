@@ -169,7 +169,10 @@ export default function LegalPage() {
 
       <div className="max-w-7xl mx-auto px-6 pt-40 pb-24 flex gap-16">
         {/* ── Sticky sidebar ──────────────────────────────────────────────── */}
-        <aside className="hidden md:block w-52 flex-shrink-0">
+        {/* w-max with a w-52 floor: the sidebar is as wide as its longest
+            label, so "Master Subscription Agreement" is one line instead of
+            two (F-631). Labels are whitespace-nowrap. */}
+        <aside className="hidden md:block w-max min-w-52 flex-shrink-0">
           <div className="sticky top-40">
             <p className="text-xs font-medium text-forge-smoke uppercase tracking-widest mb-4 px-4">
               Sections
@@ -179,7 +182,7 @@ export default function LegalPage() {
                 <button
                   key={section.id}
                   onClick={() => scrollTo(section.id)}
-                  className={`text-left px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-150 ${
+                  className={`text-left whitespace-nowrap px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-150 ${
                     activeSection === section.id
                       ? "bg-forge-cyan/10 text-forge-cyan border-l-2 border-forge-cyan"
                       : "text-forge-smoke hover:text-forge-white hover:bg-white/5 border-l-2 border-transparent"
