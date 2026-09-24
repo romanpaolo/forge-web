@@ -6,6 +6,7 @@ import { Hexagon, Menu, X } from "lucide-react";
 import Navbar from "@/components/sections/Navbar";
 import SectionLabel from "@/components/ui/SectionLabel";
 import Footer from "@/components/sections/Footer";
+import { msaUrl } from "@/lib/constants";
 
 // ─── Data ────────────────────────────────────────────────────────────────────
 
@@ -14,6 +15,14 @@ const NAV_SECTIONS = [
   { id: "privacy", label: "Privacy Policy" },
   { id: "refund", label: "Refund Policy" },
   { id: "disclaimer", label: "Disclaimer" },
+  // Last on purpose: the MSA governs deals signed with an Order Form, and
+  // every self-serve signup stays under the Terms of Service above. This
+  // section is a LINK, not a copy (F-050, ruling 11 in the 2026-09-22
+  // integration PRD): the agreement is published once, in the app at
+  // app.forge.equipment/legal/msa, so there is no second copy to drift
+  // from it. An earlier revision of this PR carried its own copy, and its
+  // clause 3.4 had already fallen behind the app's.
+  { id: "msa", label: "Master Subscription Agreement" },
 ];
 
 // ─── Section wrapper ─────────────────────────────────────────────────────────
@@ -28,7 +37,8 @@ function Section({
   id: string;
   tag: string;
   title: string;
-  effectiveDate?: string;
+  /** null for a section that points at a document dated elsewhere. */
+  effectiveDate?: string | null;
   children: React.ReactNode;
 }) {
   return (
@@ -38,7 +48,9 @@ function Section({
         <h2 className="text-3xl font-semibold text-forge-white mt-4 mb-3 tracking-tight">
           {title}
         </h2>
-        <p className="text-forge-smoke text-sm">Effective Date: {effectiveDate}</p>
+        {effectiveDate !== null && (
+          <p className="text-forge-smoke text-sm">Effective Date: {effectiveDate}</p>
+        )}
       </div>
       <div className="prose-legal max-w-3xl flex flex-col gap-8">{children}</div>
     </section>
@@ -190,8 +202,9 @@ export default function LegalPage() {
             </h1>
             <p className="text-forge-smoke text-lg leading-relaxed max-w-2xl">
               Terms of Service, Privacy Policy, Refund Policy, and Disclaimer for
-              Forge Solutions, Corp. Please read these documents carefully before
-              using our platform.
+              Forge Solutions, Corp, with a link to our Master Subscription
+              Agreement. Please read these documents carefully before using our
+              platform.
             </p>
           </div>
 
@@ -581,6 +594,29 @@ export default function LegalPage() {
               AI-generated estimates are provided for informational purposes only and may
               not reflect actual project costs. Users are responsible for verifying all
               outputs before making decisions.
+            </p>
+          </Section>
+
+          {/* ── 5. Master Subscription Agreement ─────────────────────────── */}
+          {/* Lands at /legal#msa. The agreement itself, and its dated
+              versions, are served by the app; see NAV_SECTIONS. */}
+          <Section
+            id="msa"
+            tag="Legal"
+            title="Master Subscription Agreement"
+            effectiveDate={null}
+          >
+            <p className="text-forge-smoke text-sm leading-relaxed">
+              Subscriptions purchased under an Order Form are governed by the
+              Forge Master Subscription Agreement. The current version, with its
+              effective date, is published in the Forge app:{" "}
+              <a
+                href={msaUrl()}
+                className="text-forge-cyan hover:text-forge-cyan-light transition-colors underline underline-offset-4"
+              >
+                read the Master Subscription Agreement
+              </a>
+              .
             </p>
           </Section>
 

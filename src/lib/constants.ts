@@ -44,26 +44,21 @@ export function loginUrl(): string {
   return `${DASHBOARD_URL}/login`;
 }
 
-// "Start Free Trial" routes to the dashboard signup, which already
-// auto-provisions accounts card-free (14-day trial). plan + seats ride along
-// as query params so the dashboard - and the future Stripe Checkout flow
-// (PRD Section 13, blocked on backend work) - can pre-fill the choice made
-// on the marketing site. v1 is trial-signup routing, NOT live Stripe.
-// Default is ANNUAL here and MONTHLY in the app. That asymmetry is a CEO
-// decision (Ethan Rife, 2026-08-09: "Annual as default on site, monthly as
-// default in app"), not an inconsistency to tidy up: the marketing site is
-// where the 20% annual discount does its work, while someone already
-// inside the product converting mid-trial is choosing commitment level
-// rather than shopping on price.
-//
-// The app-side default lives in billing.controller.ts
-// (`dto.billingPeriod ?? "monthly"`). If either moves, move both
-// deliberately.
-export function trialSignupUrl(
-  plan: "monthly" | "annual" = "annual",
-  seats = 3,
-): string {
-  return `${DASHBOARD_URL}/login?mode=signup&plan=${plan}&seats=${seats}`;
+// The Master Subscription Agreement is published once, by the app
+// (Forge_Web app/legal/msa, current version plus every dated version at
+// /legal/msa/<id>). This site links there instead of carrying a copy
+// (F-050, ruling 11 in the 2026-09-22 integration PRD). next.config.ts
+// forwards /legal/msa and /legal/msa/* here for the same reason.
+export function msaUrl(): string {
+  return `${DASHBOARD_URL}/legal/msa`;
+}
+
+// Trial navigation carries only the existing signup-mode hint. Dashboard
+// app/login/page.tsx does not consume plan or seat-count parameters, and
+// Firebase signup accepts email/password only. Calculator counts are a
+// quote, not checkout configuration; do not invent unconsumed Sub params.
+export function trialSignupUrl(): string {
+  return `${DASHBOARD_URL}/login?mode=signup`;
 }
 
 // Android waitlist is gated OFF by default: the consent language is a
@@ -74,7 +69,8 @@ export const ANDROID_WAITLIST_ENABLED =
 
 export type FaqItem = { question: string; answer: string };
 
-// Pricing-page FAQ - PRD 9.10, word-for-word (7 Q&As).
+// Pricing FAQ, including the F-075/F-076 decisions through2026-09-08:
+// shared included seats, additional seats priced by class, assigned-task Sub access.
 export const PRICING_FAQ: FaqItem[] = [
   {
     question: "Do I need to talk to sales to get started?",
@@ -87,14 +83,23 @@ export const PRICING_FAQ: FaqItem[] = [
       "No. Use Forge free for 14 days without entering payment info. We'll remind you before the trial ends. Add a payment method any time to keep your seats active. If you don't, your account pauses. Nothing gets deleted.",
   },
   {
+    // F075 Sep8: included seats are type-agnostic, staff first.
+    // F075 Sep14 (Ethan): an admin can switch an included seat between staff
+    // and Sub; a Sub seat bought past the included 3 stays a Sub seat. That
+    // is MSA 3.4 at app.forge.equipment/legal/msa and the backend's
+    // PURCHASED_SUB_SEAT_LOCKED refusal.
+    // F076 Sep14 (Ethan): a Sub is not a team role and is described by what
+    // it cannot see. The sentence is the app's own (Forge_Web lib/display.ts
+    // SUB_ROLE_SCOPE_COPY), so the site promises exactly what the product
+    // enforces and no bid submission or Sub estimate walk.
     question: "What counts as a seat?",
     answer:
-      "Anyone who logs into Forge: owner, admin, PM, estimator, or sub. Your first 3 are included in the base price. Each additional teammate is $39/month, or $374/year on the annual plan.",
+      "A staff seat is an owner, admin, PM, or estimator, and each has a team role. A Sub seat is for a subcontractor and is not a team role: a Sub sees only the jobs and tasks you assign to them, can add updates and photos to that work, and never sees your pricing, your estimates or your team's conversations. Your first 3 seats can be either kind and are included in the base price. Staff use the included seats first, then Subs use any remaining, and your admin can switch an included seat between staff and Sub at any time. Beyond those 3, each additional staff seat is $39/month or $374/year, and each additional Sub seat is $9.99/month or $95.90/year. A Sub seat added beyond the included 3 keeps Sub access and can't be changed to a staff seat.",
   },
   {
     question: "Is there a contract?",
     answer:
-      "No. Monthly is month-to-month. Annual is billed once a year at a 20% discount and can be cancelled at renewal.",
+      "Monthly is month-to-month. Annual is billed once a year at a 20% discount and can be cancelled at renewal.",
   },
   {
     question: "What platforms does Forge run on?",
