@@ -139,9 +139,8 @@ export default function Hero3D() {
             >
               <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3">
                 {/* The button says what it does, like every other trial
-                    button on the site; "No credit card required." moves to
-                    the line under the buttons, as FinalCTA does. A six-word
-                    sentence cannot stay on one line inside a button at 320px
+                    button on the site. It used to carry a whole sentence,
+                    which cannot stay on one line inside a button at 320px
                     (F-631). */}
                 <Button href={trialSignupUrl()} variant="primary" size="md">
                   Start Free Trial
@@ -151,7 +150,7 @@ export default function Hero3D() {
                 </Button>
               </div>
               <p className="text-forge-smoke text-sm">
-                No credit card required. Live on iOS, Web, and Android.
+                Live on iOS, Web, and Android.
               </p>
               {/* Store links, one per mobile platform. Both use the same type
                   size and link treatment so the row reads as a matched pair

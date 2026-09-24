@@ -283,7 +283,7 @@ export default function PlanConfigurator() {
           </div>
 
           <p className="text-forge-smoke text-xs text-center">
-            14-day free trial on both plans. No credit card required to start.
+            14-day free trial on both plans.
           </p>
         </div>
       </div>

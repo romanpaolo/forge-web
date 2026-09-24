@@ -147,7 +147,7 @@ export const SUPPORT_FAQ: FaqItem[] = [
   {
     question: "How does the free trial work?",
     answer:
-      "Every plan starts with a 14-day free trial. No credit card required. We'll remind you before it ends. Add a payment method any time to keep your seats active. If you don't, your account pauses and nothing gets deleted.",
+      "Every plan starts with a 14-day free trial. We'll remind you before it ends. Add a payment method any time to keep your seats active. If you don't, your account pauses and nothing gets deleted.",
   },
 ];
 

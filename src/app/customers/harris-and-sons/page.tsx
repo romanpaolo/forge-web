@@ -269,7 +269,7 @@ export default function HarrisAndSonsPage() {
             </Button>
           </div>
           <p className="text-forge-smoke text-sm mt-4">
-            14-day free trial. No credit card required. Cancel anytime.
+            14-day free trial. Cancel anytime.
           </p>
         </section>
       </main>
