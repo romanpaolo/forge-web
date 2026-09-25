@@ -41,6 +41,12 @@ jobs:
       - name: Actual pricing source regression tests
         run: npm run test:pricing
 
+      # The text-fit detector's body is byte-identical to its Forge_Web twin
+      # (F-631). Forge_Web carries the same test with the same sha256, so an
+      # edit to either copy alone turns that repo red until both match.
+      - name: Text-fit detector matches its Forge_Web twin
+        run: npm run test:detector-twin
+
       # `tsc --noEmit`. Catches the class this repo is most exposed to: a copy
       # or constant edit that breaks a type nothing else would notice until
       # Vercel built it.

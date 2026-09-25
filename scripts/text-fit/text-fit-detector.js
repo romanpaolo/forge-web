@@ -2,17 +2,14 @@
 // (romanpaolo/forge-web, scripts/text-fit/). Its twin audits the web app:
 // Forge-Solutions-Corp/Forge_Web, Forge/dashboard/scripts/text-fit/text-fit-detector.js.
 // A change to one is a change to both: reconcile the other copy in the same
-// ticket and name any divergence here.
+// ticket.
 //
-// Everything below the "BODY" line is byte-identical to the F-631 audit tools
-// copy that measured production (sha256 of the body:
-// 73d27f67af8e03298e9f1b55faaf737fe79c4d682e6520530cda796971f536ce). Check:
+// Everything below the "BODY" line is byte-identical in both repos (reconciled
+// 2026-09-25: the web copy's visible-rect, stacking-block, squeezed-text and
+// closed-details rules plus the off-screen rule now live in both). sha256 of
+// the body: cc351173f9e9f4c03e0d57762911fc9e474e238758c3deec45abbcdd79b69064
+// Check:
 //   sed '1,/^\/\/ ---- BODY/d' scripts/text-fit/text-fit-detector.js | shasum -a 256
-// Known divergence, 2026-09-24: the Forge_Web twin's header lists two rule
-// changes this copy does not carry (overlap/touching measured on the visible,
-// clip-bounded part of a line; wrapped-control counted per stacking block).
-// Neither is needed for this site's seven routes, which audit clean without
-// them; they are for the root session to reconcile under F-631.
 //
 // Run by scripts/text-fit/run-text-fit.mjs, which evaluates this file as an
 // expression (`page.evaluate('(' + src + ')()')`), so a bare function
@@ -25,9 +22,11 @@
 //
 // Defect kinds (each one is a failure, not a warning):
 //   wrapped-control   a short control label (button, nav link, tab, badge) broken over >1 line
+//   squeezed-text     (web divergence 3) a short standalone value broken over >1 line
 //   text-overlap      two different elements' text boxes intersect on screen
 //   text-clipped      text cut off by an overflow:hidden/clip box with no ellipsis
 //   page-overflow     the page scrolls sideways; names the elements past the right edge
+//   text-offscreen    text laid out past the viewport edge where scrolling cannot reach it
 // Reported but not failing:
 //   truncated         text cut with an ellipsis (a deliberate truncation, listed for review)
 (function textFitDetector(options) {
@@ -65,6 +64,19 @@
     if (shown && cs.position !== 'static' && cs.clip === 'rect(0px, 0px, 0px, 0px)') shown = false;
     if (shown && (cs.clipPath === 'inset(50%)' || cs.clipPath === 'inset(100%)')) shown = false;
     if (shown && el.getAttribute('aria-hidden') === 'true' && el.closest('[inert]')) shown = false;
+    // [F-631 web divergence 4: a closed <details> shows only its summary.]
+    // Chrome still lays out a closed details' content (it reports boxes and
+    // a computed display of block) but never paints it, so its text was
+    // measured on top of whatever follows the collapsed section. Found by
+    // the web audit's job hub (F-631): a collapsed "Tasks from this scope"
+    // list "overlapped" the next card's rows at every width.
+    if (shown && el.parentElement) {
+      const closed = el.parentElement.closest('details:not([open])');
+      if (closed) {
+        const summary = el.closest('summary');
+        if (!(summary && summary.parentElement === closed)) shown = false;
+      }
+    }
     if (shown && el.parentElement) shown = isShown(el.parentElement);
     shownCache.set(el, shown);
     return shown;
@@ -97,6 +109,42 @@
     }
   }
 
+  // [F-631 web divergence 1: clip to what is visible.] A text node's client
+  // rects are its UNCLIPPED layout: a `truncate` title's rect runs its full
+  // length under the ellipsis, through the badge beside it and into the next
+  // card, and a column scrolled out of a table's scroll box still has rects.
+  // None of that text is on screen, so it cannot overlap or touch anything.
+  // Overlap and touching compare the part of each line inside every ancestor
+  // that clips overflow (a fixed-position layer starts a fresh clip chain,
+  // since overflow clipping does not reach it). text-clipped and
+  // wrapped-control keep reading the raw rects. Found by the web audit's
+  // /jobs cards (Forge/dashboard/scripts/text-fit, F-631): 20 "overlaps"
+  // between an ellipsized h3 and its own card's badges and neighbour card.
+  const clipCache = new WeakMap();
+  const clipBoxOf = (el) => {
+    if (!el || el.nodeType !== 1 || el === document.documentElement) return null;
+    if (clipCache.has(el)) return clipCache.get(el);
+    const cs = getComputedStyle(el);
+    let box = cs.position === 'fixed' ? null : clipBoxOf(el.parentElement);
+    const cx = cs.overflowX !== 'visible', cy = cs.overflowY !== 'visible';
+    if ((cx || cy) && el !== document.body) {
+      const r = el.getBoundingClientRect();
+      box = box ? Object.assign({}, box) : { left: -Infinity, right: Infinity, top: -Infinity, bottom: Infinity };
+      if (cx) { box.left = Math.max(box.left, r.left); box.right = Math.min(box.right, r.right); }
+      if (cy) { box.top = Math.max(box.top, r.top); box.bottom = Math.min(box.bottom, r.bottom); }
+    }
+    clipCache.set(el, box);
+    return box;
+  };
+  const visibleLines = [];
+  for (const l of lines) {
+    const c = clipBoxOf(l.el);
+    const v = c
+      ? { el: l.el, node: l.node, left: Math.max(l.left, c.left), right: Math.min(l.right, c.right), top: Math.max(l.top, c.top), bottom: Math.min(l.bottom, c.bottom) }
+      : l;
+    if (v.right - v.left >= 1 && v.bottom - v.top >= 1) visibleLines.push(v);
+  }
+
   // Distinct line count for an element's own text, from its text rects.
   const lineCount = (rects) => {
     const tops = [];
@@ -108,6 +156,18 @@
   };
 
   // 1. wrapped-control ------------------------------------------------------
+  const stackOwner = (node, ctl) => {
+    let cur = node.parentElement;
+    while (cur && cur !== ctl) {
+      const d = getComputedStyle(cur).display;
+      const p = cur.parentElement;
+      const pcs = p ? getComputedStyle(p) : null;
+      const inRowFlex = !!pcs && /flex/.test(pcs.display) && !/column/.test(pcs.flexDirection);
+      if (!d.startsWith('inline') && d !== 'contents' && !inRowFlex) return cur;
+      cur = p;
+    }
+    return ctl;
+  };
   const CONTROL_SEL = [
     'button', 'a[href]', '[role=button]', '[role=tab]', '[role=menuitem]', '[role=link]',
     'summary', 'th', 'label', 'nav a', 'nav button',
@@ -136,7 +196,22 @@
     }
     const rects = lines.filter((l) => el.contains(l.node));
     if (!rects.length) continue;
-    const n = lineCount(rects);
+    // [F-631 web divergence 2: a stack is not a wrap.] A control built from
+    // STACKED blocks (a stat-card link: "OPEN TASKS" over its count, an icon
+    // over a caption) is several one-line labels, not one label broken into
+    // pieces. Lines are counted per stacking block: the nearest block-level
+    // box that is not an item of a ROW flex (row-flex items of one label
+    // share its line, so their wrap still counts). A single text run that
+    // breaks is still one block with two lines. Found by the web audit's
+    // owner dashboard (F-631): "RED FLAGS 0" and "OPEN TASKS 0" cards.
+    const groups = new Map();
+    for (const l of rects) {
+      const owner = stackOwner(l.node, el);
+      if (!groups.has(owner)) groups.set(owner, []);
+      groups.get(owner).push(l);
+    }
+    let n = 0;
+    for (const g of groups.values()) n = Math.max(n, lineCount(g));
     if (n > 1) {
       const key = el;
       if (seen.has(key)) continue;
@@ -152,9 +227,76 @@
     if (defects.some((o, j) => j !== i && o.kind === 'wrapped-control' && o.el.length > d.el.length && o.el.startsWith(d.el))) defects.splice(i, 1);
   }
 
+  // [F-631 web divergence 3: squeezed-text.] RZ's standard names "text
+  // squeezing" and "wrapping into pieces", and wrapped-control only sees
+  // controls. A short standalone value (a date, a money figure, a trade, a
+  // status word, a name: at most maxControlWords words) that is the whole
+  // text of its element and breaks across lines is squeezed into pieces,
+  // control or not. Headings may wrap like prose and are left out, as are
+  // fragments of a longer run (a word inside a sentence) and anything a
+  // control already reported. Found by the web audit's /jobs cards (F-631):
+  // "Jun / 10, / 8:00 / AM" stacked a word per line in a 60px column that
+  // no control-only rule could see.
+  const reported = new Set(defects.filter((d) => d.kind === 'wrapped-control').map((d) => d.el));
+  const squeezed = new Map();
+  for (const l of lines) {
+    const el = l.el;
+    if (squeezed.has(el)) { squeezed.get(el).push(l); continue; }
+    if (el.closest('h1, h2, h3, h4, h5, h6, [data-text-fit-allow-wrap]')) continue;
+    const own = textOf(el);
+    const t = (l.node.nodeValue || '').replace(/\s+/g, ' ').trim();
+    if (!own || own !== t) continue;
+    if (own.split(' ').length > opts.maxControlWords || own.length > opts.maxControlChars) continue;
+    // A phrase set inline inside running text (a link at the end of a
+    // sentence) wraps with its sentence, exactly as wrapped-control allows.
+    if (getComputedStyle(el).display === 'inline' && el.parentElement && textOf(el.parentElement).length > own.length + 10) continue;
+    squeezed.set(el, [l]);
+  }
+  // "Into pieces" is measured, not assumed: a value is squeezed when it
+  // breaks at all and it holds a figure (a date, money, a count or a code
+  // never wraps), or when it breaks onto three or more lines, or when a
+  // line is left holding a single word ("Deposits / Collected", "per
+  // square / foot"). A four-word title that wraps two words over two
+  // ("Renew certificate / of insurance") is ordinary wrapping, not pieces.
+  const wordsPerLine = (node) => {
+    const tops = [];
+    const txt = node.nodeValue;
+    const re = /\S+/g;
+    for (let m = re.exec(txt); m; m = re.exec(txt)) {
+      const r = document.createRange();
+      r.setStart(node, m.index);
+      r.setEnd(node, m.index + m[0].length);
+      const b = r.getClientRects()[0];
+      if (!b) continue;
+      const mid = (b.top + b.bottom) / 2;
+      const row = tops.find((t) => Math.abs(t.mid - mid) < Math.max(2, (b.bottom - b.top) * 0.5));
+      if (row) row.words++;
+      else tops.push({ mid, words: 1 });
+    }
+    return tops.map((t) => t.words);
+  };
+  for (const [el, rs] of squeezed) {
+    const n = lineCount(rs);
+    if (n < 2) continue;
+    const perLine = wordsPerLine(rs[0].node);
+    const pieces = /\d/.test(textOf(el)) || n >= 3 || perLine.some((w) => w === 1);
+    if (!pieces) continue;
+    const p = path(el);
+    if ([...reported].some((r) => p.startsWith(r) || r.startsWith(p))) continue;
+    // Inside a short LABEL control the control rule owns it (with its stack
+    // rule). A control that is a whole card (a job card link) is not a
+    // label, so the values inside it are checked here.
+    const ctl = el.closest(CONTROL_SEL);
+    if (ctl) {
+      const ct = textOf(ctl);
+      if (ct.split(' ').length <= opts.maxControlWords && ct.length <= opts.maxControlChars) continue;
+    }
+    defects.push({ kind: 'squeezed-text', text: textOf(el), lines: n, el: p, width: Math.round(el.getBoundingClientRect().width) });
+  }
+
   // 2. text-overlap ------------------------------------------------------------
   // Sort by top; compare each line against later lines until they are below it.
-  const sorted = lines.slice().sort((a, b) => a.top - b.top);
+  const sorted = visibleLines.slice().sort((a, b) => a.top - b.top);
   const overlapPairs = new Set();
   const t = opts.tolerance;
   for (let i = 0; i < sorted.length; i++) {
@@ -250,7 +392,44 @@
       if (culprits.some((c) => c.node.contains(el))) continue;
       culprits.push({ node: el, el: path(el), right: Math.round(r.right), text: textOf(el).slice(0, 50) });
     }
+    // [F-631 web divergence 5: name the text, too.] Text can run past the
+    // viewport while every element box stays inside it (a long email with
+    // no break opportunity overflows its <p>), which left the culprit list
+    // empty and the report unactionable. Reporting only: the verdict is the
+    // same. Found by the web audit's /profile at 320px (F-631).
+    if (!culprits.length) {
+      for (const l of visibleLines) {
+        if (l.right <= vw + 1) continue;
+        if (culprits.some((c) => c.node === l.el)) continue;
+        culprits.push({ node: l.el, el: path(l.el), right: Math.round(l.right), text: textOf(l.el).slice(0, 50) });
+      }
+    }
     defects.push({ kind: 'page-overflow', docWidth: docW, viewport: vw, culprits: culprits.slice(0, 8).map(({ node, ...c }) => c) });
+  }
+
+  // 5. text-offscreen --------------------------------------------------------------
+  // Text laid out past the left or right edge of the viewport where the reader cannot
+  // scroll to it. page-overflow misses this when the text sits in a fixed or sticky
+  // box (a header row pushed wider than the screen adds nothing to scrollWidth), so
+  // the planted-red header at 768px showed START FREE TRIAL entirely off-screen and
+  // nothing named it (F-631). Text inside a box that scrolls or clips horizontally
+  // is that box's business: scrolling reaches it, and clipping is text-clipped.
+  const offscreen = new Set();
+  for (const l of lines) {
+    if (l.right <= vw + 1 && l.left >= -1) continue;
+    let inScroller = false;
+    let fixed = false;
+    for (let p = l.el; p && p !== document.body; p = p.parentElement) {
+      const pcs = getComputedStyle(p);
+      if (['auto', 'scroll', 'hidden', 'clip'].includes(pcs.overflowX)) { inScroller = true; break; }
+      if (pcs.position === 'fixed' || pcs.position === 'sticky') fixed = true;
+    }
+    if (inScroller) continue;
+    // In normal flow, text past the right edge is already reported by page-overflow.
+    if (!fixed && l.left >= -1) continue;
+    if (offscreen.has(l.el)) continue;
+    offscreen.add(l.el);
+    defects.push({ kind: 'text-offscreen', text: textOf(l.el).slice(0, 60), el: path(l.el), span: [Math.round(l.left), Math.round(l.right)], viewport: vw });
   }
 
   return { url: location.pathname + location.search, viewport: [window.innerWidth, window.innerHeight], defects, truncated };
