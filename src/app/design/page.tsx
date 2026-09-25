@@ -1813,11 +1813,12 @@ export default function DesignPage() {
               ))}
             </div>
 
-            {/* Two columns until lg, and the label sits over its value below
-                sm: at three columns from 640px a value had 98px beside its
-                64px label and "Lucide React exclusively" broke a word per line
-                (F-631, squeezed-text). */}
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {/* Two columns at most, and the label sits over its value below
+                sm. At three columns a value had 98px at 700px, and 169px
+                beside the sidebar at 1280+, where Linux Chromium still broke
+                "Lucide React exclusively" (162px on macOS) onto two lines
+                (F-631, squeezed-text). Two columns give it 315px. */}
+            <div className="grid sm:grid-cols-2 gap-4">
               {[
                 { label: "Style", value: "Outlined, never filled" },
                 { label: "Stroke", value: "1.5px decorative · 2px interactive" },
