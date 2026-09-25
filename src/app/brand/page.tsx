@@ -91,7 +91,7 @@ const TYPE_SCALE = [
     tracking: "tracking-normal",
     lineHeight: "leading-normal",
     spec: "20px · Semibold · 0em",
-    sample: "One Tap to Buildertrend-Ready",
+    sample: "Buildertrend-Ready in One Export",
   },
   {
     label: "Body Large",
@@ -100,7 +100,7 @@ const TYPE_SCALE = [
     tracking: "tracking-normal",
     lineHeight: "leading-relaxed",
     spec: "18px · Regular · 1.6 line-height",
-    sample: "Forge records everything: audio up to 90 minutes, plus photos you can voice-tag on the fly.",
+    sample: "Forge records everything: audio up to 4 hours, plus photos, saved to the walk with the time they were taken.",
   },
   {
     label: "Body",
@@ -148,7 +148,7 @@ const VOICE_ATTRIBUTES = [
   {
     label: "Practical",
     description: "Grounded in real contractor workflows. Every feature solves a real problem.",
-    example: "\"One-tap copy to Buildertrend. Done.\"",
+    example: "\"Buildertrend-ready in one export. Done.\"",
   },
   {
     label: "Empathetic",

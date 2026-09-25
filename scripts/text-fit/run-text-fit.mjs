@@ -17,6 +17,12 @@
 // A route also FAILS when it renders no visible text line or its response is not
 // 2xx: a blank or error page must never pass as "nothing overflows".
 //
+// /brand and /design are served only by a build made with
+// FORGE_INTERNAL_PAGES=on (F-662; src/lib/internalPages.ts). They are NOT
+// skipped when missing: a 404 fails here, so the audit can never quietly stop
+// covering them. Build and start with the variable on:
+//   FORGE_INTERNAL_PAGES=on npm run build && npx next start -p 3107 &
+//
 // Browser: TEXT_FIT_CHANNEL=chrome uses the system Chrome (local runs, no
 // download); unset, it uses Playwright's bundled Chromium (CI installs it with
 // `npx playwright install --with-deps chromium`).
@@ -106,7 +112,12 @@ for (const route of routes) {
     await ctx.close();
     continue;
   }
-  if (status < 200 || status > 299) failures.push(`${route}: HTTP ${status}`);
+  if (status < 200 || status > 299) {
+    const hint = status === 404 && ["/brand", "/design"].includes(route)
+      ? " (internal page: build with FORGE_INTERNAL_PAGES=on, see src/lib/internalPages.ts)"
+      : "";
+    failures.push(`${route}: HTTP ${status}${hint}`);
+  }
   for (const [w, h] of VIEWPORTS) {
     await page.setViewportSize({ width: w, height: h });
     await page.waitForTimeout(250);

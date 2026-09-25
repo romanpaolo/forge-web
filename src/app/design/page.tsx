@@ -264,7 +264,7 @@ const TYPE_SCALE = [
     label: "Body",
     spec: "16–18px · Regular · 1.6 line-height",
     className: "text-base font-normal leading-relaxed",
-    sample: "Forge records everything: audio up to 90 minutes, plus photos you can voice-tag on the fly.",
+    sample: "Forge records everything: audio up to 4 hours, plus photos, saved to the walk with the time they were taken.",
   },
   {
     label: "Caption",
