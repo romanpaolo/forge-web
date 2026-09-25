@@ -146,15 +146,27 @@ export const SUPPORT_FAQ: FaqItem[] = [
   },
 ];
 
+// Every sentence below says only what the product does today (F-662, from the
+// F-658 claims audit, RZ 2026-09-24). What each one replaced, and why:
+// - CAPTURE: recording stops at 4 hours on iOS and Android (it said 90
+//   minutes). Nothing parses "Photo: ..." out of speech; photos are saved to
+//   the walk with their time, so the voice-tag sentence and bullet are gone.
+// - AI ENGINE: the prompts DO make assumptions and record them, so "doesn't
+//   guess" and "never assumed" were false. What is true is that assumptions
+//   and low-confidence lines are flagged for the user to check.
+// - EXPORT: the Buildertrend output is a CSV in the layout of Buildertrend's
+//   estimate importer, uploaded by hand. There is no one-tap copy, no photo
+//   packet (no PDF includes job photos), no reorder, and no PM email template;
+//   the real handoff email is the automatic "assigned you" email.
 export const FEATURES = [
   {
     label: "CAPTURE",
     title: "Walk the Job. We'll Handle the Notes.",
     description:
-      "Start a job walk and Forge records everything: audio up to 90 minutes, plus photos you can voice-tag on the fly. Say \"Photo: kitchen sink wall\" and it's indexed automatically.",
+      "Start a job walk and Forge records everything: audio up to 4 hours, plus photos, saved to the walk with the time they were taken.",
     bullets: [
-      "Audio recording up to 90 min",
-      "Voice-tagged photo capture",
+      "Audio recording up to 4 hours",
+      "Photos saved with the walk",
       "All media stored under one project",
     ],
   },
@@ -162,28 +174,31 @@ export const FEATURES = [
     label: "AI ENGINE",
     title: "Raw Walk → Priced Estimate in Minutes",
     description:
-      "Forge's AI doesn't guess. It organizes your walk into a scope broken out by trade and a priced, line-item estimate. Anything it's not confident about gets flagged, so you check it, not guess at it.",
+      "Forge organizes your walk into a scope broken out by trade and a priced, line-item estimate. Anything it's not confident about gets flagged, so you check it, not guess at it.",
     bullets: [
       "Scope + questions organized by area",
       "Line-item estimate priced by trade",
-      "Uncertainties flagged, never assumed",
+      "Assumptions and low-confidence lines flagged for you to check",
     ],
   },
   {
     label: "EXPORT",
-    title: "One Tap to Buildertrend-Ready",
+    title: "Buildertrend-Ready in One Export",
     description:
-      "Review the AI output, make edits inline, apply your markup, then export. Copy formatted notes directly to Buildertrend, download a PDF packet with photos, or send a PM handoff email.",
+      "Review the AI output, make edits inline, apply your markup, then export a Buildertrend import file (CSV), a PDF, or a CSV. Your PM gets an email when you hand the job over.",
     bullets: [
-      "Inline editing: add, delete, reorder",
-      "One-tap copy to Buildertrend",
-      "PDF + photo packet download",
-      "PM handoff email template",
+      "Inline editing: add, edit, delete",
+      "Buildertrend import file (CSV)",
+      "PDF download",
     ],
   },
 ];
 
-// How it works - PRD 9.5, word-for-word (3 steps).
+// How it works - PRD 9.5 (3 steps). Step 3 was corrected under F-662: the
+// Buildertrend output is an import file, not a straight export, and "Nothing
+// leaves Forge until you approve it" was false (closing a job emails the
+// client a summary, sub texts go out on push, and audio and transcripts go to
+// the AI providers). What IS true is that estimates and scopes are sent by you.
 export const STEPS = [
   {
     number: "01",
@@ -201,7 +216,7 @@ export const STEPS = [
     number: "03",
     title: "Review, then send.",
     description:
-      "Edit any line, apply your markup, export straight to Buildertrend, PDF, or CSV. Nothing leaves Forge until you approve it.",
+      "Edit any line, apply your markup, export a Buildertrend import file, PDF, or CSV. Estimates and scopes reach your client only when you send them.",
   },
 ];
 
@@ -215,9 +230,10 @@ export const STEPS = [
 // so the hero and the Harris & Sons case study state the same figure. It reads
 // from HARRIS_STATS rather than repeating "75%": caseStudy.ts owns every number
 // that appears on more than one surface, and this is now one of them.
+//
+// "1 WORKFLOW" and "0 TYPING" came off under F-662 (2026-09-24): filler, and
+// "0 typing" contradicted the inline editing the same page sells.
 export const HERO_STATS = [
   { value: HARRIS_STATS.estimatingTimeCut, label: "LESS TIME ESTIMATING" },
-  { value: "1", label: "WORKFLOW" },
-  { value: "0", label: "TYPING" },
   { value: "MINUTES", label: "TO A PRICED SCOPE" },
 ];

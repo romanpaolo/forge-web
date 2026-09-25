@@ -120,14 +120,15 @@ export default function Hero3D() {
               animate="animate"
               transition={transition(0.6)}
             >
+              {/* The audience line used to be "remodelers running $5M-$10M a
+                  year, not hobby crews". It turned away the small businesses
+                  Forge is built for first, contradicted the only customer
+                  story (a $2.5M company) and sneered at prospects (F-662,
+                  Q9 = a). */}
               Forge turns a recorded walkthrough into a structured, trade-by-trade
               scope and a priced estimate. In minutes. Not the night before you
-              were going to send it. Built for remodelers running{" "}
-              {/* One range, one line: the browser may break after an en dash,
-                  and beside the CTAs (1440px) the paragraph ended one line on
-                  "$5M–" and started the next on "$10M" (F-631). */}
-              <span className="whitespace-nowrap">$5M–$10M</span> a year,
-              not hobby crews.
+              were going to send it. Built for general contractors and
+              remodelers.
             </motion.p>
 
             <motion.div

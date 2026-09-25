@@ -39,17 +39,8 @@ function CaptureScreen() {
         )}
       </div>
 
-      {/* Voice tag */}
-      <div className="bg-forge-graphite/40 border border-white/5 rounded-xl px-3 py-2">
-        <p className="text-forge-smoke text-[10px] uppercase tracking-widest mb-1">
-          Latest tag
-        </p>
-        <p className="text-forge-ash text-xs italic">
-          &ldquo;Photo: kitchen sink wall&rdquo;
-        </p>
-      </div>
-
-      {/* Photo thumbnails */}
+      {/* Photo thumbnails. There is no voice-tag card: nothing parses
+          "Photo: ..." out of speech, so the mockup does not show one (F-662). */}
       <div className="grid grid-cols-3 gap-1.5">
         {["Kitchen", "Bath", "Hallway"].map((label) => (
           <div
@@ -123,11 +114,11 @@ function AiEngineScreen() {
 }
 
 function ExportScreen() {
+  // Only outputs the product has (F-662): no PDF carries job photos, and there
+  // is no PM handoff email template.
   const items = [
     { label: "Scope summary", checked: true },
     { label: "Tasks by trade", checked: true },
-    { label: "Photo packet", checked: true },
-    { label: "PM handoff email", checked: false },
   ];
 
   return (
@@ -170,11 +161,12 @@ function ExportScreen() {
         ))}
       </div>
 
-      {/* CTA button */}
+      {/* CTA button: the apps' own label. The Buildertrend output is an import
+          file the user uploads, not a copy (F-662). */}
       <div className="mt-auto">
         <div className="bg-forge-cyan rounded-xl px-3 py-2.5 text-center">
           <span className="text-forge-white text-xs font-semibold">
-            Copy to Buildertrend
+            Export Buildertrend CSV
           </span>
         </div>
       </div>
