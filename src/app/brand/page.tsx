@@ -56,15 +56,34 @@ const COLORS = [
   },
 ];
 
-const TYPE_SCALE = [
+// A type-scale sample is a string, or its phrases. A short display line
+// breaks between phrases, never inside one: "Build Faster. / Scope Smarter.",
+// not "Build / Faster. / Scope / Smarter." (F-631, squeezed-text). The H1
+// sample also steps down to 36px below sm, as the site's own headings do; at
+// 48px on a 320px phone even one phrase did not fit.
+function Sample({ text }: { text: string | readonly string[] }) {
+  if (typeof text === "string") return <>{text}</>;
+  return (
+    <>
+      {text.map((phrase, i) => (
+        <span key={phrase}>
+          {i > 0 && " "}
+          <span className="whitespace-nowrap">{phrase}</span>
+        </span>
+      ))}
+    </>
+  );
+}
+
+const TYPE_SCALE: { label: string; size: string; weight: string; tracking: string; lineHeight: string; spec: string; sample: string | readonly string[] }[] = [
   {
     label: "H1",
-    size: "text-5xl",
+    size: "text-4xl sm:text-5xl",
     weight: "font-bold",
     tracking: "tracking-tight",
     lineHeight: "leading-tight",
     spec: "48–64px · Bold · −0.02em",
-    sample: "Build Faster. Scope Smarter.",
+    sample: ["Build Faster.", "Scope Smarter."],
   },
   {
     label: "H2",
@@ -91,7 +110,7 @@ const TYPE_SCALE = [
     tracking: "tracking-normal",
     lineHeight: "leading-normal",
     spec: "20px · Semibold · 0em",
-    sample: "Buildertrend-Ready in One Export",
+    sample: ["Buildertrend-Ready", "in One Export"],
   },
   {
     label: "Body Large",
@@ -306,7 +325,7 @@ export default function BrandPage() {
 
           {/* Mobile toggle */}
           <button
-            className="md:hidden text-forge-smoke hover:text-forge-white transition-colors"
+            className="lg:hidden text-forge-smoke hover:text-forge-white transition-colors"
             onClick={() => setMobileSidebarOpen((o) => !o)}
             aria-label="Toggle section navigation"
           >
@@ -317,7 +336,7 @@ export default function BrandPage() {
 
       {/* ── Mobile section nav overlay ──────────────────────────────────── */}
       {mobileSidebarOpen && (
-        <div className="fixed inset-0 z-40 md:hidden pt-16">
+        <div className="fixed inset-0 z-40 lg:hidden pt-16">
           <div
             className="absolute inset-0 bg-forge-iron/95 backdrop-blur-md"
             onClick={() => setMobileSidebarOpen(false)}
@@ -343,8 +362,11 @@ export default function BrandPage() {
       <div className="max-w-7xl mx-auto px-6 pt-40 pb-24 flex gap-16">
         {/* ── Sticky sidebar ──────────────────────────────────────────────── */}
         {/* Same sidebar rule as /legal: as wide as its longest label, never
-            narrower than w-52, labels one line (F-631). */}
-        <aside className="hidden md:block w-max min-w-52 flex-shrink-0">
+            narrower than w-52, labels one line (F-631). It shows from lg, not
+            md: at 768-1023 it left the main column 448px, and the voice cards
+            and type specimens squeezed short lines onto two (squeezed-text).
+            Below lg the list is behind the Sections toggle. */}
+        <aside className="hidden lg:block w-max min-w-52 flex-shrink-0">
           <div className="sticky top-40">
             <p className="text-xs font-medium text-forge-smoke uppercase tracking-widest mb-4 px-4">
               Sections
@@ -457,7 +479,7 @@ export default function BrandPage() {
                       className={`${item.size} ${item.weight} ${item.tracking} ${item.lineHeight} text-forge-white`}
                       style={{ fontFamily: "var(--font-body)" }}
                     >
-                      {item.sample}
+                      <Sample text={item.sample} />
                     </p>
                     <p className="text-xs text-forge-graphite mt-1 sm:hidden">{item.spec}</p>
                   </div>
@@ -581,8 +603,10 @@ export default function BrandPage() {
             <h3 className="text-xs font-medium text-forge-smoke uppercase tracking-widest mb-5">
               Card
             </h3>
+            {/* p-6 below sm: at 320 the default 32px padding left the accent
+                card's title 180px for 185px of text (F-631, squeezed-text). */}
             <div className="grid sm:grid-cols-2 gap-4 mb-12">
-              <Card>
+              <Card className="p-6 sm:p-8">
                 <SectionLabel>Feature</SectionLabel>
                 <h4 className="text-lg font-semibold text-forge-white mt-4 mb-2">
                   Voice-Tagged Photos
@@ -596,7 +620,7 @@ export default function BrandPage() {
                   <ArrowRight size={14} strokeWidth={2} aria-hidden="true" />
                 </div>
               </Card>
-              <Card className="border-forge-cyan/20">
+              <Card className="border-forge-cyan/20 p-6 sm:p-8">
                 <div className="flex items-center gap-2 mb-4">
                   <Check
                     size={18}
@@ -686,7 +710,11 @@ export default function BrandPage() {
             <h3 className="text-xs font-medium text-forge-smoke uppercase tracking-widest mb-5">
               Voice Attributes
             </h3>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-12">
+            {/* Three columns from xl, not lg: beside the sidebar at 1024-1279
+                a third column left an example 162px, and "Zero typing
+                required." (207px) broke onto two lines (F-631,
+                squeezed-text). */}
+            <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-4 mb-12">
               {VOICE_ATTRIBUTES.map((attr) => (
                 <Card key={attr.label} className="p-6">
                   <h4 className="text-lg font-semibold text-forge-white mb-2">{attr.label}</h4>
@@ -706,7 +734,10 @@ export default function BrandPage() {
             <h3 className="text-xs font-medium text-forge-smoke uppercase tracking-widest mb-5">
               Core Values
             </h3>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
+            {/* At most three columns: five at xl left 137px, and "One workflow
+                replaces four." (160px) broke a word onto its own line (F-631,
+                squeezed-text). */}
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {CORE_VALUES.map(({ label, icon: Icon, description }) => (
                 <div
                   key={label}
