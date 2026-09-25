@@ -47,6 +47,15 @@ jobs:
       - name: Text-fit detector matches its Forge_Web twin
         run: npm run test:detector-twin
 
+      # One Privacy Policy and one Terms of Service (F-511, ruling 11). The
+      # app publishes both (app.forge.equipment/privacy and /terms) and this
+      # site links there; a run of that body text in src/ or public/, or a
+      # link to the old separate domain, fails here. The matcher and its
+      # fingerprints (hashes, not text) are byte-identical twins of
+      # Forge_Web's, pinned by sha256 in both repos.
+      - name: No copy of the Privacy Policy or Terms
+        run: npm run test:legal-copy
+
       # `tsc --noEmit`. Catches the class this repo is most exposed to: a copy
       # or constant edit that breaks a type nothing else would notice until
       # Vercel built it.
