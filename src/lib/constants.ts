@@ -78,11 +78,6 @@ export const PRICING_FAQ: FaqItem[] = [
       "No. Start Free Trial takes you straight into the product, with 14 days free. If you'd rather see it on a real job first, book time with our team instead.",
   },
   {
-    question: "Do you need my card to start the trial?",
-    answer:
-      "No. Use Forge free for 14 days without entering payment info. We'll remind you before the trial ends. Add a payment method any time to keep your seats active. If you don't, your account pauses. Nothing gets deleted.",
-  },
-  {
     // F075 Sep8: included seats are type-agnostic, staff first.
     // F075 Sep14 (Ethan): an admin can switch an included seat between staff
     // and Sub; a Sub seat bought past the included 3 stays a Sub seat. That
