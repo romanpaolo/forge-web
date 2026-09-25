@@ -3,16 +3,22 @@ import StoreBadges from "@/components/ui/StoreBadges";
 import {
   CASE_STUDY_PATH,
   loginUrl,
+  privacyUrl,
+  termsUrl,
   trialSignupUrl,
 } from "@/lib/constants";
 
 // Only real destinations - no href="#" placeholders. About/Blog and social
 // icons return when they have somewhere to point.
 //
-// The two app links below cross onto app.forge.equipment. Both go through
-// the shared helpers in constants.ts rather than hardcoding a host, so the
+// The app links below cross onto app.forge.equipment. They go through the
+// shared helpers in constants.ts rather than hardcoding a host, so the
 // footer follows NEXT_PUBLIC_DASHBOARD_URL along with everything else -
 // there is exactly one place that decides where the product lives.
+//
+// Privacy and Terms point at the app's published copies directly (F-662, Q3):
+// one hop, not a stop at /legal first. The Refund Policy is still published
+// only here, so it links to its /legal section.
 const FOOTER_LINKS = {
   Product: [
     { label: "Product", href: "/#product" },
@@ -26,8 +32,9 @@ const FOOTER_LINKS = {
     { label: "Contact", href: "/support" },
   ],
   Legal: [
-    { label: "Privacy", href: "/legal#privacy" },
-    { label: "Terms", href: "/legal#terms" },
+    { label: "Privacy", href: privacyUrl() },
+    { label: "Terms", href: termsUrl() },
+    { label: "Refund Policy", href: "/legal#refund" },
   ],
 };
 

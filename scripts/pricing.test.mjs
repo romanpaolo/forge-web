@@ -175,3 +175,46 @@ test("the legal page and old MSA addresses point at the app's copy", () => {
   assert.match(config, /source: "\/legal\/msa",\s*destination: `\$\{DASHBOARD_URL\}\/legal\/msa`/);
   assert.match(config, /source: "\/legal\/msa\/:path\*",\s*destination: `\$\{DASHBOARD_URL\}\/legal\/msa`/);
 });
+
+// ── Terms and Privacy are linked, not copied (F-662, Q3 = a) ─────────────
+// Same reason as the MSA above, and the same drift had already happened: this
+// site's Privacy Policy said declining AI consent "still lets you use the
+// non-AI parts of Forge", where the app's policy (the one the product links)
+// says AI processing is required, and its Terms printed a free-beta and
+// founding-rate change log. The app publishes both; this site links them. A
+// copy of either body coming back fails here.
+test("no copy of the Terms or Privacy body lives in this site", () => {
+  for (const file of allSourceFiles()) {
+    const text = readFileSync(file, "utf8");
+    assert.doesNotMatch(text, /Description of Service/, `${file} carries Terms clause 1`);
+    assert.doesNotMatch(text, /Information We Collect/, `${file} carries Privacy clause 1`);
+    assert.doesNotMatch(text, /non-AI parts of Forge/, `${file} carries the stale AI-consent sentence`);
+    assert.doesNotMatch(text, /founding-rate/i, `${file} carries the founding-rate change note`);
+  }
+});
+
+test("the legal page, footer and /terms, /privacy point at the app's copies", () => {
+  const constants = readSrc("lib/constants.ts");
+  assert.match(constants, /return `\$\{DASHBOARD_URL\}\/terms`;/);
+  assert.match(constants, /return `\$\{DASHBOARD_URL\}\/privacy`;/);
+  const legal = readSrc("app/legal/page.tsx");
+  assert.match(legal, /id="terms"/, "the #terms anchor the App Store listing cites is kept");
+  assert.match(legal, /id="privacy"/, "the #privacy anchor is kept");
+  assert.match(legal, /href=\{termsUrl\(\)\}/);
+  assert.match(legal, /href=\{privacyUrl\(\)\}/);
+  const footer = readSrc("components/sections/Footer.tsx");
+  assert.match(footer, /href: termsUrl\(\)/);
+  assert.match(footer, /href: privacyUrl\(\)/);
+  const config = readFileSync(join(SRC_ROOT, "../next.config.ts"), "utf8");
+  assert.match(config, /source: "\/privacy", destination: `\$\{DASHBOARD_URL\}\/privacy`/);
+  assert.match(config, /source: "\/terms", destination: `\$\{DASHBOARD_URL\}\/terms`/);
+});
+
+// The Refund Policy is published only here, so it stays as text, minus the
+// "Usage-based charges" bullet: Forge has none (F-662, N5).
+test("the Refund Policy stays on this site and names no usage-based charges", () => {
+  const legal = readSrc("app/legal/page.tsx");
+  assert.match(legal, /id="refund"/);
+  assert.match(legal, /we do not offer refunds for subscription fees/);
+  assert.doesNotMatch(legal, /Usage-based charges/i);
+});

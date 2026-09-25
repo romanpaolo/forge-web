@@ -53,6 +53,22 @@ export function msaUrl(): string {
   return `${DASHBOARD_URL}/legal/msa`;
 }
 
+// The Terms of Service and the Privacy Policy are published once, by the app
+// too (Forge_Web app/terms and app/privacy), for the same reason (F-662, Q3 =
+// a, RZ 2026-09-24). This site carried its own copies and they had drifted:
+// its Privacy Policy said declining AI consent still lets you use Forge, where
+// the app's (the one the product links) says AI processing is required, and
+// its Terms printed a free-beta change log. /legal#terms and /legal#privacy
+// stay as short sections that link here, because the App Store listing and
+// older pages cite those anchors; next.config.ts forwards /terms and /privacy.
+export function termsUrl(): string {
+  return `${DASHBOARD_URL}/terms`;
+}
+
+export function privacyUrl(): string {
+  return `${DASHBOARD_URL}/privacy`;
+}
+
 // Trial navigation carries only the existing signup-mode hint. Dashboard
 // app/login/page.tsx does not consume plan or seat-count parameters, and
 // Firebase signup accepts email/password only. Calculator counts are a
