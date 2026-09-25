@@ -7,9 +7,11 @@ import Button from "@/components/ui/Button";
 import StoreBadges from "@/components/ui/StoreBadges";
 import {
   CALENDLY_URL,
+  CASE_STUDY_PATH,
   HERO_STATS,
   trialSignupUrl,
 } from "@/lib/constants";
+import { HARRIS_DISCLOSURE, HARRIS_STATS } from "@/lib/caseStudy";
 
 const HexNutScene = dynamic(() => import("@/components/three/HexNutScene"), {
   ssr: false,
@@ -162,20 +164,34 @@ export default function Hero3D() {
             </motion.div>
           </div>
 
-          {/* Bottom stat bar - PRD 9.3 (product mechanics, not customer outcomes) */}
+          {/* Bottom stat bar - PRD 9.3. The 75% is Harris & Sons' figure,
+              so the ownership disclosure sits right under it (F-662, U2,
+              Q4 = a): the figure stays, and says whose it is. */}
           <motion.div
-            className="flex flex-wrap items-center gap-x-8 gap-y-3 mt-12 pt-6 border-t border-forge-graphite/30"
+            className="mt-12 pt-6 border-t border-forge-graphite/30"
             variants={fadeUp}
             initial="initial"
             animate="animate"
             transition={transition(1.0)}
           >
-            {HERO_STATS.map(({ value, label }) => (
-              <div key={label} className="flex items-baseline gap-2">
-                <span className="text-2xl md:text-3xl font-medium text-forge-white font-[family-name:var(--font-mono)]">{value}</span>
-                <span className="text-[9px] font-mono uppercase tracking-[0.15em] text-forge-smoke">{label}</span>
-              </div>
-            ))}
+            <div className="flex flex-wrap items-center gap-x-8 gap-y-3">
+              {HERO_STATS.map(({ value, label }) => (
+                <div key={label} className="flex items-baseline gap-2">
+                  <span className="text-2xl md:text-3xl font-medium text-forge-white font-[family-name:var(--font-mono)]">{value}</span>
+                  <span className="text-[9px] font-mono uppercase tracking-[0.15em] text-forge-smoke">{label}</span>
+                </div>
+              ))}
+            </div>
+            <p className="mt-3 text-forge-smoke text-xs leading-relaxed">
+              The {HARRIS_STATS.estimatingTimeCut} is{" "}
+              <a
+                href={CASE_STUDY_PATH}
+                className="text-forge-ash hover:text-forge-cyan transition-colors underline underline-offset-4 decoration-forge-graphite"
+              >
+                {HARRIS_STATS.companyShort}
+              </a>
+              &rsquo; result, from their own books. {HARRIS_DISCLOSURE}
+            </p>
           </motion.div>
         </div>
       </div>

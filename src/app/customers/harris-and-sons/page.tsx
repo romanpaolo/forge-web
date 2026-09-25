@@ -27,7 +27,13 @@ export const metadata: Metadata = {
 // The committed PDF is generated from THIS page via headless Chrome print
 // styling (see the @media print block below). Christian's designed case-study
 // PDF can replace the file at public/harris-and-sons-case-study.pdf any time -
-// no code change needed.
+// no code change needed. The PDF is a frozen copy: change this page, then
+// regenerate it, or the download says something the page no longer does.
+// Last regenerated 2026-09-24 for F-662 (U1), from a production build:
+//   npx next start -p 3407 &
+//   "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless=new \
+//     --no-pdf-header-footer --print-to-pdf=public/harris-and-sons-case-study.pdf \
+//     http://localhost:3407/customers/harris-and-sons
 const PDF_PATH = "/harris-and-sons-case-study.pdf";
 
 // PRD 10.1 / 10.7 - key metrics. The ~$4M is a PROJECTION, distinct from
@@ -35,7 +41,9 @@ const PDF_PATH = "/harris-and-sons-case-study.pdf";
 const KEY_METRICS = [
   { value: HARRIS_STATS.attributedRevenue, label: "Revenue directly attributed to Forge" },
   { value: HARRIS_STATS.estimatingTimeCut, label: "Reduction in estimating & documentation time" },
-  { value: "$2K–$3K/mo", label: "Monthly admin savings across 20–30 estimates" },
+  // $75-$100 a deal at 20-30 estimates a month is $1,500-$3,000. This read
+  // $2K-$3K, which the page's own arithmetic does not give (F-662, U1).
+  { value: "$1.5K–$3K/mo", label: "Monthly admin savings across 20–30 estimates" },
   { value: "~$4M*", label: "Projected* annual revenue, up from $2.5M actual" },
 ];
 
@@ -184,7 +192,7 @@ export default function HarrisAndSonsPage() {
             </p>
             <p className="text-forge-ash text-base md:text-lg leading-relaxed">
               At 20–30 estimates a month, that administrative drag cost
-              $75–$100 per deal. That&rsquo;s $2,000–$3,000 a month in time nobody
+              $75–$100 per deal. That&rsquo;s $1,500–$3,000 a month in time nobody
               was getting back.
             </p>
           </div>

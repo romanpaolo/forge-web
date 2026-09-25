@@ -218,3 +218,50 @@ test("the Refund Policy stays on this site and names no usage-based charges", ()
   assert.match(legal, /we do not offer refunds for subscription fees/);
   assert.doesNotMatch(legal, /Usage-based charges/i);
 });
+
+// ── Harris & Sons figures carry the ownership disclosure (F-662, U2) ─────
+// caseStudy.ts always said the disclosure "is required wherever these
+// appear", and the hero, the home teaser and the /pricing ROI line showed
+// the figures without it. Now it is by construction: every derived string
+// that leaves the case page ends with HARRIS_DISCLOSURE (checked by running
+// the real module), and any other surface that renders a figure source must
+// render HARRIS_DISCLOSURE or one of those strings (checked in the source,
+// derived from what each file references, so a new surface is covered).
+function loadCaseStudy() {
+  const compiledCase = ts.transpileModule(readSrc("lib/caseStudy.ts"), {
+    compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2020 },
+  }).outputText;
+  const mod = { exports: {} };
+  runInNewContext(compiledCase, { module: mod, exports: mod.exports });
+  return mod.exports;
+}
+
+test("every Harris & Sons summary that leaves the case page ends with the disclosure", () => {
+  const cs = loadCaseStudy();
+  assert.equal(cs.HARRIS_DISCLOSURE, "Harris & Sons is owned by a Forge cofounder.");
+  for (const name of ["HARRIS_SUMMARY_META", "HARRIS_SUMMARY_OG", "HARRIS_SUMMARY_TEASER", "HARRIS_SUMMARY_ROI"]) {
+    assert.ok(cs[name].endsWith(cs.HARRIS_DISCLOSURE), `${name} ends without the disclosure: ${cs[name]}`);
+  }
+});
+
+test("every surface off the case page that shows a Harris & Sons figure shows the disclosure", () => {
+  const figureSource = /\b(HARRIS_STATS|HARRIS_TEASER_STATS|HERO_STATS|HARRIS_SUMMARY_LONG)\b/;
+  const carriesDisclosure = /\b(HARRIS_DISCLOSURE|HARRIS_SUMMARY_TEASER|HARRIS_SUMMARY_ROI)\b/;
+  const surfaces = allSourceFiles().filter(
+    (f) => /\/(app|components)\//.test(f) && !/customers\/harris-and-sons\//.test(f),
+  );
+  const showing = surfaces.filter((f) => figureSource.test(readFileSync(f, "utf8")));
+  assert.ok(showing.length >= 2, `expected the hero and the teaser to show figures, found ${showing.length}`);
+  for (const file of showing) {
+    assert.match(readFileSync(file, "utf8"), carriesDisclosure, `${file} shows a Harris & Sons figure without the disclosure`);
+  }
+});
+
+// U1: $75-$100 a deal at 20-30 estimates a month is $1,500-$3,000.
+test("the case study's admin-cost range is the arithmetic of its own inputs", () => {
+  const page = readSrc("app/customers/harris-and-sons/page.tsx");
+  assert.match(page, /\$75–\$100 per deal/);
+  assert.match(page, /\$1,500–\$3,000 a month/);
+  assert.match(page, /"\$1\.5K–\$3K\/mo"/);
+  assert.doesNotMatch(page, /\$2,000–\$3,000|\$2K–\$3K/);
+});

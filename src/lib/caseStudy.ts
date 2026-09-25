@@ -10,7 +10,13 @@
  * revenue projection) stay local to that surface.
  *
  * All figures are self-reported from Harris & Sons' own books. The ownership
- * disclosure (PRD 10.3) is required wherever these appear.
+ * disclosure (PRD 10.3) is required wherever these appear. Since F-662 (U2,
+ * Q4 = a, RZ 2026-09-24) that is by construction, not by memory: every
+ * derived string below that leaves the case page (meta, OpenGraph, teaser,
+ * ROI line) ends with HARRIS_DISCLOSURE, and the hero renders it under its
+ * stat bar. scripts/pricing.test.mjs fails if a surface shows a figure
+ * without it. The case page itself carries the longer disclosure naming
+ * Christian Harris.
  */
 
 export const HARRIS_STATS = {
@@ -27,6 +33,10 @@ export const HARRIS_STATS = {
   revenueGrowth: "60%",
   window: "90 days",
 } as const;
+
+/** The ownership disclosure, one sentence, beside every figure off the case
+ *  page (F-662, U2). The figures stay until evidence arrives (Q4 = a). */
+export const HARRIS_DISCLOSURE = `${HARRIS_STATS.companyShort} is owned by a Forge cofounder.`;
 
 /* Derived prose. Each surface needs its own sentence shape (a meta
  * description reads differently from an ROI line), but every number in them
@@ -46,24 +56,25 @@ const HARRIS_SUMMARY_STEM =
 export const HARRIS_SUMMARY_LONG = `${HARRIS_SUMMARY_STEM}.`;
 
 /** Case-study page meta description (search results). */
-export const HARRIS_SUMMARY_META = `${HARRIS_SUMMARY_STEM} on Forge.`;
+export const HARRIS_SUMMARY_META = `${HARRIS_SUMMARY_STEM} on Forge. ${HARRIS_DISCLOSURE}`;
 
 /** Case-study page OpenGraph description. */
 export const HARRIS_SUMMARY_OG =
   `${S.estimatingTimeCut} less estimating time, ${S.attributedRevenue} in ` +
   `Forge-attributed revenue, a ${S.scopeLossPrevented} scope-dispute loss ` +
-  `prevented. All in the first ${S.window}.`;
+  `prevented. All in the first ${S.window}. ${HARRIS_DISCLOSURE}`;
 
 /** Homepage case-study teaser paragraph. */
 export const HARRIS_SUMMARY_TEASER =
   `${S.companyFull} cut estimating time ${S.estimatingTimeCut}, prevented a ` +
   `${S.scopeLossPreventedLong} scope-dispute loss, and grew projected revenue ` +
-  `${S.revenueGrowth}. All in their first ${S.window} on Forge.`;
+  `${S.revenueGrowth}. All in their first ${S.window} on Forge. ${HARRIS_DISCLOSURE}`;
 
 /** Pricing-page ROI line. Revenue-led, not loss-led: different argument. */
 export const HARRIS_SUMMARY_ROI =
   `${S.companyShort} cut estimating time ${S.estimatingTimeCut} and added ` +
-  `${S.attributedRevenue} in Forge-attributed revenue in their first ${S.window}.`;
+  `${S.attributedRevenue} in Forge-attributed revenue in their first ${S.window}. ` +
+  HARRIS_DISCLOSURE;
 
 /** Homepage teaser stat grid. */
 export const HARRIS_TEASER_STATS = [
