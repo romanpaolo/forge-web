@@ -202,10 +202,29 @@ export default function HarrisAndSonsPage() {
         <section className="mt-20">
           <CaseSectionHeader>BEFORE VS. AFTER</CaseSectionHeader>
 
-          {/* Column labels are one line at every width (F-631); on a phone
-              the table scrolls sideways inside this box instead of breaking
-              "BEFORE FORGE" over two lines. */}
-          <div className="overflow-x-auto">
+          {/* Every label and value is one line at every width (F-631,
+              squeezed-text: "Up to 2 weeks" and "Under 3 days" broke over two
+              lines at 320-414). Three one-line columns need about 470px, so
+              below sm each row stacks, BEFORE FORGE and AFTER FORGE labelled;
+              from sm the table fits without scrolling. A sideways-scrolling
+              table would put the whole AFTER FORGE column off a phone's
+              screen. The PDF prints at letter width, so it gets the table. */}
+          <dl className="sm:hidden border border-forge-smoke/10">
+            {BEFORE_AFTER.map((row) => (
+              <div key={row.dimension} className="p-4 border-b border-forge-smoke/10 last:border-b-0">
+                <dt className="text-forge-white text-sm font-medium whitespace-nowrap">{row.dimension}</dt>
+                <dd className="mt-2 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+                  <span className="text-[10px] font-mono uppercase tracking-[0.15em] text-forge-smoke whitespace-nowrap">Before Forge</span>
+                  <span className="text-forge-smoke text-sm whitespace-nowrap">{row.before}</span>
+                </dd>
+                <dd className="mt-1 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+                  <span className="text-[10px] font-mono uppercase tracking-[0.15em] text-forge-cyan whitespace-nowrap">After Forge</span>
+                  <span className="text-forge-ash text-sm whitespace-nowrap">{row.after}</span>
+                </dd>
+              </div>
+            ))}
+          </dl>
+          <div className="hidden sm:block overflow-x-auto">
             <table className="w-full text-left border border-forge-smoke/10">
               <thead>
                 <tr className="border-b border-forge-smoke/10">
@@ -224,8 +243,8 @@ export default function HarrisAndSonsPage() {
                     <th scope="row" className="p-4 text-forge-white text-sm font-medium whitespace-nowrap">
                       {row.dimension}
                     </th>
-                    <td className="p-4 text-forge-smoke text-sm">{row.before}</td>
-                    <td className="p-4 text-forge-ash text-sm">{row.after}</td>
+                    <td className="p-4 text-forge-smoke text-sm whitespace-nowrap">{row.before}</td>
+                    <td className="p-4 text-forge-ash text-sm whitespace-nowrap">{row.after}</td>
                   </tr>
                 ))}
               </tbody>
