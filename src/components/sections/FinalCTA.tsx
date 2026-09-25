@@ -79,7 +79,7 @@ export default function FinalCTA() {
             </div>
 
             <p className="text-forge-smoke text-sm mt-4">
-              14-day free trial. No credit card required. Cancel anytime.
+              14-day free trial. Cancel anytime.
             </p>
 
             <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2">

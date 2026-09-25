@@ -50,10 +50,13 @@ export default function Navbar() {
       >
         <div className="max-w-7xl mx-auto px-6">
           <div className="flex items-center justify-between h-16">
-            {/* Logo */}
+            {/* Logo. Every header item is shrink-0 and every label whitespace-nowrap:
+                when the row runs out of room it collapses into the menu at the
+                `nav` breakpoint (globals.css) instead of squeezing labels onto
+                two or three lines (F-631). */}
             <a
               href="/"
-              className="flex items-center gap-2 group"
+              className="flex shrink-0 items-center gap-2 group"
               aria-label="Forge, back to top"
             >
               <Hexagon size={20} strokeWidth={1.5} className="text-forge-ash" aria-hidden="true" />
@@ -63,12 +66,12 @@ export default function Navbar() {
             </a>
 
             {/* Desktop nav links */}
-            <nav className="hidden md:flex items-center gap-8" aria-label="Main navigation">
+            <nav className="hidden nav:flex shrink-0 items-center gap-8" aria-label="Main navigation">
               {NAV_LINKS.map((link) => (
                 <a
                   key={link.href}
                   href={link.href}
-                  className="relative text-forge-smoke hover:text-forge-white transition-colors text-sm font-medium group"
+                  className="relative whitespace-nowrap text-forge-smoke hover:text-forge-white transition-colors text-sm font-medium group"
                 >
                   {link.label}
                   <span className="absolute -bottom-1 left-0 w-0 h-px bg-forge-cyan transition-all duration-300 group-hover:w-full" />
@@ -77,10 +80,10 @@ export default function Navbar() {
             </nav>
 
             {/* Desktop CTAs - primary trial signup, clearly-secondary sales (PRD 9.1) */}
-            <div className="hidden md:flex items-center gap-3">
+            <div className="hidden nav:flex shrink-0 items-center gap-3">
               <a
                 href={loginUrl()}
-                className="text-forge-smoke hover:text-forge-white transition-colors text-sm font-medium mr-1"
+                className="whitespace-nowrap text-forge-smoke hover:text-forge-white transition-colors text-sm font-medium mr-1"
               >
                 Sign in
               </a>
@@ -105,7 +108,7 @@ export default function Navbar() {
 
             {/* Mobile hamburger */}
             <button
-              className="md:hidden text-forge-smoke hover:text-forge-white transition-colors p-1"
+              className="nav:hidden text-forge-smoke hover:text-forge-white transition-colors p-1"
               onClick={() => setMobileOpen(true)}
               aria-label="Open navigation menu"
               aria-expanded={mobileOpen}
@@ -118,7 +121,7 @@ export default function Navbar() {
 
       {/* Mobile overlay */}
       <div
-        className={`fixed inset-0 z-[60] md:hidden transition-opacity duration-300 ${
+        className={`fixed inset-0 z-[60] nav:hidden transition-opacity duration-300 ${
           mobileOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
         }`}
         aria-hidden={!mobileOpen}
@@ -129,8 +132,11 @@ export default function Navbar() {
           onClick={() => setMobileOpen(false)}
         />
 
-        {/* Menu content */}
-        <div className="relative flex flex-col h-full px-6 py-8">
+        {/* Menu content. It scrolls: the menu now serves widths up to the `nav`
+            breakpoint, including short landscape screens (1024x600, 844x390)
+            where the links and CTAs are taller than the viewport, and every
+            item must stay reachable there (F-631). */}
+        <div className="relative flex flex-col h-full overflow-y-auto px-6 py-8">
           {/* Top bar */}
           <div className="flex items-center justify-between mb-12">
             <a

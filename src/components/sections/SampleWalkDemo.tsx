@@ -163,7 +163,10 @@ export default function SampleWalkDemo() {
       </div>
 
       <div className="relative max-w-7xl mx-auto px-6">
-        {/* Header - PRD 9.6, word-for-word */}
+        {/* Header - PRD 9.6, relabelled as a sample under F-662 (Q1 = a): the
+            dataset below is authored and scripted, not a recording, so the
+            copy must not call it "real", "actual" or "in real time". When a
+            real anonymized recording replaces it, the copy can say so. */}
         <div className="text-center">
           <motion.div {...fadeUp}>
             <SectionLabel>SEE IT WORK</SectionLabel>
@@ -174,7 +177,7 @@ export default function SampleWalkDemo() {
             {...fadeUp}
             transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }}
           >
-            Watch Forge structure a real job walk.
+            See how Forge structures a job walk.
           </motion.h2>
 
           <motion.p
@@ -182,9 +185,8 @@ export default function SampleWalkDemo() {
             {...fadeUp}
             transition={{ duration: 0.6, ease: "easeOut", delay: 0.2 }}
           >
-            Press play on an actual scope-walk recording and watch it turn into
-            a trade-by-trade scope and priced estimate in real time. Right
-            here, no sign-up required.
+            Press play on a sample kitchen-remodel walk and watch it become a
+            trade-by-trade scope and priced estimate.
           </motion.p>
         </div>
 
@@ -202,12 +204,14 @@ export default function SampleWalkDemo() {
             <div className="absolute bottom-0 right-0 w-6 h-6 border-b border-r border-forge-graphite/50" />
           </div>
 
-          {/* Stage header */}
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mb-4">
+          {/* Stage header. Side by side from md (768px): at 640-767px the
+              caption and the one-line "Try a sample walk" button do not fit one
+              row, and the button label was squeezed onto two lines (F-631). */}
+          <div className="flex flex-col md:flex-row items-center justify-between gap-4 mb-4">
             <div className="flex items-center gap-2" aria-hidden="true">
               <div className={`w-1.5 h-1.5 rounded-full ${playing ? "bg-forge-cyan animate-pulse" : "bg-forge-graphite"}`} />
               <span className="text-[9px] font-mono uppercase tracking-[0.15em] text-forge-smoke">
-                sample walk / kitchen remodel / pre-recorded output
+                sample walk / kitchen remodel / scripted replay
               </span>
             </div>
 
@@ -239,8 +243,8 @@ export default function SampleWalkDemo() {
 
               {!started && (
                 <p className="text-forge-graphite text-sm m-auto text-center px-4">
-                  Press &ldquo;Try a sample walk&rdquo; to replay a recorded
-                  kitchen-remodel walkthrough.
+                  Press &ldquo;Try a sample walk&rdquo; to play a scripted
+                  kitchen-remodel walk.
                 </p>
               )}
 

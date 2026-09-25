@@ -25,7 +25,7 @@ const outfit = Outfit({
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.forge.equipment'),
   title: 'Forge | Walk the Job. Leave with the Estimate.',
-  description: 'Forge turns a recorded walkthrough into a structured, trade-by-trade scope and a priced estimate in minutes. Built for general contractors. 14-day free trial, no credit card required.',
+  description: 'Forge turns a recorded walkthrough into a structured, trade-by-trade scope and a priced estimate in minutes. Built for general contractors. 14-day free trial.',
   keywords: ['general contractor', 'AI estimating', 'construction estimates', 'job walk', 'scope of work', 'Buildertrend'],
   openGraph: {
     title: 'Forge | AI Estimating for General Contractors',
@@ -37,7 +37,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Forge | Walk the Job. Leave with the Estimate.',
-    description: 'AI estimating for general contractors. 14-day free trial, no credit card required.',
+    description: 'AI estimating for general contractors. 14-day free trial.',
   }
 };
 

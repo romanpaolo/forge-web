@@ -17,8 +17,9 @@
  *   - "NOT /privacy" / "NOT /terms" / "NOT /support" - MUST stay
  *     in-browser: App Store reviewers tap these from the listing to
  *     validate policy/support URLs; opening the app instead is a
- *     rejection. (On this host /privacy and /terms 308 to /legal#…,
- *     which is fine - exclusions just keep the tap in Safari.)
+ *     rejection. (On this host /privacy and /terms forward to the app's
+ *     copies, whose host excludes them too, which is fine - exclusions
+ *     just keep the tap in Safari.)
  *   - "/invite/*"  - invite links open the iOS Accept-Invite flow when
  *     the app is installed; otherwise this host forwards them to the
  *     dashboard (see next.config.ts redirects).

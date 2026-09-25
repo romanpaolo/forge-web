@@ -56,15 +56,34 @@ const COLORS = [
   },
 ];
 
-const TYPE_SCALE = [
+// A type-scale sample is a string, or its phrases. A short display line
+// breaks between phrases, never inside one: "Build Faster. / Scope Smarter.",
+// not "Build / Faster. / Scope / Smarter." (F-631, squeezed-text). The H1
+// sample also steps down to 36px below sm, as the site's own headings do; at
+// 48px on a 320px phone even one phrase did not fit.
+function Sample({ text }: { text: string | readonly string[] }) {
+  if (typeof text === "string") return <>{text}</>;
+  return (
+    <>
+      {text.map((phrase, i) => (
+        <span key={phrase}>
+          {i > 0 && " "}
+          <span className="whitespace-nowrap">{phrase}</span>
+        </span>
+      ))}
+    </>
+  );
+}
+
+const TYPE_SCALE: { label: string; size: string; weight: string; tracking: string; lineHeight: string; spec: string; sample: string | readonly string[] }[] = [
   {
     label: "H1",
-    size: "text-5xl",
+    size: "text-4xl sm:text-5xl",
     weight: "font-bold",
     tracking: "tracking-tight",
     lineHeight: "leading-tight",
     spec: "48–64px · Bold · −0.02em",
-    sample: "Build Faster. Scope Smarter.",
+    sample: ["Build Faster.", "Scope Smarter."],
   },
   {
     label: "H2",
@@ -91,7 +110,7 @@ const TYPE_SCALE = [
     tracking: "tracking-normal",
     lineHeight: "leading-normal",
     spec: "20px · Semibold · 0em",
-    sample: "One Tap to Buildertrend-Ready",
+    sample: ["Buildertrend-Ready", "in One Export"],
   },
   {
     label: "Body Large",
@@ -100,7 +119,7 @@ const TYPE_SCALE = [
     tracking: "tracking-normal",
     lineHeight: "leading-relaxed",
     spec: "18px · Regular · 1.6 line-height",
-    sample: "Forge records everything: audio up to 90 minutes, plus photos you can voice-tag on the fly.",
+    sample: "Forge records everything: audio up to 4 hours, plus photos, saved to the walk with the time they were taken.",
   },
   {
     label: "Body",
@@ -148,7 +167,7 @@ const VOICE_ATTRIBUTES = [
   {
     label: "Practical",
     description: "Grounded in real contractor workflows. Every feature solves a real problem.",
-    example: "\"One-tap copy to Buildertrend. Done.\"",
+    example: "\"Buildertrend-ready in one export. Done.\"",
   },
   {
     label: "Empathetic",
@@ -306,7 +325,7 @@ export default function BrandPage() {
 
           {/* Mobile toggle */}
           <button
-            className="md:hidden text-forge-smoke hover:text-forge-white transition-colors"
+            className="lg:hidden text-forge-smoke hover:text-forge-white transition-colors"
             onClick={() => setMobileSidebarOpen((o) => !o)}
             aria-label="Toggle section navigation"
           >
@@ -317,7 +336,7 @@ export default function BrandPage() {
 
       {/* ── Mobile section nav overlay ──────────────────────────────────── */}
       {mobileSidebarOpen && (
-        <div className="fixed inset-0 z-40 md:hidden pt-16">
+        <div className="fixed inset-0 z-40 lg:hidden pt-16">
           <div
             className="absolute inset-0 bg-forge-iron/95 backdrop-blur-md"
             onClick={() => setMobileSidebarOpen(false)}
@@ -342,7 +361,12 @@ export default function BrandPage() {
 
       <div className="max-w-7xl mx-auto px-6 pt-40 pb-24 flex gap-16">
         {/* ── Sticky sidebar ──────────────────────────────────────────────── */}
-        <aside className="hidden md:block w-52 flex-shrink-0">
+        {/* Same sidebar rule as /legal: as wide as its longest label, never
+            narrower than w-52, labels one line (F-631). It shows from lg, not
+            md: at 768-1023 it left the main column 448px, and the voice cards
+            and type specimens squeezed short lines onto two (squeezed-text).
+            Below lg the list is behind the Sections toggle. */}
+        <aside className="hidden lg:block w-max min-w-52 flex-shrink-0">
           <div className="sticky top-40">
             <p className="text-xs font-medium text-forge-smoke uppercase tracking-widest mb-4 px-4">
               Sections
@@ -352,7 +376,7 @@ export default function BrandPage() {
                 <button
                   key={section.id}
                   onClick={() => scrollTo(section.id)}
-                  className={`text-left px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-150 ${
+                  className={`text-left whitespace-nowrap px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-150 ${
                     activeSection === section.id
                       ? "bg-forge-cyan/10 text-forge-cyan border-l-2 border-forge-cyan"
                       : "text-forge-smoke hover:text-forge-white hover:bg-white/5 border-l-2 border-transparent"
@@ -393,7 +417,11 @@ export default function BrandPage() {
                   <h3 className="text-xs font-medium text-forge-smoke uppercase tracking-widest mb-4">
                     {group.group}
                   </h3>
-                  <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3">
+                  {/* Columns sized to the longest token name
+                      ("--color-forge-cyan-light", 173px of 12px mono plus
+                      padding) instead of a fixed count, so no token is cut to
+                      an ellipsis and no name runs under its neighbour (F-631). */}
+                  <div className="grid grid-cols-[repeat(auto-fill,minmax(13rem,1fr))] gap-3">
                     {group.swatches.map((swatch) => (
                       <div
                         key={swatch.variable}
@@ -412,7 +440,7 @@ export default function BrandPage() {
                             {swatch.name}
                           </p>
                           <CopyButton text={swatch.hex} />
-                          <p className="text-xs text-forge-graphite font-mono mt-1 truncate">
+                          <p className="text-xs text-forge-graphite font-mono mt-1 whitespace-nowrap">
                             {swatch.variable}
                           </p>
                         </div>
@@ -448,10 +476,10 @@ export default function BrandPage() {
                   </div>
                   <div className="flex-1 min-w-0">
                     <p
-                      className={`${item.size} ${item.weight} ${item.tracking} ${item.lineHeight} text-forge-white truncate`}
+                      className={`${item.size} ${item.weight} ${item.tracking} ${item.lineHeight} text-forge-white`}
                       style={{ fontFamily: "var(--font-body)" }}
                     >
-                      {item.sample}
+                      <Sample text={item.sample} />
                     </p>
                     <p className="text-xs text-forge-graphite mt-1 sm:hidden">{item.spec}</p>
                   </div>
@@ -478,9 +506,12 @@ export default function BrandPage() {
                   className="text-forge-ash text-sm leading-relaxed"
                   style={{ fontFamily: "var(--font-body)" }}
                 >
-                  ABCDEFGHIJKLMNOPQRSTUVWXYZ
+                  {/* <wbr /> splits each alphabet at its midpoint only when
+                      the card is narrower than the whole line (a 320px phone),
+                      instead of the line running out of the card (F-631). */}
+                  ABCDEFGHIJKLM<wbr />NOPQRSTUVWXYZ
                   <br />
-                  abcdefghijklmnopqrstuvwxyz
+                  abcdefghijklm<wbr />nopqrstuvwxyz
                   <br />
                   0123456789 !@#$%&
                 </p>
@@ -503,9 +534,12 @@ export default function BrandPage() {
                   className="text-forge-ash text-sm leading-relaxed"
                   style={{ fontFamily: "var(--font-mono)" }}
                 >
-                  ABCDEFGHIJKLMNOPQRSTUVWXYZ
+                  {/* <wbr /> splits each alphabet at its midpoint only when
+                      the card is narrower than the whole line (a 320px phone),
+                      instead of the line running out of the card (F-631). */}
+                  ABCDEFGHIJKLM<wbr />NOPQRSTUVWXYZ
                   <br />
-                  abcdefghijklmnopqrstuvwxyz
+                  abcdefghijklm<wbr />nopqrstuvwxyz
                   <br />
                   0123456789 !@#$%&
                 </p>
@@ -569,8 +603,10 @@ export default function BrandPage() {
             <h3 className="text-xs font-medium text-forge-smoke uppercase tracking-widest mb-5">
               Card
             </h3>
+            {/* p-6 below sm: at 320 the default 32px padding left the accent
+                card's title 180px for 185px of text (F-631, squeezed-text). */}
             <div className="grid sm:grid-cols-2 gap-4 mb-12">
-              <Card>
+              <Card className="p-6 sm:p-8">
                 <SectionLabel>Feature</SectionLabel>
                 <h4 className="text-lg font-semibold text-forge-white mt-4 mb-2">
                   Voice-Tagged Photos
@@ -584,7 +620,7 @@ export default function BrandPage() {
                   <ArrowRight size={14} strokeWidth={2} aria-hidden="true" />
                 </div>
               </Card>
-              <Card className="border-forge-cyan/20">
+              <Card className="border-forge-cyan/20 p-6 sm:p-8">
                 <div className="flex items-center gap-2 mb-4">
                   <Check
                     size={18}
@@ -674,7 +710,11 @@ export default function BrandPage() {
             <h3 className="text-xs font-medium text-forge-smoke uppercase tracking-widest mb-5">
               Voice Attributes
             </h3>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-12">
+            {/* Three columns from xl, not lg: beside the sidebar at 1024-1279
+                a third column left an example 162px, and "Zero typing
+                required." (207px) broke onto two lines (F-631,
+                squeezed-text). */}
+            <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-4 mb-12">
               {VOICE_ATTRIBUTES.map((attr) => (
                 <Card key={attr.label} className="p-6">
                   <h4 className="text-lg font-semibold text-forge-white mb-2">{attr.label}</h4>
@@ -694,7 +734,10 @@ export default function BrandPage() {
             <h3 className="text-xs font-medium text-forge-smoke uppercase tracking-widest mb-5">
               Core Values
             </h3>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
+            {/* At most three columns: five at xl left 137px, and "One workflow
+                replaces four." (160px) broke a word onto its own line (F-631,
+                squeezed-text). */}
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {CORE_VALUES.map(({ label, icon: Icon, description }) => (
                 <div
                   key={label}
@@ -791,11 +834,14 @@ export default function BrandPage() {
                 { label: "max-w-3xl", value: "768px", usage: "Text-heavy blocks" },
                 { label: "max-w-2xl", value: "672px", usage: "Narrow prose, descriptions" },
               ].map((w) => (
-                <div key={w.label} className="flex items-center gap-4">
+                // flex-wrap: on a phone the label, a bar and the value do not
+                // fit one row; the value moves under them instead of pushing
+                // the page wider than the screen (F-631).
+                <div key={w.label} className="flex flex-wrap items-center gap-x-4 gap-y-1">
                   <div className="w-32 flex-shrink-0">
                     <span className="text-xs font-mono text-forge-smoke">{w.label}</span>
                   </div>
-                  <div className="flex-1 bg-forge-iron rounded-sm h-6 relative overflow-hidden border border-white/5">
+                  <div className="flex-1 min-w-24 bg-forge-iron rounded-sm h-6 relative overflow-hidden border border-white/5">
                     <div
                       className="absolute left-0 top-0 h-full bg-forge-cyan/20 border-r border-forge-cyan/40"
                       style={{

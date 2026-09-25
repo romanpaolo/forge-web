@@ -41,6 +41,12 @@ jobs:
       - name: Actual pricing source regression tests
         run: npm run test:pricing
 
+      # The text-fit detector's body is byte-identical to its Forge_Web twin
+      # (F-631). Forge_Web carries the same test with the same sha256, so an
+      # edit to either copy alone turns that repo red until both match.
+      - name: Text-fit detector matches its Forge_Web twin
+        run: npm run test:detector-twin
+
       # `tsc --noEmit`. Catches the class this repo is most exposed to: a copy
       # or constant edit that breaks a type nothing else would notice until
       # Vercel built it.
@@ -49,9 +55,66 @@ jobs:
 
       # `next build` proves every route still renders. It is fast and it
       # catches a broken import or a bad JSX edit that typecheck alone can miss
-      # in a server component.
+      # in a server component. Built WITHOUT FORGE_INTERNAL_PAGES, exactly as
+      # production (Vercel) builds, so the next step tests what ships.
       - name: Build
         run: npm run build
+
+      # /brand and /design are internal pages that production used to serve
+      # publicly (F-662, N10). They are served only by a build made with
+      # FORGE_INTERNAL_PAGES=on (an allowlist: unset or any other value hides
+      # them; src/lib/internalPages.ts). This is the DENY half: the production
+      # build above must answer 404 for both, and 200 for a public page so a
+      # server that serves nothing cannot pass. The ADMIT half is the next
+      # step, which rebuilds with the variable on and must load both.
+      - name: Internal pages are not served by the production build
+        run: |
+          npx next start -p 3108 > /tmp/next-start-prod.log 2>&1 &
+          for i in $(seq 1 60); do
+            curl -sf -o /dev/null http://localhost:3108/ && break
+            sleep 1
+          done
+          code() { curl -s -o /dev/null -w "%{http_code}" "http://localhost:3108$1"; }
+          fail=0
+          [ "$(code /)" = "200" ] || { echo "/ is $(code /), expected 200"; fail=1; }
+          for route in /brand /design; do
+            got=$(code "$route")
+            if [ "$got" = "404" ]; then echo "$route: 404, not served"; else echo "$route: HTTP $got, expected 404"; fail=1; fi
+          done
+          kill $(lsof -t -iTCP:3108 -sTCP:LISTEN) 2>/dev/null || true
+          exit $fail
+
+      # Text fits at every screen width (F-631). RZ's standard: whatever the
+      # angle or size of the screen, text fits the space it has. Serves a
+      # build and loads every route in src/app (derived from the page.tsx
+      # files, so a new page is covered by construction) at 23 portrait widths
+      # from 320 to 1920 and three short landscape screens. Fails on a control
+      # label broken over lines, text overlapping or touching other text, text
+      # clipped without an ellipsis, a page that scrolls sideways, or a route
+      # that renders no text at all. Written for the 2026-09-24 header, whose
+      # links and buttons wrapped onto two and three lines from 768 to 1024px.
+      #
+      # It REBUILDS with FORGE_INTERNAL_PAGES=on so /brand and /design are
+      # served and stay audited (F-662): the runner derives its routes from
+      # the page.tsx files and fails any route that is not 2xx, so dropping
+      # the variable here turns this step red rather than quietly skipping
+      # the two pages. That is also the admit half of the gate check above.
+      # Local: `FORGE_INTERNAL_PAGES=on npm run build`, `npx next start -p
+      # 3107`, then
+      # `TEXT_FIT_CHANNEL=chrome npm run check:text-fit -- http://localhost:3107`.
+      - name: Text fits at every width
+        env:
+          FORGE_INTERNAL_PAGES: "on"
+        run: |
+          npx playwright install --with-deps chromium
+          npm run build
+          npx next start -p 3107 > /tmp/next-start.log 2>&1 &
+          for i in $(seq 1 60); do
+            curl -sf -o /dev/null http://localhost:3107/ && break
+            sleep 1
+          done
+          curl -sf -o /dev/null http://localhost:3107/ || { echo "next start did not answer on :3107"; cat /tmp/next-start.log; exit 1; }
+          npm run check:text-fit -- http://localhost:3107
 
 # ── Deliberately NOT in this lane ─────────────────────────────────────────
 #

@@ -7,9 +7,11 @@ import Button from "@/components/ui/Button";
 import StoreBadges from "@/components/ui/StoreBadges";
 import {
   CALENDLY_URL,
+  CASE_STUDY_PATH,
   HERO_STATS,
   trialSignupUrl,
 } from "@/lib/constants";
+import { HARRIS_DISCLOSURE, HARRIS_STATS } from "@/lib/caseStudy";
 
 const HexNutScene = dynamic(() => import("@/components/three/HexNutScene"), {
   ssr: false,
@@ -71,7 +73,12 @@ const transition = (delay: number) => ({
 
 export default function Hero3D() {
   return (
-    <section id="hero" className="relative overflow-hidden h-screen flex flex-col">
+    // min-h-svh, not h-screen: the hero is at least one screen tall and grows
+    // with its copy. At a fixed h-screen with overflow-hidden, a short landscape
+    // screen (844x390, 1024x600) clipped the headline and CTAs and slid them
+    // under the fixed 64px header. pt-24 keeps the copy clear of that header
+    // when the content is taller than the screen (F-631).
+    <section id="hero" className="relative overflow-hidden min-h-svh pt-24 flex flex-col">
       {/* 3D Background - fills entire viewport */}
       <Suspense fallback={<div className="absolute inset-0 bg-forge-body" />}>
         <HexNutScene />
@@ -104,8 +111,10 @@ export default function Hero3D() {
             <CharacterReveal text="Leave with the estimate." delay={0.8} stagger={0.02} className="text-forge-ash/40" />
           </h1>
 
-          {/* Subtext + CTA row */}
-          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-8 mt-8">
+          {/* Subtext + CTA row. Side by side from lg (1024px): below that the
+              paragraph and the two one-line buttons do not fit one row, and the
+              buttons used to be squeezed onto two and three lines (F-631). */}
+          <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8 mt-8">
             <motion.p
               className="text-forge-smoke text-base md:text-lg leading-relaxed max-w-xl"
               variants={fadeUp}
@@ -113,22 +122,31 @@ export default function Hero3D() {
               animate="animate"
               transition={transition(0.6)}
             >
+              {/* The audience line used to be "remodelers running $5M-$10M a
+                  year, not hobby crews". It turned away the small businesses
+                  Forge is built for first, contradicted the only customer
+                  story (a $2.5M company) and sneered at prospects (F-662,
+                  Q9 = a). */}
               Forge turns a recorded walkthrough into a structured, trade-by-trade
               scope and a priced estimate. In minutes. Not the night before you
-              were going to send it. Built for remodelers running $5M–$10M a year,
-              not hobby crews.
+              were going to send it. Built for general contractors and
+              remodelers.
             </motion.p>
 
             <motion.div
-              className="flex flex-col items-start md:items-end gap-3"
+              className="flex flex-col items-start lg:items-end gap-3"
               variants={fadeUp}
               initial="initial"
               animate="animate"
               transition={transition(0.8)}
             >
               <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3">
+                {/* The button says what it does, like every other trial
+                    button on the site. It used to carry a whole sentence,
+                    which cannot stay on one line inside a button at 320px
+                    (F-631). */}
                 <Button href={trialSignupUrl()} variant="primary" size="md">
-                  Start Free Trial. No credit card required.
+                  Start Free Trial
                 </Button>
                 <Button href={CALENDLY_URL} target="_blank" rel="noopener noreferrer" variant="secondary" size="md">
                   Talk to Sales
@@ -140,26 +158,40 @@ export default function Hero3D() {
               {/* Store links, one per mobile platform. Both use the same type
                   size and link treatment so the row reads as a matched pair
                   rather than two differently-sized store badges. */}
-              <div className="flex flex-wrap items-center gap-x-5 gap-y-2 md:justify-end">
+              <div className="flex flex-wrap items-center gap-x-5 gap-y-2 lg:justify-end">
                 <StoreBadges align="start" />
               </div>
             </motion.div>
           </div>
 
-          {/* Bottom stat bar - PRD 9.3 (product mechanics, not customer outcomes) */}
+          {/* Bottom stat bar - PRD 9.3. The 75% is Harris & Sons' figure,
+              so the ownership disclosure sits right under it (F-662, U2,
+              Q4 = a): the figure stays, and says whose it is. */}
           <motion.div
-            className="flex flex-wrap items-center gap-x-8 gap-y-3 mt-12 pt-6 border-t border-forge-graphite/30"
+            className="mt-12 pt-6 border-t border-forge-graphite/30"
             variants={fadeUp}
             initial="initial"
             animate="animate"
             transition={transition(1.0)}
           >
-            {HERO_STATS.map(({ value, label }) => (
-              <div key={label} className="flex items-baseline gap-2">
-                <span className="text-2xl md:text-3xl font-medium text-forge-white font-[family-name:var(--font-mono)]">{value}</span>
-                <span className="text-[9px] font-mono uppercase tracking-[0.15em] text-forge-smoke">{label}</span>
-              </div>
-            ))}
+            <div className="flex flex-wrap items-center gap-x-8 gap-y-3">
+              {HERO_STATS.map(({ value, label }) => (
+                <div key={label} className="flex items-baseline gap-2">
+                  <span className="text-2xl md:text-3xl font-medium text-forge-white font-[family-name:var(--font-mono)]">{value}</span>
+                  <span className="text-[9px] font-mono uppercase tracking-[0.15em] text-forge-smoke">{label}</span>
+                </div>
+              ))}
+            </div>
+            <p className="mt-3 text-forge-smoke text-xs leading-relaxed">
+              The {HARRIS_STATS.estimatingTimeCut} is{" "}
+              <a
+                href={CASE_STUDY_PATH}
+                className="text-forge-ash hover:text-forge-cyan transition-colors underline underline-offset-4 decoration-forge-graphite"
+              >
+                {HARRIS_STATS.companyShort}
+              </a>
+              &rsquo; result, from their own books. {HARRIS_DISCLOSURE}
+            </p>
           </motion.div>
         </div>
       </div>

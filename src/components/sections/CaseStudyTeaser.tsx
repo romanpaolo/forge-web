@@ -9,7 +9,9 @@ import { fadeUp } from "@/lib/animations";
 
 // Homepage case-study teaser module - PRD 10.7, word-for-word. Sits between
 // Differentiation (9.7) and Proof (9.8) per 10.5. Numbers are self-reported
-// from Harris & Sons' own books - full disclosure lives on the case study page.
+// from Harris & Sons' own books. The paragraph ends with the one-line
+// ownership disclosure (HARRIS_DISCLOSURE, F-662 U2), right above the stat
+// grid; the full disclosure is on the case study page.
 // Stats and prose derive from lib/caseStudy so this surface cannot drift out
 // of sync with the case-study page or the pricing ROI line.
 const TEASER_STATS = HARRIS_TEASER_STATS;
@@ -49,7 +51,11 @@ export default function CaseStudyTeaser() {
           {HARRIS_SUMMARY_TEASER}
         </motion.p>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-14 max-w-4xl mx-auto">
+        {/* Three across from lg, not md: at 768-1023 a card left its label
+            155px and "scope-dispute loss prevented" (197px) broke onto two
+            lines (F-631, squeezed-text). Stacked below lg; each label is one
+            line at every width. */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mt-14 max-w-4xl mx-auto">
           {TEASER_STATS.map((stat, index) => (
             <motion.div
               key={stat.label}
@@ -68,7 +74,7 @@ export default function CaseStudyTeaser() {
                 <span className="text-4xl md:text-5xl font-medium text-forge-cyan font-[family-name:var(--font-mono)] tabular-nums">
                   {stat.value}
                 </span>
-                <p className="text-forge-smoke text-sm">{stat.label}</p>
+                <p className="text-forge-smoke text-sm whitespace-nowrap">{stat.label}</p>
               </Card>
             </motion.div>
           ))}

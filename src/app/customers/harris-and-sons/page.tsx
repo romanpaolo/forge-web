@@ -27,7 +27,13 @@ export const metadata: Metadata = {
 // The committed PDF is generated from THIS page via headless Chrome print
 // styling (see the @media print block below). Christian's designed case-study
 // PDF can replace the file at public/harris-and-sons-case-study.pdf any time -
-// no code change needed.
+// no code change needed. The PDF is a frozen copy: change this page, then
+// regenerate it, or the download says something the page no longer does.
+// Last regenerated 2026-09-24 for F-662 (U1), from a production build:
+//   npx next start -p 3407 &
+//   "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless=new \
+//     --no-pdf-header-footer --print-to-pdf=public/harris-and-sons-case-study.pdf \
+//     http://localhost:3407/customers/harris-and-sons
 const PDF_PATH = "/harris-and-sons-case-study.pdf";
 
 // PRD 10.1 / 10.7 - key metrics. The ~$4M is a PROJECTION, distinct from
@@ -35,7 +41,9 @@ const PDF_PATH = "/harris-and-sons-case-study.pdf";
 const KEY_METRICS = [
   { value: HARRIS_STATS.attributedRevenue, label: "Revenue directly attributed to Forge" },
   { value: HARRIS_STATS.estimatingTimeCut, label: "Reduction in estimating & documentation time" },
-  { value: "$2K–$3K/mo", label: "Monthly admin savings across 20–30 estimates" },
+  // $75-$100 a deal at 20-30 estimates a month is $1,500-$3,000. This read
+  // $2K-$3K, which the page's own arithmetic does not give (F-662, U1).
+  { value: "$1.5K–$3K/mo", label: "Monthly admin savings across 20–30 estimates" },
   { value: "~$4M*", label: "Projected* annual revenue, up from $2.5M actual" },
 ];
 
@@ -184,7 +192,7 @@ export default function HarrisAndSonsPage() {
             </p>
             <p className="text-forge-ash text-base md:text-lg leading-relaxed">
               At 20–30 estimates a month, that administrative drag cost
-              $75–$100 per deal. That&rsquo;s $2,000–$3,000 a month in time nobody
+              $75–$100 per deal. That&rsquo;s $1,500–$3,000 a month in time nobody
               was getting back.
             </p>
           </div>
@@ -194,15 +202,37 @@ export default function HarrisAndSonsPage() {
         <section className="mt-20">
           <CaseSectionHeader>BEFORE VS. AFTER</CaseSectionHeader>
 
-          <div className="overflow-x-auto">
+          {/* Every label and value is one line at every width (F-631,
+              squeezed-text: "Up to 2 weeks" and "Under 3 days" broke over two
+              lines at 320-414). Three one-line columns need about 470px, so
+              below sm each row stacks, BEFORE FORGE and AFTER FORGE labelled;
+              from sm the table fits without scrolling. A sideways-scrolling
+              table would put the whole AFTER FORGE column off a phone's
+              screen. The PDF prints at letter width, so it gets the table. */}
+          <dl className="sm:hidden border border-forge-smoke/10">
+            {BEFORE_AFTER.map((row) => (
+              <div key={row.dimension} className="p-4 border-b border-forge-smoke/10 last:border-b-0">
+                <dt className="text-forge-white text-sm font-medium whitespace-nowrap">{row.dimension}</dt>
+                <dd className="mt-2 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+                  <span className="text-[10px] font-mono uppercase tracking-[0.15em] text-forge-smoke whitespace-nowrap">Before Forge</span>
+                  <span className="text-forge-smoke text-sm whitespace-nowrap">{row.before}</span>
+                </dd>
+                <dd className="mt-1 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+                  <span className="text-[10px] font-mono uppercase tracking-[0.15em] text-forge-cyan whitespace-nowrap">After Forge</span>
+                  <span className="text-forge-ash text-sm whitespace-nowrap">{row.after}</span>
+                </dd>
+              </div>
+            ))}
+          </dl>
+          <div className="hidden sm:block overflow-x-auto">
             <table className="w-full text-left border border-forge-smoke/10">
               <thead>
                 <tr className="border-b border-forge-smoke/10">
-                  <th scope="col" className="p-4 text-[10px] font-mono uppercase tracking-[0.15em] text-forge-smoke font-medium" />
-                  <th scope="col" className="p-4 text-[10px] font-mono uppercase tracking-[0.15em] text-forge-smoke font-medium">
+                  <th scope="col" className="p-4 whitespace-nowrap text-[10px] font-mono uppercase tracking-[0.15em] text-forge-smoke font-medium" />
+                  <th scope="col" className="p-4 whitespace-nowrap text-[10px] font-mono uppercase tracking-[0.15em] text-forge-smoke font-medium">
                     BEFORE FORGE
                   </th>
-                  <th scope="col" className="p-4 text-[10px] font-mono uppercase tracking-[0.15em] text-forge-cyan font-medium">
+                  <th scope="col" className="p-4 whitespace-nowrap text-[10px] font-mono uppercase tracking-[0.15em] text-forge-cyan font-medium">
                     AFTER FORGE
                   </th>
                 </tr>
@@ -213,8 +243,8 @@ export default function HarrisAndSonsPage() {
                     <th scope="row" className="p-4 text-forge-white text-sm font-medium whitespace-nowrap">
                       {row.dimension}
                     </th>
-                    <td className="p-4 text-forge-smoke text-sm">{row.before}</td>
-                    <td className="p-4 text-forge-ash text-sm">{row.after}</td>
+                    <td className="p-4 text-forge-smoke text-sm whitespace-nowrap">{row.before}</td>
+                    <td className="p-4 text-forge-ash text-sm whitespace-nowrap">{row.after}</td>
                   </tr>
                 ))}
               </tbody>
@@ -266,7 +296,7 @@ export default function HarrisAndSonsPage() {
             </Button>
           </div>
           <p className="text-forge-smoke text-sm mt-4">
-            14-day free trial. No credit card required. Cancel anytime.
+            14-day free trial. Cancel anytime.
           </p>
         </section>
       </main>

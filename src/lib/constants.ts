@@ -53,6 +53,22 @@ export function msaUrl(): string {
   return `${DASHBOARD_URL}/legal/msa`;
 }
 
+// The Terms of Service and the Privacy Policy are published once, by the app
+// too (Forge_Web app/terms and app/privacy), for the same reason (F-662, Q3 =
+// a, RZ 2026-09-24). This site carried its own copies and they had drifted:
+// its Privacy Policy said declining AI consent still lets you use Forge, where
+// the app's (the one the product links) says AI processing is required, and
+// its Terms printed a free-beta change log. /legal#terms and /legal#privacy
+// stay as short sections that link here, because the App Store listing and
+// older pages cite those anchors; next.config.ts forwards /terms and /privacy.
+export function termsUrl(): string {
+  return `${DASHBOARD_URL}/terms`;
+}
+
+export function privacyUrl(): string {
+  return `${DASHBOARD_URL}/privacy`;
+}
+
 // Trial navigation carries only the existing signup-mode hint. Dashboard
 // app/login/page.tsx does not consume plan or seat-count parameters, and
 // Firebase signup accepts email/password only. Calculator counts are a
@@ -71,16 +87,15 @@ export type FaqItem = { question: string; answer: string };
 
 // Pricing FAQ, including the F-075/F-076 decisions through2026-09-08:
 // shared included seats, additional seats priced by class, assigned-task Sub access.
+// "How is this different from Buildertrend?" was cut under F-662 (N8): it
+// framed Forge as a pre-step to a competitor and promised an export "straight
+// into your Buildertrend job budget", which is a CSV uploaded by hand. A new
+// answer would be a new claim needing its own check, so none was written.
 export const PRICING_FAQ: FaqItem[] = [
   {
     question: "Do I need to talk to sales to get started?",
     answer:
       "No. Start Free Trial takes you straight into the product, with 14 days free. If you'd rather see it on a real job first, book time with our team instead.",
-  },
-  {
-    question: "Do you need my card to start the trial?",
-    answer:
-      "No. Use Forge free for 14 days without entering payment info. We'll remind you before the trial ends. Add a payment method any time to keep your seats active. If you don't, your account pauses. Nothing gets deleted.",
   },
   {
     // F075 Sep8: included seats are type-agnostic, staff first.
@@ -107,17 +122,17 @@ export const PRICING_FAQ: FaqItem[] = [
       "iOS, Web, and Android. Download from the App Store or Google Play.",
   },
   {
-    question: "How is this different from Buildertrend?",
-    answer:
-      "Forge isn't a Buildertrend replacement. It's what happens before Buildertrend. Record the walk, get a structured scope and estimate, then export straight into your existing Buildertrend job budget.",
-  },
-  {
     question: "Can I cancel anytime?",
     answer: "Yes, from Settings, no call required.",
   },
 ];
 
 // Support-page subset - help/account/data questions, distinct from the pricing FAQ.
+// F-662 (2026-09-24): the reply time is an aim, not a promise, everywhere (U5,
+// Q10 = a); deletion is self-serve from Settings, and workspace records go 90
+// days after the workspace closes, as the app's Privacy Policy says (N6); and
+// data IS shared, with the AI providers the Privacy Policy names, so "Nothing
+// is shared" was false (F9, Q2 = a).
 export const SUPPORT_FAQ: FaqItem[] = [
   {
     question: "How do I get help or report a problem?",
@@ -127,7 +142,7 @@ export const SUPPORT_FAQ: FaqItem[] = [
   {
     question: "How quickly will I hear back?",
     answer:
-      "We aim to respond to every message within one business day. Active job-walk issues are prioritized. If something is blocking you in the field, say so in the subject line and we'll jump on it.",
+      "We aim to reply within one business day. Active job-walk issues are prioritized. If something is blocking you in the field, say so in the subject line and we'll jump on it.",
   },
   {
     question: "I found a bug. What should I do?",
@@ -137,29 +152,41 @@ export const SUPPORT_FAQ: FaqItem[] = [
   {
     question: "Can I cancel, pause, or delete my account?",
     answer:
-      "Yes. Monthly plans are month-to-month. Cancel anytime from Settings, no call required, and you keep access through the current billing period. If your free trial ends without a payment method, your account pauses (nothing is deleted) and access resumes once a card is added. To delete your account and personal data, email us and we'll remove it within 30 days, except where retention is required by law. See our Privacy Policy for details.",
+      "Yes. Monthly plans are month-to-month. Cancel anytime from Settings, no call required, and you keep access through the current billing period. If your free trial ends without a payment method, your account pauses (nothing is deleted) and access resumes once a card is added. Delete your account any time from Settings. Workspace records are permanently deleted 90 days after the workspace is closed. See our Privacy Policy.",
   },
   {
     question: "Is my job walk data secure?",
     answer:
-      "Your data is encrypted in transit and at rest. Forge processes your audio and photos through secure AI pipelines. Nothing is shared, sold, or used to train models. Your field intelligence stays yours.",
+      "Your data is encrypted in transit and at rest. We never sell your data. Audio, transcripts and photos go only to the AI providers named in our Privacy Policy, and they may not train on it.",
   },
   {
     question: "How does the free trial work?",
     answer:
-      "Every plan starts with a 14-day free trial. No credit card required. We'll remind you before it ends. Add a payment method any time to keep your seats active. If you don't, your account pauses and nothing gets deleted.",
+      "Every plan starts with a 14-day free trial. We'll remind you before it ends. Add a payment method any time to keep your seats active. If you don't, your account pauses and nothing gets deleted.",
   },
 ];
 
+// Every sentence below says only what the product does today (F-662, from the
+// F-658 claims audit, RZ 2026-09-24). What each one replaced, and why:
+// - CAPTURE: recording stops at 4 hours on iOS and Android (it said 90
+//   minutes). Nothing parses "Photo: ..." out of speech; photos are saved to
+//   the walk with their time, so the voice-tag sentence and bullet are gone.
+// - AI ENGINE: the prompts DO make assumptions and record them, so "doesn't
+//   guess" and "never assumed" were false. What is true is that assumptions
+//   and low-confidence lines are flagged for the user to check.
+// - EXPORT: the Buildertrend output is a CSV in the layout of Buildertrend's
+//   estimate importer, uploaded by hand. There is no one-tap copy, no photo
+//   packet (no PDF includes job photos), no reorder, and no PM email template;
+//   the real handoff email is the automatic "assigned you" email.
 export const FEATURES = [
   {
     label: "CAPTURE",
     title: "Walk the Job. We'll Handle the Notes.",
     description:
-      "Start a job walk and Forge records everything: audio up to 90 minutes, plus photos you can voice-tag on the fly. Say \"Photo: kitchen sink wall\" and it's indexed automatically.",
+      "Start a job walk and Forge records everything: audio up to 4 hours, plus photos, saved to the walk with the time they were taken.",
     bullets: [
-      "Audio recording up to 90 min",
-      "Voice-tagged photo capture",
+      "Audio recording up to 4 hours",
+      "Photos saved with the walk",
       "All media stored under one project",
     ],
   },
@@ -167,28 +194,31 @@ export const FEATURES = [
     label: "AI ENGINE",
     title: "Raw Walk → Priced Estimate in Minutes",
     description:
-      "Forge's AI doesn't guess. It organizes your walk into a scope broken out by trade and a priced, line-item estimate. Anything it's not confident about gets flagged, so you check it, not guess at it.",
+      "Forge organizes your walk into a scope broken out by trade and a priced, line-item estimate. Anything it's not confident about gets flagged, so you check it, not guess at it.",
     bullets: [
       "Scope + questions organized by area",
       "Line-item estimate priced by trade",
-      "Uncertainties flagged, never assumed",
+      "Assumptions and low-confidence lines flagged for you to check",
     ],
   },
   {
     label: "EXPORT",
-    title: "One Tap to Buildertrend-Ready",
+    title: "Buildertrend-Ready in One Export",
     description:
-      "Review the AI output, make edits inline, apply your markup, then export. Copy formatted notes directly to Buildertrend, download a PDF packet with photos, or send a PM handoff email.",
+      "Review the AI output, make edits inline, apply your markup, then export a Buildertrend import file (CSV), a PDF, or a CSV. Your PM gets an email when you hand the job over.",
     bullets: [
-      "Inline editing: add, delete, reorder",
-      "One-tap copy to Buildertrend",
-      "PDF + photo packet download",
-      "PM handoff email template",
+      "Inline editing: add, edit, delete",
+      "Buildertrend import file (CSV)",
+      "PDF download",
     ],
   },
 ];
 
-// How it works - PRD 9.5, word-for-word (3 steps).
+// How it works - PRD 9.5 (3 steps). Step 3 was corrected under F-662: the
+// Buildertrend output is an import file, not a straight export, and "Nothing
+// leaves Forge until you approve it" was false (closing a job emails the
+// client a summary, sub texts go out on push, and audio and transcripts go to
+// the AI providers). What IS true is that estimates and scopes are sent by you.
 export const STEPS = [
   {
     number: "01",
@@ -206,7 +236,7 @@ export const STEPS = [
     number: "03",
     title: "Review, then send.",
     description:
-      "Edit any line, apply your markup, export straight to Buildertrend, PDF, or CSV. Nothing leaves Forge until you approve it.",
+      "Edit any line, apply your markup, export a Buildertrend import file, PDF, or CSV. Estimates and scopes reach your client only when you send them.",
   },
 ];
 
@@ -220,9 +250,10 @@ export const STEPS = [
 // so the hero and the Harris & Sons case study state the same figure. It reads
 // from HARRIS_STATS rather than repeating "75%": caseStudy.ts owns every number
 // that appears on more than one surface, and this is now one of them.
+//
+// "1 WORKFLOW" and "0 TYPING" came off under F-662 (2026-09-24): filler, and
+// "0 typing" contradicted the inline editing the same page sells.
 export const HERO_STATS = [
   { value: HARRIS_STATS.estimatingTimeCut, label: "LESS TIME ESTIMATING" },
-  { value: "1", label: "WORKFLOW" },
-  { value: "0", label: "TYPING" },
   { value: "MINUTES", label: "TO A PRICED SCOPE" },
 ];

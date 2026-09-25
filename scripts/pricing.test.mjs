@@ -175,3 +175,93 @@ test("the legal page and old MSA addresses point at the app's copy", () => {
   assert.match(config, /source: "\/legal\/msa",\s*destination: `\$\{DASHBOARD_URL\}\/legal\/msa`/);
   assert.match(config, /source: "\/legal\/msa\/:path\*",\s*destination: `\$\{DASHBOARD_URL\}\/legal\/msa`/);
 });
+
+// ── Terms and Privacy are linked, not copied (F-662, Q3 = a) ─────────────
+// Same reason as the MSA above, and the same drift had already happened: this
+// site's Privacy Policy said declining AI consent "still lets you use the
+// non-AI parts of Forge", where the app's policy (the one the product links)
+// says AI processing is required, and its Terms printed a free-beta and
+// founding-rate change log. The app publishes both; this site links them. A
+// copy of either body coming back fails here.
+test("no copy of the Terms or Privacy body lives in this site", () => {
+  for (const file of allSourceFiles()) {
+    const text = readFileSync(file, "utf8");
+    assert.doesNotMatch(text, /Description of Service/, `${file} carries Terms clause 1`);
+    assert.doesNotMatch(text, /Information We Collect/, `${file} carries Privacy clause 1`);
+    assert.doesNotMatch(text, /non-AI parts of Forge/, `${file} carries the stale AI-consent sentence`);
+    assert.doesNotMatch(text, /founding-rate/i, `${file} carries the founding-rate change note`);
+  }
+});
+
+test("the legal page, footer and /terms, /privacy point at the app's copies", () => {
+  const constants = readSrc("lib/constants.ts");
+  assert.match(constants, /return `\$\{DASHBOARD_URL\}\/terms`;/);
+  assert.match(constants, /return `\$\{DASHBOARD_URL\}\/privacy`;/);
+  const legal = readSrc("app/legal/page.tsx");
+  assert.match(legal, /id="terms"/, "the #terms anchor the App Store listing cites is kept");
+  assert.match(legal, /id="privacy"/, "the #privacy anchor is kept");
+  assert.match(legal, /href=\{termsUrl\(\)\}/);
+  assert.match(legal, /href=\{privacyUrl\(\)\}/);
+  const footer = readSrc("components/sections/Footer.tsx");
+  assert.match(footer, /href: termsUrl\(\)/);
+  assert.match(footer, /href: privacyUrl\(\)/);
+  const config = readFileSync(join(SRC_ROOT, "../next.config.ts"), "utf8");
+  assert.match(config, /source: "\/privacy", destination: `\$\{DASHBOARD_URL\}\/privacy`/);
+  assert.match(config, /source: "\/terms", destination: `\$\{DASHBOARD_URL\}\/terms`/);
+});
+
+// The Refund Policy is published only here, so it stays as text, minus the
+// "Usage-based charges" bullet: Forge has none (F-662, N5).
+test("the Refund Policy stays on this site and names no usage-based charges", () => {
+  const legal = readSrc("app/legal/page.tsx");
+  assert.match(legal, /id="refund"/);
+  assert.match(legal, /we do not offer refunds for subscription fees/);
+  assert.doesNotMatch(legal, /Usage-based charges/i);
+});
+
+// ── Harris & Sons figures carry the ownership disclosure (F-662, U2) ─────
+// caseStudy.ts always said the disclosure "is required wherever these
+// appear", and the hero, the home teaser and the /pricing ROI line showed
+// the figures without it. Now it is by construction: every derived string
+// that leaves the case page ends with HARRIS_DISCLOSURE (checked by running
+// the real module), and any other surface that renders a figure source must
+// render HARRIS_DISCLOSURE or one of those strings (checked in the source,
+// derived from what each file references, so a new surface is covered).
+function loadCaseStudy() {
+  const compiledCase = ts.transpileModule(readSrc("lib/caseStudy.ts"), {
+    compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2020 },
+  }).outputText;
+  const mod = { exports: {} };
+  runInNewContext(compiledCase, { module: mod, exports: mod.exports });
+  return mod.exports;
+}
+
+test("every Harris & Sons summary that leaves the case page ends with the disclosure", () => {
+  const cs = loadCaseStudy();
+  assert.equal(cs.HARRIS_DISCLOSURE, "Harris & Sons is owned by a Forge cofounder.");
+  for (const name of ["HARRIS_SUMMARY_META", "HARRIS_SUMMARY_OG", "HARRIS_SUMMARY_TEASER", "HARRIS_SUMMARY_ROI"]) {
+    assert.ok(cs[name].endsWith(cs.HARRIS_DISCLOSURE), `${name} ends without the disclosure: ${cs[name]}`);
+  }
+});
+
+test("every surface off the case page that shows a Harris & Sons figure shows the disclosure", () => {
+  const figureSource = /\b(HARRIS_STATS|HARRIS_TEASER_STATS|HERO_STATS|HARRIS_SUMMARY_LONG)\b/;
+  const carriesDisclosure = /\b(HARRIS_DISCLOSURE|HARRIS_SUMMARY_TEASER|HARRIS_SUMMARY_ROI)\b/;
+  const surfaces = allSourceFiles().filter(
+    (f) => /\/(app|components)\//.test(f) && !/customers\/harris-and-sons\//.test(f),
+  );
+  const showing = surfaces.filter((f) => figureSource.test(readFileSync(f, "utf8")));
+  assert.ok(showing.length >= 2, `expected the hero and the teaser to show figures, found ${showing.length}`);
+  for (const file of showing) {
+    assert.match(readFileSync(file, "utf8"), carriesDisclosure, `${file} shows a Harris & Sons figure without the disclosure`);
+  }
+});
+
+// U1: $75-$100 a deal at 20-30 estimates a month is $1,500-$3,000.
+test("the case study's admin-cost range is the arithmetic of its own inputs", () => {
+  const page = readSrc("app/customers/harris-and-sons/page.tsx");
+  assert.match(page, /\$75–\$100 per deal/);
+  assert.match(page, /\$1,500–\$3,000 a month/);
+  assert.match(page, /"\$1\.5K–\$3K\/mo"/);
+  assert.doesNotMatch(page, /\$2,000–\$3,000|\$2K–\$3K/);
+});

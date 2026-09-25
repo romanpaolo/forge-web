@@ -19,9 +19,13 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
       // Legal shortcuts - the product's consent modals and older links
-      // depend on /privacy and /terms resolving.
-      { source: "/privacy", destination: "/legal#privacy", permanent: true },
-      { source: "/terms", destination: "/legal#terms", permanent: true },
+      // depend on /privacy and /terms resolving. The app publishes the one
+      // copy of each (F-662, Q3 = a), so they forward there, the way
+      // /legal/msa does below. Non-permanent for the reason given there.
+      // They used to be 308s to /legal#privacy and /legal#terms; a browser
+      // that cached one still lands on a /legal section that links here.
+      { source: "/privacy", destination: `${DASHBOARD_URL}/privacy`, permanent: false },
+      { source: "/terms", destination: `${DASHBOARD_URL}/terms`, permanent: false },
 
       // App-path forwarding to the live dashboard. Next.js preserves query
       // strings by default (important for /auth/action?mode=…&oobCode=…).
@@ -36,8 +40,9 @@ const nextConfig: NextConfig = {
       // /invite, /sign, /share, /login, /auth/action all resolve.
       //
       // NOT forwarded, deliberately:
-      //   /privacy /terms /support — these live HERE (marketing/legal), and
-      //     the AASA excludes them so App Store reviewers stay in Safari.
+      //   /support — it lives HERE, and the AASA excludes it so App Store
+      //     reviewers stay in Safari. (/privacy and /terms forward above; the
+      //     app host's AASA excludes both too, so the tap stays in Safari.)
       //   /accept/* — listed in the AASA path list but vestigial: no route
       //     exists on either project and the backend never emits the path.
       //     Forwarding it would 404. Either build the route or drop it from
