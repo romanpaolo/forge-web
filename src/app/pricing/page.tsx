@@ -15,7 +15,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Forge Pricing | First 3 Seats Included",
     description:
-      "$249/month covers your first 3 seats, staff or Sub. Additional seats are $39/month for staff and $9.99/month for Subs. No per-walk fees, no usage caps. 14-day free trial.",
+      "$249/month covers your first 3 seats, staff or Sub. Additional seats are $39/month for staff and $9.99/month for Subs. No per-walk fees. 14-day free trial.",
     type: "website",
     url: "https://www.forge.equipment/pricing",
     images: [{ url: "/og-image.png", width: 1200, height: 630 }],
@@ -34,12 +34,14 @@ export default function PricingPage() {
         <h1 className="text-2xl sm:text-3xl md:text-5xl font-medium tracking-[-0.01em] text-forge-white mt-6">
           Your first three seats included.
         </h1>
-        {/* Name both classes where the price is first quoted, per F-075. */}
+        {/* Name both classes where the price is first quoted, per F-075.
+            "No usage caps" came off under F-662 (Q5 = a): the plan has no
+            quota, but hourly generation limits and a monthly AI spend
+            ceiling do exist. "No per-walk fees" is true and stays. */}
         <p className="text-forge-smoke text-lg max-w-2xl mx-auto mt-6">
           $249/month covers your first 3 seats, whether staff or Sub seats.
           Beyond those 3, add staff for $39/month each or Subs for $9.99/month
-          each. Sub access stays limited to assigned tasks. No per-walk fees,
-          no usage caps.
+          each. Sub access stays limited to assigned tasks. No per-walk fees.
         </p>
       </header>
 
@@ -50,7 +52,7 @@ export default function PricingPage() {
         </div>
       </section>
 
-      {/* FAQ - the 7 Q&As from PRD 9.10 */}
+      {/* FAQ - PRD 9.10, less the Q&As F-657 and F-662 retired */}
       <FAQ items={PRICING_FAQ} />
 
       {/* Android waitlist - renders ONLY behind NEXT_PUBLIC_ANDROID_WAITLIST=true */}

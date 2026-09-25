@@ -8,16 +8,18 @@ import ContactForm from "@/components/support/ContactForm";
 import { SUPPORT_FAQ } from "@/lib/constants";
 
 const SUPPORT_EMAIL = "team@forge.equipment";
+// The reply time is an aim, not a promise (F-662, U5): support is an inbox and
+// nothing measures reply times. Same sentence in the FAQ (lib/constants.ts).
 const CALENDLY_URL = "https://calendly.com/christian-forge/30min";
 
 export const metadata: Metadata = {
   title: "Support | Forge",
   description:
-    "Get help with Forge. Browse common questions, email the team, or book a call. We respond within one business day.",
+    "Get help with Forge. Browse common questions, email the team, or book a call. We aim to reply within one business day.",
   openGraph: {
     title: "Forge Support | We've Got Your Back",
     description:
-      "Questions, bugs, billing, or onboarding. Reach the Forge team directly. Responses within one business day.",
+      "Questions, bugs, billing, or onboarding. Reach the Forge team directly. We aim to reply within one business day.",
     type: "website",
     url: "https://www.forge.equipment/support",
     images: [{ url: "/og-image.png", width: 1200, height: 630 }],
@@ -40,7 +42,7 @@ export default function SupportPage() {
           <p className="text-forge-smoke text-lg leading-relaxed max-w-2xl">
             Stuck on a job walk, hit a bug, or have a question about your
             account? Browse the common questions below, or reach the team
-            directly. We respond within one business day.
+            directly. We aim to reply within one business day.
           </p>
         </section>
 

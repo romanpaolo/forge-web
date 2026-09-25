@@ -71,6 +71,10 @@ export type FaqItem = { question: string; answer: string };
 
 // Pricing FAQ, including the F-075/F-076 decisions through2026-09-08:
 // shared included seats, additional seats priced by class, assigned-task Sub access.
+// "How is this different from Buildertrend?" was cut under F-662 (N8): it
+// framed Forge as a pre-step to a competitor and promised an export "straight
+// into your Buildertrend job budget", which is a CSV uploaded by hand. A new
+// answer would be a new claim needing its own check, so none was written.
 export const PRICING_FAQ: FaqItem[] = [
   {
     question: "Do I need to talk to sales to get started?",
@@ -102,17 +106,17 @@ export const PRICING_FAQ: FaqItem[] = [
       "iOS, Web, and Android. Download from the App Store or Google Play.",
   },
   {
-    question: "How is this different from Buildertrend?",
-    answer:
-      "Forge isn't a Buildertrend replacement. It's what happens before Buildertrend. Record the walk, get a structured scope and estimate, then export straight into your existing Buildertrend job budget.",
-  },
-  {
     question: "Can I cancel anytime?",
     answer: "Yes, from Settings, no call required.",
   },
 ];
 
 // Support-page subset - help/account/data questions, distinct from the pricing FAQ.
+// F-662 (2026-09-24): the reply time is an aim, not a promise, everywhere (U5,
+// Q10 = a); deletion is self-serve from Settings, and workspace records go 90
+// days after the workspace closes, as the app's Privacy Policy says (N6); and
+// data IS shared, with the AI providers the Privacy Policy names, so "Nothing
+// is shared" was false (F9, Q2 = a).
 export const SUPPORT_FAQ: FaqItem[] = [
   {
     question: "How do I get help or report a problem?",
@@ -122,7 +126,7 @@ export const SUPPORT_FAQ: FaqItem[] = [
   {
     question: "How quickly will I hear back?",
     answer:
-      "We aim to respond to every message within one business day. Active job-walk issues are prioritized. If something is blocking you in the field, say so in the subject line and we'll jump on it.",
+      "We aim to reply within one business day. Active job-walk issues are prioritized. If something is blocking you in the field, say so in the subject line and we'll jump on it.",
   },
   {
     question: "I found a bug. What should I do?",
@@ -132,12 +136,12 @@ export const SUPPORT_FAQ: FaqItem[] = [
   {
     question: "Can I cancel, pause, or delete my account?",
     answer:
-      "Yes. Monthly plans are month-to-month. Cancel anytime from Settings, no call required, and you keep access through the current billing period. If your free trial ends without a payment method, your account pauses (nothing is deleted) and access resumes once a card is added. To delete your account and personal data, email us and we'll remove it within 30 days, except where retention is required by law. See our Privacy Policy for details.",
+      "Yes. Monthly plans are month-to-month. Cancel anytime from Settings, no call required, and you keep access through the current billing period. If your free trial ends without a payment method, your account pauses (nothing is deleted) and access resumes once a card is added. Delete your account any time from Settings. Workspace records are permanently deleted 90 days after the workspace is closed. See our Privacy Policy.",
   },
   {
     question: "Is my job walk data secure?",
     answer:
-      "Your data is encrypted in transit and at rest. Forge processes your audio and photos through secure AI pipelines. Nothing is shared, sold, or used to train models. Your field intelligence stays yours.",
+      "Your data is encrypted in transit and at rest. We never sell your data. Audio, transcripts and photos go only to the AI providers named in our Privacy Policy, and they may not train on it.",
   },
   {
     question: "How does the free trial work?",
