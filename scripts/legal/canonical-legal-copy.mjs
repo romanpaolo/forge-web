@@ -10,25 +10,32 @@
 // What it is for. Forge publishes ONE Privacy Policy and ONE Terms of
 // Service: the app's app.forge.equipment/privacy and /terms (Forge_Web
 // app/privacy/page.tsx and app/terms/page.tsx). This site links there
-// (/legal#terms, /legal#privacy and the /terms and /privacy redirects,
-// F-662) and must carry none of the text. The fingerprints are hashes of
-// every 12-word window of that body, sampled every 4 words; any 15-word run
-// of it in a file here matches one. They carry none of the text.
-// It also refuses a link to the old separate domain (forgesolutions, dot io).
+// (/legal#terms, /legal#privacy and the /terms and /privacy redirects in
+// next.config.ts, F-662) and must carry none of the text. The fingerprints
+// are hashes of every 12-word window of that body, sampled every 4 words;
+// any 15-word run of it in a file here matches one. They carry none of the
+// text. It also refuses a link to the old separate domain (forgesolutions,
+// dot io).
 //
-// CI (scripts/legal/canonical-legal-copy.test.mjs, `npm run test:legal-copy`):
+// Which files: every file git would commit (repoFiles), not a folder list,
+// so next.config.ts, scripts/ and the root files are read as well as src/
+// and public/. The body check exempts nothing; the old-domain check exempts
+// documentation only (isDocumentation: the repo-root docs/ and README files).
+//
+// CI runs scripts/legal/canonical-legal-copy.test.mjs (`npm run
+// test:legal-copy`). A manual sweep of any checkout:
 //   node scripts/legal/canonical-legal-copy.mjs \
-//     --fingerprints scripts/legal/canonical-legal-fingerprints.json \
-//     --root . --scan src --scan public
-// Exit 1 and a list of files when a scanned file carries the body text or
-// links to the old domain; exit 0 otherwise.
+//     --fingerprints scripts/legal/canonical-legal-fingerprints.json --root .
+// Exit 1 and a list of files when a file carries the body text or links to
+// the old domain; exit 0 otherwise.
 //
 // When the app's pages change (T18's amendments, for one), Forge_Web
 // regenerates the JSON; copy it here and update both repos' pins.
 
 // ---- BODY
-import { readdirSync, readFileSync, statSync } from "node:fs";
-import { join, relative, sep } from "node:path";
+import { execFileSync } from "node:child_process";
+import { lstatSync, readFileSync } from "node:fs";
+import { join } from "node:path";
 import { pathToFileURL } from "node:url";
 
 /** Words per fingerprint window. */
@@ -50,13 +57,24 @@ const NAMED_ENTITIES = {
   hellip: " ",
 };
 
+/**
+ * The character a numeric entity names, or null when it names no Unicode
+ * scalar value (past U+10FFFF, or a surrogate). Such an entity stays literal
+ * text, as the Swift port's `Unicode.Scalar(_:)` leaves it; it never throws.
+ */
+function scalarOf(codePoint) {
+  if (!Number.isSafeInteger(codePoint) || codePoint > 0x10ffff) return null;
+  if (codePoint >= 0xd800 && codePoint <= 0xdfff) return null;
+  return String.fromCodePoint(codePoint);
+}
+
 /** The words of `text`, in order, after the normalisation described above. */
 export function words(text) {
   const decoded = String(text)
     .replace(/&(#x[0-9a-f]+|#[0-9]+|[a-z]+);/gi, (whole, name) => {
       const lower = name.toLowerCase();
-      if (lower.startsWith("#x")) return String.fromCodePoint(parseInt(lower.slice(2), 16));
-      if (lower.startsWith("#")) return String.fromCodePoint(parseInt(lower.slice(1), 10));
+      if (lower.startsWith("#x")) return scalarOf(parseInt(lower.slice(2), 16)) ?? whole;
+      if (lower.startsWith("#")) return scalarOf(parseInt(lower.slice(1), 10)) ?? whole;
       return NAMED_ENTITIES[lower] ?? whole;
     })
     .replace(/\\u\{[0-9a-fA-F]+\}|\\[nrt]/g, " ");
@@ -97,8 +115,7 @@ export function spanFingerprints(text) {
 /**
  * A matcher over a set of fingerprints. `find(text)` returns the word
  * offsets in `text` where a canonical window starts (every offset is
- * checked, not only multiples of STRIDE). The first-two-words prefilter
- * only skips windows that cannot match; it never changes the answer.
+ * checked, not only multiples of STRIDE).
  */
 export function createMatcher(fingerprints) {
   const set = new Set(fingerprints);
@@ -124,40 +141,84 @@ export function createMatcher(fingerprints) {
  */
 export const OLD_DOMAIN_LINK = /(?:https?:\/\/)?(?:[a-z0-9-]+\.)*forgesolutions\.(?:io|com|net|org|co|ai|app)\b/i;
 
-/** Files under `dir` (recursively), as paths relative to `root`, sorted. */
-export function listFiles(root, dir, skipDirs = []) {
-  const out = [];
-  const walk = (abs) => {
-    let entries;
-    try {
-      entries = readdirSync(abs, { withFileTypes: true });
-    } catch {
-      return;
-    }
-    for (const entry of entries) {
-      const child = join(abs, entry.name);
-      if (entry.isDirectory()) {
-        if (!skipDirs.includes(entry.name)) walk(child);
-      } else if (entry.isFile()) {
-        out.push(relative(root, child).split(sep).join("/"));
-      }
-    }
-  };
-  walk(join(root, dir));
-  return out.sort();
-}
-
-/** Text of a file, or null for a binary or oversized one. */
-export function readText(absPath) {
-  const size = statSync(absPath).size;
-  if (size > 4 * 1024 * 1024) return null;
-  const buf = readFileSync(absPath);
-  if (buf.includes(0)) return null;
-  return buf.toString("utf8");
+/** The 1-based numbers of the lines of `text` that link the old domain. */
+export function oldDomainLines(text) {
+  const lines = [];
+  text.split("\n").forEach((line, i) => {
+    if (OLD_DOMAIN_LINK.test(line)) lines.push(i + 1);
+  });
+  return lines;
 }
 
 /**
- * Scan `files` (relative to `root`). Returns one finding per offending
+ * Every file under `root` that git would commit: tracked, or untracked and
+ * not ignored, as sorted `root`-relative POSIX paths. The set is git's, never
+ * a list of folder names. Symlinks and files deleted on disk are left out.
+ * Outside a git checkout this throws: a scan of nothing proves nothing.
+ */
+export function repoFiles(root) {
+  let listing;
+  try {
+    listing = execFileSync("git", ["-C", root, "ls-files", "-z", "--cached", "--others", "--exclude-standard"], {
+      maxBuffer: 256 * 1024 * 1024,
+      stdio: ["ignore", "pipe", "pipe"],
+    }).toString("utf8");
+  } catch (error) {
+    throw new Error(`cannot list the files of ${root} with git (${String(error.message).split("\n")[0]}); the scan reads git's list`);
+  }
+  const out = new Set();
+  for (const rel of listing.split("\0")) {
+    if (!rel) continue;
+    try {
+      if (!lstatSync(join(root, rel)).isFile()) continue;
+    } catch {
+      continue;
+    }
+    out.add(rel);
+  }
+  return [...out].sort();
+}
+
+/**
+ * Documentation, which only the old-domain check exempts (a doc may quote
+ * the old domain as history); nothing exempts a doc from the body check.
+ * `rel` is relative to the repo root: a file under the repo-root docs/
+ * folder, or a README.md that is not under a public/ folder (a web server
+ * serves that folder as it is). Every other file is checked for both,
+ * markdown included: the app's content/legal/msa/*.md is the published MSA.
+ */
+export function isDocumentation(rel) {
+  if (rel.startsWith("docs/")) return true;
+  return /(?:^|\/)README\.md$/i.test(rel) && !/(?:^|\/)public\//.test(rel);
+}
+
+function utf16(bytes, bigEndian) {
+  const even = Buffer.from(bytes.subarray(0, bytes.length - (bytes.length % 2)));
+  if (bigEndian) even.swap16();
+  return even.toString("utf16le");
+}
+
+/**
+ * The text of a file, whatever its encoding; no file is skipped. A file that
+ * starts with a UTF-16 byte-order mark is decoded as UTF-16 in that order.
+ * Any other file is read as UTF-8, where a byte that is not UTF-8 becomes
+ * U+FFFD and separates words as any other non-letter does (so Latin-1 text
+ * reads the same). Zero characters are then dropped: every character a word
+ * is made of is ASCII, so UTF-16 or UTF-32 text with no mark, in either byte
+ * order, still reads as its words, and a binary file reads as noise.
+ */
+export function readText(absPath) {
+  const buf = readFileSync(absPath);
+  let text;
+  if (buf.length >= 2 && buf[0] === 0xff && buf[1] === 0xfe) text = utf16(buf.subarray(2), false);
+  else if (buf.length >= 2 && buf[0] === 0xfe && buf[1] === 0xff) text = utf16(buf.subarray(2), true);
+  else text = buf.toString("utf8");
+  return text.replace(/\0/g, "");
+}
+
+/**
+ * Scan `files` (relative to `root`). The body check reads every file; the
+ * old-domain check skips documentation. Returns one finding per offending
  * file: `{ file, copyAt: [word offsets], oldDomain: [line numbers] }`.
  */
 export function scan(root, files, fingerprints) {
@@ -165,12 +226,8 @@ export function scan(root, files, fingerprints) {
   const findings = [];
   for (const file of files) {
     const text = readText(join(root, file));
-    if (text === null) continue;
     const copyAt = matcher.find(text);
-    const oldDomain = [];
-    text.split("\n").forEach((line, i) => {
-      if (OLD_DOMAIN_LINK.test(line)) oldDomain.push(i + 1);
-    });
+    const oldDomain = isDocumentation(file) ? [] : oldDomainLines(text);
     if (copyAt.length || oldDomain.length) findings.push({ file, copyAt, oldDomain });
   }
   return findings;
@@ -182,24 +239,19 @@ export function allFingerprints(json) {
 }
 
 function parseArgs(argv) {
-  const args = { scan: [], skip: ["node_modules", ".next", ".git"] };
-  for (let i = 0; i < argv.length; i++) {
-    const key = argv[i];
-    const value = argv[i + 1];
-    if (key === "--fingerprints") args.fingerprints = value;
-    else if (key === "--root") args.root = value;
-    else if (key === "--scan") args.scan.push(value);
-    else if (key === "--skip-dir") args.skip.push(value);
-    else continue;
-    i++;
+  const args = {};
+  for (let i = 0; i < argv.length; i += 2) {
+    if (argv[i] === "--fingerprints") args.fingerprints = argv[i + 1];
+    else if (argv[i] === "--root") args.root = argv[i + 1];
+    else args.unknown = argv[i];
   }
   return args;
 }
 
 function main() {
   const args = parseArgs(process.argv.slice(2));
-  if (!args.fingerprints || !args.root || args.scan.length === 0) {
-    console.error("usage: canonical-legal-copy.mjs --fingerprints <json> --root <dir> --scan <dir> [--scan <dir>] [--skip-dir <name>]");
+  if (!args.fingerprints || !args.root || args.unknown) {
+    console.error("usage: canonical-legal-copy.mjs --fingerprints <json> --root <git checkout>");
     process.exit(2);
   }
   const json = JSON.parse(readFileSync(args.fingerprints, "utf8"));
@@ -207,9 +259,9 @@ function main() {
     console.error(`fingerprint file was made with window ${json.window}, stride ${json.stride}; this matcher uses ${WINDOW}, ${STRIDE}`);
     process.exit(2);
   }
-  const files = args.scan.flatMap((dir) => listFiles(args.root, dir, args.skip));
+  const files = repoFiles(args.root);
   if (files.length === 0) {
-    console.error(`no files found under ${args.scan.join(", ")}; the scan would prove nothing`);
+    console.error(`git lists no files under ${args.root}; the scan would prove nothing`);
     process.exit(2);
   }
   const findings = scan(args.root, files, allFingerprints(json));
