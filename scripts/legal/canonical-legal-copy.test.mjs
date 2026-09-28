@@ -20,7 +20,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { execFileSync } from "node:child_process";
-import { mkdtempSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { mkdtempSync, mkdirSync, readFileSync, rmSync, symlinkSync, writeFileSync } from "node:fs";
 import { createHash } from "node:crypto";
 import { tmpdir } from "node:os";
 import { dirname, join } from "node:path";
@@ -42,7 +42,7 @@ import {
   words,
 } from "./canonical-legal-copy.mjs";
 
-const MATCHER_BODY_SHA256 = "e958e59373a91c687086cec9b9b38c94a3791d2805d5b4ad6d408c7dfab68416";
+const MATCHER_BODY_SHA256 = "82b69ee45c146cd11e33417e040912e6c3b8f62f15c2b94f4252ea208f8e3bc9";
 const FINGERPRINTS_SHA256 = "b894210be12914bd85d3d38055ce2de4afb98e76105df1cd51ebe44c6d104478";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..", "..");
@@ -148,11 +148,18 @@ test("a planted run or old link is found wherever git sees it; docs, README, the
       "src/Store.tsx": 'const id = "com.forgesolutions.forge";\n',
       ".gitignore": "ignored/\n",
       "ignored/planted.tsx": `<p>${run}</p>\n`,
+      // F-835 (Forge_Web lens B L2): symlink targets in docs/
+      "docs/linked-links.md": `Read ${link}\n`,
+      "docs/legal/old.md": `Old: ${link}\n`,
     };
     for (const [rel, content] of Object.entries(files)) {
       mkdirSync(dirname(join(root, rel)), { recursive: true });
       writeFileSync(join(root, rel), content);
     }
+    // A link is read as what it points at, under the link's path; a dangling one ships nothing.
+    symlinkSync("../docs/linked-links.md", join(root, "public/linked.md"));
+    symlinkSync("../docs/legal", join(root, "public/legal-docs"));
+    symlinkSync("../build/nothing.md", join(root, "public/dangling.md"));
     execFileSync("git", ["init", "-q", root]);
     const found = scan(root, repoFiles(root), spanFingerprints(POLICY)).map(
       (f) => `${f.file}${f.copyAt.length ? " copy" : ""}${f.oldDomain.length ? " link" : ""}`,
@@ -163,6 +170,8 @@ test("a planted run or old link is found wherever git sees it; docs, README, the
       "next.config.ts link",
       "public/README.md link",
       "public/judge-legal.txt copy",
+      "public/legal-docs/old.md link",
+      "public/linked.md link",
       "scripts/planted.mjs copy",
       "src/Planted.tsx copy",
     ]);
@@ -174,4 +183,26 @@ test("a planted run or old link is found wherever git sees it; docs, README, the
   assert.equal(isDocumentation("docs/reviews/x.md"), true);
   assert.equal(isDocumentation("next.config.ts"), false);
   assert.throws(() => repoFiles(join(tmpdir(), "f511-no-such-checkout")), /cannot list the files/);
+});
+
+test("a submodule or a nested repository is refused loudly, never skipped (F-835)", () => {
+  const root = mkdtempSync(join(tmpdir(), "f835-nested-"));
+  const git = (cwd, ...args) =>
+    execFileSync("git", ["-C", cwd, "-c", "user.name=f835", "-c", "user.email=f835@example.test", ...args], { stdio: "pipe" });
+  try {
+    mkdirSync(join(root, "public/vendor-legal"), { recursive: true });
+    writeFileSync(join(root, "public/page.html"), "<p>ok</p>\n");
+    git(root, "init", "-q");
+    assert.deepEqual(repoFiles(root), ["public/page.html"]);
+    const vendor = join(root, "public/vendor-legal");
+    writeFileSync(join(vendor, "privacy.html"), "<p>planted</p>\n");
+    git(vendor, "init", "-q");
+    git(vendor, "add", "privacy.html");
+    git(vendor, "commit", "-q", "-m", "plant");
+    assert.throws(() => repoFiles(root), /another repository inside .*: public\/vendor-legal\./);
+    git(root, "update-index", "--add", "--cacheinfo", `160000,${git(vendor, "rev-parse", "HEAD").toString().trim()},public/vendor-legal`);
+    assert.throws(() => repoFiles(root), /another repository inside .*: public\/vendor-legal\./);
+  } finally {
+    rmSync(root, { recursive: true, force: true });
+  }
 });

@@ -34,7 +34,7 @@
 
 // ---- BODY
 import { execFileSync } from "node:child_process";
-import { lstatSync, readFileSync } from "node:fs";
+import { lstatSync, readdirSync, readFileSync, realpathSync, statSync } from "node:fs";
 import { join } from "node:path";
 import { pathToFileURL } from "node:url";
 
@@ -153,8 +153,18 @@ export function oldDomainLines(text) {
 /**
  * Every file under `root` that git would commit: tracked, or untracked and
  * not ignored, as sorted `root`-relative POSIX paths. The set is git's, never
- * a list of folder names. Symlinks and files deleted on disk are left out.
- * Outside a git checkout this throws: a scan of nothing proves nothing.
+ * a list of folder names. Files deleted on disk are left out.
+ *
+ * A symlink is read as what it points at, under the LINK's path: a server
+ * serves the target's bytes at the link, and documentation is judged by
+ * where the link sits, so a link in public/ into docs/ is checked (F-835,
+ * judge F-511 R2 lens B L2). A linked folder gives every file under it; a
+ * dangling link ships nothing and is left out.
+ *
+ * A git submodule or a nested repository is another repository's files,
+ * which git does not list and this scan cannot read, so it throws rather
+ * than pass on nothing (F-835, judges F-511 R2 lens A L3, lens B L3).
+ * Outside a git checkout this throws too: a scan of nothing proves nothing.
  */
 export function repoFiles(root) {
   let listing;
@@ -167,16 +177,52 @@ export function repoFiles(root) {
     throw new Error(`cannot list the files of ${root} with git (${String(error.message).split("\n")[0]}); the scan reads git's list`);
   }
   const out = new Set();
+  const nested = [];
   for (const rel of listing.split("\0")) {
     if (!rel) continue;
+    // git lists an untracked nested repository as its folder, with a slash.
+    if (rel.endsWith("/")) {
+      nested.push(rel.slice(0, -1));
+      continue;
+    }
+    let entry;
     try {
-      if (!lstatSync(join(root, rel)).isFile()) continue;
+      entry = lstatSync(join(root, rel));
     } catch {
       continue;
     }
-    out.add(rel);
+    if (entry.isFile()) out.add(rel);
+    else if (entry.isSymbolicLink()) for (const file of linkedFiles(root, rel, new Set())) out.add(file);
+    // A tracked path that is a folder on disk is a submodule (a gitlink).
+    else if (entry.isDirectory()) nested.push(rel);
+  }
+  if (nested.length) {
+    throw new Error(
+      `git lists another repository inside ${root} (a submodule or a nested repository): ${[...new Set(nested)].sort().join(", ")}. ` +
+        "The scan cannot read its files, so it refuses rather than pass them unread. Copy the files in, or scan that repository too.",
+    );
   }
   return [...out].sort();
+}
+
+/** The files a symlink at `rel` ships, under the link's path. `seen` ends a folder cycle. */
+function linkedFiles(root, rel, seen) {
+  let target;
+  try {
+    target = statSync(join(root, rel));
+  } catch {
+    return []; // dangling: nothing ships
+  }
+  if (target.isFile()) return [rel];
+  if (!target.isDirectory()) return [];
+  const real = realpathSync(join(root, rel));
+  if (seen.has(real)) return [];
+  const files = [];
+  for (const name of readdirSync(join(root, rel))) {
+    if (name === ".git") continue;
+    files.push(...linkedFiles(root, `${rel}/${name}`, new Set([...seen, real])));
+  }
+  return files;
 }
 
 /**
