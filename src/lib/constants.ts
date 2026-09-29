@@ -83,6 +83,85 @@ export function trialSignupUrl(): string {
 export const ANDROID_WAITLIST_ENABLED =
   process.env.NEXT_PUBLIC_ANDROID_WAITLIST === "true";
 
+// Integrations, version 1 (F-515). The band after "How it works", the
+// "Developers" footer group, the /docs redirect and the extra keywords
+// publish together, on the day integrations open to every company, and not
+// before: the manual they link to (app.forge.equipment/docs) must be live
+// first, and the site must not say Forge has an MCP server before a company
+// other than the design partner can use it.
+//
+// An ALLOWLIST, like FORGE_INTERNAL_PAGES: only "on" turns it on, so a build
+// that forgets the variable, or sets "true", publishes nothing early. The
+// pages are static, so it is read at BUILD time: set it in the landing's
+// Vercel project and redeploy. CI builds once without it (and checks nothing
+// shows) and once with it (and audits the band at every width).
+export const INTEGRATIONS_GA = process.env.NEXT_PUBLIC_INTEGRATIONS_GA === "on";
+
+// The public manual. Linked directly (one hop), like Terms and Privacy;
+// forge.equipment/docs forwards here too once INTEGRATIONS_GA is on.
+export function docsUrl(): string {
+  return `${DASHBOARD_URL}/docs`;
+}
+
+// The band's words. The body is the version 1 line of the integration legal
+// draft, section 6.3, pinned in scripts/copy-claims.test.mjs. It names Claude
+// only as an example of a tool that is not required, and names no other
+// product: the site names only tools that have been connected at least once.
+export const INTEGRATIONS_BAND = {
+  label: "MCP SERVER + PUBLIC API",
+  title: "Your Forge Data, in Your Own Tools",
+  body: "Forge has an MCP server and a public API. Use them from any MCP or agentic tool, not just Claude, or from your own software, to read your jobs, scopes, estimates and walk transcripts. Data access stays off until you turn it on.",
+  cta: "Read the docs",
+};
+
+// The manual's pages the band and the footer link to. The paths are the
+// public manual's own routes (Forge_Web, F-514: app/docs/<slug>), linked one
+// hop like docsUrl().
+export function docsPageUrl(slug: "connect" | "api" | "what-is-shared" | "revoke"): string {
+  return `${docsUrl()}/${slug}`;
+}
+
+// The band's two cards, one per way in. Every line restates the manual
+// (F-514 start-here, connect, api, what-is-shared and revoke pages) and names
+// no AI product: the site names only tools that have been connected once,
+// and none has been yet.
+export const INTEGRATION_CARDS = [
+  {
+    kind: "mcp",
+    badge: "MCP SERVER",
+    title: "For AI Tools",
+    line: "Any AI tool that supports MCP can connect and ask Forge about your jobs.",
+    points: [
+      "Connects with the tool's own sign-in",
+      "An owner or admin approves one company",
+      "Read only: it cannot change anything in Forge",
+    ],
+    link: { label: "Connect an AI tool", slug: "connect" },
+  },
+  {
+    kind: "api",
+    badge: "PUBLIC API",
+    title: "For Your Software",
+    line: "Your own programs read the same data with plain web requests.",
+    points: [
+      "An API key, or OAuth for products that serve many companies",
+      "Each key or connection reads one company",
+      "Read only: it cannot change anything in Forge",
+    ],
+    link: { label: "API reference", slug: "api" },
+  },
+] as const;
+
+// Under the cards: who holds the switch, and the two pages that answer
+// "what does it see" and "how do I stop it".
+export const INTEGRATIONS_TRUST = {
+  line: "Owners and admins see every connection and can end any of them at any time.",
+  links: [
+    { label: "What is shared", slug: "what-is-shared" },
+    { label: "Ending access", slug: "revoke" },
+  ],
+} as const;
+
 export type FaqItem = { question: string; answer: string };
 
 // Pricing FAQ, including the F-075/F-076 decisions through2026-09-08:
@@ -133,6 +212,11 @@ export const PRICING_FAQ: FaqItem[] = [
 // days after the workspace closes, as the app's Privacy Policy says (N6); and
 // data IS shared, with the AI providers the Privacy Policy names, so "Nothing
 // is shared" was false (F9, Q2 = a).
+// F-515 (integration version 1): the security answer said audio, transcripts
+// and photos go "only to the AI providers". Once an owner turns on data access,
+// an app or AI tool the company connects reads walk transcripts too, so "only"
+// becomes false. The answer is now the words of legal draft 6.3, pinned in
+// scripts/copy-claims.test.mjs, and true both before and after version 1.
 export const SUPPORT_FAQ: FaqItem[] = [
   {
     question: "How do I get help or report a problem?",
@@ -157,7 +241,7 @@ export const SUPPORT_FAQ: FaqItem[] = [
   {
     question: "Is my job walk data secure?",
     answer:
-      "Your data is encrypted in transit and at rest. We never sell your data. Audio, transcripts and photos go only to the AI providers named in our Privacy Policy, and they may not train on it.",
+      "Your data is encrypted in transit and at rest. We never sell it, and the AI providers Forge uses do not train on it. You decide whether any other app can read it.",
   },
   {
     question: "How does the free trial work?",

@@ -11,7 +11,10 @@
     "test:detector-twin": "node --test scripts/text-fit-detector-twin.test.mjs",
     "check:em-dashes": "node scripts/check-em-dashes.mjs",
     "check:text-fit": "node scripts/text-fit/run-text-fit.mjs",
-    "ci": "node scripts/check-em-dashes.mjs && npm run test:pricing && npm run test:detector-twin && tsc --noEmit && next build"
+    "check:claims": "node scripts/check-claims.mjs",
+    "test:copy-claims": "node --test scripts/copy-claims.test.mjs",
+    "check:integrations-gate": "node scripts/check-integrations-gate.mjs",
+    "ci": "node scripts/check-em-dashes.mjs && node scripts/check-claims.mjs && npm run test:pricing && npm run test:copy-claims && npm run test:detector-twin && tsc --noEmit && next build && node scripts/check-claims.mjs --built .next && node scripts/check-integrations-gate.mjs --expect off"
   },
   "dependencies": {
     "@react-three/drei": "^10.7.7",
