@@ -88,17 +88,20 @@ export default function IntegrationsBand() {
         </div>
 
         <div className="mt-10 flex flex-col items-center gap-5 text-center">
-          <p className="text-sm text-forge-smoke max-w-2xl">
-            {INTEGRATIONS_TRUST.line}{" "}
-            {INTEGRATIONS_TRUST.links.map((link, i) => (
-              <span key={link.slug}>
-                {i > 0 ? " · " : ""}
-                <a href={docsPageUrl(link.slug)} className="text-forge-white underline underline-offset-4 hover:text-forge-cyan">
-                  {link.label}
-                </a>
-              </span>
+          <p className="text-sm text-forge-smoke max-w-2xl">{INTEGRATIONS_TRUST.line}</p>
+          {/* Links sit in their own wrapping row, each kept on one line
+              (F-631: a control label never breaks over lines). */}
+          <div className="flex flex-wrap justify-center gap-x-6 gap-y-2">
+            {INTEGRATIONS_TRUST.links.map((link) => (
+              <a
+                key={link.slug}
+                href={docsPageUrl(link.slug)}
+                className="whitespace-nowrap text-sm text-forge-white underline underline-offset-4 hover:text-forge-cyan"
+              >
+                {link.label}
+              </a>
             ))}
-          </p>
+          </div>
           <Button href={docsUrl()} variant="secondary" size="md">
             {INTEGRATIONS_BAND.cta}
           </Button>

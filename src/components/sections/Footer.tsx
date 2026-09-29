@@ -28,7 +28,7 @@ import {
 // fifth column at md and up, so the grid widens with it.
 const DEVELOPER_LINKS = [
   { label: "Docs", href: docsUrl() },
-  { label: "Connect an AI tool", href: docsPageUrl("connect") },
+  { label: "Connect", href: docsPageUrl("connect") },
   { label: "API reference", href: docsPageUrl("api") },
   { label: "What is shared", href: docsPageUrl("what-is-shared") },
 ];
