@@ -133,6 +133,11 @@ export const PRICING_FAQ: FaqItem[] = [
 // days after the workspace closes, as the app's Privacy Policy says (N6); and
 // data IS shared, with the AI providers the Privacy Policy names, so "Nothing
 // is shared" was false (F9, Q2 = a).
+// F-515 (integration version 1): the security answer said audio, transcripts
+// and photos go "only to the AI providers". Once an owner turns on data access,
+// an app or AI tool the company connects reads walk transcripts too, so "only"
+// becomes false. The answer is now the words of legal draft 6.3, pinned in
+// scripts/copy-claims.test.mjs, and true both before and after version 1.
 export const SUPPORT_FAQ: FaqItem[] = [
   {
     question: "How do I get help or report a problem?",
@@ -157,7 +162,7 @@ export const SUPPORT_FAQ: FaqItem[] = [
   {
     question: "Is my job walk data secure?",
     answer:
-      "Your data is encrypted in transit and at rest. We never sell your data. Audio, transcripts and photos go only to the AI providers named in our Privacy Policy, and they may not train on it.",
+      "Your data is encrypted in transit and at rest. We never sell it, and the AI providers Forge uses do not train on it. You decide whether any other app can read it.",
   },
   {
     question: "How does the free trial work?",

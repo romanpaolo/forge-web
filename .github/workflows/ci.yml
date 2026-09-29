@@ -38,8 +38,24 @@ jobs:
       - name: No spaced em dashes in rendered copy
         run: node scripts/check-em-dashes.mjs
 
+      # F-515: claims the site must not make. The word JobTread (ruling 13 of
+      # the integration PRD: nothing about that connection until version 2 is
+      # live) and every retired sentence that a customer's own connected tool
+      # makes false. Reads the text src/ renders and public/; the built site is
+      # read after Build below. ALLOW_JOBTREAD is the switch the version 2
+      # change (T30) flips to "true" in its own commit, and nothing else does.
+      - name: No JobTread and no retired data claims in the source
+        env:
+          ALLOW_JOBTREAD: "false"
+        run: node scripts/check-claims.mjs
+
       - name: Actual pricing source regression tests
         run: npm run test:pricing
+
+      # The landing's data claims, pinned to the approved words of the
+      # integration legal draft, section 6.3 (F-515).
+      - name: Data claims say the approved words
+        run: npm run test:copy-claims
 
       # The text-fit detector's body is byte-identical to its Forge_Web twin
       # (F-631). Forge_Web carries the same test with the same sha256, so an
@@ -59,6 +75,13 @@ jobs:
       # production (Vercel) builds, so the next step tests what ships.
       - name: Build
         run: npm run build
+
+      # The same claims guard over the site as a visitor receives it: every
+      # prerendered page and client script of the production build (F-515).
+      - name: No JobTread and no retired data claims in the built site
+        env:
+          ALLOW_JOBTREAD: "false"
+        run: node scripts/check-claims.mjs --built .next
 
       # /brand and /design are internal pages that production used to serve
       # publicly (F-662, N10). They are served only by a build made with
