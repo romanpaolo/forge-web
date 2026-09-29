@@ -16,6 +16,8 @@ import ts from "typescript";
 const DRAFT_6_3 = {
   security:
     "Your data is encrypted in transit and at rest. We never sell it, and the AI providers Forge uses do not train on it. You decide whether any other app can read it.",
+  band:
+    "Forge has an MCP server and a public API. Use them from any MCP or agentic tool, not just Claude, or from your own software, to read your jobs, scopes, estimates and walk transcripts. Data access stays off until you turn it on.",
 };
 
 const compile = (rel) =>
@@ -54,4 +56,23 @@ test("How it works step 3 promises only what a connected tool cannot break", () 
   const step3 = STEPS.find((s) => s.number === "03");
   assert.match(step3.description, /reach your client only when you send them\.$/);
   assert.doesNotMatch(step3.description, /leaves Forge/i);
+});
+
+test("the integrations band carries the approved version 1 line", () => {
+  const { INTEGRATIONS_BAND } = load();
+  assert.equal(INTEGRATIONS_BAND.body, DRAFT_6_3.band);
+});
+
+test("the band is off unless the build sets NEXT_PUBLIC_INTEGRATIONS_GA=on", () => {
+  // An allowlist: unset, empty, "true", "1" or anything else stays off, so a
+  // build that forgets the variable publishes nothing early.
+  for (const value of [undefined, "", "true", "1", "ON", "yes"]) {
+    const env = value === undefined ? {} : { NEXT_PUBLIC_INTEGRATIONS_GA: value };
+    assert.equal(load(env).INTEGRATIONS_GA, false, `value ${JSON.stringify(value)}`);
+  }
+  assert.equal(load({ NEXT_PUBLIC_INTEGRATIONS_GA: "on" }).INTEGRATIONS_GA, true);
+});
+
+test("the manual link is the app's /docs", () => {
+  assert.equal(load().docsUrl(), "https://app.forge.equipment/docs");
 });

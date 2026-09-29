@@ -83,6 +83,37 @@ export function trialSignupUrl(): string {
 export const ANDROID_WAITLIST_ENABLED =
   process.env.NEXT_PUBLIC_ANDROID_WAITLIST === "true";
 
+// Integrations, version 1 (F-515). The band after "How it works", the
+// "Developers" footer group, the /docs redirect and the extra keywords
+// publish together, on the day integrations open to every company, and not
+// before: the manual they link to (app.forge.equipment/docs) must be live
+// first, and the site must not say Forge has an MCP server before a company
+// other than the design partner can use it.
+//
+// An ALLOWLIST, like FORGE_INTERNAL_PAGES: only "on" turns it on, so a build
+// that forgets the variable, or sets "true", publishes nothing early. The
+// pages are static, so it is read at BUILD time: set it in the landing's
+// Vercel project and redeploy. CI builds once without it (and checks nothing
+// shows) and once with it (and audits the band at every width).
+export const INTEGRATIONS_GA = process.env.NEXT_PUBLIC_INTEGRATIONS_GA === "on";
+
+// The public manual. Linked directly (one hop), like Terms and Privacy;
+// forge.equipment/docs forwards here too once INTEGRATIONS_GA is on.
+export function docsUrl(): string {
+  return `${DASHBOARD_URL}/docs`;
+}
+
+// The band's words. The body is the version 1 line of the integration legal
+// draft, section 6.3, pinned in scripts/copy-claims.test.mjs. It names Claude
+// only as an example of a tool that is not required, and names no other
+// product: the site names only tools that have been connected at least once.
+export const INTEGRATIONS_BAND = {
+  label: "MCP SERVER + PUBLIC API",
+  title: "Your Forge Data, in Your Own Tools",
+  body: "Forge has an MCP server and a public API. Use them from any MCP or agentic tool, not just Claude, or from your own software, to read your jobs, scopes, estimates and walk transcripts. Data access stays off until you turn it on.",
+  cta: "Read the docs",
+};
+
 export type FaqItem = { question: string; answer: string };
 
 // Pricing FAQ, including the F-075/F-076 decisions through2026-09-08:

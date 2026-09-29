@@ -83,6 +83,14 @@ jobs:
           ALLOW_JOBTREAD: "false"
         run: node scripts/check-claims.mjs --built .next
 
+      # F-515: the integrations band, the Developers footer group, the MCP
+      # keywords and the /docs redirect publish on the day integrations open,
+      # behind NEXT_PUBLIC_INTEGRATIONS_GA=on. This is the DENY half: the
+      # production build above has none of the four. The ADMIT half is in the
+      # text-fit step, which builds with the variable on.
+      - name: Integrations band is not in the production build
+        run: node scripts/check-integrations-gate.mjs --expect off
+
       # /brand and /design are internal pages that production used to serve
       # publicly (F-662, N10). They are served only by a build made with
       # FORGE_INTERNAL_PAGES=on (an allowlist: unset or any other value hides
@@ -125,18 +133,30 @@ jobs:
       # Local: `FORGE_INTERNAL_PAGES=on npm run build`, `npx next start -p
       # 3107`, then
       # `TEXT_FIT_CHANNEL=chrome npm run check:text-fit -- http://localhost:3107`.
+      #
+      # It also builds with NEXT_PUBLIC_INTEGRATIONS_GA=on (F-515), so the
+      # integrations band and the five-column footer are audited at every
+      # width before the day they publish, and checks the ADMIT half of the
+      # integrations gate: all four parts present, and /docs answering a
+      # non-permanent redirect to the app's manual. The claims guard reads
+      # this build too, so the band can never carry JobTread or a retired
+      # sentence.
       - name: Text fits at every width
         env:
           FORGE_INTERNAL_PAGES: "on"
+          NEXT_PUBLIC_INTEGRATIONS_GA: "on"
+          ALLOW_JOBTREAD: "false"
         run: |
           npx playwright install --with-deps chromium
           npm run build
+          node scripts/check-claims.mjs --built .next
           npx next start -p 3107 > /tmp/next-start.log 2>&1 &
           for i in $(seq 1 60); do
             curl -sf -o /dev/null http://localhost:3107/ && break
             sleep 1
           done
           curl -sf -o /dev/null http://localhost:3107/ || { echo "next start did not answer on :3107"; cat /tmp/next-start.log; exit 1; }
+          node scripts/check-integrations-gate.mjs --expect on --url http://localhost:3107
           npm run check:text-fit -- http://localhost:3107
 
 # ── Deliberately NOT in this lane ─────────────────────────────────────────

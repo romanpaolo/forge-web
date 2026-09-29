@@ -13,6 +13,13 @@ import type { NextConfig } from "next";
 const DASHBOARD_URL =
   process.env.NEXT_PUBLIC_DASHBOARD_URL || "https://app.forge.equipment";
 
+// The public manual (F-515). forge.equipment/docs forwards to the app's
+// /docs only in a build made with NEXT_PUBLIC_INTEGRATIONS_GA=on, the same
+// allowlist as INTEGRATIONS_GA in src/lib/constants.ts: the rule below says
+// every forwarded source must be a route the dashboard serves, and /docs
+// is not served until the manual ships.
+const INTEGRATIONS_GA = process.env.NEXT_PUBLIC_INTEGRATIONS_GA === "on";
+
 const nextConfig: NextConfig = {
   reactCompiler: true,
 
@@ -94,6 +101,13 @@ const nextConfig: NextConfig = {
         destination: `${DASHBOARD_URL}/legal/msa`,
         permanent: false,
       },
+      // The manual. Non-permanent for the reason given above.
+      ...(INTEGRATIONS_GA
+        ? [
+            { source: "/docs", destination: `${DASHBOARD_URL}/docs`, permanent: false },
+            { source: "/docs/:path*", destination: `${DASHBOARD_URL}/docs/:path*`, permanent: false },
+          ]
+        : []),
     ];
   },
 };
