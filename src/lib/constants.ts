@@ -114,6 +114,54 @@ export const INTEGRATIONS_BAND = {
   cta: "Read the docs",
 };
 
+// The manual's pages the band and the footer link to. The paths are the
+// public manual's own routes (Forge_Web, F-514: app/docs/<slug>), linked one
+// hop like docsUrl().
+export function docsPageUrl(slug: "connect" | "api" | "what-is-shared" | "revoke"): string {
+  return `${docsUrl()}/${slug}`;
+}
+
+// The band's two cards, one per way in. Every line restates the manual
+// (F-514 start-here, connect, api, what-is-shared and revoke pages) and names
+// no AI product: the site names only tools that have been connected once,
+// and none has been yet.
+export const INTEGRATION_CARDS = [
+  {
+    kind: "mcp",
+    badge: "MCP SERVER",
+    title: "For AI Tools",
+    line: "Any AI tool that supports MCP can connect and ask Forge about your jobs.",
+    points: [
+      "Connects with the tool's own sign-in",
+      "An owner or admin approves one company",
+      "Read only: it cannot change anything in Forge",
+    ],
+    link: { label: "Connect an AI tool", slug: "connect" },
+  },
+  {
+    kind: "api",
+    badge: "PUBLIC API",
+    title: "For Your Software",
+    line: "Your own programs read the same data with plain web requests.",
+    points: [
+      "An API key, or OAuth for products that serve many companies",
+      "Each key or connection reads one company",
+      "Read only: it cannot change anything in Forge",
+    ],
+    link: { label: "API reference", slug: "api" },
+  },
+] as const;
+
+// Under the cards: who holds the switch, and the two pages that answer
+// "what does it see" and "how do I stop it".
+export const INTEGRATIONS_TRUST = {
+  line: "Owners and admins see every connection and can end any of them at any time.",
+  links: [
+    { label: "What is shared", slug: "what-is-shared" },
+    { label: "Ending access", slug: "revoke" },
+  ],
+} as const;
+
 export type FaqItem = { question: string; answer: string };
 
 // Pricing FAQ, including the F-075/F-076 decisions through2026-09-08:
