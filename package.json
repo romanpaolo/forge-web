@@ -9,9 +9,10 @@
     "lint": "eslint",
     "test:pricing": "node --test scripts/pricing.test.mjs",
     "test:detector-twin": "node --test scripts/text-fit-detector-twin.test.mjs",
+    "test:legal-copy": "node --test scripts/legal/canonical-legal-copy.test.mjs",
     "check:em-dashes": "node scripts/check-em-dashes.mjs",
     "check:text-fit": "node scripts/text-fit/run-text-fit.mjs",
-    "ci": "node scripts/check-em-dashes.mjs && npm run test:pricing && npm run test:detector-twin && tsc --noEmit && next build"
+    "ci": "node scripts/check-em-dashes.mjs && npm run test:pricing && npm run test:detector-twin && npm run test:legal-copy && tsc --noEmit && next build"
   },
   "dependencies": {
     "@react-three/drei": "^10.7.7",
