@@ -3,6 +3,7 @@ import StoreBadges from "@/components/ui/StoreBadges";
 import {
   CASE_STUDY_PATH,
   INTEGRATIONS_GA,
+  docsPageUrl,
   docsUrl,
   loginUrl,
   privacyUrl,
@@ -25,7 +26,12 @@ import {
 // The Developers group (F-515) shows only in a build made with
 // NEXT_PUBLIC_INTEGRATIONS_GA=on, with the band on the home page. It adds a
 // fifth column at md and up, so the grid widens with it.
-const DEVELOPER_LINKS = [{ label: "Docs", href: docsUrl() }];
+const DEVELOPER_LINKS = [
+  { label: "Docs", href: docsUrl() },
+  { label: "Connect", href: docsPageUrl("connect") },
+  { label: "API reference", href: docsPageUrl("api") },
+  { label: "What is shared", href: docsPageUrl("what-is-shared") },
+];
 
 const FOOTER_LINKS = {
   Product: [

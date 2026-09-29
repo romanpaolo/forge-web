@@ -76,3 +76,22 @@ test("the band is off unless the build sets NEXT_PUBLIC_INTEGRATIONS_GA=on", () 
 test("the manual link is the app's /docs", () => {
   assert.equal(load().docsUrl(), "https://app.forge.equipment/docs");
 });
+
+test("the band's cards and footer links point at the manual's own pages", () => {
+  // The paths are the public manual's routes (Forge_Web F-514, app/docs/<slug>).
+  const { INTEGRATION_CARDS, INTEGRATIONS_TRUST, docsPageUrl } = load();
+  const slugs = [...INTEGRATION_CARDS.map((c) => c.link.slug), ...INTEGRATIONS_TRUST.links.map((l) => l.slug)];
+  assert.deepEqual(slugs.sort(), ["api", "connect", "revoke", "what-is-shared"]);
+  for (const slug of slugs) assert.equal(docsPageUrl(slug), `https://app.forge.equipment/docs/${slug}`);
+});
+
+test("the band names no AI product beyond the approved 'not just Claude'", () => {
+  // The site names only tools that have been connected once (F-515 REFUSED),
+  // and the manual has no recorded connection yet. Claude appears only inside
+  // the approved draft line, as the example of a tool that is not required.
+  const { INTEGRATION_CARDS, INTEGRATIONS_TRUST, INTEGRATIONS_BAND } = load();
+  const words = JSON.stringify([INTEGRATION_CARDS, INTEGRATIONS_TRUST, { ...INTEGRATIONS_BAND, body: "" }]);
+  for (const name of ["Claude", "ChatGPT", "OpenAI", "Cursor", "Codex", "Gemini", "Copilot", "Anthropic", "JobTread"]) {
+    assert.doesNotMatch(words, new RegExp(`\\b${name}\\b`, "i"), name);
+  }
+});
