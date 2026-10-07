@@ -17,7 +17,7 @@ const DRAFT_6_3 = {
   security:
     "Your data is encrypted in transit and at rest. We never sell it, and the AI providers Forge uses do not train on it. You decide whether any other app can read it.",
   band:
-    "Forge has an MCP server and a public API. Use them from any MCP or agentic tool, not just Claude, or from your own software, to read your jobs, scopes, estimates and walk transcripts. Data access stays off until you turn it on.",
+    "Forge has an MCP server and a public API. Use them from any MCP or agentic tool, not just Claude, or from your own software, to read your jobs, scopes, estimates and walk transcripts. Data access is on by default; an owner or admin can turn it off any time in Settings.",
 };
 
 const compile = (rel) =>
