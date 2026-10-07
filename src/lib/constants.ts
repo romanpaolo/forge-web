@@ -134,7 +134,7 @@ export const INTEGRATION_CARDS = [
     points: [
       "Connects with the tool's own sign-in",
       "An owner or admin approves one company",
-      "Read only: it cannot change anything in Forge",
+      "Reads by default; edits only if an owner or admin allows them",
     ],
     link: { label: "Connect an AI tool", slug: "connect" },
   },
