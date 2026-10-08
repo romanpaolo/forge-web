@@ -134,7 +134,7 @@ export const INTEGRATION_CARDS = [
     points: [
       "Connects with the tool's own sign-in",
       "An owner or admin approves one company",
-      "Reads by default; edits only if an owner or admin allows them",
+      "Reads and edits (only with your permission)",
     ],
     link: { label: "Connect an AI tool", slug: "connect" },
   },
