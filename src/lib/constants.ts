@@ -110,7 +110,7 @@ export function docsUrl(): string {
 export const INTEGRATIONS_BAND = {
   label: "MCP SERVER + PUBLIC API",
   title: "Your Forge Data, in Your Own Tools",
-  body: "Forge has an MCP server and a public API. Use them from any MCP or agentic tool, not just Claude, or from your own software, to read your jobs, scopes, estimates and walk transcripts. Data access stays off until you turn it on.",
+  body: "Forge has an MCP server and a public API. Use them from any MCP or agentic tool, not just Claude, or from your own software, to read your jobs, scopes, estimates and walk transcripts. Data access is on by default; an owner or admin can turn it off any time in Settings.",
   cta: "Read the docs",
 };
 
@@ -134,7 +134,7 @@ export const INTEGRATION_CARDS = [
     points: [
       "Connects with the tool's own sign-in",
       "An owner or admin approves one company",
-      "Read only: it cannot change anything in Forge",
+      "Reads and edits (only with your permission)",
     ],
     link: { label: "Connect an AI tool", slug: "connect" },
   },
@@ -213,7 +213,7 @@ export const PRICING_FAQ: FaqItem[] = [
 // data IS shared, with the AI providers the Privacy Policy names, so "Nothing
 // is shared" was false (F9, Q2 = a).
 // F-515 (integration version 1): the security answer said audio, transcripts
-// and photos go "only to the AI providers". Once an owner turns on data access,
+// and photos go "only to the AI providers". Once a company's data access is on (it is by default),
 // an app or AI tool the company connects reads walk transcripts too, so "only"
 // becomes false. The answer is now the words of legal draft 6.3, pinned in
 // scripts/copy-claims.test.mjs, and true both before and after version 1.

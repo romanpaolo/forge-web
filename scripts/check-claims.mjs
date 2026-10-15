@@ -51,6 +51,10 @@ const RETIRED = [
     why: "support FAQ: data goes to AI providers, and to tools the customer connects",
   },
   {
+    text: "data access stays off until you turn it on",
+    why: "integrations band: data access has been on by default since 2026-09-30 (RZ ruling 2026-10-07)",
+  },
+  {
     text: "nothing leaves forge until you approve it",
     why: "How it works step 3: a connected tool reads drafts once data access is on",
   },

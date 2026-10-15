@@ -17,7 +17,7 @@ const DRAFT_6_3 = {
   security:
     "Your data is encrypted in transit and at rest. We never sell it, and the AI providers Forge uses do not train on it. You decide whether any other app can read it.",
   band:
-    "Forge has an MCP server and a public API. Use them from any MCP or agentic tool, not just Claude, or from your own software, to read your jobs, scopes, estimates and walk transcripts. Data access stays off until you turn it on.",
+    "Forge has an MCP server and a public API. Use them from any MCP or agentic tool, not just Claude, or from your own software, to read your jobs, scopes, estimates and walk transcripts. Data access is on by default; an owner or admin can turn it off any time in Settings.",
 };
 
 const compile = (rel) =>
@@ -94,4 +94,14 @@ test("the band names no AI product beyond the approved 'not just Claude'", () =>
   for (const name of ["Claude", "ChatGPT", "OpenAI", "Cursor", "Codex", "Gemini", "Copilot", "Anthropic", "JobTread"]) {
     assert.doesNotMatch(words, new RegExp(`\\b${name}\\b`, "i"), name);
   }
+});
+
+test("the MCP card does not say the server cannot change anything (it has edit tools an owner or admin may allow)", () => {
+  const { INTEGRATION_CARDS } = load();
+  const mcp = INTEGRATION_CARDS.find((c) => c.kind === "mcp");
+  const api = INTEGRATION_CARDS.find((c) => c.kind === "api");
+  assert.doesNotMatch(mcp.points.join(" "), /read only|cannot change anything/i);
+  assert.match(mcp.points.join(" "), /Reads and edits \(only with your permission\)/);
+  // The public API really is GET only (forge-backend docs/public-openapi.json), so its card may say so.
+  assert.match(api.points.join(" "), /Read only/);
 });
