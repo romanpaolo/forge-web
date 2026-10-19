@@ -27,7 +27,7 @@ export const ROUTE_CONTENT = Object.freeze({
 });
 
 // Runs in the browser. No layout detector runs until this qualification succeeds.
-export function contentSnapshot(contract) {
+export function contentSnapshot({ contract, waitMode = false }) {
   const normalized = (text) => (text || "").replace(/\s+/g, " ").trim();
   const visible = (el) => el.checkVisibility({ visibilityProperty: true });
   const body = normalized(document.body?.innerText);
@@ -43,8 +43,10 @@ export function contentSnapshot(contract) {
     selector, expectedText: text,
     matched: [...document.querySelectorAll(selector)].some((el) => visible(el) && (text === null || normalized(el.textContent).includes(text))),
   }));
-  return { evidenceViewport: { width: window.innerWidth, height: window.innerHeight }, title: document.title, bodyTextExcerpt: body.slice(0, 4096), errorScreen, markers,
+  const snapshot = { evidenceViewport: { width: window.innerWidth, height: window.innerHeight }, title: document.title, bodyTextExcerpt: body.slice(0, 4096), errorScreen, markers,
     readyState: document.readyState, fontsStatus: document.fonts?.status || "unavailable" };
+  if (waitMode) return snapshot.errorScreen || (snapshot.readyState === "complete" && snapshot.fontsStatus === "loaded" && snapshot.markers.every((m) => m.matched));
+  return snapshot;
 }
 
 export async function qualifyRoute(page, { route, base, status, events, responseHistory = [], navigationError = null, timeout = 10000 }) {
@@ -62,14 +64,11 @@ export async function qualifyRoute(page, { route, base, status, events, response
   if (!reasons.length) {
     try {
       // Reuse the exact browser snapshot predicate for waiting and evidence.
-      await page.waitForFunction(`(contract) => {
-        const snapshot = (${contentSnapshot.toString()})(contract);
-        return snapshot.errorScreen || (snapshot.readyState === "complete" && snapshot.fontsStatus === "loaded" && snapshot.markers.every((m) => m.matched));
-      }`, contract, { timeout });
+      await page.waitForFunction(contentSnapshot, { contract, waitMode: true }, { timeout });
     } catch { reasons.push("expected-content-or-settling-timeout"); }
   }
   let content;
-  try { content = await page.evaluate(contentSnapshot, contract || null); }
+  try { content = await page.evaluate(contentSnapshot, { contract: contract || null }); }
   catch { content = null; reasons.push("content-evidence-unavailable"); }
   if (content?.errorScreen) reasons.push("application-or-not-found-screen");
   if (contract && content?.markers.some((m) => !m.matched)) reasons.push("missing-expected-route-content");

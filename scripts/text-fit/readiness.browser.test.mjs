@@ -36,6 +36,7 @@ async function audit(t, { body = healthy, script = "", status = 200, route = "/"
   t.after(() => new Promise((resolve) => server.close(resolve)));
   const out = path.join(dir, "report.json");
   const base = `http://127.0.0.1:${server.address().port}`;
+  const started = process.hrtime.bigint();
   const child = spawn(process.execPath, [path.join(dir, "scripts/text-fit/run-text-fit.mjs"), base], {
     env: { ...process.env, TEXT_FIT_ROUTES: route, TEXT_FIT_WIDTHS: "375", TEXT_FIT_OUT: out },
     stdio: ["ignore", "pipe", "pipe"],
@@ -43,6 +44,7 @@ async function audit(t, { body = healthy, script = "", status = 200, route = "/"
   let stdout = "", stderr = "";
   child.stdout.on("data", (v) => { stdout += v; }); child.stderr.on("data", (v) => { stderr += v; });
   const result = await new Promise((resolve, reject) => { child.on("error", reject); child.on("exit", (code, signal) => resolve({ code, signal })); });
+  const elapsedMs = Number(process.hrtime.bigint() - started) / 1e6;
   const reportBytes = await fs.readFile(out);
   // Persist original child evidence BEFORE any regression assertion can fail.
   if (process.env.F1235_EVIDENCE_DIR) {
@@ -53,12 +55,12 @@ async function audit(t, { body = healthy, script = "", status = 200, route = "/"
     await write(".report.json", reportBytes);
     await write(".stdout.txt", stdout);
     await write(".stderr.txt", stderr);
-    await write(".execution.json", JSON.stringify({ case: t.name, ...result, driverSHA256: createHash("sha256").update(await fs.readFile(driver)).digest("hex"),
+    await write(".execution.json", JSON.stringify({ case: t.name, ...result, elapsedMs, driverSHA256: createHash("sha256").update(await fs.readFile(driver)).digest("hex"),
       command: [process.execPath, "scripts/text-fit/run-text-fit.mjs", base], route, status,
       widths: "375", note: "Exact child report/stdout/stderr preserved before assertions; no automatic retry." }, null, 2) + "\n");
   }
   const rows = JSON.parse(reportBytes);
-  return { ...result, rows, stdout, stderr };
+  return { ...result, rows, stdout, stderr, elapsedMs };
 }
 function refused(r, reason) {
   assert.equal(r.signal, null, r.stderr);
@@ -117,4 +119,17 @@ test("private 404 chrome is retained as failure evidence, never intended-page me
   const r = await audit(t, { route: "/brand", status: 404, body: "<h1>404</h1><h2>This page could not be found.</h2>" });
   refused(r, "unsuccessful-http-status");
   assert.ok(r.rows.every((x) => x.readiness.coverage === "gated-private-404-chrome-not-intended-content"));
+});
+
+test("delayed hydration after networkidle earns intended-content measurements", async (t) => {
+  const r = await audit(t, { body: "<main>Loading route</main>", script: `setTimeout(() => { document.body.innerHTML = ${JSON.stringify(healthy)}; }, 1500);` });
+  assert.equal(r.code, 0, r.stdout + r.stderr);
+  assert.ok(r.elapsedMs >= 1500, `Finished before delayed content: ${r.elapsedMs}ms`);
+  assert.ok(r.rows.every((x) => x.measured && x.readiness.qualified && x.readiness.content.markers.every((m) => m.matched)));
+});
+test("permanently missing content actually exhausts the qualification wait", async (t) => {
+  const r = await audit(t, { body: "<main>Loading route permanently</main>" });
+  refused(r, "expected-content-or-settling-timeout");
+  assert.ok(r.elapsedMs >= 10000, `Qualification did not wait its 10000ms bound: ${r.elapsedMs}ms`);
+  assert.ok(r.rows.every((x) => x.observation.viewportAttempted === false));
 });

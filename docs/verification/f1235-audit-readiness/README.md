@@ -63,7 +63,7 @@ Then run the candidate's full control:
 F1235_EVIDENCE_DIR=/absolute/evidence/GREEN npm run test:audit-readiness
 ```
 
-Ten tests cover the error page, a healthy zero-defect route, nonempty generic
+Twelve tests cover the error page, a healthy zero-defect route, nonempty generic
 chrome, a wrong-route redirect, unhandled page exceptions despite expected content, a healthy console-error control, healthy prose mentioning application errors,
 error replacement on resize, an unregistered route and private404 chrome. The
 normal CI text-fit step runs this control after its existing Chromium install
@@ -77,3 +77,8 @@ and all historical false-success evidence remain preserved.
 Opt-in `F1235_EVIDENCE_DIR` preserves each actual child report, stdout, stderr,
 exit/signal and driver SHA before assertions, with sequential case filenames.
 Use distinct empty RED/GREEN destinations; existing files are refused, not overwritten.
+
+Settling uses the actual `contentSnapshot` function reference with explicit boolean
+wait mode. Added delayed hydration (1500ms, after networkidle) and permanent missing
+content (actual 10000ms qualification timeout) controls. The prior normal2082 old
+RED remains applicable unchanged; only the new candidate needs another run.
