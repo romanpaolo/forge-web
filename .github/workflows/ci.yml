@@ -148,6 +148,7 @@ jobs:
           ALLOW_JOBTREAD: "false"
         run: |
           npx playwright install --with-deps chromium
+          npm run test:audit-readiness
           npm run build
           node scripts/check-claims.mjs --built .next
           npx next start -p 3107 > /tmp/next-start.log 2>&1 &
