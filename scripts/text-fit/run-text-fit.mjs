@@ -14,8 +14,10 @@
 // there is no URL to load without real data. Route groups "(x)" do not appear in
 // the URL; private "_x" and parallel "@x" folders are not routes.
 //
-// A route also FAILS when it renders no visible text line or its response is not
-// 2xx: a blank or error page must never pass as "nothing overflows".
+// F-1235: qualify expected route content, URL, HTTP, settling and browser errors
+// BEFORE layout measurement, initially and after each viewport change. Invalid
+// entries retain evidence with measured:false and never count as page renders.
+// Nonzero error-page text alone cannot earn zero-defect success.
 //
 // /brand and /design are served only by a build made with
 // FORGE_INTERNAL_PAGES=on (F-662; src/lib/internalPages.ts). They are NOT
@@ -31,6 +33,7 @@
 // TEXT_FIT_WIDTHS (comma list, overrides the portrait widths),
 // TEXT_FIT_ROUTES (comma list, audit only these), TEXT_FIT_OUT (write JSON).
 import { chromium } from "playwright";
+import { qualifyRoute } from "./route-readiness.mjs";
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -103,40 +106,66 @@ const failures = [];
 for (const route of routes) {
   const ctx = await browser.newContext({ viewport: { width: 1280, height: 900 }, reducedMotion: "reduce" });
   const page = await ctx.newPage();
+  const browserEvents = [];
+  const responseHistory = [];
+  page.on("pageerror", (error) => browserEvents.push({ kind: "pageerror", message: error.message }));
+  page.on("console", (message) => {
+    if (["error", "warning"].includes(message.type())) browserEvents.push({ kind: message.type() === "error" ? "console-error" : "console-warning", message: message.text() });
+  });
   let status = 0;
+  let navigationError = null;
+  page.on("response", (response) => {
+    const request = response.request();
+    if (request.isNavigationRequest() && request.frame() === page.mainFrame()) {
+      status = response.status();
+      responseHistory.push({ url: response.url(), status });
+    }
+  });
   try {
     const res = await page.goto(base + route, { waitUntil: "networkidle", timeout: 60000 });
     status = res ? res.status() : 0;
-  } catch (e) {
-    failures.push(`${route}: failed to load (${e.message.split("\n")[0]})`);
+  } catch (e) { navigationError = e.message.split("\n")[0]; }
+  const refuse = (w, h, readiness, phase = "viewport-qualification", viewportAttempted = true) => {
+    failures.push(`${route} ${w}x${h}: unqualified (${readiness.reasons.join(", ")})`);
+    results.push({ route, w, h, textLines: null, defects: [], truncated: [], measured: false, readiness, observation: { phase, viewportAttempted,
+      requestedViewport: { width: w, height: h }, actualViewport: readiness.content?.evidenceViewport || null } });
+  };
+  const initial = await qualifyRoute(page, { route, base, status, events: browserEvents, responseHistory, navigationError });
+  if (!initial.qualified) {
+    // These are explicit matrix projections, not observations at unvisited widths.
+    for (const [w, h] of VIEWPORTS) refuse(w, h, initial, "initial-route-qualification", false);
     await ctx.close();
     continue;
   }
-  if (status < 200 || status > 299) {
-    const hint = status === 404 && ["/brand", "/design"].includes(route)
-      ? " (internal page: build with FORGE_INTERNAL_PAGES=on, see src/lib/internalPages.ts)"
-      : "";
-    failures.push(`${route}: HTTP ${status}${hint}`);
-  }
   for (const [w, h] of VIEWPORTS) {
-    await page.setViewportSize({ width: w, height: h });
-    await page.waitForTimeout(250);
-    // Scroll through so lazy and whileInView content renders, then back to top.
-    await page.evaluate(async () => {
-      const step = window.innerHeight;
-      for (let y = 0; y < document.body.scrollHeight; y += step) {
-        window.scrollTo(0, y);
-        await new Promise((r) => setTimeout(r, 40));
-      }
-      window.scrollTo(0, 0);
-      await new Promise((r) => setTimeout(r, 150));
-    });
-    const r = await page.evaluate(`(${detector})()`);
-    const textLines = await page.evaluate(countTextLines);
-    if (textLines === 0) failures.push(`${route} ${w}x${h}: renders no visible text line (blank page)`);
-    results.push({ route, w, h, textLines, ...r });
-    const kinds = r.defects.reduce((m, d) => ((m[d.kind] = (m[d.kind] || 0) + 1), m), {});
-    if (r.defects.length) console.log(`  ${route} ${w}x${h} ${JSON.stringify(kinds)}`);
+    try {
+      await page.setViewportSize({ width: w, height: h });
+      await page.waitForTimeout(250);
+      // Scroll through so lazy and whileInView content renders, then back to top.
+      await page.evaluate(async () => {
+        const step = window.innerHeight;
+        for (let y = 0; y < document.body.scrollHeight; y += step) {
+          window.scrollTo(0, y);
+          await new Promise((r) => setTimeout(r, 40));
+        }
+        window.scrollTo(0, 0);
+        await new Promise((r) => setTimeout(r, 150));
+      });
+      const readiness = await qualifyRoute(page, { route, base, status, events: browserEvents, responseHistory });
+      if (!readiness.qualified) { refuse(w, h, readiness); continue; }
+      const r = await page.evaluate(`(${detector})()`);
+      const textLines = await page.evaluate(countTextLines);
+      const afterMeasurement = await qualifyRoute(page, { route, base, status, events: browserEvents, responseHistory });
+      if (!afterMeasurement.qualified) { refuse(w, h, afterMeasurement); continue; }
+      if (textLines === 0) failures.push(`${route} ${w}x${h}: renders no visible text line (blank page)`);
+      results.push({ route, w, h, textLines, ...r, measured: true, readiness: afterMeasurement });
+      const kinds = r.defects.reduce((m, d) => ((m[d.kind] = (m[d.kind] || 0) + 1), m), {});
+      if (r.defects.length) console.log(`  ${route} ${w}x${h} ${JSON.stringify(kinds)}`);
+    } catch (error) {
+      const readiness = await qualifyRoute(page, { route, base, status, events: browserEvents, responseHistory,
+        navigationError: error.message.split("\n")[0] });
+      refuse(w, h, readiness);
+    }
   }
   await ctx.close();
 }
@@ -159,7 +188,7 @@ for (const x of results) {
 }
 const perRoute = routes.map((rt) => {
   const rows = results.filter((x) => x.route === rt);
-  return `${rt}: ${rows.reduce((n, x) => n + x.defects.length, 0)} defects over ${rows.length} viewports`;
+  return `${rt}: ${rows.reduce((n, x) => n + x.defects.length, 0)} defects over ${rows.filter((x) => x.measured).length} measured viewports (${rows.filter((x) => !x.measured).length} unqualified)`;
 });
 console.log("\nper route:\n  " + perRoute.join("\n  "));
 if (unique.size) {
@@ -174,7 +203,7 @@ if (truncated.size) console.log(`\nTRUNCATED with an ellipsis (review, not a fai
 if (failures.length) console.log(`\nPAGE FAILURES (${failures.length}):\n  ` + failures.join("\n  "));
 
 const bad = unique.size + failures.length;
-console.log(`\ntext-fit: ${unique.size} unique defects, ${failures.length} page failures, ${truncated.size} truncations (review) over ${results.length} page renders`);
+console.log(`\ntext-fit: ${unique.size} unique defects, ${failures.length} page failures, ${truncated.size} truncations (review) over ${results.filter((x) => x.measured).length} measured page renders (${results.filter((x) => !x.measured).length} unqualified)`);
 if (bad) {
   console.log("text-fit: FAIL. Fix the owner (the primitive, the breakpoint, the section), not the instance; see F-631.");
   process.exit(1);
