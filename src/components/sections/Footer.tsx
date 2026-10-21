@@ -2,6 +2,9 @@ import { Hexagon } from "lucide-react";
 import StoreBadges from "@/components/ui/StoreBadges";
 import {
   CASE_STUDY_PATH,
+  INTEGRATIONS_GA,
+  docsPageUrl,
+  docsUrl,
   loginUrl,
   privacyUrl,
   termsUrl,
@@ -19,6 +22,17 @@ import {
 // Privacy and Terms point at the app's published copies directly (F-662, Q3):
 // one hop, not a stop at /legal first. The Refund Policy is still published
 // only here, so it links to its /legal section.
+//
+// The Developers group (F-515) shows only in a build made with
+// NEXT_PUBLIC_INTEGRATIONS_GA=on, with the band on the home page. It adds a
+// fifth column at md and up, so the grid widens with it.
+const DEVELOPER_LINKS = [
+  { label: "Docs", href: docsUrl() },
+  { label: "Connect", href: docsPageUrl("connect") },
+  { label: "API reference", href: docsPageUrl("api") },
+  { label: "What is shared", href: docsPageUrl("what-is-shared") },
+];
+
 const FOOTER_LINKS = {
   Product: [
     { label: "Product", href: "/#product" },
@@ -31,6 +45,7 @@ const FOOTER_LINKS = {
     { label: "Customers", href: CASE_STUDY_PATH },
     { label: "Contact", href: "/support" },
   ],
+  ...(INTEGRATIONS_GA ? { Developers: DEVELOPER_LINKS } : {}),
   Legal: [
     { label: "Privacy", href: privacyUrl() },
     { label: "Terms", href: termsUrl() },
@@ -43,7 +58,9 @@ export default function Footer() {
     <footer className="bg-forge-iron border-t border-forge-graphite/50 py-16">
       <div className="max-w-7xl mx-auto px-6">
         {/* Top row: logo + link columns */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
+        <div
+          className={`grid grid-cols-1 ${INTEGRATIONS_GA ? "md:grid-cols-5" : "md:grid-cols-4"} gap-12`}
+        >
           {/* Logo */}
           <div className="flex items-center gap-2 md:col-span-1">
             <Hexagon size={20} strokeWidth={1.5} className="text-forge-ash" aria-hidden="true" />

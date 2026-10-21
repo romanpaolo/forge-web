@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, JetBrains_Mono, Space_Grotesk, Outfit } from "next/font/google";
 import "./globals.css";
+import { INTEGRATIONS_GA } from "@/lib/constants";
 
 const inter = Inter({
   variable: "--font-body",
@@ -26,7 +27,11 @@ export const metadata: Metadata = {
   metadataBase: new URL('https://www.forge.equipment'),
   title: 'Forge | Walk the Job. Leave with the Estimate.',
   description: 'Forge turns a recorded walkthrough into a structured, trade-by-trade scope and a priced estimate in minutes. Built for general contractors. 14-day free trial.',
-  keywords: ['general contractor', 'AI estimating', 'construction estimates', 'job walk', 'scope of work', 'Buildertrend'],
+  // The last two join on the day integrations open (INTEGRATIONS_GA, F-515).
+  keywords: [
+    'general contractor', 'AI estimating', 'construction estimates', 'job walk', 'scope of work', 'Buildertrend',
+    ...(INTEGRATIONS_GA ? ['MCP server', 'construction API'] : []),
+  ],
   openGraph: {
     title: 'Forge | AI Estimating for General Contractors',
     description: 'Walk the job. Leave with the estimate. A recorded walkthrough becomes a trade-by-trade scope and priced estimate in minutes.',
